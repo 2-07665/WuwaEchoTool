@@ -189,6 +189,7 @@ body {
     margin: 5px 1%;
     background-image: linear-gradient(to right, #0066FF, #7C4DFF);
     display: inline-block;
+    cursor: pointer;
 }
 
 .modal-body-set {
@@ -209,6 +210,7 @@ body {
     margin: 5px 1%;
     background-image: linear-gradient(to right, #00BCD4, #94cc20);
     display: inline-block;
+    cursor: pointer;
 }
 
 .cr-eval-btn {
@@ -226,8 +228,8 @@ body {
 
 .cr-eval-center {
     width: 30%;
-    height: 25px;
-    line-height: 24px;
+    height: 30px;
+    line-height: 28px;
     border: black solid 1px;
     border-radius: 5px;
     color: white;
@@ -236,6 +238,7 @@ body {
     display: inline-block;
     background: linear-gradient(to right, rgba(255, 255, 255, 0.15) 0%, rgba(0, 0, 0, 0.15) 100%), radial-gradient(at top center, rgba(255, 255, 255, 0.40) 0%, rgba(0, 0, 0, 0.40) 120%) #989898;
     background-blend-mode: multiply, multiply;
+    cursor: pointer;
 }
 
 .mc-role, .mc-role-cel {
@@ -623,6 +626,7 @@ body {
     background-image: linear-gradient(to right, #00BCD4, #689F38);
     border: solid 1px #3e3e3e;
     margin: 10px 1%;
+    cursor: pointer;
 }
 
 .mc-footer {
@@ -716,6 +720,7 @@ body {
     margin-left: 5%;
     position: relative;
     padding-bottom: 10px;
+    cursor: pointer;
 }
 
 .mc-suite-attr {
@@ -965,6 +970,7 @@ body {
     color: white;
     margin: 5px 5%;
     background-image: linear-gradient(to right, #F44336, #7C4DFF);
+    cursor: pointer;
 }
 
 .mc-character-addbtn2 {
@@ -1083,6 +1089,7 @@ body {
     color: white;
     margin: 5px 5%;
     background-image: linear-gradient(to right, #FF9966, #FF6666);
+    cursor: pointer;
 }
 
 .mc-bgc-01 {
@@ -1100,6 +1107,7 @@ body {
     color: white;
     margin: 5px 5%;
     background-image: linear-gradient(to right, #0066FF, #7C4DFF);
+    cursor: pointer;
 }
 
 .mc-cost-addbtnbak {
@@ -1111,6 +1119,7 @@ body {
     color: white;
     margin: 5px 1%;
     display: inline-block;
+    cursor: pointer;
 }
 .mc-cost-addbtn1 {
     background-image: linear-gradient(to right, #4d50ff, #ff2aed);
@@ -1280,6 +1289,7 @@ body {
     text-align: center;
     color: white;
     background-image: linear-gradient(to right, #0066FF, #9900FF);
+    cursor: pointer;
 }
 
 .mc-data-import {
@@ -1294,6 +1304,7 @@ body {
     border: solid #3e3e3e 1px;
     border-radius: 4px;
     background-image: linear-gradient(to right, #FF6600, #FF3366);
+    cursor: pointer;
 }
 
 .mc-save-sm {
@@ -1323,6 +1334,7 @@ body {
     margin: 5px 1%;
     border-radius: 4px;
     color: white;
+    cursor: pointer;
 }
 
 .mc-color-bg1 {
