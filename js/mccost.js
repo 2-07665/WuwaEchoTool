@@ -36,7 +36,7 @@ $(function () {
                     curRole = item;
                     //初始化角色头像
                     if (item.cls != "" && item.cls != null) {
-                        $(".mc-character-img").attr("src", "image/role/" + item.cls.replace("mcr-", "") + ".png");
+                        $(".mc-character-img").attr("src", "image/characters/" + item.cls.replace("mcr-", "") + ".png");
                     }
                     //初始化命座
                     if (typeof (item.ming) === "undefined") {

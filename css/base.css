@@ -7,7 +7,7 @@ body {
 
 .mc-main-page {
     width: 100%;
-    max-width: 1100px;
+    max-width: 1110px;
     min-width: 395px;
     height: auto;
     border: solid #ccc 1px;
@@ -113,15 +113,15 @@ body {
 }
 
 .mc-role-ming {
-    width: 18px;
-    height: 18px;
-    line-height: 18px;
+    width: 16px;
+    height: 16px;
+    line-height: 16px;
     color: white;
-    font-size: 13px;
+    font-size: 12px;
     font-weight: bold;
     display: inline-block;
     position: absolute;
-    bottom: 25px;
+    top: 60px;
     right: 0;
     background-color: #3e3e3e;
 }
@@ -242,15 +242,16 @@ body {
 }
 
 .mc-role, .mc-role-cel {
-    width: 80px;
-    height: 100px;
+    width: 72px;
+    height: 120px;
     border-radius: 3px;
     border: black solid 1px;
-    margin: 5px 0 5px 5px;
+    margin: 4px 0 5px 5px;
     display: inline-block;
     text-align: center;
     box-shadow: 2px 3px 3px #3e3e3e;
     position: relative;
+    cursor: pointer;
 }
 
 .mc-role-delete {
@@ -263,17 +264,17 @@ body {
     color: #bbb;
     display: inline-block;
     position: absolute;
-    top: 0;
-    right: 0;
+    bottom: 5px;
+    right: 2px;
 }
 
 .mc-role-score {
-    width: 80px;
+    width: 72px;
     height: 16px;
     background-color: rgba(0, 0, 0, 0.6);
     color: white;
     font-size: 12px;
-    margin: 0;
+    margin-top: 60px;
 }
 
 .mc-role-level {
@@ -295,174 +296,178 @@ body {
 }
 
 .mcr-cl {
-    background-image: url("../image/role/cl.png");
+    background-image: url("../image/characters/changli.png");
     background-size: 100% auto;
 }
 
 .mcr-jx {
-    background-image: url("../image/role/jx.png");
+    background-image: url("../image/characters/jinxi.png");
     background-size: 100% auto;
 }
 
 .mcr-jy {
-    background-image: url("../image/role/jy.png");
+    background-image: url("../image/characters/jiyan.png");
     background-size: 100% auto;
 }
 
 .mcr-az {
-    background-image: url("../image/role/az.png");
+    background-image: url("../image/characters/nanzhu-an.png");
     background-size: 100% auto;
 }
 
 .mcr-azn {
-    background-image: url("../image/role/azn.png");
+    background-image: url("../image/characters/nvzhu-an.png");
     background-size: 100% auto;
 }
 
 .mcr-zz {
-    background-image: url("../image/role/zz.png");
+    background-image: url("../image/characters/zhezhi.png");
     background-size: 100% auto;
 }
 
 .mcr-wln {
-    background-image: url("../image/role/wln.png");
+    background-image: url("../image/characters/weilinai.png");
     background-size: 100% auto;
 }
 
 .mcr-yl {
-    background-image: url("../image/role/yl.png");
+    background-image: url("../image/characters/yinlin.png");
     background-size: 100% auto;
 }
 
 .mcr-ak {
-    background-image: url("../image/role/ak.png");
+    background-image: url("../image/characters/anke.png");
     background-size: 100% auto;
 }
 
 .mcr-jxn {
-    background-image: url("../image/role/jxn.png");
+    background-image: url("../image/characters/jianxin.png");
     background-size: 100% auto;
 }
 
 .mcr-kkl {
-    background-image: url("../image/role/kkl.png");
+    background-image: url("../image/characters/kakaluo.png");
     background-size: 100% auto;
 }
 
 .mcr-mtf {
-    background-image: url("../image/role/mtf.png");
+    background-image: url("../image/characters/motefei.png");
     background-size: 100% auto;
 }
 
 .mcr-bz {
-    background-image: url("../image/role/bz.png");
+    background-image: url("../image/characters/baizhi.png");
     background-size: 100% auto;
 }
 
 .mcr-yw {
-    background-image: url("../image/role/yw.png");
+    background-image: url("../image/characters/yuanwu.png");
     background-size: 100% auto;
 }
 
 .mcr-yy {
-    background-image: url("../image/role/yy.png");
+    background-image: url("../image/characters/yangyang.png");
     background-size: 100% auto;
 }
 
 .mcr-mxf {
-    background-image: url("../image/role/mxf.png");
+    background-image: url("../image/characters/chixia.png");
     background-size: 100% auto;
 }
 
 .mcr-qs {
-    background-image: url("../image/role/qs.png");
+    background-image: url("../image/characters/qiushui.png");
     background-size: 100% auto;
 }
 
 .mcr-dj {
-    background-image: url("../image/role/dj.png");
+    background-image: url("../image/characters/danjin.png");
     background-size: 100% auto;
 }
 
 .mcr-sh {
-    background-image: url("../image/role/sh.png");
+    background-image: url("../image/characters/sanhua.png");
     background-size: 100% auto;
 }
 
 .mcr-tq {
-    background-image: url("../image/role/tq.png");
+    background-image: url("../image/characters/taoqi.png");
     background-size: 100% auto;
 }
 
 .mcr-ly {
-    background-image: url("../image/role/ly.png");
+    background-image: url("../image/characters/lingyang.png");
     background-size: 100% auto;
 }
 
 .mcr-gz {
-    background-image: url("../image/role/gz.png");
+    background-image: url("../image/characters/nanzhu-guang.png");
     background-size: 100% auto;
 }
 
 .mcr-gzn {
-    background-image: url("../image/role/gzn.png");
+    background-image: url("../image/characters/nvzhu-guang.png");
     background-size: 100% auto;
 }
 
 .mcr-xly {
-    background-image: url("../image/role/xly.png");
+    background-image: url("../image/characters/xiangliyao.png");
     background-size: 100% auto;
 }
 .mcr-youhu {
-    background-image: url("../image/role/youhu.png");
+    background-image: url("../image/characters/youhu.png");
     background-size: 100% auto;
 }
 .mcr-chun {
-    background-image: url("../image/role/chun.png");
+    background-image: url("../image/characters/chun.png");
     background-size: 100% auto;
 }
 .mcr-sar {
-    background-image: url("../image/role/sar.png");
+    background-image: url("../image/characters/shouanren.png");
     background-size: 100% auto;
 }
 .mcr-klt {
-    background-image: url("../image/role/klt.png");
+    background-image: url("../image/characters/kelaita.png");
     background-size: 100% auto;
 }
 .mcr-dd {
-    background-image: url("../image/role/dd.png");
+    background-image: url("../image/characters/dengdeng.png");
     background-size: 100% auto;
 }
 .mcr-lkk {
-    background-image: url("../image/role/lkk.png");
+    background-image: url("../image/characters/luokeke.png");
     background-size: 100% auto;
 }
 .mcr-fb {
-    background-image: url("../image/role/fb.png");
+    background-image: url("../image/characters/feibi.png");
     background-size: 100% auto;
 }
 .mcr-zn {
-    background-image: url("../image/role/zn.png");
+    background-image: url("../image/characters/zanni.png");
     background-size: 100% auto;
 }
 .mcr-blt {
-    background-image: url("../image/role/blt.png");
+    background-image: url("../image/characters/bulante.png");
     background-size: 100% auto;
 }
 .mcr-fzn {
-    background-image: url("../image/role/fzn.png");
+    background-image: url("../image/characters/nvzhu-feng.png");
     background-size: 100% auto;
 }
 .mcr-nfz {
-    background-image: url("../image/role/nfz.png");
+    background-image: url("../image/characters/nanzhu-feng.png");
     background-size: 100% auto;
 }
 .mcr-ktll {
-    background-image: url("../image/role/ktll.png");
+    background-image: url("../image/characters/kanteleila.png");
     background-size: 100% auto;
 }
 .mcr-xk {
-    background-image: url("../image/role/xk.png");
+    background-image: url("../image/characters/xiakong.png");
+    background-size: 100% auto;
+}
+.mcr-katixiya {
+    background-image: url("../image/characters/katixiya.png");
     background-size: 100% auto;
 }
 
@@ -837,7 +842,7 @@ body {
 }
 
 .mc-character-img, .mc-cost-img {
-    width: 80px;
+    width: 60px;
     height: auto;
     border-radius: 5px;
     border: #3e3e3e solid 1px;
@@ -862,7 +867,7 @@ body {
 .mc-character-img {
     position: absolute;
     top: 5px;
-    left: 5%;
+    left: 12%;
 }
 
 .mc-character .mc-character-read-img {

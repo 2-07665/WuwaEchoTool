@@ -517,6 +517,21 @@ const roleList = [
         "liberate": 0.47,
         "other": 0.09,
         "maxscore": 495.4
+    },
+    {   //卡提西亚
+        "id": 38,
+        "gid": 1401, //placeholder
+        "name": "卡提希娅",
+        "star": 5,
+        "rule": 8,
+        "cls": "mcr-katixiya",
+        // placeholders
+        "normal": 0.654,
+        "skill": 0.103,
+        "heavy": 0.029,
+        "liberate": 0.188,
+        "other": 0.025,
+        "maxscore": 460.4
     }
 ];
 const costList = [
@@ -645,7 +660,7 @@ const ruleList = [
         "unike": 1,
         "treat": 0
     },
-    {
+    {   //攻击主C
         "ruleId": 1,
         "attack01": 1,
         "attack02": 0.1,
@@ -760,6 +775,23 @@ const ruleList = [
         "defense02": 0,
         "defenseLimit": 180,
         "efficiency01": 1,
+        "efficiency02": 0,
+        "unike": 1,
+        "treat": 0
+    },
+    {   //生命C
+        "ruleId": 8,
+        "attack01": 0,
+        "attack02": 0,
+        "crit": 1.8,
+        "critDamage": 0.9,
+        "property": 1,
+        "health01": 1,
+        "health02": 0.01,
+        "defense01": 0,
+        "defense02": 0,
+        "defenseLimit": 40,
+        "efficiency01": 0.5,
         "efficiency02": 0,
         "unike": 1,
         "treat": 0
@@ -3512,6 +3544,31 @@ const RoleSumProperty = [
                 "treat": 0
             }
         ]
+    },
+    {
+        "id": 38, "propertyList": [
+            {"name": "暴击", "property": "52.5%"},
+            {"name": "暴伤", "property": "105%"},
+            {"name": "大攻击", "property": "58%"},
+            {"name": "小攻击", "property": "300"},
+            {"name": "共鸣效率", "property": "37.2%"},
+            {"name": "普攻伤害", "property": "0%"},
+            {"name": "技能伤害", "property": "0%"},
+            {"name": "重击伤害", "property": "0%"},
+            {"name": "解放伤害", "property": "23.2%"},
+            {"name": "大生命", "property": "0%"},
+            {"name": "小生命", "property": "0"},
+            {"name": "大防御", "property": "0%"},
+            {"name": "小防御", "property": "0"}
+        ],
+        "mzProperty": [ // placeholders
+            {"normal": 0.15,"skill": 0.06,"heavy": 0.23,"liberate": 0.47,"other": 0.09, "maxscore": 477.9},
+            {"normal": 0.15,"skill": 0.06,"heavy": 0.23,"liberate": 0.47,"other": 0.09, "maxscore": 463.8},
+            {"normal": 0.14,"skill": 0.1,"heavy": 0.22,"liberate": 0.46,"other": 0.08, "maxscore": 463.6},
+            {"normal": 0.07,"skill": 0.05,"heavy": 0.23,"liberate": 0.62,"other": 0.03, "maxscore": 466.5},
+            {"normal": 0.06,"skill": 0.04,"heavy": 0.22,"liberate": 0.66,"other": 0.02, "maxscore": 459.7},
+            {"normal": 0.05,"skill": 0.03,"heavy": 0.18,"liberate": 0.72,"other": 0.02, "maxscore": 460.5}
+        ],
     }
 ]
 //计算角色声骸超越人数百分比的分母
