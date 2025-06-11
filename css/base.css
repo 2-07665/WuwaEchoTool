@@ -34,7 +34,11 @@ body {
 
 .mc-icon-img {
     width: 100%;
-    height: 140px;
+    min-height: 80px;
+    display: flex;
+    align-items: flex-start;
+    gap: 10px;
+    padding: 10px 5%;
     border-bottom: dashed 1px purple;
     text-align: left;
     position: relative;
@@ -44,26 +48,22 @@ body {
 .mc-pulao-img {
     width: 60px;
     height: 60px;
-    display: inline-block;
+    flex-shrink: 0;
     border-radius: 5px;
     border: black solid 0.7px;
-    margin: 10px 0 10px 3%;
+    margin: 0;
 }
 
 .mc-pulao-word {
-    width: 75%;
-    height: 90%;
+    flex: 1;
+    min-height: 60px;
     border-radius: 3px;
     border: black solid 0.7px;
     background-color: seashell;
     color: #3e3e3e;
-    display: inline-block;
-    text-indent: 0;
     font-size: 14px;
-    position: absolute;
-    top: 5px;
-    left: 20%;
-    padding-left: 4px;
+    padding: 4px;
+    position: static;
 }
 
 .mc-save-box, .mc-box-evaluate {
