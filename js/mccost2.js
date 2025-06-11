@@ -36,7 +36,8 @@ $(function () {
                     curRole = item;
                     //初始化角色头像
                     if (item.cls != "" && item.cls != null) {
-                        $(".mc-character-img").attr("src", "image/role/" + item.cls.replace("mcr-", "") + ".png");
+                        let rlItem = roleList.find(r => r.id == item.roleListId);
+                        $(".mc-character-img").attr("src", "image/characters/" + rlItem.cls.replace("mcr-", "") + ".png");
                     }
                     //初始化武器等级命座
                     try {

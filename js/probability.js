@@ -68,7 +68,8 @@ $(function () {
                     "costList": []
                 }
                 //将角色头像回显到左上角
-                $("#shimg").html(`<img id="shimg01" class="mc-character-imgCost" src="image/role/` + tempRole.cls + `.png" alt="选择的角色">`);
+                let rlItem = roleList.find(r => r.id == tempRole.roleListId);
+                $("#shimg").html(`<img id="shimg01" class="mc-character-imgCost" src="image/characters/` + rlItem.cls.replace("mcr-", "") + `.png" alt="选择的角色">`);
                 renderList(null, null);
                 $(".mc-role-cel").addClass("mc-hide");
             }
