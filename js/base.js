@@ -520,12 +520,11 @@ const roleList = [
     },
     {   //卡提西亚
         "id": 38,
-        "gid": 1401, //placeholder
+        "gid": 1409,
         "name": "卡提希娅",
         "star": 5,
         "rule": 8,
         "cls": "mcr-katixiya",
-        // placeholders
         "normal": 0.654,
         "skill": 0.103,
         "heavy": 0.029,
