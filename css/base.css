@@ -34,7 +34,7 @@ body {
 
 .mc-icon-img {
     width: 100%;
-    height: auto;
+    height: 140px;
     border-bottom: dashed 1px purple;
     text-align: left;
     position: relative;
