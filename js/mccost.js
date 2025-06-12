@@ -304,6 +304,12 @@ function randerCostList(list) {
                     case "流云套":
                         sxz = 15;
                         break;
+                    case "愿戴荣光套":
+                        sxz = 16;
+                        break;
+                    case "奔狼套":
+                        sxz = 17;
+                        break;
                 }
                 ress += `<img class="mc-suite-attr2" src="image/attribute/` + sxz + `.png" alt="套装属性">`;
             }

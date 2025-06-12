@@ -331,6 +331,12 @@ function randerMainAttri() {
                 case "流云套":
                     sxz = 15;
                     break;
+                case "愿戴荣光套":
+                    sxz = 16;
+                    break;
+                case "奔狼套":
+                    sxz = 17;
+                    break;
             }
             $("#shimg02").attr("src", "image/attribute/" + sxz + ".png");
         }
