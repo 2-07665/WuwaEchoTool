@@ -639,7 +639,15 @@ const costList = [
     {"id": 103, "name": "小翼龙·气动", "type": "Cost1", "imgCode": "https://prod-alicdn-community.kurobbs.com/forum/920ea200365349e5bb20529bdc4f1e3b20250324.png"},
     {"id": 104, "name": "小翼龙·导电", "type": "Cost1", "imgCode": "https://prod-alicdn-community.kurobbs.com/forum/92c5fd1f8c334230810972844ebe0f2820250324.png"},
     {"id": 105, "name": "小翼龙·冷凝", "type": "Cost1", "imgCode": "https://prod-alicdn-community.kurobbs.com/forum/94c496877f464875a66c0e3c490a6d4120250324.png"},
-    {"id": 106, "name": "荣光节使", "type": "Cost3", "imgCode": "https://prod-alicdn-community.kurobbs.com/forum/33fb845b64ac472b8d6b4bdb5210068320250324.png"}
+    {"id": 106, "name": "荣光节使", "type": "Cost3", "imgCode": "https://prod-alicdn-community.kurobbs.com/forum/33fb845b64ac472b8d6b4bdb5210068320250324.png"},
+    {"id": 107, "name": "梦魇·凯尔匹", "type": "Cost4", "imgCode": "https://prod-alicdn-community.kurobbs.com/forum/d2cc1c10359c41cea9bd0b51dfce8f5f20250609.png"},
+    {"id": 108, "name": "荣耀狮像", "type": "Cost4", "imgCode": "https://prod-alicdn-community.kurobbs.com/forum/21f49813c2c340458b7d70118245dddf20250609.png"},
+    {"id": 109, "name": "角鳄", "type": "Cost3", "imgCode": "https://prod-alicdn-community.kurobbs.com/forum/8ef3b860f8294bedb5ec2a2856c30f6420250609.png"},
+    {"id": 110, "name": "传道者的遗形", "type": "Cost3", "imgCode": "https://prod-alicdn-community.kurobbs.com/forum/bfaf2609c0654bb4bde519fc7cd02b1a20250609.png"},
+    {"id": 111, "name": "小翼龙·衍射", "type": "Cost1", "imgCode": "https://prod-alicdn-community.kurobbs.com/forum/cadc22ccdb674d8c8ba91b265725eb4720250609.png"},
+    {"id": 112, "name": "小翼龙·热熔", "type": "Cost1", "imgCode": "https://prod-alicdn-community.kurobbs.com/forum/31cae90d8c77499f95dc9b722cb850b820250609.png"},
+    {"id": 113, "name": "小翼龙·湮灭", "type": "Cost1", "imgCode": "https://prod-alicdn-community.kurobbs.com/forum/34d9bc856f6b42e69c1360f5f30736e220250609.png"},
+    {"id": 114, "name": "苦信者的作俑", "type": "Cost1", "imgCode": "https://prod-alicdn-community.kurobbs.com/forum/24a3a5d5955a4a708098d4b18dd9c59020250609.png"},
 ];
 const ruleList = [
     {
