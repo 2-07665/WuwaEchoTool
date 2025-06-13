@@ -304,7 +304,7 @@ function randerCostList(list) {
                     case "流云套":
                         sxz = 15;
                         break;
-                    case "愿戴荣光套":
+                    case "愿戴套":
                         sxz = 16;
                         break;
                     case "奔狼套":

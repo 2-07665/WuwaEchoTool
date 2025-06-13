@@ -204,6 +204,8 @@
                         <li class="list-group-item"><span class="mc-select-title">选择套装属性：</span><span
                                 class="mc-cost-jiaz mc-cost-red">
                             <select id="mc-suite-name" class="form-control mc-select">
+                                //对于老套装，我们仅显示属性名称但不改变底层赋值，因为这样不会破坏已导出的json文件
+                                //对于新套装则可以随意更改
                                 <option selected value="光套">光套</option>
                                 <option value="火套">火套</option>
                                 <option value="冰套">冰套</option>
@@ -213,14 +215,14 @@
                                 <option value="奶套">奶套</option>
                                 <option value="轻云套">轻云套</option>
                                 <option value="攻击套">攻击套</option>
-                                <option value="凌冽套">凌冽套</option>
-                                <option value="此间套">此间套</option>
-                                <option value="幽夜套">幽夜套</option>
+                                <option value="凌冽套">凌冽·冰套</option>
+                                <option value="此间套">此间·光套</option>
+                                <option value="幽夜套">幽夜·暗套</option>
                                 <option value="高天套">高天套</option>
                                 <option value="无惧套">无惧套</option>
-                                <option value="流云套">流云套</option>
-                                <option value="愿戴荣光套">愿戴荣光套</option>
-                                <option value="奔狼套">奔狼套</option>
+                                <option value="流云套">流云·风套</option>
+                                <option value="愿戴套">愿戴·风套</option>
+                                <option value="奔狼套">奔狼·火套</option>
                             </select>
                         </span></li>
                         <li class="list-group-item"><span class="mc-select-title">选择声骸属性：</span><span

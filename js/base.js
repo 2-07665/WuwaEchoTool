@@ -1,4 +1,4 @@
-const toolVersion = "2.4.22";
+const toolVersion = "2.4.23";
 const roleList = [
     {
         "id": 1,
@@ -392,7 +392,7 @@ const roleList = [
         "other": 0.08,
         "maxscore": 485.2
     },
-    {
+    {   //珂莱塔
         "id": 29,
         "gid": 1107,
         "name": "珂莱塔",
@@ -2618,7 +2618,7 @@ const RoleSumProperty = [
             {"name": "小防御", "property": "0"}
         ]
     },
-    {
+    {   //珂莱塔
         "id": 29, "propertyList": [
             {"name": "暴击", "property": "52.5%"},
             {"name": "暴伤", "property": "105%"},
@@ -2700,7 +2700,8 @@ const RoleSumProperty = [
                 "attack02": 0.1,
                 "crit": 1.8,
                 "critDamage": 0.9,
-                "property": 0.88,
+                //珂莱塔4命有技能增伤，然而组队中对攻击区通常也有大量加成，因此这里不下调属伤的收益，因为对于高链珂莱塔一攻一属通常为最优解
+                "property": 1,
                 "health01": 0,
                 "health02": 0,
                 "defense01": 0,
@@ -2717,7 +2718,7 @@ const RoleSumProperty = [
                 "attack02": 0.1,
                 "crit": 1.8,
                 "critDamage": 0.9,
-                "property": 0.88,
+                "property": 1,
                 "health01": 0,
                 "health02": 0,
                 "defense01": 0,
@@ -2734,7 +2735,7 @@ const RoleSumProperty = [
                 "attack02": 0.1,
                 "crit": 1.8,
                 "critDamage": 0.9,
-                "property": 0.88,
+                "property": 1,
                 "health01": 0,
                 "health02": 0,
                 "defense01": 0,
