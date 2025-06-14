@@ -3570,13 +3570,13 @@ const RoleSumProperty = [
             {"name": "大防御", "property": "0%"},
             {"name": "小防御", "property": "0"}
         ],
-        "mzProperty": [ // placeholders
+        "mzProperty": [
             {"normal": 0.654,"skill": 0.103,"heavy": 0.029,"liberate": 0.188,"other": 0.025,"maxscore": 488.9},
             {"normal": 0.706,"skill": 0.084,"heavy": 0.024,"liberate": 0.154,"other": 0.031,"maxscore": 492.2},
             {"normal": 0.547,"skill": 0.085,"heavy": 0.024,"liberate": 0.311,"other": 0.032,"maxscore": 482.5},
             {"normal": 0.547,"skill": 0.085,"heavy": 0.024,"liberate": 0.311,"other": 0.032,"maxscore": 482.5},
             {"normal": 0.547,"skill": 0.085,"heavy": 0.024,"liberate": 0.311,"other": 0.032,"maxscore": 482.5},
-            {"normal": 0.654,"skill": 0.103,"heavy": 0.029,"liberate": 0.188,"other": 0.025,"maxscore": 460.4},
+            {"normal": 0.547,"skill": 0.085,"heavy": 0.024,"liberate": 0.311,"other": 0.032,"maxscore": 482.5},
         ],
         "mzRule": [
             {
