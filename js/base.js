@@ -1,4 +1,4 @@
-const toolVersion = "2.4.23";
+const toolVersion = "2.4.24";
 const roleList = [
     {
         "id": 1,
