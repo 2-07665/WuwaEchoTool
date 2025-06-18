@@ -470,6 +470,10 @@ body {
     background-image: url("../image/characters/katixiya.png");
     background-size: 100% auto;
 }
+.mcr-lupa {
+    background-image: url("../image/characters/lupa.png");
+    background-size: 100% auto;
+}
 
 .mc-box-evaluate {
     position: relative;
