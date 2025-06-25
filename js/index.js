@@ -7,7 +7,7 @@ $(function () {
     curData = getDataFromCache("mcData");
     if (curData == null || typeof (curData) === "undefined") {
         //无数据，开始初始化用户信息
-        curData = {"pjLevel": 0, "tzmId": null, "role": []};
+        curData = {"pjLevel": 0, "tzmId": null, "role": [], "unusedEchoes": []};
         saveDataToCache(curData);
     } else {
         //初始化特征码
@@ -391,8 +391,8 @@ $(function () {
     $("#mc-gl-mnkk").click(() => {
         window.open("./imitate.html", "_self");
     });
-    $("#mc-gl-tztj").click(() => {
-        alert("数据统计分析中，暂未开放，尽请期待");
+    $("#mc-gl-unusedEchoes").click(() => {
+        window.open("./unusedEchoes.html", "_self");
     });
     $("#mc-gl-jsdp").click(() => {
         alert("数据统计分析中，暂未开放，尽请期待");

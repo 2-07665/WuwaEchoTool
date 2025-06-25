@@ -4,6 +4,8 @@ var costid;
 var curData;
 //当前正在被编辑的声骸
 var currentCost;
+// 是否是声骸库的声骸
+var isUnused = getQueryString("roleid") == 0;
 let yct = {"property": "", "value": ""};
 $(function () {
     //获取当前编辑角色ID
@@ -17,7 +19,7 @@ $(function () {
         window.open("./index.html", "_self");
         return;
     } else {
-        if (curData.role.length > 0) {
+        if (curData.role.length > 0 && !isUnused) {
             curData.role.forEach(item => {
                 if (item.roleId == roleid) {
                     curRole = item;
@@ -44,6 +46,27 @@ $(function () {
                     });
                 }
             });
+        } else if (isUnused) {
+            let cost = curData.unusedEchoes.find(item => item.costId == costid);
+            if (cost) {
+                currentCost = cost;
+                //初始化声骸头像
+                if(currentCost.imgCode.length>6){
+                    $("#shimg01").attr("src", currentCost.imgCode);
+                    $("#select-zhu-img").attr("src", currentCost.imgCode);
+                }else{
+                    let gsxb = parseInt(currentCost.imgCode)-1;
+                    $("#shimg01").attr("src", costList[gsxb].imgCode);
+                    $("#select-zhu-img").attr("src", costList[gsxb].imgCode);
+                }
+
+                $("#mc-cost-level1").html(currentCost.type);
+                if (currentCost.type === "Cost3") {
+                    $("#mc-cost-level2").html("巨浪级");
+                } else if (currentCost.type === "Cost4") {
+                    $("#mc-cost-level2").html("海啸级");
+                }
+            }
         } else {
             alert("没有检查到历史数据或选择编辑的角色ID，请返回首页。");
             window.open("./index.html", "_self");
@@ -173,64 +196,163 @@ $(function () {
         if (!confirm("确定要保存吗？")) {
             return false;
         }
-        let overOfen = 0;
-        let totalScore = 0;
-        if (curRole.costList.length > 0) {
-            //先将Cost覆盖到角色对象
-            curRole.costList.forEach((item, index) => {
-                if (item.costId == currentCost.costId) {
-                    curRole.costList[index] = currentCost;
+        if (isUnused) {
+            curData.unusedEchoes.forEach((e, index) => {
+                if (e.costId == currentCost.costId) {
+                    curData.unusedEchoes[index] = currentCost;
+                    saveDataToCache(curData);
+                    window.open("./unusedEchoes.html", "_self");
+                }
+            })
+        } else {
+            let overOfen = 0;
+            let totalScore = 0;
+            if (curRole.costList.length > 0) {
+                //先将Cost覆盖到角色对象
+                curRole.costList.forEach((item, index) => {
+                    if (item.costId == currentCost.costId) {
+                        curRole.costList[index] = currentCost;
+                    }
+                });
+                //计算共鸣效率溢出量
+                curRole.costList.forEach(item => {
+                    totalScore = parseFloat(totalScore) + parseFloat(item.sumScores);
+                    if (item.propertyList.length > 0) {
+                        if (item.mainAtrri === "共鸣效率32%") {
+                            overOfen = parseFloat(overOfen) + 32;
+                        }
+                        item.propertyList.forEach(its => {
+                            if (its.property === "共鸣效率") {
+                                overOfen = parseFloat(overOfen) + parseFloat(its.value.replace("%", ""));
+                            }
+                        });
+                    }
+                });
+            }
+            //计算角色对象的声骸总分-溢出量
+            if (parseFloat(overOfen) > ruleList[roleList[curRole.roleListId - 1].rule].defenseLimit) {
+                //共鸣效率有溢出
+                let ovf = (ruleList[roleList[curRole.roleListId - 1].rule].efficiency01 - ruleList[roleList[curRole.roleListId - 1].rule].efficiency02) * (ruleList[roleList[curRole.roleListId - 1].rule].defenseLimit - parseFloat(overOfen));
+                ovf = parseFloat(ovf) * 100 / roleList[curRole.roleListId - 1].maxscore + parseFloat(totalScore);
+                curRole.totalScore = ovf.toFixed(2);
+            } else {
+                //无溢出
+                curRole.totalScore = totalScore.toFixed(2);
+            }
+            //将角色覆盖到mcData保存并返回
+            curData.role.forEach((its, index) => {
+                if (its.roleId == curRole.roleId) {
+                    curData.role[index] = curRole;
+                    saveDataToCache(curData);
+                    window.open("./mccost.html?roleid=" + roleid, "_self");
                 }
             });
-            //计算共鸣效率溢出量
-            curRole.costList.forEach(item => {
-                totalScore = parseFloat(totalScore) + parseFloat(item.sumScores);
-                if (item.propertyList.length > 0) {
-                    if (item.mainAtrri === "共鸣效率32%") {
-                        overOfen = parseFloat(overOfen) + 32;
+        }
+    });
+    //删除声骸并返回上一页
+    $(".mc-cost-delbtn").click(() => {
+        // 创建自定义确认对话框
+        let confirmDialog = $('<div class="modal fade" id="deleteConfirmModal" tabindex="-1">' +
+            '<div class="modal-dialog">' +
+            '<div class="modal-content">' +
+            '<div class="modal-header">' +
+            '<h5 class="modal-title">删除声骸</h5>' +
+            '<button type="button" class="close" data-dismiss="modal">' +
+            '<span>&times;</span>' +
+            '</button>' +
+            '</div>' +
+            '<div class="modal-body">' +
+            '<p>请选择如何处理该声骸：</p>' +
+            '</div>' +
+            '<div class="modal-footer">' +
+            '<button type="button" class="btn btn-secondary" id="cancelDelete">取消</button>' +
+            (isUnused ? '' : '<button type="button" class="btn btn-primary" id="moveToUnused">移至声骸库</button>') +
+            '<button type="button" class="btn btn-danger" id="permanentDelete">删除</button>' +
+            '</div>' +
+            '</div>' +
+            '</div>' +
+            '</div>');
+        
+        // 移除已存在的模态框（如果有）
+        $('#deleteConfirmModal').remove();
+        
+        // 添加到页面并显示
+        $('body').append(confirmDialog);
+        $('#deleteConfirmModal').modal('show');
+        
+        // 取消按钮事件
+        $('#cancelDelete').click(() => {
+            $('#deleteConfirmModal').modal('hide');
+        });
+        
+        // 永久删除按钮事件
+        $('#permanentDelete').click(() => {
+            if (!confirm("确定要永久删除该声骸吗？此操作不可恢复！")) {
+                return false;
+            }
+            
+            if (isUnused) {
+                // 从unusedEchoes中删除
+                curData.unusedEchoes = curData.unusedEchoes.filter(item => {
+                    return item.costId != costid;
+                });
+                saveDataToCache(curData);
+                $('#deleteConfirmModal').modal('hide');
+                window.open("./unusedEchoes.html", "_self");
+            } else {
+                // 从角色声骸列表中移除
+                curRole.costList = curRole.costList.filter(item => {
+                    return item.costId != costid;
+                });
+                
+                // 保存数据并返回
+                curData.role.forEach((its, index) => {
+                    if (its.roleId == curRole.roleId) {
+                        curData.role[index] = curRole;
+                        saveDataToCache(curData);
+                        $('#deleteConfirmModal').modal('hide');
+                        window.open("./mccost.html?roleid=" + roleid, "_self");
                     }
-                    item.propertyList.forEach(its => {
-                        if (its.property === "共鸣效率") {
-                            overOfen = parseFloat(overOfen) + parseFloat(its.value.replace("%", ""));
+                });
+            }
+        });
+        
+        // 移至声骸库按钮事件（只在非unused时显示）
+        if (!isUnused) {
+            $('#moveToUnused').click(() => {
+                // 找到要移动的声骸
+                let costToMove = curRole.costList.find(item => item.costId == costid);
+                
+                if (costToMove) {
+                    // 初始化unusedEchoes数组（如果不存在）
+                    if (!curData.unusedEchoes) {
+                        curData.unusedEchoes = [];
+                    }
+                    
+                    // 将声骸添加到unusedEchoes
+                    curData.unusedEchoes.push(costToMove);
+                    
+                    // 从角色声骸列表中移除
+                    curRole.costList = curRole.costList.filter(item => {
+                        return item.costId != costid;
+                    });
+                    
+                    // 保存数据并返回
+                    curData.role.forEach((its, index) => {
+                        if (its.roleId == curRole.roleId) {
+                            curData.role[index] = curRole;
+                            saveDataToCache(curData);
+                            $('#deleteConfirmModal').modal('hide');
+                            window.open("./mccost.html?roleid=" + roleid, "_self");
                         }
                     });
                 }
             });
         }
-        //计算角色对象的声骸总分-溢出量
-        if (parseFloat(overOfen) > ruleList[roleList[curRole.roleListId - 1].rule].defenseLimit) {
-            //共鸣效率有溢出
-            let ovf = (ruleList[roleList[curRole.roleListId - 1].rule].efficiency01 - ruleList[roleList[curRole.roleListId - 1].rule].efficiency02) * (ruleList[roleList[curRole.roleListId - 1].rule].defenseLimit - parseFloat(overOfen));
-            ovf = parseFloat(ovf) * 100 / roleList[curRole.roleListId - 1].maxscore + parseFloat(totalScore);
-            curRole.totalScore = ovf.toFixed(2);
-        } else {
-            //无溢出
-            curRole.totalScore = totalScore.toFixed(2);
-        }
-        //将角色覆盖到mcData保存并返回
-        curData.role.forEach((its, index) => {
-            if (its.roleId == curRole.roleId) {
-                curData.role[index] = curRole;
-                saveDataToCache(curData);
-                window.open("./mccost.html?roleid=" + roleid, "_self");
-            }
-        });
-    });
-    //删除声骸并返回上一页
-    $(".mc-cost-delbtn").click(() => {
-        if (!confirm("确定要删除该声骸吗？(全部词条也会一并删除)")) {
-            return false;
-        }
-        console.log(curRole);
-        curRole.costList = curRole.costList.filter(item => {
-            return item.costId != costid;
-        });
-        curData.role.forEach((its, index) => {
-            if (its.roleId == curRole.roleId) {
-                curData.role[index] = curRole;
-                saveDataToCache(curData);
-                window.open("./mccost.html?roleid=" + roleid, "_self");
-            }
+        
+        // 模态框隐藏时清理
+        $('#deleteConfirmModal').on('hidden.bs.modal', function () {
+            $(this).remove();
         });
     });
     //返回首页
@@ -241,7 +363,7 @@ $(function () {
 
 //根据当前声骸属性加载主属性图片及词条并计算总分
 function loadMainPgAttri() {
-
+    console.log("currentCost", currentCost);
     if (currentCost.imgCode !== null && currentCost.imgCode !== "") {
         //初始化左上角声骸图标
         if(currentCost.imgCode.length>6){
@@ -341,10 +463,12 @@ function randerMainAttri() {
             $("#shimg02").attr("src", "image/attribute/" + sxz + ".png");
         }
     }
-    let score1 = countMainAttr(currentCost, curRole);
-    score1 = parseFloat(score1);
-    $("#zhupf").html(score1.toFixed(2));
-    countTotalScores();
+    if (!isUnused) {
+        let score1 = countMainAttr(currentCost, curRole);
+        score1 = parseFloat(score1);
+        $("#zhupf").html(score1.toFixed(2));
+        countTotalScores();
+    }
 }
 
 //计算声骸总分数
@@ -393,8 +517,14 @@ function renderList(ct, yct) {
     let sumScore = 0;
     if (currentCost.propertyList.length > 0) {
         currentCost.propertyList.forEach((item, index) => {
-            let sc = countScores(item, curRole);
-            sumScore += parseFloat(sc);
+            let sc = 0;
+            console.log("isunused", isUnused);
+            if (!isUnused) {
+                
+                sc = countScores(item, curRole);
+                sumScore += parseFloat(sc);
+            }
+            
             let xh = index + 1;
             res += `<tr>
                 <th scope="row">` + xh + `</th>
@@ -629,8 +759,9 @@ function countProbability() {
 
     //6.得分期望，先计算剩余未开词条总得分
     let sumScoreR = 0;
+    console.log("isunused", isUnused)
     fctValueHJ.forEach(item => {
-        if (syqct.includes(item.property)) {
+        if (syqct.includes(item.property) && !isUnused) {
             sumScoreR = parseFloat(sumScoreR) + parseFloat(countScores(item, curRole));
         }
     });

@@ -1,4 +1,4 @@
-const toolVersion = "2.4.24";
+const toolVersion = "2.4.25";
 const roleList = [
     {
         "id": 1,
@@ -3568,7 +3568,7 @@ const RoleSumProperty = [
             }
         ]
     },
-    {
+    {   //卡提希娅
         "id": 38, "propertyList": [
             {"name": "暴击", "property": "52.5%"},
             {"name": "暴伤", "property": "105%"},

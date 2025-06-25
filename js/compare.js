@@ -13,6 +13,8 @@ var tempRole = null;
 let yct = {"property": "", "value": ""};
 var curData;
 var costid = 0;
+var currentUnusedCostId = "000"; // 当前选中的未使用声骸ID
+var currentImportTarget = "A"; // 当前导入目标：A 或 B
 $(function () {
     curData = getDataFromCache("mcData");
     //初始化角色选单
@@ -117,12 +119,12 @@ $(function () {
         let ress = ``;
         gzid.forEach((item, index) => {
             if (index === 0) {
-                ress += `<option selected value="` + item + `">` + item + `</option>`;
+                ress += `<label class="radio-inline"> <input type="radio" name="mc-words-value" value="` + item + `"  checked="checked"> ` + item + ` </label>`;
             } else {
-                ress += `<option value="` + item + `">` + item + `</option>`;
+                ress += `<label class="radio-inline"> <input type="radio" name="mc-words-value" value="` + item + `"> ` + item + ` </label>`;
             }
         });
-        $("#mc-words-value").html(ress);
+        $("#sx-value").html(ress);
     }).trigger("change");
     //清空添加副词条
     $(".mc-cost-addbtn1").click(() => {
@@ -199,6 +201,79 @@ $(function () {
             }
         }
     });
+
+    //从声骸库导入声骸A词条
+    $(".mc-cost-addbtn5").click(() => {
+        currentImportTarget = "A";
+        if (tempRole == null || typeof (tempRole) === "undefined") {
+            alert("因为计分与角色伤害分布关联，请先选择角色。");
+            $("#mc-addrole").modal("show");
+        } else {
+            renderUnusedCostList();
+            $("#mc-import-from-unused").modal("show");
+        }
+    });
+
+    //从声骸库导入声骸B词条
+    $(".mc-cost-addbtn6").click(() => {
+        currentImportTarget = "B";
+        if (tempRole == null || typeof (tempRole) === "undefined") {
+            alert("因为计分与角色伤害分布关联，请先选择角色。");
+            $("#mc-addrole").modal("show");
+        } else {
+            renderUnusedCostList();
+            $("#mc-import-from-unused").modal("show");
+        }
+    });
+
+    //未使用声骸过滤
+    $("#mc-unused-filter-value").change(function () {
+        renderUnusedCostList($(this).find("option:selected").val());
+    });
+
+    //选择未使用的声骸
+    $(document).on("click", ".mc-unused-cost-list .mc-cost-list", function () {
+        $(".mc-unused-cost-list .mc-cost-list").removeClass("mc-active");
+        $(this).addClass("mc-active");
+        currentUnusedCostId = $(this).attr("data-id");
+    });
+
+    //确认导入未使用声骸的词条
+    $('#unused-qd-btn').click(() => {
+        if (currentUnusedCostId === "000") {
+            alert("请先选择一个声骸。");
+            return;
+        }
+
+        // 找到选中的未使用声骸
+        let selectedCost = null;
+        if (curData.unusedEchoes && curData.unusedEchoes.length > 0) {
+            selectedCost = curData.unusedEchoes.find(item => item.costId == currentUnusedCostId);
+        }
+
+        if (!selectedCost) {
+            alert("未找到选中的声骸。");
+            return;
+        }
+
+        // 导入词条到对应的声骸
+        if (currentImportTarget === "A") {
+            currentCostA.propertyList = [...selectedCost.propertyList];
+        } else {
+            currentCostB.propertyList = [...selectedCost.propertyList];
+        }
+
+        // 重新渲染列表并计算分数
+        lx = currentImportTarget;
+        renderList(null, null);
+        
+        // 隐藏模态框
+        $('#mc-import-from-unused').modal('hide');
+        
+        // 重置选择
+        currentUnusedCostId = "000";
+    });
+
     $("#mc-addcost .modal-body-c").on("click", ".mc-cost-val", function () {
         $(".mc-cost-val").removeClass("mc-active");
         $(this).addClass("mc-active");
@@ -232,7 +307,7 @@ $(function () {
         }
         //获取词条属性与值
         let sx = $("#mc-words-name").val();
-        let sxv = $("#mc-words-value").val();
+        let sxv = $("#sx-value input[name='mc-words-value']:checked").val();
         if (checkRepeat(sx)) {
             alert("已选择了相同属性，不允许重复");
         } else {
@@ -249,7 +324,7 @@ $(function () {
         $("#qd-btn3").addClass("mc-hide");
         $("#qd-btn5").removeClass("mc-hide");
         $("#mc-words-name").val(sx).trigger("change");
-        $("#mc-words-value").val(sxv);
+        $("#sx-value input[name='mc-words-value'][value='" + sxv + "']").prop('checked', true);
         yct.property = sx;
         yct.value = sxv;
         $('#mc-addwords').modal('show');
@@ -258,7 +333,7 @@ $(function () {
     $('#qd-btn5').click(() => {
         //获取新词条属性与值
         let sx = $("#mc-words-name").val();
-        let sxv = $("#mc-words-value").val();
+        let sxv = $("#sx-value input[name='mc-words-value']:checked").val();
         //原词条没变或不重复
         if (sx === yct.property || !checkRepeat(sx)) {
             renderList({"property": sx, "value": sxv}, yct);
@@ -426,4 +501,144 @@ function backMaxNum(mc) {
     } else {
         return 8;
     }
+}
+
+//渲染未使用声骸列表
+function renderUnusedCostList(filterType = "all") {
+    if (!curData.unusedEchoes || curData.unusedEchoes.length === 0) {
+        $(".mc-unused-cost-list").html('<div class="mc-cost-list-null">声骸库为空。</div>');
+        return;
+    }
+
+    let filteredList = curData.unusedEchoes;
+    if (filterType !== "all") {
+        filteredList = curData.unusedEchoes.filter(item => item.type === filterType);
+    }
+
+    if (filteredList.length === 0) {
+        $(".mc-unused-cost-list").html('<div class="mc-cost-list-null">没有符合条件的声骸。</div>');
+        return;
+    }
+
+    let ress = "";
+    filteredList.forEach((item, index) => {
+        ress += `<div data-id="` + item.costId + `" cost-id="` + item.costListId + `" class="mc-cost-list">
+            <div class="mc-cost-val3">`;
+        if(item.imgCode.length>6){
+            ress += `<img class="mc-unused-cost-img" src="` + item.imgCode + `" alt="cost">`;
+        }else{
+            let gsxb = parseInt(item.imgCode)-1;
+            ress += `<img class="mc-unused-cost-img" src="` + costList[gsxb].imgCode + `" alt="cost">`;
+        }
+
+        if (item.suite !== null && item.suite !== "") {
+            let sxz = 0;
+            switch (item.suite) {
+                case "光套":
+                    sxz = 5;
+                    break;
+                case "火套":
+                    sxz = 2;
+                    break;
+                case "冰套":
+                    sxz = 1;
+                    break;
+                case "暗套":
+                    sxz = 6;
+                    break;
+                case "雷套":
+                    sxz = 3;
+                    break;
+                case "风套":
+                    sxz = 4;
+                    break;
+                case "奶套":
+                    sxz = 7;
+                    break;
+                case "轻云套":
+                    sxz = 8;
+                    break;
+                case "攻击套":
+                    sxz = 9;
+                    break;
+                case "凌冽套":
+                    sxz = 10;
+                    break;
+                case "此间套":
+                    sxz = 11;
+                    break;
+                case "幽夜套":
+                    sxz = 12;
+                    break;
+                case "高天套":
+                    sxz = 13;
+                    break;
+                case "无惧套":
+                    sxz = 14;
+                    break;
+                case "流云套":
+                    sxz = 15;
+                    break;
+                case "愿戴套":
+                    sxz = 16;
+                    break;
+                case "奔狼套":
+                    sxz = 17;
+                    break;
+            }
+            ress += `<img class="mc-suite-attr2" src="image/attribute/` + sxz + `.png" alt="套装属性">`;
+        }
+        ress += `</div>`;
+
+        ress += `<div class="mc-cost-val mc-cost-val2">
+                            <p>主属性</p>
+                            <p>` + (item.mainAtrri == null ? "未设置" : jianhua(item.mainAtrri)) + `</p>
+                            <p>` + (item.type === "Cost1" ? "生命2280" : item.type === "Cost3" ? "小攻击100" : "小攻击150") + `</p>
+                        </div>`;
+
+        for (let i = 0; i < 5; i++) {
+            if (i < item.propertyList.length) {
+                if (item.propertyList[i].property === "暴击" || item.propertyList[i].property === "暴伤") {
+                    ress += `<div class="mc-cost-val mc-cost-val-unused">
+                            <p>属性` + (i + 1) + `</p>
+                            <p class="mc-cost-jiaz mc-cost-red">` + jianhua(item.propertyList[i].property) + `</p>
+                            <p class="mc-cost-jiaz mc-cost-red">` + item.propertyList[i].value + `</p>
+                        </div>`;
+                } else if (item.propertyList[i].property === "大攻击" || item.propertyList[i].property === "小攻击") {
+                    ress += `<div class="mc-cost-val mc-cost-val-unused">
+                            <p>属性` + (i + 1) + `</p>
+                            <p class="mc-cost-jiaz mc-cost-orange">` + jianhua(item.propertyList[i].property) + `</p>
+                            <p class="mc-cost-jiaz mc-cost-orange">` + item.propertyList[i].value + `</p>
+                        </div>`;
+                } else if (item.propertyList[i].property === "共鸣效率") {
+                    ress += `<div class="mc-cost-val mc-cost-val-unused">
+                            <p>属性` + (i + 1) + `</p>
+                            <p class="mc-cost-green">` + jianhua(item.propertyList[i].property) + `</p>
+                            <p class="mc-cost-green">` + item.propertyList[i].value + `</p>
+                        </div>`;
+                } else if (item.propertyList[i].property === "普攻伤害" || item.propertyList[i].property === "重击伤害" || item.propertyList[i].property === "技能伤害" || item.propertyList[i].property === "解放伤害") {
+                    ress += `<div class="mc-cost-val mc-cost-val-unused">
+                            <p>属性` + (i + 1) + `</p>
+                            <p class="mc-cost-purple">` + jianhua(item.propertyList[i].property) + `</p>
+                            <p class="mc-cost-purple">` + item.propertyList[i].value + `</p>
+                        </div>`;
+                } else {
+                    ress += `<div class="mc-cost-val mc-cost-val-unused">
+                            <p>属性` + (i + 1) + `</p>
+                            <p>` + jianhua(item.propertyList[i].property) + `</p>
+                            <p>` + item.propertyList[i].value + `</p>
+                        </div>`;
+                }
+            } else {
+                ress += `<div class="mc-cost-val mc-cost-val-unused">
+                            <p>属性` + (i + 1) + `</p>
+                            <p>/</p>
+                            <p>/</p>
+                        </div>`;
+            }
+        }
+        ress += `</div>`;
+    });
+
+    $(".mc-unused-cost-list").html(ress);
 }

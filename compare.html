@@ -28,8 +28,10 @@
             <div class="mc-cost-right mc-cost-right2">
                 <div class="mc-cost-addbtnbak mc-cost-addbtn4">从角色声骸导入</div>
                 <div class="mc-cost-addbtnbak mc-cost-addbtn2">添加声骸A词条</div>
+                <div class="mc-cost-addbtnbak mc-cost-addbtn5">从声骸库导入声骸A词条</div>
                 <div class="mc-cost-addbtnbak mc-cost-addbtn1">清空声骸B词条</div>
                 <div class="mc-cost-addbtnbak mc-cost-addbtn3">添加声骸B词条</div>
+                <div class="mc-cost-addbtnbak mc-cost-addbtn6">从声骸库导入声骸B词条</div>
                 <div class="mc-cost-score">
                     <div class="mc-set-tixing">请先点击左侧设置该声骸佩戴角色</div>
                 </div>
@@ -126,10 +128,9 @@
                                 <option value="解放伤害">解放伤害</option>
                             </select>
                         </span></li>
-                        <li class="list-group-item"><span class="mc-select-title">选择数值：</span><span
-                                class="mc-cost-jiaz mc-cost-purple">
-                            <select id="mc-words-value" class="form-control mc-select"></select>
-                        </span></li>
+                        <li class="list-group-item">
+                            <span class="mc-cost-jiaz mc-cost-purple" id="sx-value"></span>
+                        </li>
                     </ul>
                 </div>
                 <div class="modal-footer">
@@ -185,10 +186,39 @@
             </div>
         </div>
     </div>
+
+    <!--  弹出从声骸库导入声骸  !-->
+    <!-- Modal -->
+    <div class="modal fade" id="mc-import-from-unused" tabindex="-1" aria-labelledby="importUnusedModalLabel" aria-hidden="true">
+        <div class="modal-dialog modal-lg">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <span class="modal-title" id="importUnusedModalLabel"><span
+                            class="badge badge-info">从声骸库导入声骸词条</span></span>
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                        <span aria-hidden="true">&times;</span>
+                    </button>
+                </div>
+                <div class="modal-body">
+                    <div class="mc-unused-cost-list">
+                        <div class="mc-cost-list-null">
+                            声骸库为空。
+                        </div>
+                    </div>
+                </div>
+                <div class="modal-footer">
+                    <button id="unused-qx-btn" type="button" class="btn btn-secondary" data-dismiss="modal">关&nbsp;&nbsp;闭
+                    </button>
+                    <button id="unused-qd-btn" type="button" class="btn btn-primary">导&nbsp;&nbsp;入</button>
+                </div>
+            </div>
+        </div>
+    </div>
 </div>
 <script src="library/jquery.min.js" type="application/javascript"></script>
 <script src="library/bootstrap/js/bootstrap.min.js" type="application/javascript"></script>
 <script src="js/base.js" type="application/javascript"></script>
+<script src="js/helperFunctions.js" type="application/javascript"></script>
 <script src="js/compare.js" type="application/javascript"></script>
 </body>
 </html>

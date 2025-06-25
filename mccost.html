@@ -22,7 +22,9 @@
         <div class="mc-character">
             <img class="mc-character-img" src="image/character/jinxi.png" alt="选择的角色">
             <div class="mc-character-right pd-0">
-                <div class="mc-character-addbtn" data-toggle="modal" data-target="#mc-addcost">添&nbsp;加&nbsp;声&nbsp;骸
+                <div class="mc-cost-buttons-row">
+                    <div class="mc-cost-addbtn-short" data-toggle="modal" data-target="#mc-addcost">添加新声骸</div>
+                    <div class="mc-cost-addbtn-short" data-toggle="modal" data-target="#mc-importcost">从声骸库导入声骸</div>
                 </div>
                 <div class="mc-character-score">
                     <div>已出双爆：[&nbsp;&nbsp;<span class="mc-cost-jiaz mc-cost-red" id="sbz">0</span>&nbsp;&nbsp;]件,大攻击：[&nbsp;&nbsp;<span
@@ -235,7 +237,32 @@
         </div>
     </div>
 
-
+    <!--  弹出导入声骸  !-->
+    <!-- Modal -->
+    <div class="modal fade" id="mc-importcost" tabindex="-1" aria-labelledby="importModalLabel" aria-hidden="true">
+        <div class="modal-dialog modal-lg">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <span class="modal-title" id="importModalLabel"><span class="badge badge-info">从声骸库导入声骸</span></span>
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                        <span aria-hidden="true">&times;</span>
+                    </button>
+                </div>
+                <div class="modal-body">
+                    <div class="mc-import-cost-list">
+                        <div class="mc-cost-list">
+                            声骸库为空。
+                        </div>
+                    </div>
+                </div>
+                <div class="modal-footer">
+                    <button id="import-qx-btn" type="button" class="btn btn-secondary" data-dismiss="modal">关&nbsp;&nbsp;闭
+                    </button>
+                    <button id="import-qd-btn" type="button" class="btn btn-primary">导&nbsp;&nbsp;入</button>
+                </div>
+            </div>
+        </div>
+    </div>
 </div>
 <script src="library/jquery.min.js" type="application/javascript"></script>
 <script src="library/bootstrap/js/bootstrap.min.js" type="application/javascript"></script>
