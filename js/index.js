@@ -174,6 +174,7 @@ $(function () {
             alert("请先绑定库街区token。");
             return;
         }
+        let bat = "";
         let idz = $("#idValue").val();
         if (idz !== null && idz !== "") {
             if (idz.length !== 9) {
@@ -184,55 +185,76 @@ $(function () {
                 alert("导入按钮冷却中，冷却时间15秒，稍后再试。")
                 return;
             }
-            let method = hostName + methodName[0];
-            let params = {
-                "gameId": 3,
+            //获取bat
+            let batParams = {
                 "roleId": idz,
                 "serverId": "76402e5b20be2c39f095a152090afddc",
-                "channelId": 19,
-                "countryCode": 1
             }
-            //发送刷新数据请求
             $.ajax({
-                url: hostName + methodName[3],
+                url: hostName + methodName[6],
                 type: 'POST',
                 headers: completeHeaders(),
-                data: params,
+                data: batParams,
                 dataType: 'json',
-                success: function (rest) {
-                    //开始遍历角色列表
+                success: function (resp) {
+                    bat = JSON.parse(resp.data).accessToken;
+                    localStorage.setItem("kjq_bat", bat);
+
+                    let method = hostName + methodName[0];
+                    let params = {
+                        "gameId": 3,
+                        "roleId": idz,
+                        "serverId": "76402e5b20be2c39f095a152090afddc",
+                        "channelId": 19,
+                        "countryCode": 1
+                    }
+                    //发送刷新数据请求
                     $.ajax({
-                        url: method,
+                        url: hostName + methodName[3],
                         type: 'POST',
-                        headers: completeHeaders(),
+                        headers: completeHeaders(bat),
                         data: params,
                         dataType: 'json',
-                        success: function (data) {
-                            // 处理返回的数据
-                            if (data != null && data.data != null && typeof (data) != "undefined" && data.code === 200) {
-                                curData["tzmId"] = idz;
-                                let resr = "";
-                                let deData = JSON.parse(data.data);
-                                deData.roleList.forEach((item) => {
-                                    resr += `<img data-level="` + item.level + `" data-role-id="` + mappingRoleId(item.roleId) + `" class="mc-role-impt-item" src="` + item.roleIconUrl + `" alt="` + item.roleName + `">`;
-                                });
-                                $("#mc-import-role .modal-body-b").html(resr);
-                                $("#mc-import-role").modal("show");
-                                flag = false;
-                                setTimeout(function () {
-                                    flag = true;
-                                }, 15000);
-                            } else {
-                                alert("导入失败：请检查你的库街区是否设置了不公开角色，也可能是token过期了，重新绑定一次试试。");
-                            }
+                        success: function (rest) {
+                            //开始遍历角色列表
+                            $.ajax({
+                                url: method,
+                                type: 'POST',
+                                headers: completeHeaders(bat),
+                                data: params,
+                                dataType: 'json',
+                                success: function (data) {
+                                    // 处理返回的数据
+                                    if (data != null && data.data != null && typeof (data) != "undefined" && (data.code === 200 || data.code === 10902)) {
+                                        curData["tzmId"] = idz;
+                                        let resr = "";
+                                        let deData = JSON.parse(data.data);
+                                        deData.roleList.forEach((item) => {
+                                            resr += `<img data-level="` + item.level + `" data-role-id="` + mappingRoleId(item.roleId) + `" class="mc-role-impt-item" src="` + item.roleIconUrl + `" alt="` + item.roleName + `">`;
+                                        });
+                                        $("#mc-import-role .modal-body-b").html(resr);
+                                        $("#mc-import-role").modal("show");
+                                        flag = false;
+                                        setTimeout(function () {
+                                            flag = true;
+                                        }, 15000);
+                                    } else {
+                                        alert("导入失败：请检查你的库街区是否设置了不公开角色，也可能是token过期了，重新绑定一次试试。");
+                                    }
+                                },
+                                error: function (e) {
+                                    alert("从库街区获取数据失败，请保存截图并联系作者。");
+                                }
+                            });
                         },
                         error: function (e) {
-                            alert("从库街区获取数据失败，请保存截图并联系作者。");
+                            alert("刷新游戏数据到库街区失败，请稍后再试。");
                         }
                     });
                 },
                 error: function (e) {
-                    alert("刷新游戏数据到库街区失败，请稍后再试。");
+                    alert("获取bat失败，请稍后再试。");
+                    return;
                 }
             });
         } else {
@@ -420,7 +442,7 @@ $(function () {
                 $.ajax({
                     url: hostName + methodName[3],
                     type: 'POST',
-                    headers: completeHeaders(),
+                    headers: completeHeaders(localStorage.getItem("kjq_bat")),
                     data: params,
                     dataType: 'json',
                     success: function (rest) {
@@ -432,7 +454,7 @@ $(function () {
                             dataType: 'json',
                             success: function (res) {
                                 let towerInfo = {};
-                                if (res.code === 200) {
+                                if (res.code === 200 || res.code === 10902) {
                                     let deData = JSON.parse(res.data);
                                     if (deData.difficultyList != null) {
                                         towerInfo["mainInfo"] = deData.difficultyList;

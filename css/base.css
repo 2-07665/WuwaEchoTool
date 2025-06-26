@@ -112,20 +112,6 @@ body {
     left: -1px;
 }
 
-.mc-role-ming {
-    width: 16px;
-    height: 16px;
-    line-height: 16px;
-    color: white;
-    font-size: 12px;
-    font-weight: bold;
-    display: inline-block;
-    position: absolute;
-    top: 60px;
-    right: 0;
-    background-color: #3e3e3e;
-}
-
 .rankbg01 {
     background-color: orangered;
 }
@@ -305,23 +291,39 @@ body {
 
 .mc-role-score {
     width: 72px;
-    height: 16px;
+    height: 12px;
+    line-height: 12px;
     background-color: rgba(0, 0, 0, 0.6);
     color: white;
-    font-size: 12px;
-    margin-top: 60px;
+    font-size: 11px;
+    margin-top: 67px;
 }
 
 .mc-role-level {
-    width: 40px;
+    width: 72px;
+    line-height: 12px;
     height: 12px;
     background-color: rgba(0, 0, 0, 0.6);
     color: white;
     font-size: 11px;
     margin: 0;
     position: absolute;
+    top: 55px;
+    left: 0;
+}
+
+.mc-role-ming {
+    width: 12px;
+    height: 12px;
+    line-height: 12px;
+    color: white;
+    font-size: 11px;
+    font-weight: bold;
+    display: inline-block;
+    position: absolute;
+    top: 67px;
     right: 0;
-    bottom: 15px;
+    background-color: #3e3e3e;
 }
 
 .mcr-defult {

@@ -106,7 +106,7 @@ $(function () {
             $.ajax({
                 url: hostName + methodName[3],
                 type: 'POST',
-                headers: completeHeaders(),
+                headers: completeHeaders(localStorage.getItem("kjq_bat")),
                 data: params,
                 dataType: 'json',
                 success: function (rest) {
@@ -114,13 +114,13 @@ $(function () {
                     $.ajax({
                         url: method,
                         type: 'POST',
-                        headers: completeHeaders(),
+                        headers: completeHeaders(localStorage.getItem("kjq_bat")),
                         data: params,
                         dataType: 'json',
                         success: function (res) {
 
                             // 处理返回的数据
-                            if (res != null && typeof (res) != "undefined" && res.code === 200) {
+                            if (res != null && typeof (res) != "undefined" && (res.code === 200 || res.code === 10902)) {
                                 fcthz = [
                                     {"name": "暴击", "property": 0},
                                     {"name": "暴伤", "property": 0},

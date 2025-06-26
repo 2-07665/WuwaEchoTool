@@ -1,4 +1,4 @@
-const toolVersion = "2.4.25";
+const toolVersion = "2.4.26";
 const roleList = [
     {
         "id": 1,
@@ -4085,7 +4085,7 @@ function countMainAttr2(currentCost, curRole) {
 }
 
 const hostName = "https://api.kurobbs.com:443";
-const methodName = ["/aki/roleBox/akiBox/roleData", "/aki/roleBox/akiBox/getRoleDetail", "/user/emoji/queryUsage", "/aki/roleBox/akiBox/refreshData", "/aki/roleBox/akiBox/towerIndex", "/aki/roleBox/akiBox/towerDataDetail"];
+const methodName = ["/aki/roleBox/akiBox/roleData", "/aki/roleBox/akiBox/getRoleDetail", "/user/emoji/queryUsage", "/aki/roleBox/akiBox/refreshData", "/aki/roleBox/akiBox/towerIndex", "/aki/roleBox/akiBox/towerDataDetail", "/aki/roleBox/requestToken"];
 const tokenList = ["eyJhbGciOiJIUzI1NiJ9.eyJjcmVhdGVkIjoxNzI4MDU1Nzc4ODc3LCJ1c2VySWQiOjEwNDAyMTE5fQ.0TsWAkPmtCcJd1b58mMC3dpTSfxjt89rkIQXdepNeZY"];
 //蒲牢评价
 const pulaoSay = [
@@ -4260,7 +4260,7 @@ var headers = {
     'Accept-Language': 'zh-CN,zh;q=0.9,en-US;q=0.8,en;q=0.7'
 }
 //补全headers
-function completeHeaders() {
+function completeHeaders(bat) {
     let newHeaders = headers;
     //从本地存储拿到保存的token
     let token = localStorage.getItem("kjq_token");
@@ -4273,7 +4273,11 @@ function completeHeaders() {
         newHeaders.token = token;
     }
     //拿到IP地址-devcode
-    newHeaders.devCode = ipAddr + ",Mozilla/5.0(Linux;Android14;)";
+    newHeaders.devCode = ipAddr + ",Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/138.0.0.0 Safari/537.36 KuroGameBox/2.5.0";
+    newHeaders.did = crypto.randomUUID().toUpperCase();
+    if (bat != null && typeof (bat) !== "undefined") {
+        newHeaders["b-at"] = bat;
+    }
     return newHeaders;
 }
 
@@ -4281,7 +4285,7 @@ function completeHeaders2(tk) {
     let newHeaders = headers;
     newHeaders.token = tk;
     //拿到IP地址-devcode
-    newHeaders.devCode = ipAddr + ",Mozilla/5.0(Linux;Android14;)";
+    newHeaders.devCode = ipAddr + ",Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/138.0.0.0 Safari/537.36 KuroGameBox/2.5.0";
     return newHeaders;
 }
 
