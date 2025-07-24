@@ -384,6 +384,9 @@ function randerCostList(list) {
                     case "奔狼套":
                         sxz = 17;
                         break;
+                    case "失序套":
+                        sxz = 18;
+                        break;
                 }
                 ress += `<img class="mc-suite-attr2" src="image/attribute/` + sxz + `.png" alt="套装属性">`;
             }
@@ -662,6 +665,9 @@ function renderImportCostList(filterType = "all") {
                     break;
                 case "奔狼套":
                     sxz = 17;
+                    break;
+                case "失序套":
+                    sxz = 18;
                     break;
             }
             ress += `<img class="mc-suite-attr2" src="image/attribute/` + sxz + `.png" alt="套装属性">`;

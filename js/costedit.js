@@ -459,6 +459,9 @@ function randerMainAttri() {
                 case "奔狼套":
                     sxz = 17;
                     break;
+                case "失序套":
+                    sxz = 18;
+                    break;
             }
             $("#shimg02").attr("src", "image/attribute/" + sxz + ".png");
         }
