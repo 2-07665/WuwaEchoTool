@@ -462,6 +462,12 @@ function randerMainAttri() {
                 case "失序套":
                     sxz = 18;
                     break;
+                case "荣斗套":
+                    sxz = 19;
+                    break;
+                case "息界套":
+                    sxz = 20;
+                    break;
             }
             $("#shimg02").attr("src", "image/attribute/" + sxz + ".png");
         }

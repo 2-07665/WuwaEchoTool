@@ -515,6 +515,10 @@ body {
     background-image: url("../image/characters/fuluoluo.png");
     background-size: 100% auto;
 }
+.mcr-aogusita {
+    background-image: url("../image/characters/aogusita.png");
+    background-size: 100% auto;
+}
 
 .mc-box-evaluate {
     position: relative;
