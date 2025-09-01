@@ -189,6 +189,7 @@ $(function () {
             let batParams = {
                 "roleId": idz,
                 "serverId": "76402e5b20be2c39f095a152090afddc",
+                "forceRefresh": true
             }
             $.ajax({
                 url: hostName + methodName[6],
@@ -199,20 +200,19 @@ $(function () {
                 success: function (resp) {
                     bat = JSON.parse(resp.data).accessToken;
                     localStorage.setItem("kjq_bat", bat);
-
+                    let headers = completeHeaders(bat, false);
+                    delete headers.token;
                     let method = hostName + methodName[0];
                     let params = {
                         "gameId": 3,
                         "roleId": idz,
-                        "serverId": "76402e5b20be2c39f095a152090afddc",
-                        "channelId": 19,
-                        "countryCode": 1
+                        "serverId": "76402e5b20be2c39f095a152090afddc"
                     }
                     //发送刷新数据请求
                     $.ajax({
                         url: hostName + methodName[3],
                         type: 'POST',
-                        headers: completeHeaders(bat),
+                        headers: headers,
                         data: params,
                         dataType: 'json',
                         success: function (rest) {
@@ -220,7 +220,7 @@ $(function () {
                             $.ajax({
                                 url: method,
                                 type: 'POST',
-                                headers: completeHeaders(bat),
+                                headers: completeHeaders(bat, false),
                                 data: params,
                                 dataType: 'json',
                                 success: function (data) {
@@ -442,14 +442,14 @@ $(function () {
                 $.ajax({
                     url: hostName + methodName[3],
                     type: 'POST',
-                    headers: completeHeaders(localStorage.getItem("kjq_bat")),
+                    headers: completeHeaders(localStorage.getItem("kjq_bat"), false),
                     data: params,
                     dataType: 'json',
                     success: function (rest) {
                         $.ajax({
                             url: hostName + methodName[4],
                             type: 'POST',
-                            headers: completeHeaders(),
+                            headers: completeHeaders(null, false),
                             data: params,
                             dataType: 'json',
                             success: function (res) {
@@ -462,7 +462,7 @@ $(function () {
                                         $.ajax({
                                             url: hostName + methodName[5],
                                             type: 'POST',
-                                            headers: completeHeaders(),
+                                            headers: completeHeaders(null, false),
                                             data: params,
                                             dataType: 'json',
                                             success: function (rest) {

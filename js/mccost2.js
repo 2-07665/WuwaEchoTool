@@ -106,7 +106,7 @@ $(function () {
             $.ajax({
                 url: hostName + methodName[3],
                 type: 'POST',
-                headers: completeHeaders(localStorage.getItem("kjq_bat")),
+                headers: completeHeaders(localStorage.getItem("kjq_bat"), false),
                 data: params,
                 dataType: 'json',
                 success: function (rest) {
@@ -114,7 +114,7 @@ $(function () {
                     $.ajax({
                         url: method,
                         type: 'POST',
-                        headers: completeHeaders(localStorage.getItem("kjq_bat")),
+                        headers: completeHeaders(localStorage.getItem("kjq_bat"), false),
                         data: params,
                         dataType: 'json',
                         success: function (res) {

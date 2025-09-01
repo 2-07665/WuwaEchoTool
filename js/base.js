@@ -1,4 +1,4 @@
-const toolVersion = "2.6.28";
+const toolVersion = "2.6.29";
 const roleList = [
     {
         "id": 1,
@@ -4574,12 +4574,11 @@ var headers = {
     'Content-Type': 'application/x-www-form-urlencoded',
     'Accept': 'application/json,text/plain,*/*',
     'devCode': '',
-    'token': '',
     'X-Requested-With': 'com.kurogame.kjq',
     'Accept-Language': 'zh-CN,zh;q=0.9,en-US;q=0.8,en;q=0.7'
 }
 //补全headers
-function completeHeaders(bat) {
+function completeHeaders(bat, needToken = true) {
     let newHeaders = headers;
     //从本地存储拿到保存的token
     let token = localStorage.getItem("kjq_token");
@@ -4589,10 +4588,12 @@ function completeHeaders(bat) {
         window.open("./index.html", "_self");
         return;
     } else {
-        newHeaders.token = token;
+        if (needToken) {
+            newHeaders.token = token;
+        }
     }
     //拿到IP地址-devcode
-    newHeaders.devCode = ipAddr + ",Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/138.0.0.0 Safari/537.36 KuroGameBox/2.5.0";
+    newHeaders.devCode = ipAddr + ",Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/605.1.15 (KHTML, like Gecko) Chrome/138.0.0.0 Safari/537.36 KuroGameBox/2.5.5";
     newHeaders.did = crypto.randomUUID().toUpperCase();
     if (bat != null && typeof (bat) !== "undefined") {
         newHeaders["b-at"] = bat;
@@ -4604,7 +4605,7 @@ function completeHeaders2(tk) {
     let newHeaders = headers;
     newHeaders.token = tk;
     //拿到IP地址-devcode
-    newHeaders.devCode = ipAddr + ",Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/138.0.0.0 Safari/537.36 KuroGameBox/2.5.0";
+    newHeaders.devCode = ipAddr + ",Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/605.1.15 (KHTML, like Gecko) Chrome/138.0.0.0 Safari/537.36 KuroGameBox/2.5.5";
     return newHeaders;
 }
 
