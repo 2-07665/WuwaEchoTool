@@ -1,4 +1,4 @@
-const toolVersion = "2.6.29";
+const toolVersion = "2.6.30";
 const roleList = [
     {
         "id": 1,
@@ -573,6 +573,20 @@ const roleList = [
         "liberate": 0,
         "other": 0.028,
         "maxscore": 490.3
+    },
+    {
+        "id": 42,
+        "gid": 1410,
+        "name": "尤诺",
+        "star": 5,
+        "rule": 2,
+        "cls": "mcr-younuo",
+        "normal": 0.22,
+        "skill": 0.15,
+        "heavy": 0,
+        "liberate": 0.596,
+        "other": 0.034,
+        "maxscore": 501.2
     }
 ];
 const costList = [
@@ -740,7 +754,7 @@ const ruleList = [
         "unike": 1,
         "treat": 0
     },
-    {   //辅助
+    {   //辅助/副C
         "ruleId": 2,
         "attack01": 1,
         "attack02": 0.1,
@@ -4144,6 +4158,136 @@ const RoleSumProperty = [
                 "unike": 1,
                 "treat": 0
             },
+        ]
+    },
+    {
+        "id": 42,
+        "propertyList": [
+            {"name": "暴击", "property": "52.5%"},
+            {"name": "暴伤", "property": "105%"},
+            {"name": "大攻击", "property": "58%"},
+            {"name": "小攻击", "property": "300"},
+            {"name": "共鸣效率", "property": "37.2%"},
+            {"name": "普攻伤害", "property": "0%"},
+            {"name": "技能伤害", "property": "0%"},
+            {"name": "重击伤害", "property": "0%"},
+            {"name": "解放伤害", "property": "58%"},
+            {"name": "大生命", "property": "0%"},
+            {"name": "小生命", "property": "0"},
+            {"name": "大防御", "property": "0%"},
+            {"name": "小防御", "property": "0"}
+        ],
+        "mzProperty": [
+            {"normal": 0.22, "skill": 0.15, "heavy": 0, "liberate": 0.596, "other": 0.034, "maxscore": 490.2},
+            {"normal": 0.22, "skill": 0.15, "heavy": 0, "liberate": 0.596, "other": 0.034, "maxscore": 490.2},
+            {"normal": 0.22, "skill": 0.15, "heavy": 0, "liberate": 0.596, "other": 0.034, "maxscore": 490.2},
+            {"normal": 0.22, "skill": 0.15, "heavy": 0, "liberate": 0.596, "other": 0.034, "maxscore": 490.2},
+            {"normal": 0.22, "skill": 0.15, "heavy": 0, "liberate": 0.596, "other": 0.034, "maxscore": 487.4},
+            {"normal": 0.21, "skill": 0.07, "heavy": 0, "liberate": 0.70, "other": 0.02, "maxscore": 474.3},
+        ],
+        "mzRule": [
+            {
+                "ruleId": 1,
+                "attack01": 0.92,
+                "attack02": 0.092,
+                "crit": 1.8,
+                "critDamage": 0.9,
+                "property": 1,
+                "health01": 0,
+                "health02": 0,
+                "defense01": 0,
+                "defense02": 0,
+                "defenseLimit": 40,
+                "efficiency01": 1,
+                "efficiency02": 0.3,
+                "unike": 1,
+                "treat": 0
+            },
+            {
+                "ruleId": 2,
+                "attack01": 0.92,
+                "attack02": 0.092,
+                "crit": 1.8,
+                "critDamage": 0.9,
+                "property": 1,
+                "health01": 0,
+                "health02": 0,
+                "defense01": 0,
+                "defense02": 0,
+                "defenseLimit": 40,
+                "efficiency01": 1,
+                "efficiency02": 0.3,
+                "unike": 1,
+                "treat": 0
+            },
+            {
+                "ruleId": 3,
+                "attack01": 0.92,
+                "attack02": 0.092,
+                "crit": 1.8,
+                "critDamage": 0.9,
+                "property": 1,
+                "health01": 0,
+                "health02": 0,
+                "defense01": 0,
+                "defense02": 0,
+                "defenseLimit": 40,
+                "efficiency01": 1,
+                "efficiency02": 0.3,
+                "unike": 1,
+                "treat": 0
+            },
+            {
+                "ruleId": 4,
+                "attack01": 0.92,
+                "attack02": 0.092,
+                "crit": 1.8,
+                "critDamage": 0.9,
+                "property": 1,
+                "health01": 0,
+                "health02": 0,
+                "defense01": 0,
+                "defense02": 0,
+                "defenseLimit": 40,
+                "efficiency01": 1,
+                "efficiency02": 0.3,
+                "unike": 1,
+                "treat": 0
+            },
+            {
+                "ruleId": 5,
+                "attack01": 0.92,
+                "attack02": 0.092,
+                "crit": 1.8,
+                "critDamage": 0.9,
+                "property": 1,
+                "health01": 0,
+                "health02": 0,
+                "defense01": 0,
+                "defense02": 0,
+                "defenseLimit": 40,
+                "efficiency01": 1,
+                "efficiency02": 0.3,
+                "unike": 0.92,
+                "treat": 0
+            },
+            {
+                "ruleId": 6,
+                "attack01": 0.92,
+                "attack02": 0.092,
+                "crit": 1.8,
+                "critDamage": 0.9,
+                "property": 1,
+                "health01": 0,
+                "health02": 0,
+                "defense01": 0,
+                "defense02": 0,
+                "defenseLimit": 40,
+                "efficiency01": 0.5,
+                "efficiency02": 0.0,
+                "unike": 0.92,
+                "treat": 0
+            }
         ]
     }
 ]

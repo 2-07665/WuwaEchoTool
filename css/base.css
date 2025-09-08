@@ -519,6 +519,10 @@ body {
     background-image: url("../image/characters/aogusita.png");
     background-size: 100% auto;
 }
+.mcr-younuo {
+    background-image: url("../image/characters/younuo.png");
+    background-size: 100% auto;
+}
 
 .mc-box-evaluate {
     position: relative;
