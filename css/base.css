@@ -531,6 +531,10 @@ body {
     background-image: url("../image/characters/qiuyuan.png");
     background-size: 100% auto;
 }
+.mcr-qianxiao {
+    background-image: url("../image/characters/qianxiao.png");
+    background-size: 100% auto;
+}
 
 .mc-box-evaluate {
     position: relative;

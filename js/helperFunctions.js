@@ -121,6 +121,9 @@ var renderCostList = function renderCostList(list) {
                     case "焚羽套":
                         sxz = 21;
                         break;
+                    case "命理套":
+                        sxz = 22;
+                        break;
                 }
                 ress += `<img class="mc-suite-attr2" src="image/attribute/` + sxz + `.png" alt="套装属性">`;
             }

@@ -471,6 +471,9 @@ function randerMainAttri() {
                 case "焚羽套":
                     sxz = 21;
                     break;
+                case "命理套":
+                    sxz = 22;
+                    break;
             }
             $("#shimg02").attr("src", "image/attribute/" + sxz + ".png");
         }
