@@ -535,6 +535,10 @@ body {
     background-image: url("../image/characters/qianxiao.png");
     background-size: 100% auto;
 }
+.mcr-buling {
+    background-image: url("../image/characters/buling.png");
+    background-size: 100% auto;
+}
 
 .mc-box-evaluate {
     position: relative;

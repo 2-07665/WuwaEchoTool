@@ -1,4 +1,4 @@
-const toolVersion = "2.8.33";
+const toolVersion = "2.8.34";
 const roleList = [
     {
         "id": 1,
@@ -629,6 +629,20 @@ const roleList = [
         "liberate": 0.75,
         "other": 0.133,
         "maxscore": 510.3
+    },
+    {   //卜灵
+        "id": 46,
+        "gid": 1307,
+        "name": "卜灵",
+        "star": 4,
+        "rule": 3,
+        "cls": "mcr-buling",
+        "normal": 0,
+        "skill": 0,
+        "heavy": 0,
+        "liberate": 0,
+        "other": 0,
+        "maxscore": 453
     }
 ];
 const costList = [
@@ -820,7 +834,7 @@ const ruleList = [
         "unike": 1,
         "treat": 0
     },
-    {
+    {   //攻击奶
         "ruleId": 3,
         "attack01": 1.2,
         "attack02": 0.12,
@@ -4728,7 +4742,24 @@ const RoleSumProperty = [
                 "treat": 0
             },
         ]
-    }
+    },
+    {
+        "id": 46, "propertyList": [
+            {"name": "暴击", "property": "0%"},
+            {"name": "暴伤", "property": "0%"},
+            {"name": "大攻击", "property": "58%"},
+            {"name": "小攻击", "property": "300"},
+            {"name": "共鸣效率", "property": "62%"},
+            {"name": "普攻伤害", "property": "0%"},
+            {"name": "技能伤害", "property": "0%"},
+            {"name": "重击伤害", "property": "0%"},
+            {"name": "解放伤害", "property": "0%"},
+            {"name": "大生命", "property": "58%"},
+            {"name": "小生命", "property": "0"},
+            {"name": "大防御", "property": "73.5%"},
+            {"name": "小防御", "property": "0"}
+        ]
+    },
 ]
 //计算角色声骸超越人数百分比的分母
 const MaxScore = 85;
