@@ -1,4 +1,38 @@
-const toolVersion = "2.8.34";
+﻿const toolVersion = "2.8.35";
+const suiteAttributeMap = {
+    "冰套": 1,
+    "火套": 2,
+    "雷套": 3,
+    "风套": 4,
+    "光套": 5,
+    "暗套": 6,
+    "奶套": 7,
+    "轻云套": 8,
+    "攻击套": 9,
+    "凌冽套": 10,
+    "此间套": 11,
+    "幽夜套": 12,
+    "高天套": 13,
+    "无惧套": 14,
+    "流云套": 15,
+    "愿戴套": 16,
+    "奔狼套": 17,
+    "失序套": 18,
+    "荣斗套": 19,
+    "息界套": 20,
+    "焚羽套": 21,
+    "命理套": 22,
+    "星构套": 23,
+    "流金套": 24,
+    "逆光套": 25,
+};
+
+function getSuiteAttributeId(suiteName) {
+    if (!suiteName) {
+        return 0;
+    }
+    return suiteAttributeMap[suiteName] || 0;
+}
 const roleList = [
     {
         "id": 1,

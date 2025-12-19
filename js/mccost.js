@@ -331,75 +331,7 @@ function randerCostList(list) {
             }
 
             if (item.suite !== null && item.suite !== "") {
-                let sxz = 0;
-                switch (item.suite) {
-                    case "光套":
-                        sxz = 5;
-                        break;
-                    case "火套":
-                        sxz = 2;
-                        break;
-                    case "冰套":
-                        sxz = 1;
-                        break;
-                    case "暗套":
-                        sxz = 6;
-                        break;
-                    case "雷套":
-                        sxz = 3;
-                        break;
-                    case "风套":
-                        sxz = 4;
-                        break;
-                    case "奶套":
-                        sxz = 7;
-                        break;
-                    case "轻云套":
-                        sxz = 8;
-                        break;
-                    case "攻击套":
-                        sxz = 9;
-                        break;
-                    case "凌冽套":
-                        sxz = 10;
-                        break;
-                    case "此间套":
-                        sxz = 11;
-                        break;
-                    case "幽夜套":
-                        sxz = 12;
-                        break;
-                    case "高天套":
-                        sxz = 13;
-                        break;
-                    case "无惧套":
-                        sxz = 14;
-                        break;
-                    case "流云套":
-                        sxz = 15;
-                        break;
-                    case "愿戴套":
-                        sxz = 16;
-                        break;
-                    case "奔狼套":
-                        sxz = 17;
-                        break;
-                    case "失序套":
-                        sxz = 18;
-                        break;
-                    case "荣斗套":
-                        sxz = 19;
-                        break;
-                    case "息界套":
-                        sxz = 20;
-                        break;
-                    case "焚羽套":
-                        sxz = 21;
-                        break;
-                    case "命理套":
-                        sxz = 22;
-                        break;
-                }
+                let sxz = getSuiteAttributeId(item.suite);
                 ress += `<img class="mc-suite-attr2" src="image/attribute/` + sxz + `.png" alt="套装属性">`;
             }
             ress += `</div>`;
@@ -625,72 +557,7 @@ function renderImportCostList(filterType = "all") {
         }
 
         if (item.suite !== null && item.suite !== "") {
-            let sxz = 0;
-            switch (item.suite) {
-                case "光套":
-                    sxz = 5;
-                    break;
-                case "火套":
-                    sxz = 2;
-                    break;
-                case "冰套":
-                    sxz = 1;
-                    break;
-                case "暗套":
-                    sxz = 6;
-                    break;
-                case "雷套":
-                    sxz = 3;
-                    break;
-                case "风套":
-                    sxz = 4;
-                    break;
-                case "奶套":
-                    sxz = 7;
-                    break;
-                case "轻云套":
-                    sxz = 8;
-                    break;
-                case "攻击套":
-                    sxz = 9;
-                    break;
-                case "凌冽套":
-                    sxz = 10;
-                    break;
-                case "此间套":
-                    sxz = 11;
-                    break;
-                case "幽夜套":
-                    sxz = 12;
-                    break;
-                case "高天套":
-                    sxz = 13;
-                    break;
-                case "无惧套":
-                    sxz = 14;
-                    break;
-                case "流云套":
-                    sxz = 15;
-                    break;
-                case "愿戴套":
-                    sxz = 16;
-                    break;
-                case "奔狼套":
-                    sxz = 17;
-                    break;
-                case "失序套":
-                    sxz = 18;
-                    break;
-                case "荣斗套":
-                    sxz = 19;
-                    break;
-                case "息界套":
-                    sxz = 20;
-                    break;
-                case "焚羽套":
-                    sxz = 21;
-                    break;
-            }
+            let sxz = getSuiteAttributeId(item.suite);
             ress += `<img class="mc-suite-attr2" src="image/attribute/` + sxz + `.png" alt="套装属性">`;
         }
         ress += `</div>`;
