@@ -539,6 +539,10 @@ body {
     background-image: url("../image/characters/buling.png");
     background-size: 100% auto;
 }
+.mcr-linnai {
+    background-image: url("../image/characters/linnai.png");
+    background-size: 100% auto;
+}
 
 .mc-box-evaluate {
     position: relative;

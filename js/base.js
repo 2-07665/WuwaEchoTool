@@ -1,4 +1,4 @@
-﻿const toolVersion = "2.8.35";
+﻿const toolVersion = "3.0.36";
 const suiteAttributeMap = {
     "冰套": 1,
     "火套": 2,
@@ -677,6 +677,20 @@ const roleList = [
         "liberate": 0,
         "other": 0,
         "maxscore": 453
+    },
+    {   //琳奈
+        "id": 47,
+        "gid": 1509,
+        "name": "琳奈",
+        "star": 5,
+        "rule": 2,
+        "cls": "mcr-linnai",
+        "normal": 0.61,
+        "skill": 0.03,
+        "heavy": 0,
+        "liberate": 0.15,
+        "other": 0.21,
+        "maxscore": 502
     }
 ];
 const costList = [
@@ -4794,6 +4808,136 @@ const RoleSumProperty = [
             {"name": "小防御", "property": "0"}
         ]
     },
+    {
+        "id": 47,
+        "propertyList": [
+            {"name": "暴击", "property": "52.5%"},
+            {"name": "暴伤", "property": "105%"},
+            {"name": "大攻击", "property": "58%"},
+            {"name": "小攻击", "property": "120"},
+            {"name": "共鸣效率", "property": "37.2%"},
+            {"name": "普攻伤害", "property": "58%"},
+            {"name": "技能伤害", "property": "0%"},
+            {"name": "重击伤害", "property": "0%"},
+            {"name": "解放伤害", "property": "0%"},
+            {"name": "大生命", "property": "0%"},
+            {"name": "小生命", "property": "0"},
+            {"name": "大防御", "property": "0%"},
+            {"name": "小防御", "property": "0"}
+        ],
+        mzProperty: [
+            {"normal": 0.42, "skill": 0.05, "heavy": 0, "liberate": 0.15, "other": 0.38, "maxscore": 491},
+            {"normal": 0.42, "skill": 0.05, "heavy": 0, "liberate": 0.15, "other": 0.38, "maxscore": 491},
+            {"normal": 0.63, "skill": 0.03, "heavy": 0, "liberate": 0.1, "other": 0.24, "maxscore": 503.3},
+            {"normal": 0.63, "skill": 0.03, "heavy": 0, "liberate": 0.1, "other": 0.24, "maxscore": 496.2},
+            {"normal": 0.59, "skill": 0.03, "heavy": 0, "liberate": 0.15, "other": 0.23, "maxscore": 493.7},
+            {"normal": 0.7, "skill": 0.02, "heavy": 0, "liberate": 0.11, "other": 0.17, "maxscore": 500.2},
+        ],
+        mzRule: [
+            {
+                "ruleId": 1,
+                "attack01": 1,
+                "attack02": 0.1,
+                "crit": 1.8,
+                "critDamage": 0.9,
+                "property": 1,
+                "health01": 0,
+                "health02": 0,
+                "defense01": 0,
+                "defense02": 0,
+                "defenseLimit": 40,
+                "efficiency01": 1,
+                "efficiency02": 0.3,
+                "unike": 1,
+                "treat": 0
+            },
+            {
+                "ruleId": 2,
+                "attack01": 1,
+                "attack02": 0.1,
+                "crit": 1.8,
+                "critDamage": 0.9,
+                "property": 1,
+                "health01": 0,
+                "health02": 0,
+                "defense01": 0,
+                "defense02": 0,
+                "defenseLimit": 40,
+                "efficiency01": 1,
+                "efficiency02": 0.3,
+                "unike": 1,
+                "treat": 0
+            },
+            {
+                "ruleId": 3,
+                "attack01": 1,
+                "attack02": 0.1,
+                "crit": 1.8,
+                "critDamage": 0.9,
+                "property": 1,
+                "health01": 0,
+                "health02": 0,
+                "defense01": 0,
+                "defense02": 0,
+                "defenseLimit": 40,
+                "efficiency01": 1,
+                "efficiency02": 0,
+                "unike": 1,
+                "treat": 0
+            },
+            {
+                "ruleId": 4,
+                "attack01": 0.95,
+                "attack02": 0.095,
+                "crit": 1.8,
+                "critDamage": 0.9,
+                "property": 1,
+                "health01": 0,
+                "health02": 0,
+                "defense01": 0,
+                "defense02": 0,
+                "defenseLimit": 40,
+                "efficiency01": 1,
+                "efficiency02": 0,
+                "unike": 1,
+                "treat": 0
+            },
+            {
+                "ruleId": 5,
+                "attack01": 0.95,
+                "attack02": 0.095,
+                "crit": 1.8,
+                "critDamage": 0.9,
+                "property": 1,
+                "health01": 0,
+                "health02": 0,
+                "defense01": 0,
+                "defense02": 0,
+                "defenseLimit": 40,
+                "efficiency01": 1,
+                "efficiency02": 0,
+                "unike": 1,
+                "treat": 0
+            },
+            {
+                "ruleId": 6,
+                "attack01": 0.95,
+                "attack02": 0.095,
+                "crit": 1.8,
+                "critDamage": 0.9,
+                "property": 1,
+                "health01": 0,
+                "health02": 0,
+                "defense01": 0,
+                "defense02": 0,
+                "defenseLimit": 40,
+                "efficiency01": 1,
+                "efficiency02": 0,
+                "unike": 1,
+                "treat": 0
+            },
+        ]
+    }
 ]
 //计算角色声骸超越人数百分比的分母
 const MaxScore = 85;
