@@ -1,4 +1,4 @@
-﻿const toolVersion = "3.0.36";
+﻿const toolVersion = "3.0.37";
 const suiteAttributeMap = {
     "冰套": 1,
     "火套": 2,
@@ -829,6 +829,23 @@ const costList = [
     {"id": 133, "name": "梦魇·呜咔咔", "type": "Cost1", "imgCode": "https://prod-alicdn-community.kurobbs.com/forum/11457d754cc748a4bb3dfc890c7c05c820251114.png"},
     {"id": 134, "name": "梦魇·刺玫菇", "type": "Cost3", "imgCode": "https://prod-alicdn-community.kurobbs.com/forum/07870ba6ae1c48aea18e91864dfa29a220251114.png"},
     {"id": 135, "name": "梦魇·侏侏鸵", "type": "Cost1", "imgCode": "https://prod-alicdn-community.kurobbs.com/forum/65469080f05442c5ba72bb5cb1399c4020251114.png"},
+    {"id": 136, "name": "噼啪啪", "type": "Cost1", "imgCode": "https://prod-alicdn-community.kurobbs.com/forum/1551339ffefa450bb25097cebf504ed920251225.png"},
+    {"id": 137, "name": "岩蛛S4型", "type": "Cost1", "imgCode": "https://prod-alicdn-community.kurobbs.com/forum/5b4c99510c404bb6b9cffb5289db402c20251225.png"},
+    {"id": 138, "name": "矿岩熊蜂", "type": "Cost1", "imgCode": "https://prod-alicdn-community.kurobbs.com/forum/7da2506ceb444a50b8b8b851cdcc8def20251225.png"},
+    {"id": 139, "name": "莳植熊蜂", "type": "Cost1", "imgCode": "https://prod-alicdn-community.kurobbs.com/forum/33aa36f4dd5f47cd83cc303ff06447f720251225.png"},
+    {"id": 140, "name": "颤栗战士", "type": "Cost1", "imgCode": "https://prod-alicdn-community.kurobbs.com/forum/4cce6a381f514e2fb0787789b8feed7220251225.png"},
+    {"id": 141, "name": "风鳞蜃甲", "type": "Cost3", "imgCode": "https://prod-alicdn-community.kurobbs.com/forum/30f382b2ca5a4bd9a7a3012fb9363baa20251225.png"},
+    {"id": 142, "name": "霜鳞蜃甲", "type": "Cost3", "imgCode": "https://prod-alicdn-community.kurobbs.com/forum/8aa396442a4a486ca414c017cefe1a8e20251225.png"},
+    {"id": 143, "name": "隐迹铁影", "type": "Cost3", "imgCode": "https://prod-alicdn-community.kurobbs.com/forum/c2a29cbf64d14868b1953b14998c088220251225.png"},
+    {"id": 144, "name": "锯袭铁影", "type": "Cost3", "imgCode": "https://prod-alicdn-community.kurobbs.com/forum/6169be96c1574982ab95ae56274bd98820251225.png"},
+    {"id": 145, "name": "探隧重机", "type": "Cost3", "imgCode": "https://prod-alicdn-community.kurobbs.com/forum/9feafa395c834f6cbc9083f7950c1cd520251225.png"},
+    {"id": 146, "name": "重工铁蹄", "type": "Cost3", "imgCode": "https://prod-alicdn-community.kurobbs.com/forum/16f94a8288a14714abfc0c151819fe3720251225.png"},
+    {"id": 147, "name": "矿岩机麋", "type": "Cost3", "imgCode": "https://prod-alicdn-community.kurobbs.com/forum/14aa949b0e2c4414b8e1ce082472674220251225.png"},
+    {"id": 148, "name": "莳植机麋", "type": "Cost3", "imgCode": "https://prod-alicdn-community.kurobbs.com/forum/b4f1ef1b97aa40cf931b4e0b114309e420251225.png"},
+    {"id": 149, "name": "双极·渊陨重锋", "type": "Cost3", "imgCode": "https://prod-alicdn-community.kurobbs.com/forum/3e1ade5d856e4ef9bd3a9fce0ddde3e320251225.png"},
+    {"id": 150, "name": "双极·星升辉铳", "type": "Cost3", "imgCode": "https://prod-alicdn-community.kurobbs.com/forum/0c00bb3113a4417eb66f6c189185d19a20251225.png"},
+    {"id": 151, "name": "海维夏", "type": "Cost4", "imgCode": "https://prod-alicdn-community.kurobbs.com/forum/0909b97a0cc647eebd4709f1716bb57e20251225.png"},
+    {"id": 152, "name": "炉芯机骸", "type": "Cost4", "imgCode": "https://prod-alicdn-community.kurobbs.com/forum/c2f48b94135c403a933d202f5014f80620251225.png"},
 ];
 const ruleList = [
     {
