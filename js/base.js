@@ -1,4 +1,4 @@
-﻿const toolVersion = "3.0.37";
+﻿const toolVersion = "3.0.38";
 const suiteAttributeMap = {
     "冰套": 1,
     "火套": 2,
@@ -691,6 +691,20 @@ const roleList = [
         "liberate": 0.15,
         "other": 0.21,
         "maxscore": 502
+    },
+    {   //莫宁
+        "id": 48,
+        "gid": 1209,
+        "name": "莫宁",
+        "star": 5,
+        "rule": 10,
+        "cls": "mcr-moning",
+        "normal": 0.07,
+        "skill": 0.04,
+        "heavy": 0.09,
+        "liberate": 0.8,
+        "other": 0,
+        "maxscore": 509.9
     }
 ];
 const costList = [
@@ -1019,6 +1033,24 @@ const ruleList = [
         "unike": 1,
         "treat": 0
     },
+    {
+        //莫宁 - 防御奶
+        "ruleId": 10,
+        "attack01": 0,
+        "attack02": 0,
+        "crit": 0,
+        "critDamage": 0,
+        "property": 0.1,
+        "health01": 0.9,
+        "health02": 0.009,
+        "defense01": 1.4,
+        "defense02": 0.1,
+        "defenseLimit": 160,
+        "efficiency01": 1.4,
+        "efficiency02": 0.7,
+        "unike": 0.1,
+        "treat": 2
+    }
 ];
 /**-
  var saveInfo={
@@ -4953,6 +4985,23 @@ const RoleSumProperty = [
                 "unike": 1,
                 "treat": 0
             },
+        ]
+    },
+    {
+        "id": 48, "propertyList": [
+            {"name": "暴击", "property": "0%"},
+            {"name": "暴伤", "property": "0%"},
+            {"name": "大攻击", "property": "0%"},
+            {"name": "小攻击", "property": "0"},
+            {"name": "共鸣效率", "property": "62%"},
+            {"name": "普攻伤害", "property": "0%"},
+            {"name": "技能伤害", "property": "0%"},
+            {"name": "重击伤害", "property": "0%"},
+            {"name": "解放伤害", "property": "0%"},
+            {"name": "大生命", "property": "58%"},
+            {"name": "小生命", "property": "2900"},
+            {"name": "大防御", "property": "73.5%"},
+            {"name": "小防御", "property": "350"}
         ]
     }
 ]
