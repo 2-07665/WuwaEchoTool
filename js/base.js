@@ -1,4 +1,4 @@
-﻿const toolVersion = "3.0.38";
+﻿const toolVersion = "3.1.39";
 const suiteAttributeMap = {
     "冰套": 1,
     "火套": 2,
@@ -705,6 +705,20 @@ const roleList = [
         "liberate": 0.8,
         "other": 0,
         "maxscore": 509.9
+    }
+    {   //爱弥斯
+        "id": 49,
+        "gid": 1210,
+        "name": "愛彌斯",
+        "star": 5,
+        "rule": 10,
+        "cls": "mcr-amis",
+        "normal": 0.05,
+        "skill": 0.10,
+        "heavy": 0.05,
+        "liberate": 0.8,
+        "other": 0,
+        "maxscore": 505.0
     }
 ];
 const costList = [

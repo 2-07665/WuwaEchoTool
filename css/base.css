@@ -547,6 +547,10 @@ body {
     background-image: url("../image/characters/moning.png");
     background-size: 100% auto;
 }
+.mcr-aemeath {
+    background-image: url("../image/characters/aemeath.png");
+    background-size: 100% auto;
+}
 
 .mc-box-evaluate {
     position: relative;
