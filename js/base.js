@@ -1,4 +1,4 @@
-﻿const toolVersion = "3.1.39";
+﻿const toolVersion = "3.1.40";
 const suiteAttributeMap = {
     "冰套": 1,
     "火套": 2,
@@ -25,6 +25,9 @@ const suiteAttributeMap = {
     "星构套": 23,
     "流金套": 24,
     "逆光套": 25,
+    "长路套": 26,
+    "斑驳套": 27,
+    "听取套": 28,
 };
 
 function getSuiteAttributeId(suiteName) {
@@ -711,7 +714,7 @@ const roleList = [
         "gid": 0,
         "name": "愛彌斯",
         "star": 5,
-        "rule": 10,
+        "rule": 1,
         "cls": "mcr-aemeath",
         "normal": 0.05,
         "skill": 0.10,
@@ -874,6 +877,13 @@ const costList = [
     {"id": 150, "name": "双极·星升辉铳", "type": "Cost3", "imgCode": "https://prod-alicdn-community.kurobbs.com/forum/0c00bb3113a4417eb66f6c189185d19a20251225.png"},
     {"id": 151, "name": "海维夏", "type": "Cost4", "imgCode": "https://prod-alicdn-community.kurobbs.com/forum/0909b97a0cc647eebd4709f1716bb57e20251225.png"},
     {"id": 152, "name": "炉芯机骸", "type": "Cost4", "imgCode": "https://prod-alicdn-community.kurobbs.com/forum/c2f48b94135c403a933d202f5014f80620251225.png"},
+    {"id": 153, "name": "冰盈舞者", "type": "Cost1", "imgCode": "https://prod-alicdn-community.kurobbs.com/forum/32b4f54961c240ceb685a92dcd21200220260131.png"},
+    {"id": 154, "name": "影烁者", "type": "Cost1", "imgCode": "https://prod-alicdn-community.kurobbs.com/forum/98919727033e467a86ddb0e1b5f0fe7520260131.png"},
+    {"id": 155, "name": "格洛犸图", "type": "Cost3", "imgCode": "https://prod-alicdn-community.kurobbs.com/forum/87452807fb3147198f94d2b880a345b620260131.png"},
+    {"id": 156, "name": "共鸣回响·冠顶苍隼", "type": "Cost3", "imgCode": "https://prod-alicdn-community.kurobbs.com/forum/8695f300783344d0ae7a4ed4e0b7a2d220260131.png"},
+    {"id": 157, "name": "冠顶械隼", "type": "Cost3", "imgCode": "https://prod-alicdn-community.kurobbs.com/forum/957f5b4c853b48849d87bff371e82df420260131.png"},
+    {"id": 158, "name": "辛吉勒姆", "type": "Cost4", "imgCode": "https://prod-alicdn-community.kurobbs.com/forum/777036cbede346778f6e8b9cf46864cd20260204.png"},
+    {"id": 159, "name": "无铭探索者", "type": "Cost4", "imgCode": "https://prod-alicdn-community.kurobbs.com/forum/160483c26d3045258e736de8a506482f20260131.png"},
 ];
 const ruleList = [
     {
@@ -5016,6 +5026,135 @@ const RoleSumProperty = [
             {"name": "小生命", "property": "2900"},
             {"name": "大防御", "property": "73.5%"},
             {"name": "小防御", "property": "350"}
+        ]
+    },
+    {
+        "id": 49, "propertyList": [
+            {"name": "暴击", "property": "52.5%"},
+            {"name": "暴伤", "property": "105%"},
+            {"name": "大攻击", "property": "58%"},
+            {"name": "小攻击", "property": "120"},
+            {"name": "共鸣效率", "property": "37.2%"},
+            {"name": "普攻伤害", "property": "5%"},
+            {"name": "技能伤害", "property": "10%"},
+            {"name": "重击伤害", "property": "5%"},
+            {"name": "解放伤害", "property": "80%"},
+            {"name": "大生命", "property": "0%"},
+            {"name": "小生命", "property": "0"},
+            {"name": "大防御", "property": "0%"},
+            {"name": "小防御", "property": "0"}
+        ],
+        mzProperty: [
+            {"normal": 0.05, "skill": 0.10, "heavy": 0.05, "liberate": 0.8, "other": 0, "maxscore": 505.0},
+            {"normal": 0.05, "skill": 0.10, "heavy": 0.05, "liberate": 0.8, "other": 0, "maxscore": 505.0},
+            {"normal": 0.04, "skill": 0.08, "heavy": 0.04, "liberate": 0.84, "other": 0, "maxscore": 507.5},
+            {"normal": 0.04, "skill": 0.08, "heavy": 0.04, "liberate": 0.84, "other": 0, "maxscore": 507.5},
+            {"normal": 0.03, "skill": 0.06, "heavy": 0.03, "liberate": 0.88, "other": 0, "maxscore": 510.0},
+            {"normal": 0.02, "skill": 0.05, "heavy": 0.02, "liberate": 0.91, "other": 0, "maxscore": 512.5},
+        ],
+        mzRule: [
+            {
+                "ruleId": 1,
+                "attack01": 1,
+                "attack02": 0.1,
+                "crit": 1.8,
+                "critDamage": 0.9,
+                "property": 1,
+                "health01": 0,
+                "health02": 0,
+                "defense01": 0,
+                "defense02": 0,
+                "defenseLimit": 40,
+                "efficiency01": 0.5,
+                "efficiency02": 0,
+                "unike": 1,
+                "treat": 0
+            },
+            {
+                "ruleId": 2,
+                "attack01": 1,
+                "attack02": 0.1,
+                "crit": 1.8,
+                "critDamage": 0.9,
+                "property": 1,
+                "health01": 0,
+                "health02": 0,
+                "defense01": 0,
+                "defense02": 0,
+                "defenseLimit": 40,
+                "efficiency01": 0.5,
+                "efficiency02": 0,
+                "unike": 1,
+                "treat": 0
+            },
+            {
+                "ruleId": 3,
+                "attack01": 1,
+                "attack02": 0.1,
+                "crit": 1.8,
+                "critDamage": 0.9,
+                "property": 1,
+                "health01": 0,
+                "health02": 0,
+                "defense01": 0,
+                "defense02": 0,
+                "defenseLimit": 40,
+                "efficiency01": 0.5,
+                "efficiency02": 0,
+                "unike": 1,
+                "treat": 0
+            },
+            {
+                "ruleId": 4,
+                "attack01": 1,
+                "attack02": 0.1,
+                "crit": 1.8,
+                "critDamage": 0.9,
+                "property": 1,
+                "health01": 0,
+                "health02": 0,
+                "defense01": 0,
+                "defense02": 0,
+                "defenseLimit": 40,
+                "efficiency01": 0.5,
+                "efficiency02": 0,
+                "unike": 1,
+                "treat": 0
+            },
+            {
+                "ruleId": 5,
+                "attack01": 1,
+                "attack02": 0.1,
+                "crit": 1.8,
+                "critDamage": 0.9,
+                "property": 1,
+                "health01": 0,
+                "health02": 0,
+                "defense01": 0,
+                "defense02": 0,
+                "defenseLimit": 40,
+                "efficiency01": 0.5,
+                "efficiency02": 0,
+                "unike": 1,
+                "treat": 0
+            },
+            {
+                "ruleId": 6,
+                "attack01": 1,
+                "attack02": 0.1,
+                "crit": 1.8,
+                "critDamage": 0.9,
+                "property": 1,
+                "health01": 0,
+                "health02": 0,
+                "defense01": 0,
+                "defense02": 0,
+                "defenseLimit": 40,
+                "efficiency01": 0.5,
+                "efficiency02": 0,
+                "unike": 1,
+                "treat": 0
+            },
         ]
     }
 ]
