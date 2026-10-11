@@ -2,6 +2,11 @@
     'use strict';
     // 三种语言使用相同的 key 和插值参数。
     const rows={
+"workspace.showToken":["顯示憑證","显示凭证","Show credential"],
+"workspace.hideToken":["隱藏憑證","隐藏凭证","Hide credential"],
+"workspace.tokenSaved":["憑證已儲存於此瀏覽器。","凭证已保存于此浏览器。","Credential saved in this browser."],
+"workspace.tokenUnsaved":["憑證已修改，尚未驗證並儲存。","凭证已修改，尚未验证并保存。","Credential changed; not yet verified and saved."],
+"workspace.tokenNotSaved":["尚未儲存憑證，驗證成功後才會儲存。","尚未保存凭证，验证成功后才会保存。","No saved credential. It will be saved after successful validation."],
 "workspace.importFailure":["{stage}失敗：{reason}","{stage}失败：{reason}","{stage} failed: {reason}"],
 "workspace.importCode":["官方錯誤碼：{code}","官方错误码：{code}","API error code: {code}"],
 "workspace.importStage.bind":["驗證登入憑證","验证登录凭证","Credential validation"],

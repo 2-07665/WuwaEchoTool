@@ -7549,7 +7549,8 @@ var headers = {
 }
 //补全headers
 function completeHeaders(bat, needToken = true) {
-    let newHeaders = headers;
+    // 每次创建独立请求头，避免登录凭证残留到角色数据请求。
+    let newHeaders = {...headers};
     //从本地存储拿到保存的token
     let token = localStorage.getItem("kjq_token");
     if (token == null || typeof (token) === "undefined") {
@@ -7572,7 +7573,8 @@ function completeHeaders(bat, needToken = true) {
 }
 
 function completeHeaders2(tk) {
-    let newHeaders = headers;
+    // 每次创建独立请求头，避免登录凭证残留到角色数据请求。
+    let newHeaders = {...headers};
     newHeaders.token = tk;
     //拿到IP地址-devcode
     newHeaders.devCode = ipAddr + ",Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/605.1.15 (KHTML, like Gecko) Chrome/138.0.0.0 Safari/537.36 KuroGameBox/2.5.5";

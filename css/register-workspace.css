@@ -153,3 +153,5 @@ body { margin:0; background:#101718; color:#e2e7e4; font:16px/1.6 system-ui,sans
  #register-workspace .rw-echo-row>.rw-main-reading{grid-column:1/-1;border-top:1px solid #34443e;padding-top:12px}
  #register-workspace .rw-index-substats{grid-template-columns:1fr;gap:6px}
 }
+
+.rw-token-field{display:flex;align-items:stretch;gap:8px;min-width:0}.rw-token-field input{flex:1;min-width:0;width:0}.rw-token-field button{display:flex;align-items:center;justify-content:center;flex:0 0 48px;padding:10px}
