@@ -97,7 +97,7 @@ document.addEventListener('DOMContentLoaded',function(){
         if(mode==='compare')return secondary.history(historyRows,historyReady);
         return '<div id="rw-tools"></div>';
     }
-    function render(){document.title=i18n.t(mode==='import'?'screenshot.title':mode==='compare'?'nav.compare':mode==='echo'&&!echoId?'workspace.addEcho':'workspace.'+mode);host.innerHTML=`<h1>${mode==='import'?tr('screenshot.title'):mode==='compare'?tr('nav.compare'):t(mode==='echo'&&!echoId?'addEcho':mode)}</h1><p role="alert">${notice?t(notice):''}</p>${body()}`;host.querySelector('.rw-add-choice')?.showModal();if(mode==='tools')RegisterTools.mount(host.querySelector('#rw-tools'),i18n);}
+    function render(){document.title=i18n.t(mode==='import'?'screenshot.title':mode==='compare'?'nav.compare':mode==='echo'&&!echoId?'workspace.addEcho':'workspace.'+mode);host.innerHTML=`<h1>${mode==='import'?tr('screenshot.title'):mode==='compare'?tr('nav.compare'):t(mode==='echo'&&!echoId?'addEcho':mode)}</h1><p role="alert">${notice?(typeof notice==='object'?esc(ImportService.formatError(notice,(key,p)=>i18n.t(key,p))):t(notice)):''}</p>${body()}`;host.querySelector('.rw-add-choice')?.showModal();if(mode==='tools')RegisterTools.mount(host.querySelector('#rw-tools'),i18n);}
     screenshots?.mount(host,render);
     function closeAddChoice(){showAddChoice=false;render();host.querySelector('[data-library-add]')?.focus();}
     host.addEventListener('cancel',e=>{if(e.target.matches('.rw-add-choice')){e.preventDefault();closeAddChoice();}},true);
@@ -141,7 +141,7 @@ document.addEventListener('DOMContentLoaded',function(){
                 pendingImport=await importer.detail(importUid,{...base,isImport:true,gameRoleId:info.roleId});core.score(pendingImport);
                 core.transact(expected,d=>{d.tzmId=importUid;const index=d.role.findIndex(r=>String(r.roleId)===String(pendingImport.roleId));if(index<0)d.role.push(pendingImport);else d.role[index]=pendingImport;});location.assign(roleLink(pendingImport,Number(params.get('selectedPosition')),params.get('selectedEcho')));return;
             }
-        }catch(error){notice=['SOURCE_CHANGED','INVALID_DATA','INVALID_ECHO','READ_ONLY','IDENTITY','COST_LIMIT','INVALID_UID','TOKEN_REQUIRED','IMPORT_FAILED'].includes(error.message)?error.message:'SAVE_FAILED';}
+        }catch(error){notice=error.importFailure?error:['SOURCE_CHANGED','INVALID_DATA','INVALID_ECHO','READ_ONLY','IDENTITY','COST_LIMIT','INVALID_UID','TOKEN_REQUIRED','IMPORT_FAILED'].includes(error.message)?error.message:'SAVE_FAILED';}
         finally{busy=false;render();}
     });
     host.addEventListener('click',e=>{const b=e.target.closest('[data-remove]');if(!b)return;if(confirm(i18n.t('workspace.confirmDelete'))){try{core.transact(expected,d=>{core.removeEcho(d,null,b.dataset.remove);});reset();}catch(_){notice='SOURCE_CHANGED';}render();}});

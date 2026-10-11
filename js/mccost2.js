@@ -98,7 +98,7 @@ $(function () {
             core.score(updated);
             core.transact(source,data=>{const index=data.role.findIndex(r=>r.roleId===curRole.roleId);if(index<0)throw Error('SOURCE_CHANGED');data.role[index]=updated;});
             location.reload();
-        }catch(_){alert(EchoI18n.createBrowser(window).t('workspace.IMPORT_FAILED'));}
+        }catch(error){const i18n=EchoI18n.createBrowser(window);alert(ImportService.formatError(error,(key,params)=>i18n.t(key,params)));}
         finally{setTimeout(()=>{flag=true;},30000);}
     });
 

@@ -2,6 +2,22 @@
     'use strict';
     // 三种语言使用相同的 key 和插值参数。
     const rows={
+"workspace.importFailure":["{stage}失敗：{reason}","{stage}失败：{reason}","{stage} failed: {reason}"],
+"workspace.importCode":["官方錯誤碼：{code}","官方错误码：{code}","API error code: {code}"],
+"workspace.importStage.bind":["驗證登入憑證","验证登录凭证","Credential validation"],
+"workspace.importStage.auth":["取得資料授權","获取数据授权","Data authorization"],
+"workspace.importStage.refresh":["刷新角色資料","刷新角色数据","Role data refresh"],
+"workspace.importStage.list":["取得角色列表","获取角色列表","Role list retrieval"],
+"workspace.importStage.detail":["取得角色詳情","获取角色详情","Role detail retrieval"],
+"workspace.importReason.credential":["登入憑證缺失或失效，請重新綁定。","登录凭证缺失或失效，请重新绑定。","Login credential is missing or invalid. Bind it again."],
+"workspace.importReason.dataToken":["資料憑證已失效，請重新取得角色列表。","数据凭证已失效，请重新获取角色列表。","Data credential expired. Fetch the role list again."],
+"workspace.importReason.verification":["官方要求額外驗證，請先至庫街區完成驗證後重試。","官方要求额外验证，请先到库街区完成验证后重试。","Additional verification is required. Complete it in Kuro BBS, then retry."],
+"workspace.importReason.maintenance":["官方服務維護中，請稍後重試。","官方服务维护中，请稍后重试。","The service reports maintenance. Retry later."],
+"workspace.importReason.rejected":["官方未接受此次請求，請記錄錯誤碼以供排查。","官方未接受此次请求，请记录错误码以供排查。","The API rejected this request. Record the error code for troubleshooting."],
+"workspace.importReason.network":["無法連線，請檢查網路或瀏覽器是否阻擋請求。","无法连接，请检查网络或浏览器是否阻止请求。","Could not connect. Check your network or whether the browser blocked the request."],
+"workspace.importReason.timeout":["請求逾時，請稍後重試。","请求超时，请稍后重试。","The request timed out. Retry later."],
+"workspace.importReason.http":["伺服器回傳 HTTP 錯誤，請稍後重試或回報狀態碼。","服务器返回 HTTP 错误，请稍后重试或反馈状态码。","The server returned an HTTP error. Retry later or report the status code."],
+"workspace.importReason.format":["回傳資料格式異常或缺少必要欄位，請回報此失敗階段。","返回数据格式异常或缺少必要字段，请反馈此失败阶段。","Unexpected response format or missing fields. Report this failure stage."],
 "interaction.modelAutoSave":["調整評分條件後會自動儲存。","调整评分条件后会自动保存。","Scoring conditions are saved automatically when changed."],
 "interaction.modelSaved":["評分條件已自動儲存。","评分条件已自动保存。","Scoring conditions saved automatically."],
 "interaction.modelSaveFailed":["儲存失敗，目前僅為預覽。請重試儲存或還原存檔條件。","保存失败，目前仅为预览。请重试保存或还原存档条件。","Save failed; changes are preview-only. Retry saving or restore saved conditions."],

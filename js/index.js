@@ -86,7 +86,7 @@ $(function () {
         const value=$("#tokenValue").val();if(!value){alert(EchoI18n.createBrowser(window).t('workspace.TOKEN_REQUIRED'));return;}
         const service=ImportService.create({ajax:$.ajax,host:hostName,methods:methodName,headers:completeHeaders,tokenHeaders:completeHeaders2,storage:localStorage});
         try{await service.bind(value);token=value;$("#box002").removeClass("mc-hide");$("#box001").addClass("mc-hide");alert(EchoI18n.createBrowser(window).t('workspace.bound'));}
-        catch(_){alert(EchoI18n.createBrowser(window).t('workspace.IMPORT_FAILED'));}
+        catch(error){const i18n=EchoI18n.createBrowser(window);alert(ImportService.formatError(error,(key,params)=>i18n.t(key,params)));}
     });
     $("#jfgz").click(function () {
         window.open("./rule.html?view=classic", "_self");
@@ -174,7 +174,7 @@ $(function () {
             const container = $("#mc-import-role .modal-body-b").empty();
             roles.forEach(item=>container.append($('<img>').attr({'data-level':item.level,'data-role-id':mappingRoleId(item.roleId,item.roleName),'data-game-role-id':item.roleId,src:item.roleIconUrl,alt:item.roleName}).addClass('mc-role-impt-item')));
             $("#mc-import-role").modal("show");
-        } catch (_) { alert(EchoI18n.createBrowser(window).t('workspace.IMPORT_FAILED')); }
+        } catch (error) { const i18n=EchoI18n.createBrowser(window);alert(ImportService.formatError(error,(key,params)=>i18n.t(key,params))); }
         finally { setTimeout(()=>{flag=true;},15000); }
     });
     //导入勾选的角色
