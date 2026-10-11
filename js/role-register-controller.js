@@ -1,4 +1,4 @@
-/* 交互状态独立于 DOM 和存档，模型条件只在当前预览中生效。 */
+/* 交互状态独立于 DOM 和存档，模型条件由页面提交后确认。 */
 (function(root,factory){
     if(typeof module==='object'&&module.exports)module.exports=factory();
     else root.RoleRegisterController=factory();
@@ -59,6 +59,8 @@
         }
         rebuild();
         return {snapshot,select,refresh,updateModel,restore,
+            modelChanges(){return copy(overrides);},
+            acceptSaved(record){overrides={};return refresh(record);},
             collapse(){selection=null;return snapshot();},
             evidence(){evidenceOpen=!evidenceOpen;return snapshot();},
             resetModel(){overrides={};rebuild();reconcile();return snapshot();}};

@@ -2,6 +2,11 @@
     'use strict';
     // 三种语言使用相同的 key 和插值参数。
     const rows={
+"interaction.modelAutoSave":["調整評分條件後會自動儲存。","调整评分条件后会自动保存。","Scoring conditions are saved automatically when changed."],
+"interaction.modelSaved":["評分條件已自動儲存。","评分条件已自动保存。","Scoring conditions saved automatically."],
+"interaction.modelSaveFailed":["儲存失敗，目前僅為預覽。請重試儲存或還原存檔條件。","保存失败，目前仅为预览。请重试保存或还原存档条件。","Save failed; changes are preview-only. Retry saving or restore saved conditions."],
+"interaction.modelSaveConflict":["存檔已被更新，目前變更尚未儲存。請先還原存檔條件再調整。","存档已被更新，当前更改尚未保存。请先还原存档条件再调整。","Saved data changed; your changes are not saved. Restore saved conditions before editing again."],
+"interaction.retryModelSave":["重試儲存","重试保存","Retry saving"],
 "workspace.addManual":["手動建立","手动建立","Create manually"],
 "workspace.addInventory":["聲骸庫背包","声骸库背包","Echo inventory"],
 "workspace.inventoryTitle":["選擇背包聲骸","选择背包声骸","Choose an inventory Echo"],

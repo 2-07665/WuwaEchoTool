@@ -1,4 +1,4 @@
-/* 两个角色入口共用状态控制器；选择和模型预览不调用旧保存流程。 */
+/* 两个角色入口共用状态控制器；模型变更通过共享事务保存。 */
 document.addEventListener('DOMContentLoaded',function(){
     'use strict';
     if(!window.RoleRegisterMode)return;
@@ -9,6 +9,23 @@ document.addEventListener('DOMContentLoaded',function(){
     const legacy=new URL(url);legacy.searchParams.set('view','classic');legacy.searchParams.delete('selectedPosition');legacy.searchParams.delete('selectedEcho');
     legacy.searchParams.delete('draft');
     let controller=null,error=null,lastRecord=null,candidateSurface=null;
+    let modelPersistence='modelAutoSave';
+    function saveModel(){
+        if(!controller?.snapshot().modelChanged)return;
+        if(modelPersistence==='modelSaveConflict')return;
+        try{
+            const core=CharacterCore.create({read:()=>JSON.parse(localStorage.getItem('mcData')),write:saveDataToCache,normalize});
+            const data=core.load(),current=data.role.find(r=>String(r.roleId)===id);
+            if(JSON.stringify(current)!==lastRecord)throw Error('SOURCE_CHANGED');
+            let saved;
+            core.transact(JSON.stringify(data),next=>{
+                saved=next.role.find(r=>String(r.roleId)===id);
+                Object.assign(saved,controller.modelChanges());core.score(saved);
+            });
+            controller.acceptSaved(saved);lastRecord=JSON.stringify(saved);modelPersistence='modelSaved';
+        }catch(e){modelPersistence=e.message==='SOURCE_CHANGED'?'modelSaveConflict':'modelSaveFailed';}
+        candidateSurface?.invalidate('incompatible');
+    }
     const motion=()=>window.matchMedia('(prefers-reduced-motion: reduce)').matches?'auto':'smooth';
     function read(){
         const data=JSON.parse(localStorage.getItem('mcData')||'null');
@@ -24,7 +41,7 @@ document.addEventListener('DOMContentLoaded',function(){
         const state=controller?.snapshot(),model=state?.model;
         const catalogId=Number(model?.role.catalogId);
         const modes=newCharacterModels.settings[catalogId]?.modes.map(m=>m[0])||(catalogId===49?['tune','fusion']:catalogId===53?['fusion','harmony']:[]);
-        const html=RoleRegisterRenderer.render(model,i18n,{error,interaction:state||{},modelModes:modes,legacyUrl:legacy.pathname+legacy.search}).html;
+        const html=RoleRegisterRenderer.render(model,i18n,{error,interaction:{...state,modelPersistence},modelModes:modes,legacyUrl:legacy.pathname+legacy.search}).html;
         if(!host.querySelector('.rr-workspace')||!model||error)host.innerHTML=html;
         else {
             const template=document.createElement('template');template.innerHTML=html;
@@ -57,7 +74,7 @@ document.addEventListener('DOMContentLoaded',function(){
             const serialized=JSON.stringify(record);
             if(serialized===lastRecord&&controller&&!force)return;
             if(lastRecord!==null&&serialized!==lastRecord)candidateSurface?.invalidate();
-            if(controller)controller.refresh(record);else controller=RoleRegisterController.create(record,normalize);
+            if(controller){if(controller.snapshot().modelChanged){controller.refresh(record);modelPersistence='modelSaveConflict';}else {controller.acceptSaved(record);modelPersistence='modelAutoSave';}}else controller=RoleRegisterController.create(record,normalize);
             lastRecord=serialized;error=null;render();
         }catch(_){controller=null;error='unreadable';candidateSurface?.invalidate();render();}
     }
@@ -99,7 +116,8 @@ document.addEventListener('DOMContentLoaded',function(){
         }else if(button.hasAttribute('data-rr-evidence')){
             controller.evidence();render('[data-rr-evidence]');
             if(controller.snapshot().evidenceOpen)focus('#rr-evidence',true);
-        }else if(button.hasAttribute('data-rr-reset')){controller.resetModel();candidateSurface.invalidate('incompatible');render('[data-rr-reset]');}
+        }else if(button.hasAttribute('data-rr-reset')){controller.resetModel();modelPersistence='modelAutoSave';candidateSurface.invalidate('incompatible');refresh(true);focus('[data-rr-reset]');}
+        else if(button.hasAttribute('data-rr-save-model')){saveModel();render('[data-rr-reset]');}
     });
     let touchOrigin=null;
     host.addEventListener('touchstart',event=>{if(event.target.closest('.rr-loadout')){const point=event.touches[0];touchOrigin={x:point.clientX,y:point.clientY};}},{passive:true});
@@ -118,8 +136,7 @@ document.addEventListener('DOMContentLoaded',function(){
     host.addEventListener('change',event=>{
         if(event.target.matches('[data-rr-locale]')){i18n.setLocale(event.target.value);if(window.dispatchEvent)window.dispatchEvent(new CustomEvent('wuwa-locale',{detail:event.target.value}));}
         else if(event.target.matches('[data-rr-model]')&&controller){
-            const field=event.target.dataset.rrModel;controller.updateModel(field,event.target.value);render('[data-rr-model="'+field+'"]');
-            candidateSurface.invalidate('incompatible');
+            const field=event.target.dataset.rrModel;controller.updateModel(field,event.target.value);saveModel();render('[data-rr-model="'+field+'"]');
         }
     });
     window.addEventListener('wuwa-locale',event=>{if(i18n.locale!==event.detail)i18n.setLocale(event.detail);});
