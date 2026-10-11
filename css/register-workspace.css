@@ -155,3 +155,5 @@ body { margin:0; background:#101718; color:#e2e7e4; font:16px/1.6 system-ui,sans
 }
 
 .rw-token-field{display:flex;align-items:stretch;gap:8px;min-width:0}.rw-token-field input{flex:1;min-width:0;width:0}.rw-token-field button{display:flex;align-items:center;justify-content:center;flex:0 0 48px;padding:10px}
+
+.rw-token-heading{display:flex;align-items:baseline;justify-content:space-between;gap:8px 16px;flex-wrap:wrap}.rw-token-heading label{margin:0}.rw-token-heading a{font-size:.875rem}

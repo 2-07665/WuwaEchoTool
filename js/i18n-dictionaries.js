@@ -2,6 +2,7 @@
     'use strict';
     // 三种语言使用相同的 key 和插值参数。
     const rows={
+"workspace.tokenGuide":["Token 取得教學 ↗","Token 获取教程 ↗","How to get a Token ↗"],
 "workspace.showToken":["顯示憑證","显示凭证","Show credential"],
 "workspace.hideToken":["隱藏憑證","隐藏凭证","Hide credential"],
 "workspace.tokenSaved":["憑證已儲存於此瀏覽器。","凭证已保存于此浏览器。","Credential saved in this browser."],
