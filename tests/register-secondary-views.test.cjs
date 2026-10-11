@@ -13,6 +13,7 @@ for(const locale of ['zh-TW','zh-CN','en']){
  const views=env.RegisterSecondaryViews.create({i18n,esc:x=>String(x??''),name:(kind,id)=>kind+id,url:m=>m,normalize,summary:()=>'',roleLink:()=>'?roleid=1',catalog:env.api.costList,suites:{'光套':5}});
  let html=views.library(data,initial);assert.equal((html.match(/data-library-select=/g)||[]).length,1);assert.ok(html.includes(entry.imgCode));assert.doesNotMatch(html,/data-remove=/);
  html=views.library(data,{...initial,selected:'20',detailOpen:true,compareRole:'1',position:'1'});assert.equal((html.match(/class="rw-inspector /g)||[]).length,1);assert.match(html,/data-library-compare>/);assert.equal((html.match(/data-remove=/g)||[]).length,1);
+ assert.equal((html.match(/class="rw-stat-cell"/g)||[]).length,10);assert.ok(html.includes(base.t('interaction.missingSubstat')));assert.doesNotMatch(html,/effective|rawContribution/);
  for(const filter of [{search:'NO_MATCH'},{cost:'Cost4'},{suite:'不存在'},{main:'crit_damage'},{completeness:'complete'}])assert.doesNotMatch(views.library(data,{...initial,...filter}),/data-library-select=/);
  assert.match(views.library(data,{...initial,completeness:'incomplete'}),/data-library-select=/);
  html=views.library({...data,unusedEchoes:[echo,echo]},{...initial,selected:'20',compareRole:'1',position:'1'});assert.match(html,/data-library-compare disabled/);assert.match(html,/data-remove="20" disabled/);

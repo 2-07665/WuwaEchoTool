@@ -91,3 +91,65 @@ body { margin:0; background:#101718; color:#e2e7e4; font:16px/1.6 system-ui,sans
 @media(max-width:650px){.rw-ocr-result{grid-template-columns:1fr;gap:20px}.rw-ocr-source img{max-height:220px}.rw-ocr-examples{grid-template-columns:1fr}#register-workspace .rw-ocr .rw-stat{gap:0;grid-template-columns:minmax(0,1fr)}#register-workspace .rw-ocr label{min-width:0}.rw-ocr-result button{width:100%}}
 
 #register-workspace .rw-ocr .rw-stat label{margin:12px 0}#register-workspace .rw-ocr .rw-stat input,#register-workspace .rw-ocr .rw-stat select{min-height:44px}
+
+/* 背包在当前编辑页打开，列表滚动与确认区分离。 */
+#register-workspace .rw-inventory-dialog{width:min(860px,calc(100vw - 32px));max-height:calc(100dvh - 32px);box-sizing:border-box;padding:24px;background:#101b18;color:#e2e7e4;border:1px solid #658b7b;overflow:auto}
+#register-workspace .rw-inventory-dialog::backdrop{background:#000b}
+#register-workspace .rw-inventory-dialog[open]{display:flex;flex-direction:column;height:min(900px,calc(100dvh - 32px));overflow-anchor:none}
+#register-workspace .rw-inventory-dialog>header,#register-workspace .rw-inventory-dialog>p,#register-workspace .rw-inventory-dialog>footer,#register-workspace .rw-picker-filters{flex-shrink:0}
+#register-workspace .rw-inventory-dialog header{display:flex;justify-content:space-between;align-items:center;gap:16px}
+#register-workspace .rw-inventory-dialog h2{font-size:24px;margin:0}
+#register-workspace .rw-inventory-dialog p{color:#b5c6ba;margin:12px 0}
+#register-workspace .rw-picker-filters{display:grid;grid-template-columns:minmax(0,1fr) 140px;gap:16px}
+#register-workspace .rw-picker-filters label{margin:8px 0}
+#register-workspace .rw-picker-list{flex:1;min-height:80px;overflow:auto;overscroll-behavior:contain;border-block:1px solid #34443e}
+#register-workspace .rw-inventory-dialog footer{display:flex;flex-wrap:wrap;align-items:center;gap:12px;padding-top:18px}
+#register-workspace .rw-inventory-dialog footer>span{flex:1;min-width:120px;overflow-wrap:anywhere}
+#register-workspace .rw-picker-reason{grid-column:1/-1;color:#d5b58a;font-size:14px}
+#register-workspace .rw-picker-list button:disabled{opacity:.65;cursor:not-allowed}
+@media(max-width:480px){#register-workspace .rw-inventory-dialog{padding:16px}#register-workspace .rw-picker-filters{grid-template-columns:minmax(0,1fr) 100px}#register-workspace .rw-inventory-dialog footer>span{flex-basis:100%}#register-workspace .rw-inventory-dialog footer button{flex:1;padding:10px;font-size:14px}}
+@media(max-width:480px){#register-workspace .rw-inventory-dialog h2{font-size:20px;line-height:1.35}#register-workspace .rw-inventory-dialog p{font-size:13px;margin:8px 0}#register-workspace .rw-inventory-dialog footer{font-size:14px;padding-top:12px}}
+
+/* 库存摘要与详情共用读数单元，窄屏保留完整名称和数值。 */
+#register-workspace .rw-library-workspace{grid-template-columns:minmax(0,2fr) minmax(320px,1fr);gap:28px}
+#register-workspace .rw-echo-row{grid-template-columns:72px minmax(0,1fr) minmax(130px,.7fr);gap:16px;padding:24px 12px;border-left:3px solid transparent}
+#register-workspace .rw-echo-row[aria-pressed=true]{padding-left:12px;background:#15211e}
+#register-workspace .rw-echo-row img{width:72px;height:84px;grid-row:auto}
+#register-workspace .rw-echo-art{display:grid;place-items:center;width:72px;height:84px;flex-shrink:0;color:#81978b}
+#register-workspace .rw-echo-art>span{font-size:24px}
+#register-workspace .rw-inspector .rw-echo-art{width:100px;height:112px}
+#register-workspace .rw-echo-identity{min-width:0;overflow-wrap:anywhere}
+#register-workspace .rw-echo-identity strong{font-size:18px;line-height:1.5}
+#register-workspace .rw-main-reading{display:block;min-width:0;overflow-wrap:anywhere}
+#register-workspace .rw-main-reading small{font-size:12px;color:#a8b4ad;margin:0 0 4px}
+#register-workspace .rw-main-reading>span{display:block;font-size:14px;color:#cad5cf}
+#register-workspace .rw-main-reading>b{display:block;font-size:24px;font-weight:600;font-variant-numeric:tabular-nums;line-height:1.5}
+#register-workspace .rw-index-substats{grid-column:1/-1;display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:8px 12px}
+#register-workspace .rw-stat-cell{display:grid;grid-template-columns:minmax(0,1fr) auto;gap:12px;align-items:center;border:1px solid #34443e;padding:9px 12px;line-height:1.5;font-size:14px;color:#bac8c0}
+#register-workspace .rw-stat-cell>span{min-width:0;overflow-wrap:anywhere}
+#register-workspace .rw-stat-cell>b{font-size:16px;font-weight:500;color:#e2e7e4;white-space:nowrap;font-variant-numeric:tabular-nums}
+#register-workspace .rw-detail-substats{display:grid;gap:8px}
+#register-workspace .rw-inspector .rw-echo-preview{display:flex;align-items:center;gap:16px}
+#register-workspace .rw-inspector .rw-echo-preview img{width:100px;height:112px;object-fit:contain;flex-shrink:0}
+#register-workspace .rw-inspector .rw-echo-preview>div{min-width:0}
+#register-workspace .rw-inspector .rw-completeness{font-size:13px}
+#register-workspace .rw-inspector-main .rw-main-reading>b{font-size:30px}
+#register-workspace .rw-inspector button{max-width:100%;white-space:normal;overflow-wrap:anywhere}
+#register-workspace .rw-detail-substats+.rw-actions{margin-top:20px}
+#register-workspace .rw-inspector section:has(.rw-detail-substats){margin-bottom:20px}
+@media(max-width:960px){
+ #register-workspace .rw-library-workspace{display:block}
+ #register-workspace .rw-inspector{display:none;border-left:0;border-top:1px solid #344139;padding:24px 0}
+ #register-workspace .rw-inspector.is-open{display:block}
+ #register-workspace .rw-library-workspace:has(.rw-inspector.is-open) .rw-echo-index{display:none}
+ #register-workspace .rw-inspector-close{display:inline-block;margin-bottom:20px}
+ #register-workspace:has(.rw-inspector.is-open) .rw-filters,#register-workspace:has(.rw-inspector.is-open) .rw-section-actions{display:none}
+}
+@media(max-width:480px){
+ #register-workspace .rw-echo-row{grid-template-columns:56px minmax(0,1fr);gap:12px;padding:20px 8px}
+ #register-workspace .rw-echo-row[aria-pressed=true]{padding-left:8px}
+ #register-workspace .rw-echo-row img{width:56px}
+ #register-workspace .rw-echo-row .rw-echo-art{width:56px}
+ #register-workspace .rw-echo-row>.rw-main-reading{grid-column:1/-1;border-top:1px solid #34443e;padding-top:12px}
+ #register-workspace .rw-index-substats{grid-template-columns:1fr;gap:6px}
+}

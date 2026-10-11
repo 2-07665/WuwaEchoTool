@@ -67,3 +67,13 @@ html.register-shell-page,html.guide-page{scrollbar-gutter:stable;color-scheme:da
 .rr-share-dialog.rr-share-choosing{width:520px}.rr-share-choices{display:grid;gap:14px;margin:24px 0}.rr-share-choices button{text-align:left;padding:20px}.rr-share-dialog [hidden]{display:none!important}.rr-share-dialog{max-height:calc(100dvh - 32px);overflow:auto}.rr-share-dialog button:disabled{opacity:.5;cursor:wait}@media(max-width:600px){.rr-share-dialog{padding:20px}.rr-share-dialog .rr-dialog-actions{gap:10px}.rr-share-dialog .rr-dialog-actions button{flex:1 1 auto}}
 
 .rr-share-dialog canvas{width:auto;max-width:100%;max-height:65dvh;object-fit:contain;margin-inline:auto}
+
+/* 新增来源选择保持固定阅读宽度，取消操作统一靠右。 */
+.rr-add-source{width:440px;max-width:calc(100vw - 32px);max-height:calc(100dvh - 32px);overflow:auto;padding:28px}
+.rr-add-source h2{margin:0;font-size:24px;line-height:1.4;font-weight:500}
+.rr-add-source .rr-share-choices{gap:12px;margin:24px 0}
+.rr-add-source .rr-share-choices button{width:100%;min-height:60px;padding:16px 20px;line-height:1.5}
+.rr-add-source .rr-share-choices button:hover{background:#1c2d25;border-color:#a3cfbb}
+.rr-add-source .rr-dialog-actions{justify-content:flex-end;border-top:1px solid #344b3e;padding-top:20px;margin-top:0}
+.rr-add-source .rr-dialog-actions button{min-width:88px}
+@media(max-width:480px){.rr-add-source{padding:24px}.rr-add-source h2{font-size:22px}}

@@ -2,6 +2,14 @@
     'use strict';
     // 三种语言使用相同的 key 和插值参数。
     const rows={
+"workspace.addManual":["手動建立","手动建立","Create manually"],
+"workspace.addInventory":["聲骸庫背包","声骸库背包","Echo inventory"],
+"workspace.inventoryTitle":["選擇背包聲骸","选择背包声骸","Choose an inventory Echo"],
+"workspace.inventoryTarget":["加入 {name} · 第 {position} 槽","加入 {name} · 第 {position} 槽","Add to {name} · Slot {position}"],
+"workspace.inventoryEmpty":["目前沒有未使用的聲骸。關閉背包後可繼續手動新增。","目前没有未使用的声骸。关闭背包后可继续手动新增。","No unused Echoes. Close inventory to continue manual entry."],
+"workspace.inventoryConfirm":["加入目前角色","加入当前角色","Add to this character"],
+"workspace.inventoryRefresh":["重新讀取背包","重新读取背包","Refresh inventory"],
+"workspace.inventoryHelp":["只顯示未使用的聲骸。選取並確認後加入角色；關閉不會影響尚未儲存的輸入。","只显示未使用的声骸。选取并确认后加入角色；关闭不会影响尚未保存的输入。","Only unused Echoes are shown. Select and confirm to equip; closing preserves your unsaved input."],
 "screenshot.saveFailed":["無法寫入瀏覽器儲存空間，請確認儲存權限與可用空間後重試。校對結果仍保留在此頁。","无法写入浏览器存储空间，请确认存储权限与可用空间后重试。校对结果仍保留在此页。","Could not save to browser storage. Check storage permissions and available space, then retry. Your reviewed result remains on this page."],
 "screenshot.nameSuggestion":["名稱可能有誤讀，請核對後選用候選：","名称可能有误读，请核对后选用候选：","The name may be misread. Check before choosing a suggestion:"],
 "screenshot.chooseMethod":["選擇新增方式","选择新增方式","Choose how to add an Echo"],

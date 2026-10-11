@@ -40,23 +40,57 @@ document.addEventListener('DOMContentLoaded',function(){
         const cat=costList.find(e=>String(e.id)===String(fields.catalog));if(!cat)return '<p>'+t('INVALID_ECHO')+'</p>';
         // 旧存档可能包含不同的小数精度，保留当前值作为可见选项，避免打开即隐式改写。
         if(fields.main&&!mains[cat.type].includes(fields.main))mains[cat.type].push(fields.main);
-        return `<div class="rw-echo-preview"><img src="${esc(cat.imgCode)}" alt="${name('echoes',cat.id)}" onerror="this.hidden=true;this.nextElementSibling.hidden=false"><span hidden>${t('previewUnavailable')}</span><div><strong>${name('echoes',cat.id)}</strong><p>${esc(cat.type)}</p></div></div><form data-action="echo"><label>${tr('candidate.echo')}${catalogSelect('echoes',fields.catalog)}</label><label>${tr('loadout.mainStat')}<select name="main"><option value="">${tr('candidate.unset')}</option>${mains[cat.type].map(v=>`<option value="${esc(v)}"${v===fields.main?' selected':''}>${mainLabel(v,cat.type)}</option>`).join('')}</select></label><label>${t('suite')}<select name="suite"><option value="">${tr('candidate.unset')}</option>${Object.entries(suiteAttributeMap).map(([legacy,id])=>`<option value="${esc(legacy)}"${fields.suite===legacy?' selected':''}>${esc(i18n.entity('sets',id,legacy))}</option>`).join('')}</select></label><p>${t('incompleteAllowed')}</p>${fields.stats.map((s,i)=>`<div class="rw-stat"><label>${tr('candidate.substatIndex',{position:i+1})}<select name="key${i}"><option value="">${tr('candidate.unset')}</option>${RoleCandidates.SUB.map(k=>`<option value="${k}"${s.key===k?' selected':''}>${tr('stats.'+k)}</option>`).join('')}</select></label><label>${tr('analysis.actualValue')}${rollSelect(s,i)}</label></div>`).join('')}${action('save')}</form>${echo&&record?`<button data-unequip>${t('unequip')}</button> <button data-delete-equipped>${t('delete')}</button>`:''}${!echo&&record?`<a href="${url('library',{roleid:record.roleId})}">${t('equipLibrary')}</a><p>${t('appendSlot',{position:record.costList.length+1})}</p>`:''}`;
-    }
-    function echoSummary(e){
-        const slot=normalize({roleId:'library',roleListId:0,costList:[e]}).slots[0],item=slot.echo;
-        if(!item)return '<p>'+tr('state.missing')+'</p>';
-        const value=s=>s&&Number.isFinite(s.value)?tr('stats.'+s.key)+' '+esc(s.unit==='percent'?i18n.format.percentage(s.value):i18n.format.decimal(s.value)):'—';
-        const complete=item.mainStat.status==='valid'&&item.substats.length===5&&item.substats.every(s=>s.status==='valid')&&new Set(item.substats.map(s=>s.key)).size===5;
-        return '<p>'+value(item.mainStat)+'</p><p>'+item.substats.filter(s=>s.key).map(value).join(' · ')+'</p><p>'+tr('interaction.completeness',{state:i18n.t('state.'+(complete?'complete':'incomplete'))})+'</p>';
+        return `<div class="rw-echo-preview"><img src="${esc(cat.imgCode)}" alt="${name('echoes',cat.id)}" onerror="this.hidden=true;this.nextElementSibling.hidden=false"><span hidden>${t('previewUnavailable')}</span><div><strong>${name('echoes',cat.id)}</strong><p>${esc(cat.type)}</p></div></div><form data-action="echo"><label>${tr('candidate.echo')}${catalogSelect('echoes',fields.catalog)}</label><label>${tr('loadout.mainStat')}<select name="main"><option value="">${tr('candidate.unset')}</option>${mains[cat.type].map(v=>`<option value="${esc(v)}"${v===fields.main?' selected':''}>${mainLabel(v,cat.type)}</option>`).join('')}</select></label><label>${t('suite')}<select name="suite"><option value="">${tr('candidate.unset')}</option>${Object.entries(suiteAttributeMap).map(([legacy,id])=>`<option value="${esc(legacy)}"${fields.suite===legacy?' selected':''}>${esc(i18n.entity('sets',id,legacy))}</option>`).join('')}</select></label><p>${t('incompleteAllowed')}</p>${fields.stats.map((s,i)=>`<div class="rw-stat"><label>${tr('candidate.substatIndex',{position:i+1})}<select name="key${i}"><option value="">${tr('candidate.unset')}</option>${RoleCandidates.SUB.map(k=>`<option value="${k}"${s.key===k?' selected':''}>${tr('stats.'+k)}</option>`).join('')}</select></label><label>${tr('analysis.actualValue')}${rollSelect(s,i)}</label></div>`).join('')}${action('save')}</form>${echo&&record?`<button data-unequip>${t('unequip')}</button> <button data-delete-equipped>${t('delete')}</button>`:''}${!echo&&record?`<button type="button" data-open-inventory>${t('equipLibrary')}</button><p>${t('appendSlot',{position:record.costList.length+1})}</p>`:''}`;
     }
     const libraryState={selected:null,detailOpen:false,search:'',cost:'',suite:'',main:'',completeness:'',equipRole:'',compareRole:'',position:''};
-    const secondary=RegisterSecondaryViews.create({i18n,esc,name,url,normalize,summary:echoSummary,roleLink,catalog:costList,suites:suiteAttributeMap});
+    const secondary=RegisterSecondaryViews.create({i18n,esc,name,url,normalize,roleLink,catalog:costList,suites:suiteAttributeMap});
+    // 背包只读取未使用声骸；可用性预检和最终写入复用同一个装备入口。
+    function openInventory(){
+        if(mode!=='echo'||echoId||!record||record.isImport)return;
+        const opener=document.activeElement,dialog=document.createElement('dialog');
+        dialog.className='rw-inventory-dialog';dialog.setAttribute('aria-labelledby','rw-inventory-title');
+        dialog.innerHTML=`<header><h2 id="rw-inventory-title">${t('inventoryTitle')}</h2><button type="button" data-picker-close>${tr('common.close')}</button></header><p data-picker-target></p><p>${t('inventoryHelp')}</p><div class="rw-picker-filters"><label>${tr('secondary.search')}<input type="search" data-picker-search></label><label>${tr('secondary.cost')}<select data-picker-cost><option value="">${tr('secondary.all')}</option>${['Cost1','Cost3','Cost4'].map(c=>`<option>${c}</option>`).join('')}</select></label></div><p role="alert" data-picker-error></p><div class="rw-picker-list"></div><footer><span data-picker-choice aria-live="polite"></span><button type="button" data-picker-refresh>${t('inventoryRefresh')}</button><button type="button" class="rw-primary" data-picker-confirm disabled>${t('inventoryConfirm')}</button></footer>`;
+        host.append(dialog);
+        const state={search:'',cost:'',selected:null},availability=new Map();let snapshot,revision,target,saving=false;
+        const error=dialog.querySelector('[data-picker-error]'),confirmButton=dialog.querySelector('[data-picker-confirm]');
+        const message=e=>i18n.t('workspace.'+(['SOURCE_CHANGED','INVALID_DATA','INVALID_ECHO','READ_ONLY','IDENTITY','COST_LIMIT'].includes(e.message)?e.message:'SAVE_FAILED'));
+        function draw(){
+            dialog.querySelector('.rw-picker-list').innerHTML=secondary.inventory(snapshot?.unusedEchoes||[],state,availability);
+            const chosen=snapshot?.unusedEchoes?.find(e=>String(e.costId)===state.selected);
+            dialog.querySelector('[data-picker-choice]').textContent=chosen?i18n.entity('echoes',chosen.costListId,chosen.name):'';
+            confirmButton.disabled=saving||!chosen||availability.has(state.selected);
+        }
+        function refresh(){
+            state.selected=null;error.textContent='';availability.clear();
+            try{
+                snapshot=core.load();revision=JSON.stringify(snapshot);target=snapshot.role.find(r=>String(r.roleId)===roleId);
+                if(!target)throw Error('SOURCE_CHANGED');
+                dialog.querySelector('[data-picker-target]').textContent=i18n.t('workspace.inventoryTarget',{name:i18n.entity('characters',target.roleListId,target.name),position:target.costList.length+1});
+                for(const item of snapshot.unusedEchoes||[]){try{core.equip(JSON.parse(revision),roleId,item.costId);}catch(e){availability.set(String(item.costId),message(e));}}
+            }catch(e){snapshot=null;error.textContent=message(e);}
+            draw();
+        }
+        function close(){dialog.close();dialog.remove();if(params.get('inventory')==='1'){location.assign(back());return;}opener?.focus();}
+        dialog.addEventListener('cancel',e=>{e.preventDefault();close();});
+        dialog.querySelector('[data-picker-close]').onclick=close;
+        dialog.querySelector('[data-picker-refresh]').onclick=refresh;
+        dialog.querySelector('[data-picker-search]').oninput=e=>{state.search=e.target.value;draw();};
+        dialog.querySelector('[data-picker-cost]').onchange=e=>{state.cost=e.target.value;draw();};
+        dialog.querySelector('.rw-picker-list').onclick=e=>{const b=e.target.closest('[data-picker-select]');if(!b||b.disabled)return;state.selected=b.dataset.pickerSelect;draw();const selected=dialog.querySelector(`[data-picker-select="${CSS.escape(state.selected)}"]`);selected?.focus({preventScroll:true});const list=dialog.querySelector('.rw-picker-list');if(selected)list.scrollTop+=selected.getBoundingClientRect().top-list.getBoundingClientRect().top;dialog.scrollTop=0;};
+        confirmButton.onclick=()=>{
+            if(confirmButton.disabled||saving)return;saving=true;confirmButton.disabled=true;error.textContent='';
+            try{let position;core.transact(revision,d=>position=core.equip(d,roleId,state.selected));location.assign(roleLink(target,position,state.selected));}
+            catch(e){error.textContent=message(e);saving=false;if(e.message==='SOURCE_CHANGED'){state.selected=null;snapshot=null;}draw();}
+        };
+        refresh();dialog.showModal();dialog.querySelector('[data-picker-search]').focus();
+    }
+    host.addEventListener('click',e=>{if(e.target.closest('[data-open-inventory]'))openInventory();});
     function backupCounts(){const drafts=RoleDraftStorage.create(localStorage).load(),adoptions=RoleLocalConfiguration.create(localStorage).load();return {core:data.role.length+(data.unusedEchoes||[]).length,drafts:drafts.ok?drafts.data.drafts.length:null,adoptions:adoptions.ok?adoptions.data.items.length:null};}
     let showScreenshots=false,showAddChoice=false;
     const screenshots=mode==='library'&&notice!=='INVALID_DATA'?RegisterScreenshotImport.create({i18n,catalog:costList,suites:suiteAttributeMap,core,roleId,onSaved:({complete})=>{reset();if(complete){showScreenshots=false;screenshots.clear();queueMicrotask(()=>host.querySelector('[data-library-add]')?.focus());}},rollValues:Object.fromEntries(Object.entries(rollTypes).map(([key,index])=>[key,fctValue[index].values.map(parseFloat)])),mainValues:Object.fromEntries(Object.entries(mains).map(([type,values])=>[type,values.map(raw=>{const stat=normalize({roleId:1,roleListId:1,costList:[{type,mainAtrri:raw,propertyList:[]}]}).slots[0].echo.mainStat;return {key:stat.key,value:stat.value,raw};})]))}):null;
     function body(){
         if(mode==='create')return `<form data-action="create"><label>${t('character')}${catalogSelect('characters',fields.catalog)}</label>${action('create')}</form>`;
-        if(mode==='echo')return echoForm();
+        if(mode==='echo')return params.get('inventory')==='1'&&record&&!echo?`<p>${name('characters',record.roleListId)}</p><button type="button" data-open-inventory>${t('addInventory')}</button> <a href="${back()}">${t('cancel')}</a>`:echoForm();
         if(mode==='import')return `<p>${t('importScope')}</p><form data-action="bind"><label>${t('token')}<input name="token" type="password" autocomplete="off" required></label><button${busy?' disabled':''}>${t('bind')}</button></form><form data-action="fetch"><label>${t('uid')}<input name="uid" inputmode="numeric" pattern="[0-9]{9}" value="${esc(importUid||data.tzmId||'')}" required></label><button${busy?' disabled':''}>${t('fetch')}</button></form>${remote.length?`<form data-action="import"><label>${t('character')}<select name="remote">${remote.map((r,i)=>`<option value="${i}">${name('characters',mappingRoleId(r.roleId,r.roleName))}</option>`).join('')}</select></label>${action('import')}</form>`:''}<a href="${back()}">${t('cancel')}</a>`;
         if(mode==='library')return showScreenshots?'<button type="button" data-library-screenshot-back>'+tr('screenshot.backLibrary')+'</button>'+(screenshots?screenshots.render():'<p>'+t('INVALID_DATA')+'</p>'):secondary.library(data,libraryState)+(showAddChoice?`<dialog class="rw-add-choice" aria-labelledby="rw-add-choice-title"><h2 id="rw-add-choice-title">${t('addEcho')}</h2><p>${tr('screenshot.chooseMethod')}</p><div><a href="${url('echo',roleId?{roleid:roleId}:{})}">${tr('screenshot.manual')}</a><button type="button" data-library-screenshot>${tr('screenshot.screenshot')}</button></div><button type="button" data-add-choice-close>${tr('common.cancel')}</button></dialog>`:'');
         if(mode==='backup')return secondary.backup(backupCounts(),backupText);
@@ -151,4 +185,5 @@ document.addEventListener('DOMContentLoaded',function(){
     host.addEventListener('click',e=>{const button=e.target.closest('[data-delete-draft],[data-prune]');if(!button||!confirm(i18n.t('workspace.confirmHistory')))return;const service=RoleHistory.create(localStorage),result=button.hasAttribute('data-prune')?service.prune():service.remove(button.dataset.deleteDraft);notice=result.ok?'historyUpdated':'SAVE_FAILED';refreshHistory();});
     refreshHistory();
     window.addEventListener('wuwa-locale',e=>i18n.setLocale(e.detail));i18n.subscribe(render);render();
+    if(params.get('inventory')==='1')openInventory();
 });

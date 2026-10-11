@@ -62,6 +62,24 @@ document.addEventListener('DOMContentLoaded',function(){
         }catch(_){controller=null;error='unreadable';candidateSurface?.invalidate();render();}
     }
     host.addEventListener('click',event=>{if(event.target.closest('[data-rr-share]')&&controller)RegisterShare.open(controller.snapshot().model,i18n);});
+    // 新增入口先选择来源；背包复用现有选择器，不进入通用声骸库。
+    host.addEventListener('click',event=>{
+        const link=event.target.closest('a[href]');if(!link||!controller)return;
+        const destination=new URL(link.href,location.href);
+        if(!destination.pathname.endsWith('/register-workspace.html')||destination.searchParams.get('mode')!=='echo'||destination.searchParams.has('costid'))return;
+        event.preventDefault();
+        const dialog=document.createElement('dialog');dialog.className='rr-dialog rr-add-source';dialog.setAttribute('aria-labelledby','rr-add-source-title');
+        const heading=document.createElement('h2');heading.id='rr-add-source-title';heading.textContent=i18n.t('workspace.addEcho');dialog.append(heading);
+        const choices=document.createElement('div');choices.className='rr-share-choices';
+        for(const [label,inventory] of [['workspace.addManual',false],['workspace.addInventory',true]]){
+            const button=document.createElement('button');button.type='button';button.textContent=i18n.t(label);
+            button.onclick=()=>{const next=new URL(destination);if(inventory)next.searchParams.set('inventory','1');location.assign(next.href);};choices.append(button);
+        }
+        const close=document.createElement('button');close.type='button';close.textContent=i18n.t('common.cancel');
+        const finish=()=>{dialog.close();dialog.remove();link.focus();};close.onclick=finish;dialog.oncancel=e=>{e.preventDefault();finish();};
+        const actions=document.createElement('div');actions.className='rr-dialog-actions';actions.append(close);
+        dialog.append(choices,actions);document.body.append(dialog);dialog.showModal();choices.querySelector('button').focus();
+    });
     refresh();
     candidateSurface=RoleCandidateSurface.mount({host,i18n,normalize,getController:()=>controller,refresh,catalog:costList});
     if(controller&&params.has('selectedEcho')){

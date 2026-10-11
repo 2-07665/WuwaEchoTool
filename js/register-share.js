@@ -19,7 +19,20 @@
         save.disabled=true;status.textContent='';restricted=false;
         // 重置画布的来源状态，再用用户明确选择的文件重新绘制。
         canvas.width=1440;const totalKeys=[...new Set(['crit_rate','crit_damage','atk_percent','resonance_efficiency',...data.summary.substatTotals.map(s=>s.key)])];
-        canvas.height=mode==='detailed'?1830+Math.max(0,Math.ceil(totalKeys.length/4)-2)*86:1150;
+        // 详细版按实际换行高度分配共享行，五栏始终对齐且不裁切文字。
+        const measure=canvas.getContext('2d');
+        function height(value,size,width){measure.font=size+'px system-ui, sans-serif';let rows=1,line='';for(const ch of String(value)){if(measure.measureText(line+ch).width>width&&line){rows++;line='';}line+=ch;}return rows*size*1.4;}
+        const echoName=e=>i18n.entity('echoes',e.catalogId,e.legacy?.name||e.catalogId);
+        const suiteName=e=>e.suite?.id!=null?i18n.entity('sets',e.suite.id,e.suite.legacy?.name):e.suite?.legacy?.name||'';
+        const statName=s=>s?.key?t('stats.'+s.key):t('interaction.missingSubstat');
+        const echoes=data.slots.map(s=>s.echo).filter(Boolean);
+        const maxHeight=(get,size,width,min)=>Math.max(min,...echoes.map(e=>height(get(e),size,width)));
+        const layout={name:maxHeight(echoName,22,245,62),suite:maxHeight(suiteName,18,245,50),main:maxHeight(e=>e.mainStat.key?t('stats.'+e.mainStat.key):t('state.missing'),20,245,56)};
+        layout.rows=Array.from({length:Math.max(5,...echoes.map(e=>e.substats?.length||0))},(_,i)=>Math.max(76,...echoes.map(e=>height(statName(e.substats?.[i]),18,137)+26)));
+        layout.subtop=748+layout.name+layout.suite+layout.main+184;
+        layout.totalTop=layout.subtop+layout.rows.reduce((a,b)=>a+b+10,0)+66;
+        layout.totalRows=Array.from({length:Math.ceil(totalKeys.length/4)},(_,i)=>Math.max(...totalKeys.slice(i*4,i*4+4).map(k=>height(t('stats.'+k),20,310)))+65);
+        canvas.height=mode==='detailed'?Math.ceil(layout.totalTop+70+layout.totalRows.reduce((a,b)=>a+b,0)+260):1150;
         const ctx=canvas.getContext('2d');ctx.fillStyle='#111918';ctx.fillRect(0,0,1440,canvas.height);
         function text(value,x,y,size=22,color='#dce4dd',width=1300){ctx.fillStyle=color;ctx.font=size+'px system-ui, sans-serif';const lines=[];let line='';for(const ch of String(value)){if(ctx.measureText(line+ch).width>width&&line){lines.push(line);line='';}line+=ch;}lines.push(line);lines.forEach((v,i)=>ctx.fillText(v,x,y+i*size*1.4));return lines.length*size*1.4;}
         function line(x,y,x2){ctx.strokeStyle='#53645c';ctx.lineWidth=1;ctx.beginPath();ctx.moveTo(x,y);ctx.lineTo(x2,y);ctx.stroke();}
@@ -62,23 +75,28 @@
                 if(!e){text(t('loadout.empty'),x,620,22,'#b5c2b9',245);continue;}
                 text(t('loadout.cost',{cost:e.cost}),x+120,537,18,'#b5c2b9',125);
                 await picture(e.image,x+28,558,190,150);
-                text(i18n.entity('echoes',e.catalogId,e.legacy?.name||e.catalogId),x,748,21,'#e2e8e2',245);
-                const suite=e.suite?.id!=null?i18n.entity('sets',e.suite.id,e.suite.legacy?.name):e.suite?.legacy?.name;
-                if(suite)text(suite,x,813,16,'#92a89a',245);
-                line(x,856,x+245);text(e.mainStat.key?t('stats.'+e.mainStat.key):t('state.missing'),x,888,18,'#b5c2b9',245);
-                text(value(e.mainStat),x,925,28);text(t('loadout.contribution'),x,967,16,'#b5c2b9',245);text(f.score(e.score.value),x,1012,36);
-                line(x,1036,x+245);
-                for(let i=0;i<5;i++){
-                    const stat=e.substats?.[i],y=1070+i*49;
-                    text(stat?.key?t('stats.'+stat.key):t('interaction.missingSubstat'),x,y,16,'#b5c2b9',155);
-                    ctx.textAlign='right';text(value(stat),x+245,y,19,'#e2e8e2',90);ctx.textAlign='left';
+                text(echoName(e),x,748,22,'#e2e8e2',245);
+                let y=748+layout.name;
+                text(suiteName(e),x,y,18,'#a6b9ae',245);y+=layout.suite;
+                line(x,y-12,x+245);text(e.mainStat.key?t('stats.'+e.mainStat.key):t('state.missing'),x,y+18,20,'#b5c2b9',245);y+=layout.main;
+                text(value(e.mainStat),x,y+24,30);text(t('loadout.contribution'),x,y+66,18,'#b5c2b9',245);text(f.score(e.score.value),x,y+112,38);
+                line(x,layout.subtop-22,x+245);y=layout.subtop;
+                for(let i=0;i<layout.rows.length;i++){
+                    const stat=e.substats?.[i],h=layout.rows[i];
+                    // 沿用有效词条计数的原始贡献来源，未知模型保持中性。
+                    const effective=data.model.status==='available'&&stat?.status==='valid'&&Number.isFinite(stat.rawContribution)&&stat.rawContribution>0;
+                    ctx.strokeStyle=effective?'#578c7d':'#3d5047';ctx.lineWidth=1;ctx.strokeRect(x+.5,y+.5,244,h-1);
+                    if(effective){ctx.fillStyle='#172b25';ctx.fillRect(x+1,y+1,243,h-2);ctx.fillStyle='#a3e5cd';ctx.fillRect(x+1,y+12,2,h-24);}
+                    text(statName(stat),x+12,y+(h-height(statName(stat),18,137))/2+19,18,effective?'#b3efd9':'#bac6bf',137);
+                    ctx.textAlign='right';ctx.fillStyle=effective?'#c7f8e5':'#dce4dd';ctx.font=(effective?'600 ':'')+'21px system-ui, sans-serif';ctx.fillText(value(stat),x+233,y+h/2+7);ctx.textAlign='left';
+                    y+=h+10;
                 }
-                if(slot.status!=='complete')text(t('state.'+slot.status),x,1330,16,'#b5c2b9',245);
+                if(slot.status!=='complete')text(t('state.'+slot.status),x,y+24,18,'#b5c2b9',245);
             }
-            line(48,1360,1392);text(t('summary.substatTotals'),48,1401,22);
+            line(48,layout.totalTop,1392);text(t('summary.substatTotals'),48,layout.totalTop+40,22);
             const totals=new Map(data.summary.substatTotals.map(s=>[s.key,s]));
             const keys=totalKeys;
-            keys.forEach((key,i)=>{const x=48+(i%4)*340,y=1441+Math.floor(i/4)*86;const stat=totals.get(key)||{unit:'percent',value:data.summary.status==='complete'?0:null};text(t('stats.'+key),x,y,17,'#b5c2b9',320);text(value(stat),x,y+35,27);});
+            keys.forEach((key,i)=>{const row=Math.floor(i/4),x=48+(i%4)*340,y=layout.totalTop+82+layout.totalRows.slice(0,row).reduce((a,b)=>a+b,0);const stat=totals.get(key)||{unit:'percent',value:data.summary.status==='complete'?0:null};text(t('stats.'+key),x,y,20,'#b5c2b9',310);text(value(stat),x,y+layout.totalRows[row]-54,30);line(x,y+layout.totalRows[row]-32,x+310);});
             const footer=canvas.height-210;line(48,footer-25,1392);
             text(t('summary.knownSubtotal')+'  '+f.score(data.summary.knownContribution),48,footer+10,19,'#b5c2b9',630);
             text(t('summary.energyCorrection')+'  '+f.score(data.summary.energyCorrection),760,footer+10,19,'#b5c2b9',630);
