@@ -157,3 +157,12 @@ body { margin:0; background:#101718; color:#e2e7e4; font:16px/1.6 system-ui,sans
 .rw-token-field{display:flex;align-items:stretch;gap:8px;min-width:0}.rw-token-field input{flex:1;min-width:0;width:0}.rw-token-field button{display:flex;align-items:center;justify-content:center;flex:0 0 48px;padding:10px}
 
 .rw-token-heading{display:flex;align-items:baseline;justify-content:space-between;gap:8px 16px;flex-wrap:wrap}.rw-token-heading label{margin:0}.rw-token-heading a{font-size:.875rem}
+
+#register-workspace .rw-favorite-toggle{display:inline-flex;align-items:center;justify-content:center;color:#9ad5c3;font-size:20px;min-width:32px;cursor:pointer;user-select:none;justify-self:end}
+#register-workspace .rw-favorite-toggle[aria-pressed="false"]{color:#718078}
+#register-workspace .rw-check-filter{display:flex;align-items:end;gap:8px}
+#register-workspace .rw-full-backup{border:1px solid #344f45;background:#121d1a;padding:24px;margin-bottom:24px}
+#register-workspace .rw-full-backup header{border-bottom:1px solid #344139;margin-bottom:16px}
+#register-workspace .rw-full-backup pre{max-height:180px;overflow:auto;white-space:pre-wrap;color:#b8d8ca;font-size:12px}
+#register-workspace .rw-full-backup .rw-backup-actions{display:flex;gap:12px;flex-wrap:wrap}
+@media(max-width:760px){#register-workspace .rw-full-backup{padding:16px}#register-workspace .rw-check-filter{align-items:center}}

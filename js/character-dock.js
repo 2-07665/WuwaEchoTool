@@ -15,7 +15,7 @@
         const normalize=RoleViewModel.createAdapter({roleList,costList,suiteAttributeMap,newCharacterModels,getRoleScoreConfig,getScoreDetails,countScores,countMainAttr,countMainAttr2,getRoleEnergyCorrection});
         const i18n=EchoI18n.createBrowser(env),store=RoleDraftStorage.create(localStorage),adoptions=RoleLocalConfiguration.create(localStorage);
         const host=document.createElement('main');host.id='character-dock';document.body.append(host);
-        let records=[],selected=null,models=new Map(),statuses=[],generation=0,backupNotice=null,filter='',source='all',error=null;
+        let records=[],selected=null,models=new Map(),statuses=[],generation=0,backupNotice=null,filter='',source='all',error=null,activeView='overview';
         const esc=x=>String(x??'').replace(/[&<>"']/g,c=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[c]));
         const t=(key,params)=>esc(i18n.t('dock.'+key,params)),tr=(key,params)=>esc(i18n.t(key,params));
         const roleName=m=>esc(i18n.entity('characters',m.role.catalogId,m.role.legacy?.name||i18n.t('register.characterId',{id:m.role.catalogId})));
@@ -60,20 +60,41 @@
             document.title=i18n.t('dock.title');
             const open=host.querySelector('[data-dock-picker]')?.open;
             const actions='<div class="dock-create-actions"><a href="register-workspace.html?view=register&mode=import&lang='+i18n.locale+'">'+t('import')+'</a><a href="register-workspace.html?view=register&mode=create&lang='+i18n.locale+'">'+t('create')+'</a></div>';
-            let body='';
+            let body='',index='';
             if(error==='dataError')body='<p role="alert">'+t(error)+'</p>';
-            else if(!selected)body='<section class="dock-empty"><h2>'+t('emptyTitle')+'</h2><p>'+t('emptyBody')+'</p></section>';
+            else if(!selected)body='';
             else {
                 const m=models.get(String(selected.roleId)),own=statuses.filter(x=>x.baseline.role.identity===String(selected.roleId)).sort((a,b)=>b.draft.updatedAt-a.draft.updatedAt)[0];
                 const resume=own?.validity.status==='valid'?own.draft.id:null;
-                const slots=m.slots.map(s=>'<span class="dock-recent-slot"><small>'+String(s.position).padStart(2,'0')+'</small>'+(s.echo?'<img src="'+asset(s.echo.image)+'" alt="'+echoName(s.echo)+'">':'<span aria-label="'+tr('loadout.empty')+'">—</span>')+'</span>').join('');
+                const slots=m.slots.map(s=>{
+                    // 只消费现有槽位状态；提示浮层不参与布局，也不修改完整度判断。
+                    const warning=s.echo&&s.status==='incomplete';
+                    const reasons=warning?[s.echo.mainStat.status!=='valid'?tr('dock.missingMain'):null,s.echo.substats.length!==5||s.echo.substats.some(stat=>stat.status!=='valid')?tr('dock.missingSubstats'):null].filter(Boolean):[];
+                    const label=tr('issues.slot-incomplete',{position:s.position});
+                    const hint=warning?'<details class="dock-slot-warning"><summary aria-label="'+label+'" title="'+label+'"><span aria-hidden="true">!</span></summary><span class="dock-slot-tooltip">'+label+'<br>'+ (reasons.length?reasons.join('<br>'):tr('dock.checkEcho'))+'<a href="'+roleUrl(selected)+'&selectedPosition='+s.position+'&selectedEcho='+esc(s.echo.id??'')+'">'+tr('dock.inspectEcho')+' ↗</a></span></details>':'';
+                    return '<span class="dock-recent-slot" data-slot-status="'+s.status+'"><small>'+String(s.position).padStart(2,'0')+'</small>'+hint+(s.echo?'<img src="'+asset(s.echo.image)+'" alt="'+echoName(s.echo)+'">':'<span aria-label="'+tr('loadout.empty')+'">—</span>')+'</span>';
+                }).join('');
                 body='<section class="dock-recent"><div class="dock-recent-identity">'+(m.role.portrait?'<img class="dock-recent-portrait" src="'+asset(m.role.portrait)+'" alt="">':'')+'<div><p>'+t('recent')+'</p><h2>'+roleName(m)+'</h2><p>'+tr('role.chain',{chain:m.model.chain})+'</p><a href="'+roleUrl(selected,resume)+'">'+t(own&&own.validity.status!=='valid'?'recompare':'continue')+' ↗</a></div></div><div class="dock-recent-loadout"><h3>'+tr('loadout.title')+'</h3><div class="dock-recent-slots">'+slots+'</div></div><div class="dock-recent-reading"><span>'+tr('summary.score')+'</span><strong>'+esc(i18n.format.decimal(m.summary.score))+'</strong><p>'+tr('state.'+m.summary.status)+'</p>'+draftStatus(selected)+'</div></section>';
-                if(m.issues.length)body+='<p class="dock-findings">'+tr('issues.'+m.issues[0].code,m.issues[0].params)+'</p>';
-                body+='<section class="dock-index"><div class="dock-index-heading"><h2>'+t('allRoles',{count:records.length})+'</h2><details data-dock-picker'+(open?' open':'')+'><summary>'+t('filter')+'</summary><div class="dock-filters"><label>'+t('search')+'<input data-dock-search value="'+esc(filter)+'"></label><label>'+t('source')+'<select data-dock-source>'+['all','manual','imported'].map(v=>'<option value="'+v+'"'+(v===source?' selected':'')+'>'+t(v)+'</option>').join('')+'</select></label></div></details></div><div data-dock-roster>'+roster()+'</div></section>';
+
+                index+='<section class="dock-index"><div class="dock-index-heading"><h2>'+t('allRoles',{count:records.length})+'</h2><details data-dock-picker'+(open?' open':'')+'><summary>'+t('filter')+'</summary><div class="dock-filters"><label>'+t('search')+'<input data-dock-search value="'+esc(filter)+'"></label><label>'+t('source')+'<select data-dock-source>'+['all','manual','imported'].map(v=>'<option value="'+v+'"'+(v===source?' selected':'')+'>'+t(v)+'</option>').join('')+'</select></label></div></details></div><div data-dock-roster>'+roster()+'</div></section>';
                 if(error==='draftError')body+='<p role="alert">'+t(error)+'</p>';
+            }
+            if(error!=='dataError'){
+                const tabs=['overview','roles'].map(view=>'<button type="button" role="tab" id="dock-tab-'+view+'" data-dock-view="'+view+'" aria-controls="dock-panel-'+view+'" aria-selected="'+(activeView===view)+'" tabindex="'+(activeView===view?0:-1)+'">'+tr(view==='overview'?'overview.title':'overview.roles')+'</button>').join('');
+                body+='<div class="dock-view-tabs" role="tablist" aria-label="'+tr('overview.views')+'">'+tabs+'</div><div id="dock-panel-overview" role="tabpanel" aria-labelledby="dock-tab-overview"'+(activeView==='overview'?'':' hidden')+'>'+RegisterOverview.render(RegisterOverview.prepare(records,normalize,getCultivationOverview),i18n)+'</div><div id="dock-panel-roles" role="tabpanel" aria-labelledby="dock-tab-roles"'+(activeView==='roles'?'':' hidden')+'>'+(index||'<p class="dock-view-empty">'+t('emptyBody')+'</p>')+'</div>';
             }
             host.innerHTML='<header class="register-page-heading"><h1>'+t('title')+'</h1>'+actions+'</header>'+body;
         }
+        // 切换只改变可见性，保留搜索、筛选、选择及管理区域的 DOM 状态。
+        function switchView(view,focus=false){
+            if(!['overview','roles'].includes(view))return;
+            activeView=view;
+            host.querySelectorAll('[data-dock-view]').forEach(button=>{const selected=button.dataset.dockView===view;button.setAttribute('aria-selected',String(selected));button.tabIndex=selected?0:-1;if(selected&&focus)button.focus();});
+            ['overview','roles'].forEach(key=>{const panel=host.querySelector('#dock-panel-'+key);if(panel)panel.hidden=key!==view;});
+        }
+        host.addEventListener('click',e=>{const tab=e.target.closest('[data-dock-view]');if(tab)switchView(tab.dataset.dockView);});
+        host.addEventListener('keydown',e=>{const tab=e.target.closest('[data-dock-view]');if(!tab||!['ArrowLeft','ArrowRight','Home','End'].includes(e.key))return;e.preventDefault();switchView(e.key==='Home'?'overview':e.key==='End'?'roles':activeView==='overview'?'roles':'overview',true);});
+        env.addEventListener('hashchange',()=>{if(env.location.hash==='#cultivation-overview'){switchView('overview');host.querySelector('#cultivation-overview')?.scrollIntoView();}});
         host.addEventListener('error',e=>{if(e.target.tagName==='IMG')e.target.style.visibility='hidden';},true);
         host.addEventListener('input',e=>{if(e.target.matches('[data-dock-search]')){filter=e.target.value;host.querySelector('[data-dock-roster]').innerHTML=roster();}});
         host.addEventListener('change',e=>{if(e.target.matches('[data-dock-source]')){source=e.target.value;host.querySelector('[data-dock-roster]').innerHTML=roster();}});

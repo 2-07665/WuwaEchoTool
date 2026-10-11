@@ -18,7 +18,9 @@
         async function render(){
         save.disabled=true;status.textContent='';restricted=false;
         // 重置画布的来源状态，再用用户明确选择的文件重新绘制。
-        canvas.width=1440;const totalKeys=[...new Set(['crit_rate','crit_damage','atk_percent','resonance_efficiency',...data.summary.substatTotals.map(s=>s.key)])];
+        await document.fonts?.ready;
+        const pageWidth=mode==='detailed'?2040:1440;
+        canvas.width=pageWidth;const totalKeys=[...new Set(['crit_rate','crit_damage','atk_percent','resonance_efficiency',...data.summary.substatTotals.map(s=>s.key)])];
         // 详细版按实际换行高度分配共享行，五栏始终对齐且不裁切文字。
         const measure=canvas.getContext('2d');
         function height(value,size,width){measure.font=size+'px system-ui, sans-serif';let rows=1,line='';for(const ch of String(value)){if(measure.measureText(line+ch).width>width&&line){rows++;line='';}line+=ch;}return rows*size*1.4;}
@@ -27,24 +29,30 @@
         const statName=s=>s?.key?t('stats.'+s.key):t('interaction.missingSubstat');
         const echoes=data.slots.map(s=>s.echo).filter(Boolean);
         const maxHeight=(get,size,width,min)=>Math.max(min,...echoes.map(e=>height(get(e),size,width)));
-        const layout={name:maxHeight(echoName,22,245,62),suite:maxHeight(suiteName,18,245,50),main:maxHeight(e=>e.mainStat.key?t('stats.'+e.mainStat.key):t('state.missing'),20,245,56)};
-        layout.rows=Array.from({length:Math.max(5,...echoes.map(e=>e.substats?.length||0))},(_,i)=>Math.max(76,...echoes.map(e=>height(statName(e.substats?.[i]),18,137)+26)));
+        const columnWidth=365, stride=392, padding=9;
+        const statValue=stat=>stat?.unit==='percent'?f.percentage(stat.value):f.decimal(stat?.value);
+        measure.font='600 21px system-ui, sans-serif';
+        const valueWidth=Math.max(64,...echoes.flatMap(e=>(e.substats||[]).map(s=>measure.measureText(statValue(s)).width)));
+        const labelWidth=columnWidth-padding*2-valueWidth-12;
+        function labelSize(stat){measure.font='18px system-ui, sans-serif';return Math.max(16,Math.min(18,18*labelWidth/Math.max(1,measure.measureText(statName(stat)).width)));}
+        const layout={name:maxHeight(echoName,22,columnWidth,62),suite:maxHeight(suiteName,18,columnWidth,50),main:maxHeight(e=>e.mainStat.key?t('stats.'+e.mainStat.key):t('state.missing'),20,columnWidth,56)};
+        layout.rows=Array.from({length:Math.max(5,...echoes.map(e=>e.substats?.length||0))},(_,i)=>Math.max(76,...echoes.map(e=>height(statName(e.substats?.[i]),labelSize(e.substats?.[i]),labelWidth)+26)));
         layout.subtop=748+layout.name+layout.suite+layout.main+184;
         layout.totalTop=layout.subtop+layout.rows.reduce((a,b)=>a+b+10,0)+66;
-        layout.totalRows=Array.from({length:Math.ceil(totalKeys.length/4)},(_,i)=>Math.max(...totalKeys.slice(i*4,i*4+4).map(k=>height(t('stats.'+k),20,310)))+65);
+        layout.totalRows=Array.from({length:Math.ceil(totalKeys.length/4)},(_,i)=>Math.max(...totalKeys.slice(i*4,i*4+4).map(k=>height(t('stats.'+k),20,460)))+65);
         canvas.height=mode==='detailed'?Math.ceil(layout.totalTop+70+layout.totalRows.reduce((a,b)=>a+b,0)+260):1150;
-        const ctx=canvas.getContext('2d');ctx.fillStyle='#111918';ctx.fillRect(0,0,1440,canvas.height);
+        const ctx=canvas.getContext('2d');ctx.fillStyle='#111918';ctx.fillRect(0,0,pageWidth,canvas.height);
         function text(value,x,y,size=22,color='#dce4dd',width=1300){ctx.fillStyle=color;ctx.font=size+'px system-ui, sans-serif';const lines=[];let line='';for(const ch of String(value)){if(ctx.measureText(line+ch).width>width&&line){lines.push(line);line='';}line+=ch;}lines.push(line);lines.forEach((v,i)=>ctx.fillText(v,x,y+i*size*1.4));return lines.length*size*1.4;}
         function line(x,y,x2){ctx.strokeStyle='#53645c';ctx.lineWidth=1;ctx.beginPath();ctx.moveTo(x,y);ctx.lineTo(x2,y);ctx.stroke();}
         let missing=false;
         async function picture(src,x,y,w,h){if(!src)return;src=replacements.get(src)||src;try{const image=await new Promise((resolve,reject)=>{const img=new Image();const timer=setTimeout(()=>reject(Error()),4000);if(/^https?:$/.test(new URL(src,document.baseURI).protocol))img.crossOrigin='anonymous';img.onload=()=>{clearTimeout(timer);resolve(img);};img.onerror=()=>{clearTimeout(timer);reject(Error());};img.src=src;});const scale=Math.min(w/image.width,h/image.height);ctx.drawImage(image,x+(w-image.width*scale)/2,y+(h-image.height*scale)/2,image.width*scale,image.height*scale);}catch(_){missing=true;}}
         // 品牌整体居中；说明留在预览外，导出只保留展示所需的读数。
-        ctx.font='24px system-ui, sans-serif';const brandWidth=Math.max(ctx.measureText(t('register.brand')).width,250),brandX=(1440-brandWidth-58)/2;
+        ctx.font='24px system-ui, sans-serif';const brandWidth=Math.max(ctx.measureText(t('register.brand')).width,250),brandX=(pageWidth-brandWidth-58)/2;
         ctx.fillStyle='#e2e8e2';[[0,12,20],[8,0,44],[16,12,20]].forEach(([x,y,h])=>ctx.fillRect(brandX+x,48+y,2,h));text(t('register.brand'),brandX+58,64,24);text(t('register.brandLatin'),brandX+58,94,17);
         function resonance(x,y,size,color='#82968a'){
             ctx.fillStyle=color;ctx.beginPath();ctx.moveTo(x,y-size);ctx.lineTo(x+size*.22,y-size*.18);ctx.lineTo(x+size*.7,y);ctx.lineTo(x+size*.22,y+size*.18);ctx.lineTo(x,y+size);ctx.lineTo(x-size*.22,y+size*.18);ctx.lineTo(x-size*.7,y);ctx.lineTo(x-size*.22,y-size*.18);ctx.closePath();ctx.fill();
         }
-        line(48,78,brandX-36);line(brandX+brandWidth+94,78,1392);
+        line(48,78,brandX-36);line(brandX+brandWidth+94,78,pageWidth-48);
         // 低对比共鸣环衬托立绘，五槽节点继续共用一条配置基线。
         ctx.strokeStyle='#2c3b34';ctx.lineWidth=1;[142,160].forEach(r=>{ctx.beginPath();ctx.arc(210,292,r,0,Math.PI*2);ctx.stroke();});
         await picture(data.role.portrait,48,130,330,310);
@@ -68,43 +76,44 @@
             if(condition.extraEnergy!=null)conditions.push(t('register.extraEnergy',{value:f.percentage(condition.extraEnergy)}));
             if(condition.referenceHealth!=null)conditions.push(t('register.referenceHealth',{value:f.integer(condition.referenceHealth)}));
             text(conditions.join(' · '),420,370,18,'#b5c2b9',540);
-            line(48,438,1392);text(t('loadout.title'),48,477,22);text(t('share.detailed'),1150,477,18,'#b5c2b9',240);
+            line(48,438,pageWidth-48);text(t('loadout.title'),48,477,22);text(t('share.detailed'),pageWidth-290,477,18,'#b5c2b9',240);
             for(const slot of data.slots){
-                const x=48+(slot.position-1)*272,e=slot.echo;
-                resonance(x+120,500,7);text(String(slot.position).padStart(2,'0'),x,537,22);
-                if(!e){text(t('loadout.empty'),x,620,22,'#b5c2b9',245);continue;}
+                const x=48+(slot.position-1)*stride,e=slot.echo;
+                resonance(x+columnWidth/2,500,7);text(String(slot.position).padStart(2,'0'),x,537,22);
+                if(!e){text(t('loadout.empty'),x,620,22,'#b5c2b9',columnWidth);continue;}
                 text(t('loadout.cost',{cost:e.cost}),x+120,537,18,'#b5c2b9',125);
-                await picture(e.image,x+28,558,190,150);
-                text(echoName(e),x,748,22,'#e2e8e2',245);
+                await picture(e.image,x+(columnWidth-190)/2,558,190,150);
+                text(echoName(e),x,748,22,'#e2e8e2',columnWidth);
                 let y=748+layout.name;
-                text(suiteName(e),x,y,18,'#a6b9ae',245);y+=layout.suite;
-                line(x,y-12,x+245);text(e.mainStat.key?t('stats.'+e.mainStat.key):t('state.missing'),x,y+18,20,'#b5c2b9',245);y+=layout.main;
-                text(value(e.mainStat),x,y+24,30);text(t('loadout.contribution'),x,y+66,18,'#b5c2b9',245);text(f.score(e.score.value),x,y+112,38);
-                line(x,layout.subtop-22,x+245);y=layout.subtop;
+                text(suiteName(e),x,y,18,'#a6b9ae',columnWidth);y+=layout.suite;
+                line(x,y-12,x+columnWidth);text(e.mainStat.key?t('stats.'+e.mainStat.key):t('state.missing'),x,y+18,20,'#b5c2b9',columnWidth);y+=layout.main;
+                text(value(e.mainStat),x,y+24,30);text(t('loadout.contribution'),x,y+66,18,'#b5c2b9',columnWidth);text(f.score(e.score.value),x,y+112,38);
+                line(x,layout.subtop-22,x+columnWidth);y=layout.subtop;
                 for(let i=0;i<layout.rows.length;i++){
                     const stat=e.substats?.[i],h=layout.rows[i];
                     // 沿用有效词条计数的原始贡献来源，未知模型保持中性。
                     const effective=data.model.status==='available'&&stat?.status==='valid'&&Number.isFinite(stat.rawContribution)&&stat.rawContribution>0;
-                    ctx.strokeStyle=effective?'#578c7d':'#3d5047';ctx.lineWidth=1;ctx.strokeRect(x+.5,y+.5,244,h-1);
-                    if(effective){ctx.fillStyle='#172b25';ctx.fillRect(x+1,y+1,243,h-2);ctx.fillStyle='#a3e5cd';ctx.fillRect(x+1,y+12,2,h-24);}
-                    text(statName(stat),x+12,y+(h-height(statName(stat),18,137))/2+19,18,effective?'#b3efd9':'#bac6bf',137);
-                    ctx.textAlign='right';ctx.fillStyle=effective?'#c7f8e5':'#dce4dd';ctx.font=(effective?'600 ':'')+'21px system-ui, sans-serif';ctx.fillText(value(stat),x+233,y+h/2+7);ctx.textAlign='left';
+                    ctx.strokeStyle=effective?'#578c7d':'#3d5047';ctx.lineWidth=1;ctx.strokeRect(x+.5,y+.5,columnWidth-1,h-1);
+                    if(effective){ctx.fillStyle='#172b25';ctx.fillRect(x+1,y+1,columnWidth-2,h-2);ctx.fillStyle='#a3e5cd';ctx.fillRect(x+1,y+12,2,h-24);}
+                    const size=labelSize(stat);
+                    text(statName(stat),x+padding,y+(h-height(statName(stat),size,labelWidth))/2+size,size,effective?'#b3efd9':'#bac6bf',labelWidth);
+                    ctx.textAlign='right';ctx.fillStyle=effective?'#c7f8e5':'#dce4dd';ctx.font=(effective?'600 ':'')+'21px system-ui, sans-serif';ctx.fillText(value(stat),x+columnWidth-padding,y+h/2+7);ctx.textAlign='left';
                     y+=h+10;
                 }
-                if(slot.status!=='complete')text(t('state.'+slot.status),x,y+24,18,'#b5c2b9',245);
+                if(slot.status!=='complete')text(t('state.'+slot.status),x,y+24,18,'#b5c2b9',columnWidth);
             }
-            line(48,layout.totalTop,1392);text(t('summary.substatTotals'),48,layout.totalTop+40,22);
+            line(48,layout.totalTop,pageWidth-48);text(t('summary.substatTotals'),48,layout.totalTop+40,22);
             const totals=new Map(data.summary.substatTotals.map(s=>[s.key,s]));
             const keys=totalKeys;
-            keys.forEach((key,i)=>{const row=Math.floor(i/4),x=48+(i%4)*340,y=layout.totalTop+82+layout.totalRows.slice(0,row).reduce((a,b)=>a+b,0);const stat=totals.get(key)||{unit:'percent',value:data.summary.status==='complete'?0:null};text(t('stats.'+key),x,y,20,'#b5c2b9',310);text(value(stat),x,y+layout.totalRows[row]-54,30);line(x,y+layout.totalRows[row]-32,x+310);});
-            const footer=canvas.height-210;line(48,footer-25,1392);
+            keys.forEach((key,i)=>{const row=Math.floor(i/4),x=48+(i%4)*490,y=layout.totalTop+82+layout.totalRows.slice(0,row).reduce((a,b)=>a+b,0);const stat=totals.get(key)||{unit:'percent',value:data.summary.status==='complete'?0:null};text(t('stats.'+key),x,y,20,'#b5c2b9',460);text(value(stat),x,y+layout.totalRows[row]-54,30);line(x,y+layout.totalRows[row]-32,x+460);});
+            const footer=canvas.height-210;line(48,footer-25,pageWidth-48);
             text(t('summary.knownSubtotal')+'  '+f.score(data.summary.knownContribution),48,footer+10,19,'#b5c2b9',630);
-            text(t('summary.energyCorrection')+'  '+f.score(data.summary.energyCorrection),760,footer+10,19,'#b5c2b9',630);
-            text(t(data.summary.status==='complete'?'share.scope':'share.summaryIncomplete'),48,footer+62,17,'#92a89a',1220);
+            text(t('summary.energyCorrection')+'  '+f.score(data.summary.energyCorrection),960,footer+10,19,'#b5c2b9',630);
+            text(t(data.summary.status==='complete'?'share.scope':'share.summaryIncomplete'),48,footer+62,17,'#92a89a',1640);
             // 详细版末尾使用居中的共鸣符号与两侧细线。
             const ornamentY=canvas.height-65;
-            line(48,ornamentY,652);line(788,ornamentY,1392);
-            [[-44,7],[-22,12],[0,26],[22,12],[44,7]].forEach(([dx,size])=>resonance(720+dx,ornamentY,size));
+            line(48,ornamentY,pageWidth/2-68);line(pageWidth/2+68,ornamentY,pageWidth-48);
+            [[-44,7],[-22,12],[0,26],[22,12],[44,7]].forEach(([dx,size])=>resonance(pageWidth/2+dx,ornamentY,size));
         }
         const commentary=data.summary.status==='complete'?'':t('share.summaryIncomplete');
         canvas.setAttribute('aria-label',heading.textContent+' · '+i18n.entity('characters',data.role.catalogId,data.role.legacy?.name)+' · '+f.score(data.summary.score)+' · '+commentary);

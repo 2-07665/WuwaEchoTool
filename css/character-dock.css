@@ -77,3 +77,42 @@ html.register-shell-page,html.guide-page{scrollbar-gutter:stable;color-scheme:da
 .rr-add-source .rr-dialog-actions{justify-content:flex-end;border-top:1px solid #344b3e;padding-top:20px;margin-top:0}
 .rr-add-source .rr-dialog-actions button{min-width:88px}
 @media(max-width:480px){.rr-add-source{padding:24px}.rr-add-source h2{font-size:22px}}
+
+/* 视图切换不改变角色数据，概况与鉴定采用紧凑细线布局。 */
+#character-dock [role="tabpanel"][hidden]{display:none!important}
+.dock-view-tabs{display:flex;gap:28px;border-bottom:1px solid #354a41;margin-top:28px}
+.dock-view-tabs button{font:inherit;font-size:16px;min-height:48px;padding:12px 4px;color:#9cafa5;background:none;border:0;border-bottom:2px solid transparent;cursor:pointer}
+.dock-view-tabs button[aria-selected="true"]{color:#b3efd9;border-bottom-color:#a3e5cd}
+.rr-cultivation-overview{margin-top:20px;padding:24px;border:1px solid #354d43;background:#131f1a;color:#dce4dd;scroll-margin-top:24px}
+#character-dock .rr-cultivation-overview>h2{font-size:18px}
+.rr-overview-counts{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:24px;margin:20px 0 28px;padding-bottom:20px;border-bottom:1px solid #354a41}
+.rr-overview-counts dt,.rr-overview-readings dt{font-size:13px;color:#a6b9ae;line-height:1.5}
+.rr-overview-counts>div+div{border-left:1px solid #354a41;padding-left:20px}.rr-overview-counts dd{font-size:32px;margin:6px 0 0;font-variant-numeric:tabular-nums}
+.rr-overview-heading{display:flex;align-items:center;justify-content:space-between;gap:20px;position:relative}
+#character-dock .rr-overview-info{font-size:12px;text-align:left;max-width:60%}
+.rr-overview-info summary{padding:8px;min-height:32px}
+#character-dock .rr-overview-info p{line-height:1.6;margin-top:6px}
+.rr-overview-bands,.rr-overview-readings{display:grid;grid-template-columns:repeat(4,minmax(0,1fr));gap:24px;margin:16px 0}
+.rr-overview-bands>div{border:1px solid #354d43;padding:16px;display:flex;flex-direction:column;min-width:0}.rr-overview-bands strong{margin-top:auto;padding-top:12px}
+.rr-overview-bands small{color:#a6b9ae;font-size:12px;display:block;margin-top:4px}
+.rr-overview-bands strong{display:block;font-size:24px;font-weight:500;color:#b3efd9;margin-top:8px}
+.rr-overview-readings dd{margin:6px 0 0;font-size:22px;overflow-wrap:anywhere}
+.rr-overview-appraisal{border-top:1px solid #354a41;margin-top:20px;padding-top:20px}
+#character-dock .rr-overview-comment{color:#dce4dd;border-left:2px solid #a3e5cd;padding:6px 14px;max-width:65ch;margin-top:16px}
+#character-dock .rr-overview-empty{padding:18px 0;color:#a6b9ae;line-height:1.7}
+.rr-overview-hint{font-size:12px;color:#a6b9ae}
+.dock-view-empty{padding:24px 0}
+@media(max-width:700px){.dock-view-tabs{gap:0}.dock-view-tabs button{flex:1}.rr-overview-counts{gap:12px}.rr-overview-counts dd{font-size:28px}.rr-overview-bands,.rr-overview-readings{grid-template-columns:repeat(2,minmax(0,1fr));gap:12px 20px}.rr-overview-bands strong{font-size:22px}.rr-overview-readings dd{font-size:19px}}
+
+/* 槽位警示采用绝对定位，空槽继续显示原有破折号。 */
+#character-dock .dock-recent-slot{position:relative}
+#character-dock .dock-slot-warning{position:absolute;right:0;top:-6px;max-width:none;text-align:left;z-index:5}
+#character-dock .dock-slot-warning summary{display:grid;place-items:center;width:28px;height:28px;list-style:none;color:#c6d6b2;cursor:pointer;font-size:13px}
+.dock-slot-warning summary::-webkit-details-marker{display:none}
+.dock-slot-warning summary>span{display:grid;place-items:center;width:16px;height:16px;border:1px solid #8d9e7c;border-radius:50%;font-weight:600}
+.dock-slot-tooltip{position:absolute;top:32px;right:0;width:220px;max-width:calc(100vw - 60px);box-sizing:border-box;padding:12px;background:#1b2b23;border:1px solid #5d7968;color:#dce4dd;font-size:13px;line-height:1.7}
+.dock-slot-tooltip a{display:block;margin-top:8px;color:#b3efd9!important}
+#character-dock .dock-recent-slot:first-child .dock-slot-tooltip{left:0;right:auto}
+@media(max-width:700px){.rr-cultivation-overview{padding:16px}.rr-overview-counts{gap:8px}.rr-overview-counts>div+div{padding-left:10px}.rr-overview-bands>div{padding:12px}.rr-overview-bands h3{min-height:42px}.rr-overview-counts dt{font-size:13px}}
+
+@media(max-width:700px){#character-dock .dock-recent-slot:nth-child(2) .dock-slot-tooltip{left:0;right:auto}#character-dock .dock-recent-slot:nth-child(3) .dock-slot-tooltip{left:50%;right:auto;transform:translateX(-50%)}}

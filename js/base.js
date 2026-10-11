@@ -7735,3 +7735,92 @@ $(function () {
     }
     $("#mc-maintenance-modal").modal("show");
 });
+
+// Classic 与 Register 共用原始统计规则，展示层负责数据可用性检查。
+function getCultivationOverview(roles) {
+    let bys = {"b01": 0, "b02": 0, "b03": 0, "b04": 0};
+    let sumScore = 0;
+    let avgScore = 0;
+    let fbrs = 0;
+    roles.forEach(item => {
+        if (typeof (item.isImport) !== "undefined" && item.isImport) {
+            fbrs++;
+            if (item.totalScore > 90) {
+                bys.b01 = bys.b01 + 1;
+            } else if (item.totalScore > 80) {
+                bys.b02 = bys.b02 + 1;
+            } else if (item.totalScore > 70) {
+                bys.b03 = bys.b03 + 1;
+            } else if (item.totalScore > 60) {
+                bys.b04 = bys.b04 + 1;
+            }
+            sumScore = parseFloat(sumScore) + parseFloat(item.totalScore);
+        }
+    });
+    if (fbrs !== 0) {
+        avgScore = parseFloat(sumScore) / fbrs;
+    } else {
+        roles.forEach(item => {
+            if (typeof (item.isImport) === "undefined" || !item.isImport) {
+                fbrs++;
+                if (item.totalScore > 90) {
+                    bys.b01 = bys.b01 + 1;
+                } else if (item.totalScore > 80) {
+                    bys.b02 = bys.b02 + 1;
+                } else if (item.totalScore > 70) {
+                    bys.b03 = bys.b03 + 1;
+                } else if (item.totalScore > 60) {
+                    bys.b04 = bys.b04 + 1;
+                }
+                sumScore = parseFloat(sumScore) + parseFloat(item.totalScore);
+            }
+        });
+        if (fbrs !== 0) {
+            avgScore = parseFloat(sumScore) / fbrs;
+        }
+    }
+    sumScore = sumScore.toFixed(2);
+    avgScore = avgScore.toFixed(2);
+
+    // 沿用原有总分、均分与严格大于条件选择评价。
+    let pj;
+    if (sumScore > 1200 && avgScore > 75) {
+        pj = pulaoSay[0];
+    } else if (sumScore > 1100 && avgScore > 70) {
+        pj = pulaoSay[1];
+    } else if (sumScore > 1000 && avgScore > 65) {
+        pj = pulaoSay[2];
+    } else if (sumScore > 900 && avgScore > 62) {
+        pj = pulaoSay[3];
+    } else if (sumScore > 800 && avgScore > 60) {
+        pj = pulaoSay[4];
+    } else if (sumScore > 700 && avgScore > 55) {
+        pj = pulaoSay[5];
+    } else if (sumScore > 600) {
+        pj = pulaoSay[6];
+    } else if (sumScore > 500) {
+        pj = pulaoSay[7];
+    } else if (sumScore > 400) {
+        pj = pulaoSay[8];
+    } else if (sumScore > 350) {
+        pj = pulaoSay[9];
+    } else if (sumScore > 300) {
+        pj = pulaoSay[10];
+    } else if (sumScore > 250) {
+        pj = pulaoSay[11];
+    } else if (sumScore > 200) {
+        pj = pulaoSay[12];
+    } else if (sumScore > 150) {
+        pj = pulaoSay[13];
+    } else if (sumScore > 100) {
+        pj = pulaoSay[14];
+    } else {
+        pj = pulaoSay[15];
+    }
+    let percent = sumScore * 100 / 1200;
+    percent = percent.toFixed(2);
+    if (percent > 100) {
+        percent = 100;
+    }
+    return {bys, sumScore, avgScore, count:fbrs, appraisal:pj, percent};
+}

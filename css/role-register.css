@@ -145,3 +145,5 @@ html.role-register-page{background:#111718;color-scheme:dark}
 #role-register .rr-mobile-reading{display:none}@media(max-width:1099px){#role-register .rr-mobile-reading{display:block;font-size:12px;margin-top:4px}}
 
 @media(max-width:700px){#role-register .rr-candidate-surface[data-phase=select]{position:fixed;inset:auto 0 56px;max-height:72dvh;overflow:auto;z-index:15;background:#172020;padding:20px;margin:0;border-top:2px solid #9ad5c3;overscroll-behavior:contain}#role-register .rr-candidate-surface[data-phase=select]>.rr-analysis-heading{position:sticky;top:-20px;background:#172020;padding:12px 0;z-index:1}}
+
+.rr-overview-entry{padding:24px 0;border-top:1px solid #354a41}.rr-overview-entry a{color:#a3e5cd}

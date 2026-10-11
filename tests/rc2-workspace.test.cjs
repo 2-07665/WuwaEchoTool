@@ -13,7 +13,7 @@ async function render(locale,empty){
  const records=empty?[]:[Core.createRole(context.catalog[0],101),Core.createRole(context.catalog[1],102)];
  if(records[1])records[1].isImport=true;
  stored.set('mcData',JSON.stringify({role:records,unusedEchoes:[]}));const original=stored.get('mcData');
- Object.assign(context,{RoleViewModel:require('../js/role-view-model.js'),RoleDraftModel:require('../js/role-draft-model.js'),RoleDraftStorage:require('../js/role-draft-storage.js'),RoleLocalConfiguration:require('../js/role-local-configuration.js'),EchoI18n:{createBrowser:()=>I18n.create({language:locale})},UiView:{state:{effective:'register'},recent:()=>[]}});
+ Object.assign(context,{RegisterOverview:require('../js/register-overview.js'),RoleViewModel:require('../js/role-view-model.js'),RoleDraftModel:require('../js/role-draft-model.js'),RoleDraftStorage:require('../js/role-draft-storage.js'),RoleLocalConfiguration:require('../js/role-local-configuration.js'),EchoI18n:{createBrowser:()=>I18n.create({language:locale})},UiView:{state:{effective:'register'},recent:()=>[]}});
  vm.runInContext(fs.readFileSync('js/character-dock.js','utf8'),context);context.CharacterDock.mount(context);await new Promise(setImmediate);
  assert.equal(stored.get('mcData'),original);assert.ok(!writes.includes('mcData'));
  assert.match(host.innerHTML,/mode=import/);assert.match(host.innerHTML,/mode=create/);assert.ok(host.innerHTML.indexOf('mode=create')<host.innerHTML.indexOf('</header>'));
