@@ -242,6 +242,10 @@ function loadCost(cst) {
 
 //初始化声骸列表list-声骸列表
 function randerCostList(list, persist = true) {
+    // The list is rendered repeatedly after every add/import/edit. Rebuild the
+    // displayed total from the current list instead of accumulating across
+    // renders, otherwise a valid 4+3+3 loadout can be rejected as over 12.
+    costNum = 0;
     fcthz = [
         {"name": "暴击", "property": 0},
         {"name": "暴伤", "property": 0},
