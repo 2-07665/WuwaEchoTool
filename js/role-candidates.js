@@ -43,7 +43,17 @@
             if(check.status==='blocked')return {eligibility:check,candidate:null};
             return {eligibility:check,candidate:drafts.createCandidate(slot.echo,{...options,completeness:slot.status})};
         }
-        return {fromRecord,fromEditor,eligibility,prepare};
+        // 库存候选是实例引用；手动试算则保留独立快照。名称、评分缓存不参与验证。
+        function assessSource(draft,records,role){
+            if(draft.candidate.source!=='inventory')return {status:'valid',reason:null};
+            try{
+                const matches=records.filter(e=>String(e?.costId)===draft.candidate.echo.identity);
+                if(matches.length!==1)return {status:'stale',reason:'candidateChanged'};
+                const slot=fromRecord(matches[0],role),candidate=drafts.createCandidate(slot.echo,{id:draft.candidate.id,source:'inventory',sourceRevision:draft.candidate.sourceRevision,identityScope:records.map(e=>e?.costId),completeness:slot.status});
+                return drafts.canonical(candidate.echo)===drafts.canonical(draft.candidate.echo)?{status:'valid',reason:null}:{status:'stale',reason:'candidateChanged'};
+            }catch(_){return {status:'stale',reason:'candidateChanged'};}
+        }
+        return {fromRecord,fromEditor,eligibility,prepare,assessSource};
     }
     function context(baseline,draft,current,now,locale,eligibility){
         const validity=drafts.assess(baseline,draft,current,now);

@@ -17,7 +17,7 @@
         const host=document.createElement('main');host.id='character-dock';document.body.append(host);
         const navigation=env.RegisterNavigation?.create(env.sessionStorage||localStorage),savedView=navigation?.load('roles')||{};
         let statusFilter=savedView.status||'all',sort=savedView.sort||'recent';
-        let records=[],selected=null,models=new Map(),statuses=[],generation=0,backupNotice=null,filter=savedView.search||'',source=savedView.source||'all',error=null,activeView=env.location.hash==='#cultivation-overview'?'overview':savedView.view||'overview';
+        let records=[],selected=null,models=new Map(),statuses=[],generation=0,backupNotice=null,filter=savedView.search||'',source=savedView.source||'all',error=null,activeView=env.location.hash==='#cultivation-overview'?'overview':['overview','roles'].includes(savedView.view)?savedView.view:'overview';
         const esc=x=>String(x??'').replace(/[&<>"']/g,c=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[c]));
         const t=(key,params)=>esc(i18n.t('dock.'+key,params)),tr=(key,params)=>esc(i18n.t(key,params));
         const roleName=m=>esc(i18n.entity('characters',m.role.catalogId,m.role.legacy?.name||i18n.t('register.characterId',{id:m.role.catalogId})));
@@ -31,13 +31,14 @@
                 const raw=JSON.parse(localStorage.getItem('mcData')||'null');
                 if(raw!==null&&(!Array.isArray(raw.role)||raw.role.some(r=>!r||r.roleId==null)||new Set(raw.role.map(r=>String(r.roleId))).size!==raw.role.length))throw Error('data');
                 records=raw?.role||[];models=new Map(records.map(r=>[String(r.roleId),normalize(r)]));
-                selected=records.find(r=>String(r.roleId)===String(selected?.roleId))||select(records,UiView.recent(localStorage));
+                selected=select(records,UiView.recent(localStorage));
                 render();
                 const loaded=store.load();if(!loaded.ok){error='draftError';render();return;}
                 const results=await Promise.all(loaded.data.drafts.map(async draft=>{
                     const baseline=loaded.data.baselines.find(b=>b.id===draft.baseline.id),record=records.find(r=>String(r.roleId)===baseline.role.identity);
                     if(!record)return null;
                     let validity;try{validity=await assess(record,baseline,draft,normalize,digest);}catch(_){validity={status:'incompatible'};}
+                    if(validity.status==='valid'&&env.RoleCandidates)validity=env.RoleCandidates.createAdapter(normalize).assessSource(draft,raw?.unusedEchoes||[],record);
                     return {draft,baseline,validity,adopted:!!adoptions.find(baseline,draft)};
                 }));
                 if(ticket!==generation)return;

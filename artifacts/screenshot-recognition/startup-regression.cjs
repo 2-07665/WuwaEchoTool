@@ -3,7 +3,7 @@ const assert=require('node:assert/strict');
 (async()=>{
  const browser=await chromium.launch({channel:'msedge',headless:true});
  const page=await browser.newPage({viewport:{width:1440,height:1000}}),url='http://127.0.0.1:8765/register-workspace.html?view=register&mode=library';
- const open=async p=>{await p.goto(url);await p.locator('[data-library-add]').click();await p.locator('[data-library-screenshot]').click();};
+ const open=async p=>{await p.goto(url);await p.locator('[data-library-add]').click();await p.locator('[data-library-screenshot]').click();const input=await p.locator('[data-ocr-files]').elementHandle();await p.evaluate(()=>window.dispatchEvent(new Event('focus')));assert.equal(await input.evaluate(e=>e.isConnected),true,'picker focus must preserve the upload node');};
  await page.addInitScript(()=>{Object.defineProperty(crypto,'subtle',{value:undefined});});
  for(const lang of ['zh-TW','zh-CN','en']){
   await page.goto(url+'&lang='+lang);assert.equal(await page.locator('[data-library-screenshot]').count(),0);await page.locator('[data-library-add]').click();assert.equal(await page.locator('dialog[open]').count(),1);await page.screenshot({path:'artifacts/screenshot-recognition/add-choice-'+lang+'-desktop.png'});

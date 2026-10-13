@@ -10,6 +10,9 @@ document.addEventListener('DOMContentLoaded',function(){
     legacy.searchParams.delete('draft');
     let controller=null,error=null,lastRecord=null,candidateSurface=null;
     let modelPersistence='modelAutoSave';
+    let modelGuard=null,modelRevision=null;
+    const navigation=RegisterNavigation.create(sessionStorage),analysisKey='analysis:'+id;
+    function rememberAnalysis(){const selection=controller?.snapshot().selection;if(!controller)return;navigation.save(analysisKey,{position:selection?.position||null,echo:selection?.kind==='echo'?controller.snapshot().model.slots[selection.position-1].echo?.id:null,scroll:scrollY});}
     let configInput=null,metadataExpected=null,planTicket=0,configGuard=null;
     const escapeOps=x=>String(x??'').replace(/[&<>"']/g,c=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[c]));
     function decorate(){
@@ -26,7 +29,8 @@ document.addEventListener('DOMContentLoaded',function(){
             if(ticket!==planTicket||RoleDraftModel.canonical(read())!==RoleDraftModel.canonical(record))return;
             const revision=Array.from(new Uint8Array(bytes),n=>n.toString(16).padStart(2,'0')).join(''),current=RoleDraftModel.createBaseline(controller.snapshot().model,{id:'plans-current',createdAt:Date.now(),sourceRevision:revision,modelVersion:'legacy-scoring-2026-10-08'}),drafts=RoleDraftStorage.create(localStorage).load();if(!drafts.ok)return;
             const rows=drafts.data.drafts.filter(d=>drafts.data.baselines.find(b=>b.id===d.baseline.id)?.role.identity===String(record.roleId));
-            const html=rows.map(d=>{const baseline=drafts.data.baselines.find(b=>b.id===d.baseline.id),valid=RoleDraftModel.assess(baseline,d,current,Date.now()).status==='valid',adopted=valid&&RoleLocalConfiguration.create(localStorage).find(baseline,d),u=new URL(location.href);u.searchParams.set('draft',d.id);return '<p><a href="'+escapeOps(u.pathname+u.search)+'">'+escapeOps(RegisterMetadata.draftName(d,i18n,loaded.data))+'</a><small> · '+escapeOps(i18n.t(valid?(adopted?'ops.adopted':'ops.saved'):'ops.recompare'))+'</small></p>';}).join('');
+            const inventory=JSON.parse(localStorage.getItem('mcData')).unusedEchoes||[],adapter=RoleCandidates.createAdapter(normalize),activeDraft=new URL(location.href).searchParams.get('draft');
+            const html=rows.map(d=>{const baseline=drafts.data.baselines.find(b=>b.id===d.baseline.id),valid=RoleDraftModel.assess(baseline,d,current,Date.now()).status==='valid'&&adapter.assessSource(d,inventory,record).status==='valid',adopted=valid&&RoleLocalConfiguration.create(localStorage).find(baseline,d),u=new URL(location.href);u.searchParams.set('draft',d.id);return '<p><a'+(d.id===activeDraft?' aria-current="true"':'')+' href="'+escapeOps(u.pathname+u.search)+'">'+escapeOps(RegisterMetadata.draftName(d,i18n,loaded.data))+'</a><small> · '+escapeOps(i18n.t(valid?(adopted?'ops.adopted':'ops.saved'):'ops.recompare'))+'</small></p>';}).join('');
             host.querySelector('[data-op-plans]')?.replaceChildren();if(host.querySelector('[data-op-plans]'))host.querySelector('[data-op-plans]').innerHTML=html||'<p>'+escapeOps(i18n.t('ops.noPlans'))+'</p>';
         }).catch(()=>{});
     }
@@ -44,7 +48,7 @@ document.addEventListener('DOMContentLoaded',function(){
                 saved=next.role.find(r=>String(r.roleId)===id);
                 Object.assign(saved,controller.modelChanges());core.score(saved);
             });
-            controller.acceptSaved(saved);lastRecord=JSON.stringify(saved);modelPersistence='modelSaved';
+            controller.acceptSaved(saved);lastRecord=JSON.stringify(saved);modelRevision=lastRecord;modelGuard?.markSaved();modelPersistence='modelSaved';
         }catch(e){modelPersistence=e.message==='SOURCE_CHANGED'?'modelSaveConflict':'modelSaveFailed';}
         candidateSurface?.invalidate('incompatible');
     }
@@ -122,15 +126,19 @@ document.addEventListener('DOMContentLoaded',function(){
         dialog.append(choices,actions);document.body.append(dialog);dialog.showModal();choices.querySelector('button').focus();
     });
     refresh();
+    modelRevision=lastRecord;
+    modelGuard=RegisterUnsaved.create({scope:'model:'+id,get:()=>controller?.modelChanges()||{},apply:changes=>{if(controller&&changes&&typeof changes==='object')for(const [field,value]of Object.entries(changes))controller.updateModel(field,value);},revision:()=>modelRevision,i18n});
+    if(modelGuard.recover()&&controller?.snapshot().modelChanged){modelPersistence='modelSaveFailed';render();}
     candidateSurface=RoleCandidateSurface.mount({host,i18n,normalize,getController:()=>controller,refresh,catalog:costList});
     if(controller&&params.has('selectedEcho')){
         controller.restore(Number(params.get('selectedPosition')),params.get('selectedEcho'));render();
         params.delete('selectedEcho');params.delete('selectedPosition');history.replaceState(null,'',url.pathname+url.search);
+    }else if(controller&&!params.has('draft')){
+        const saved=navigation.load(analysisKey),position=Number(saved.position);if(saved.echo!=null){controller.restore(position,saved.echo);render();}else if(position>=1&&position<=5&&!controller.snapshot().model.slots[position-1].echo){controller.select(position,null);render();}
     }
     host.addEventListener('click',event=>{
         const button=event.target.closest('button');if(!button||!controller)return;
         if(button.hasAttribute('data-rr-select')){
-            if(candidateSurface.active())candidateSurface.close();
             const position=Number(button.dataset.rrSelect),identity=button.dataset.rrIdentity||null;
             if(candidateSurface.active()){candidateSurface.close(()=>{controller.select(position,identity);render('.rr-slot[data-slot-position="'+position+'"] .rr-slot-trigger');});return;}
             controller.select(position,identity);render('.rr-slot[data-slot-position="'+position+'"] .rr-slot-trigger');
@@ -141,7 +149,7 @@ document.addEventListener('DOMContentLoaded',function(){
         }else if(button.hasAttribute('data-rr-evidence')){
             controller.evidence();render('[data-rr-evidence]');
             if(controller.snapshot().evidenceOpen){host.querySelector('.rr-conditions').open=true;focus('#rr-evidence',true);}
-        }else if(button.hasAttribute('data-rr-reset')){controller.resetModel();modelPersistence='modelAutoSave';candidateSurface.invalidate('incompatible');refresh(true);focus('[data-rr-reset]');}
+        }else if(button.hasAttribute('data-rr-reset')){controller.resetModel();modelRevision=lastRecord;modelGuard.markSaved();modelPersistence='modelAutoSave';candidateSurface.invalidate('incompatible');refresh(true);focus('[data-rr-reset]');}
         else if(button.hasAttribute('data-rr-save-model')){saveModel();render('[data-rr-reset]');}
     });
     let touchOrigin=null;
@@ -173,6 +181,7 @@ document.addEventListener('DOMContentLoaded',function(){
     }else candidateSurface.restore();
     window.addEventListener('pageshow',()=>refresh());
     window.addEventListener('focus',()=>refresh());
-    window.addEventListener('storage',event=>{if(event.key==='mcData'||event.key===null)refresh();});
+    window.addEventListener('storage',event=>{if(event.key==='mcData'||event.key===null){refresh();candidateSurface.render();}else if([RoleDraftStorage.KEY,RoleLocalConfiguration.KEY,RegisterMetadata.KEY].includes(event.key))render();});
+    window.addEventListener('pagehide',rememberAnalysis);
     window.addEventListener('wuwa-core-updated',()=>refresh());
 });

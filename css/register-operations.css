@@ -16,6 +16,17 @@
 .dock-roster li>.dock-plans{grid-column:1/-1;padding:12px 0;border-top:1px solid var(--register-line)}
 #character-dock .dock-roster li{display:grid;grid-template-columns:minmax(0,1fr) auto;gap:0 16px}#character-dock .dock-roster li>.dock-plans{grid-column:1/-1}
 .op-current-config{color:var(--register-accent)!important;font-size:14px!important;margin:8px 0 16px!important}
+/* 复用工作台页签的交互层级；仅作用于 Register 的既有按钮。 */
+.register-shell-page :is(#character-dock,#register-workspace,#role-register) button:not(:disabled){cursor:pointer;transition:background-color .18s ease,color .18s ease,border-color .18s ease}
+.register-shell-page :is(#character-dock,#register-workspace,#role-register) button:not(:disabled):not([aria-pressed="true"]):not([aria-selected="true"]):hover{background-color:rgba(154,213,195,.05);color:#c2d4ca}
+.register-shell-page :is(#register-workspace,#role-register) button[aria-pressed="true"]{background-color:rgba(154,213,195,.12);color:var(--register-accent);font-weight:600}
+.register-shell-page :is(#character-dock,#register-workspace,#role-register) button:focus-visible{outline:2px solid var(--register-accent);outline-offset:-4px}
+.register-shell-page :is(#character-dock,#register-workspace,#role-register) button:disabled{cursor:not-allowed;opacity:.5}
+.register-shell-page :is(#character-dock,#register-workspace,#role-register)[aria-busy="true"] button:disabled{cursor:wait}
+.register-shell-page :is(#character-dock,#register-workspace,#role-register) [aria-busy="true"] button:disabled{cursor:wait}
+.register-shell-page :is(#character-dock,#register-workspace,#role-register) [role="status"]:not(:empty){color:var(--register-accent)}
+.register-shell-page :is(#character-dock,#register-workspace,#role-register) [role="alert"]:not(:empty){color:#d5b58a}
+#role-register .op-plan-management a[aria-current="true"]{color:var(--register-accent);font-weight:600;text-decoration:underline;text-underline-offset:4px}
 @media(max-width:700px){#role-register .rr-main{display:flex;flex-direction:column}#role-register .rr-identity{display:contents}#role-register .rr-workspace{order:1}#role-register .rr-identity-caption{order:2}#role-register .rr-role-actions{order:3}}
 @media(max-width:700px){#role-register .rr-candidate-list{max-height:none;overflow:visible}.op-keyboard #register-shell nav{display:none}.op-keyboard #register-workspace .rw-actions{position:static}.op-keyboard #role-register .rr-candidate-surface[data-phase=select]{bottom:0;max-height:90dvh}.op-keyboard :is(input,textarea){scroll-margin:40px}}
 @media(max-width:700px){html.register-shell-page{scroll-padding-bottom:124px}.register-shell-page :is(input,textarea,a,button){scroll-margin-bottom:124px}}

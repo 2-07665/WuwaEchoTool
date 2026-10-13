@@ -37,7 +37,7 @@
             return {baseline,role};
         }
         function focus(){host.querySelector('#rr-candidate-title')?.focus();}
-        function urlDraft(id){const url=new URL(location.href);if(id)url.searchParams.set('draft',id);else url.searchParams.delete('draft');history.replaceState(null,'',url.pathname+url.search);}
+        function urlDraft(id){const url=new URL(location.href);if(id)url.searchParams.set('draft',id);else url.searchParams.delete('draft');history.replaceState(null,'',url.pathname+url.search);host.querySelectorAll?.('[data-op-plans] a').forEach(a=>{if(id&&new URL(a.href,location.href).searchParams.get('draft')===id)a.setAttribute('aria-current','true');else a.removeAttribute('aria-current');});}
         function close(after=()=>{}){if(busy){editorGuard.retain();editorGuard.pause();}const dirty=editorGuard.dirty()||nameGuard.dirty();editorGuard.leave(()=>nameGuard.leave(()=>{editorGuard.pause();nameGuard.pause();epoch++;state=null;busy=false;urlDraft(null);render();host.querySelector('[data-rr-candidates]')?.focus();after();}));return !dirty;}
         async function open(){
             const ticket=++epoch,selected=getController()?.snapshot().selection;
@@ -94,6 +94,10 @@
             current().then(fresh=>{
                 if(ticket!==renderTicket||state!==origin)return;
                 const ctx=origin.context;
+                const source=adapter.assessSource(ctx.draft,data()?.unusedEchoes||[],fresh.role);
+                if(source.status!=='valid'){origin.phase='error';origin.context=null;origin.notice=source.reason;paint();return;}
+                const savedDrafts=store.load();
+                if(!savedDrafts.ok||!savedDrafts.data.drafts.some(d=>RoleDraftModel.canonical(d)===RoleDraftModel.canonical(ctx.draft))){origin.phase='error';origin.context=null;origin.notice='storage';paint();return;}
                 const saved=local.find(ctx.baseline,ctx.draft);
                 origin.conditions=origin.conditions||saved?.conditions||{};
                 origin.adopted=!!saved;
@@ -139,7 +143,8 @@
                 const meta=RegisterMetadata.create(localStorage).load();if(meta.ok&&state.context){if(nameInput===null)nameExpected=meta.raw;if(activeNameId!==state.context.draft.id){activeNameId=state.context.draft.id;nameInput=null;nameGuard.reset();nameGuard.recover();}body+='<form class="op-rename" data-rc-rename><label>'+tr('ops.planName')+'<input data-rc-plan-name maxlength="80" value="'+esc(nameInput??RegisterMetadata.draftName(state.context.draft,i18n,meta.data))+'"></label><button>'+tr('ops.rename')+'</button><p role="status" data-rc-name-status></p></form>';}
             }
             const position=state.position;
-            parent.insertAdjacentHTML('beforeend',`<section class="rr-candidate-surface" data-phase="${state.phase}" aria-labelledby="rr-candidate-title"><div class="rr-analysis-heading"><h3 id="rr-candidate-title" tabindex="-1">${t(state.phase==='context'?'contextTitle':'title')}${position?' · '+tr('loadout.slot',{position}):''}</h3><button type="button" data-rc-close>${t('close')}</button></div>${state.baseline?'<p>'+tr('role.chain',{chain:state.baseline.conditions.chain})+' · '+tr('register.mode.'+state.baseline.conditions.mode)+'</p>':''}<p role="status">${state.notice?t(state.notice):''}</p>${body}${state.phase==='error'?'<button type="button" data-rc-restart>'+t('restart')+'</button>':''}</section>`);
+            if(state.phase==='context'&&state.context){const meta=RegisterMetadata.create(localStorage).load();body='<p class="op-current-config" data-rc-current-name>'+esc(RegisterMetadata.draftName(state.context.draft,i18n,meta.data))+'</p>'+body;}
+            parent.insertAdjacentHTML('beforeend',`<section class="rr-candidate-surface" data-phase="${state.phase}" aria-busy="${busy}" aria-labelledby="rr-candidate-title"><div class="rr-analysis-heading"><h3 id="rr-candidate-title" tabindex="-1">${t(state.phase==='context'?'contextTitle':'title')}${position?' · '+tr('loadout.slot',{position}):''}</h3><button type="button" data-rc-close>${t('close')}</button></div>${state.baseline?'<p>'+tr('role.chain',{chain:state.baseline.conditions.chain})+' · '+tr('register.mode.'+state.baseline.conditions.mode)+'</p>':''}<p role="${state.notice?'alert':'status'}">${state.notice?t(state.notice):''}</p>${body}${state.phase==='error'?'<button type="button" data-rc-restart>'+t('restart')+'</button>':''}</section>`);
             if(busy)parent.querySelectorAll('[data-rc-create],[data-rc-pick],[data-rc-source],[data-rc-stat],[data-rc-catalog]').forEach(b=>b.disabled=true);
             if(filterKey){const input=host.querySelector('[data-rc-filter="'+filterKey+'"]');input?.focus({preventScroll:true});if(filterKey==='search'&&cursor!=null)input?.setSelectionRange(cursor,cursor);}
             if(host.querySelector('.rr-candidate-list'))host.querySelector('.rr-candidate-list').scrollTop=listScroll;
@@ -161,11 +166,13 @@
                     const fresh=await current();if(ticket!==epoch||state!==origin)return;
                     const ctx=origin.context,loaded=store.load();
                     if(!loaded.ok||!loaded.data.drafts.some(d=>RoleDraftModel.canonical(d)===RoleDraftModel.canonical(ctx.draft)))throw Error('storage');
+                    const source=adapter.assessSource(ctx.draft,data()?.unusedEchoes||[],fresh.role);
+                    if(source.status!=='valid'){origin.phase='error';origin.context=null;origin.notice=source.reason;return;}
                     const result=RoleCompare.evaluate({baseline:ctx.baseline,draft:ctx.draft,current:fresh.baseline,role:fresh.role,normalize,conditions:origin.conditions});
                     origin.result=result;
                     if(result.conclusion!=='recommended')return;
                     const saved=local.adopt(ctx.baseline,ctx.draft,fresh.baseline,origin.conditions,result,Date.now());
-                    if(!saved.ok)throw Error('storage');origin.adopted=true;
+                    if(!saved.ok)throw Error('storage');origin.adopted=true;refresh(true);
                 };
                 if(navigator.locks)await navigator.locks.request(RoleLocalConfiguration.KEY,write);else await write();
             }catch(_){if(state===origin)origin.notice='storage';}
@@ -193,6 +200,8 @@
                     const lockedCurrent=await current();if(ticket!==epoch)return {ok:false,code:'CANCELLED'};
                     const validity=RoleDraftModel.assess(origin.baseline,draft,lockedCurrent.baseline,Date.now());
                     if(validity.status!=='valid')return {ok:false,validity};
+                    const sourceCheck=adapter.assessSource(draft,data()?.unusedEchoes||[],lockedCurrent.role);
+                    if(sourceCheck.status!=='valid')return {ok:false,validity:sourceCheck};
                     const loaded=store.load();return loaded.ok?store.save(origin.baseline,draft,loaded.data.revision):loaded;
                 };
                 // 可用时串行化跨标签页写入；不支持锁的浏览器仍保留 revision 冲突检查。
@@ -202,7 +211,7 @@
                 editorGuard.markSaved();editorGuard.pause();
                 const latest=await current();if(ticket!==epoch)return;
                 const finalCheck=RoleCandidates.context(origin.baseline,draft,latest.baseline,Date.now(),i18n.locale,prepared.eligibility);
-                state={...origin,phase:finalCheck.context?'context':'error',context:finalCheck.context,notice:finalCheck.context?null:finalCheck.validity.status};urlDraft(draft.id);
+                state={...origin,phase:finalCheck.context?'context':'error',context:finalCheck.context,notice:finalCheck.context?null:finalCheck.validity.status};urlDraft(draft.id);refresh(true);
             }catch(_){if(ticket===epoch)origin.notice='source';}
             finally{if(ticket===epoch){busy=false;render();focus();}}
         }
@@ -223,6 +232,8 @@
                     for(const key of ['extraEnergy','referenceHealth'])if(baseline.conditions[key]!=null&&present.parameters[key]!==baseline.conditions[key])c.updateModel(key,baseline.conditions[key]);
                 }
                 const fresh=await current();if(ticket!==epoch)return;
+                const sourceCheck=adapter.assessSource(draft,data()?.unusedEchoes||[],fresh.role);
+                if(sourceCheck.status!=='valid'){state={baseline,position:draft.targetSlot,phase:'error',notice:sourceCheck.reason};refresh(true);render();return;}
                 c.restore(draft.targetSlot,draft.originalEchoIdentity);
                 const slot=adapter.fromEditor(RoleCandidates.editor(draft.candidate.echo),fresh.role,draft.candidate.echo.identity);
                 const eligibility=adapter.eligibility(baseline,draft.targetSlot,slot,[draft.candidate.echo.identity]);
@@ -233,7 +244,7 @@
         }
         host.addEventListener('click',event=>{
             const b=event.target.closest('button');if(!b)return;
-            if(b.hasAttribute('data-rr-candidates'))open();
+            if(b.hasAttribute('data-rr-candidates')){if(state)close(open);else open();}
             else if(b.hasAttribute('data-rc-decision'))decision();
             else if(b.hasAttribute('data-rc-close'))close();
             else if(b.hasAttribute('data-rc-reset')){filters=RegisterCollections.defaults();listScroll=0;paint();}
@@ -241,8 +252,8 @@
             else if(b.hasAttribute('data-rc-restart'))open();
             else if(b.hasAttribute('data-rc-source')&&state?.phase==='select'){
                 if(busy)return;
-                if(b.dataset.rcSource==='library'){state.source='library';state.notice=null;try{library();}catch(_){state.notice='source';}render();}else editorSource(b.dataset.rcSource);
-                host.querySelector('[data-rc-source="'+state.source+'"]')?.focus();
+                const source=b.dataset.rcSource;if(source===state.source)return;
+                editorGuard.leave(()=>{if(source==='library'){editorGuard.pause();state.source='library';state.fields=null;state.notice=null;try{library();}catch(_){state.notice='source';}render();}else editorSource(source);host.querySelector('[data-rc-source="'+state.source+'"]')?.focus();});
             }else if(b.hasAttribute('data-rc-pick')){const row=state?.rows?.find(r=>r.key===b.dataset.rcPick);if(row)enter(row.slot,row.scope,'inventory');}
             else if(b.hasAttribute('data-rc-create')&&state?.fields)enter(editorSlot(),[state.editorIdentity],'manual');
         });
@@ -277,9 +288,9 @@
             await enter(row.slot,row.scope,'inventory');
         }
         host.addEventListener('toggle',event=>{if(event.target.hasAttribute?.('data-rc-details'))detailsOpen=event.target.open;},true);
-        host.addEventListener('submit',event=>{if(!event.target.matches('[data-rc-rename]')||!state?.context)return;event.preventDefault();const loaded=store.load();if(!loaded.ok||!loaded.data.drafts.some(d=>d.id===state.context.draft.id)){host.querySelector('[data-rc-name-status]').textContent=i18n.t('workspace.SOURCE_CHANGED');return;}const result=RegisterMetadata.create(localStorage).rename('drafts',state.context.draft.id,nameInput??event.target.querySelector('input').value,nameExpected);host.querySelector('[data-rc-name-status]').textContent=i18n.t(result.ok?'ops.renamed':'workspace.'+(result.code==='SOURCE_CHANGED'?'SOURCE_CHANGED':'SAVE_FAILED'));nameExpected=RegisterMetadata.create(localStorage).load().raw;if(result.ok){nameInput=null;nameGuard.markSaved();}});
+        host.addEventListener('submit',event=>{if(!event.target.matches('[data-rc-rename]')||!state?.context)return;event.preventDefault();const loaded=store.load();if(!loaded.ok||!loaded.data.drafts.some(d=>d.id===state.context.draft.id)){host.querySelector('[data-rc-name-status]').textContent=i18n.t('workspace.SOURCE_CHANGED');return;}const result=RegisterMetadata.create(localStorage).rename('drafts',state.context.draft.id,nameInput??event.target.querySelector('input').value,nameExpected);host.querySelector('[data-rc-name-status]').textContent=i18n.t(result.ok?'ops.renamed':'workspace.'+(result.code==='SOURCE_CHANGED'?'SOURCE_CHANGED':'SAVE_FAILED'));const meta=RegisterMetadata.create(localStorage).load();nameExpected=meta.raw;if(result.ok){nameInput=null;nameGuard.markSaved();refresh(true);host.querySelector('[data-rc-name-status]').textContent=i18n.t('ops.renamed');}});
         return {render,restore,close,fromLibrary,active:()=>!!state||busy,
-            invalidate(reason='stale'){if(state){if(nameGuard.dirty())nameGuard.retain();nameGuard.pause();editorGuard.pause();nameInput=null;epoch++;busy=false;state={...state,phase:'error',context:null,notice:reason};render();}},
+            invalidate(reason='stale'){if(state){if(editorGuard.dirty())editorGuard.retain();if(nameGuard.dirty())nameGuard.retain();nameGuard.pause();editorGuard.pause();nameInput=null;epoch++;busy=false;state={...state,phase:'error',context:null,notice:reason};render();}},
             getContext(){return state?.phase==='context'?{...state.context,locale:i18n.locale,result:state.result||null}:null;}};
     }
 })(typeof globalThis!=='undefined'?globalThis:this);

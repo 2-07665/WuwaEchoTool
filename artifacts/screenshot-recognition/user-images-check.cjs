@@ -1,0 +1,17 @@
+const {chromium}=require('C:/Users/user/.cache/codex-runtimes/codex-primary-runtime/dependencies/node/node_modules/playwright');
+const fs=require('node:fs'),assert=require('node:assert/strict');
+(async()=>{const browser=await chromium.launch({channel:'msedge',headless:true}),page=await browser.newPage(),errors=[];page.on('pageerror',e=>errors.push(e.message));page.on('console',m=>{if(m.type()==='error')console.log('console:',m.text().slice(0,250));});
+const files=['110012','110027','110038','110047','110056'].map(id=>'C:/Users/user/Downloads/2026-10-10_'+id+'.png');
+await page.goto('http://127.0.0.1:8765/register-workspace.html?view=register&mode=library&lang=zh-TW');await page.locator('[data-library-add]').click();await page.locator('[data-library-screenshot]').click();
+const input=await page.locator('[data-ocr-files]').elementHandle();await page.evaluate(()=>window.dispatchEvent(new Event('focus')));assert.equal(await input.evaluate(e=>e.isConnected),true);await input.setInputFiles(files);console.log('Picker focus preserves upload input; recognition started.');
+await page.waitForFunction(()=>document.querySelectorAll('[data-ocr-item]').length===5&&!document.querySelector('[data-ocr-files]').disabled,{},{timeout:480000});
+const results=await page.locator('[data-ocr-item]').evaluateAll(items=>items.map(e=>({file:e.querySelector('.rw-ocr-source p').textContent,name:e.querySelector('form strong').textContent,fields:Object.fromEntries([...e.querySelectorAll('[data-ocr-field]')].map(s=>[s.dataset.ocrField,s.value])),error:e.querySelector('[role=alert]')?.textContent||null})));
+assert.deepEqual(errors,[]);assert.ok(results.every(r=>!r.error));assert.equal(await page.evaluate(()=>localStorage.getItem('mcData')),null,'recognition must not persist before confirmation');
+const expected=[['crit_damage','44','7.5','30','9.4','10.1','40'],['electro_damage','30','8.1','6.3','18.6','10.9','7.9'],['electro_damage','30','470','9','6.4','10.5','7.9'],['atk_percent','18','10','10.1','15','10.1','7.5'],['atk_percent','18','470','15','40','10.1','6.3']];
+results.forEach((r,i)=>assert.deepEqual([r.fields['main.key'],r.fields['main.value'],...Array.from({length:5},(_,j)=>r.fields['sub'+j+'.value'])],expected[i],r.file));
+await page.screenshot({path:'artifacts/screenshot-recognition/user-images.png',fullPage:true});
+// Explicit QA correction based on the original screenshots; not automatic OCR output.
+const ids=[181,184,183,186,175];
+for(let i=0;i<5;i++){let section=page.locator('[data-ocr-item]').nth(i);await section.locator('[data-ocr-field=catalogId]').selectOption(String(ids[i]));section=page.locator('[data-ocr-item]').nth(i);await section.locator('[data-ocr-field=suite]').selectOption('衔梦套');await page.locator('[data-ocr-item]').nth(i).locator('[data-ocr-confirm]').check();await page.locator('[data-ocr-item]').nth(i).locator('button[type=submit]').click();}
+assert.equal(await page.evaluate(()=>JSON.parse(localStorage.getItem('mcData')).unusedEchoes.length),5);
+fs.writeFileSync('artifacts/screenshot-recognition/user-images-results.json',JSON.stringify({isolated:true,results,errors,explicitQACorrections:{catalogIds:ids,suite:'衔梦套'},savedAfterConfirmation:5},null,2));console.log('PASS: original five screenshots, focus-return upload, 25 substats, no pre-confirm writes, five confirmed saves in isolated storage.');await browser.close();})().catch(e=>{console.error(e);process.exit(1);});
