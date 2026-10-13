@@ -146,6 +146,7 @@
             if(state.phase==='context'&&state.context){const meta=RegisterMetadata.create(localStorage).load();body='<p class="op-current-config" data-rc-current-name>'+esc(RegisterMetadata.draftName(state.context.draft,i18n,meta.data))+'</p>'+body;}
             parent.insertAdjacentHTML('beforeend',`<section class="rr-candidate-surface" data-phase="${state.phase}" aria-busy="${busy}" aria-labelledby="rr-candidate-title"><div class="rr-analysis-heading"><h3 id="rr-candidate-title" tabindex="-1">${t(state.phase==='context'?'contextTitle':'title')}${position?' · '+tr('loadout.slot',{position}):''}</h3><button type="button" data-rc-close>${t('close')}</button></div>${state.baseline?'<p>'+tr('role.chain',{chain:state.baseline.conditions.chain})+' · '+tr('register.mode.'+state.baseline.conditions.mode)+'</p>':''}<p role="${state.notice?'alert':'status'}">${state.notice?t(state.notice):''}</p>${body}${state.phase==='error'?'<button type="button" data-rc-restart>'+t('restart')+'</button>':''}</section>`);
             if(busy)parent.querySelectorAll('[data-rc-create],[data-rc-pick],[data-rc-source],[data-rc-stat],[data-rc-catalog]').forEach(b=>b.disabled=true);
+            globalThis.RegisterSearchUI?.enhance(host,i18n);
             if(filterKey){const input=host.querySelector('[data-rc-filter="'+filterKey+'"]');input?.focus({preventScroll:true});if(filterKey==='search'&&cursor!=null)input?.setSelectionRange(cursor,cursor);}
             if(host.querySelector('.rr-candidate-list'))host.querySelector('.rr-candidate-list').scrollTop=listScroll;
         }
@@ -260,7 +261,7 @@
         // 数值输入即时写入本地编辑状态，避免点击提交时依赖 blur/change 的触发顺序。
         host.addEventListener('input',event=>{
             if(event.target.hasAttribute?.('data-rc-plan-name')){nameInput=event.target.value;return;}
-            if(event.target.dataset.rcFilter&&state?.phase==='select'){filters[event.target.dataset.rcFilter]=event.target.type==='checkbox'?event.target.checked:event.target.value;paint();return;}
+            if(event.target.dataset.rcFilter&&state?.phase==='select'){const value=event.target.type==='checkbox'?event.target.checked:event.target.value;if(filters[event.target.dataset.rcFilter]===value)return;filters[event.target.dataset.rcFilter]=value;paint();return;}
             const el=event.target;if(!state?.fields||state.phase!=='select'||el.dataset.rcField!=='value')return;
             const stat=el.dataset.rcStat==='main'?state.fields.mainStat:state.fields.substats[Number(el.dataset.rcStat)];
             stat.value=el.value;
@@ -268,7 +269,7 @@
         });
         host.addEventListener('change',event=>{
             const el=event.target;
-            if(el.dataset.rcFilter&&state?.phase==='select'){filters[el.dataset.rcFilter]=el.type==='checkbox'?el.checked:el.value;paint();return;}
+            if(el.dataset.rcFilter&&state?.phase==='select'){const value=el.type==='checkbox'?el.checked:el.value;if(filters[el.dataset.rcFilter]===value)return;filters[el.dataset.rcFilter]=value;paint();return;}
             if(el.hasAttribute('data-rc-condition')&&state?.phase==='context'&&!busy){state.conditions[el.dataset.rcCondition]=el.checked;state.focusCondition=el.dataset.rcCondition;render();return;}
             if(!state?.fields||state.phase!=='select')return;
             if(el.hasAttribute('data-rc-catalog')){state.fields.catalogId=el.value;const entry=catalog.find(e=>String(e.id)===el.value);if(entry)state.fields.cost=Number(entry.type.replace('Cost',''));render();host.querySelector('[data-rc-catalog]')?.focus();}

@@ -92,10 +92,11 @@
                 const tabs=['overview','roles'].map(view=>'<button type="button" role="tab" id="dock-tab-'+view+'" data-dock-view="'+view+'" aria-controls="dock-panel-'+view+'" aria-selected="'+(activeView===view)+'" tabindex="'+(activeView===view?0:-1)+'">'+tr(view==='overview'?'overview.title':'overview.roles')+'</button>').join('');
                 body='<div class="dock-view-tabs" role="tablist" aria-label="'+tr('overview.views')+'">'+tabs+'</div><div id="dock-panel-overview" role="tabpanel" aria-labelledby="dock-tab-overview"'+(activeView==='overview'?'':' hidden')+'>'+body+RegisterOverview.render(RegisterOverview.prepare(records,normalize,getCultivationOverview),i18n)+'</div><div id="dock-panel-roles" role="tabpanel" aria-labelledby="dock-tab-roles"'+(activeView==='roles'?'':' hidden')+'>'+(index||'<p class="dock-view-empty">'+t('emptyBody')+'</p>')+'</div>';
             }
-            host.innerHTML='<header class="register-page-heading"><h1>'+t('title')+'</h1>'+actions+'</header>'+body;if(focusKey){const next=host.querySelector('[data-dock-'+focusKey+']');next?.focus({preventScroll:true});if(focusKey==='search'&&cursor!=null)next?.setSelectionRange(cursor,cursor);}
+            host.innerHTML='<header class="register-page-heading"><h1>'+t('title')+'</h1>'+actions+'</header>'+body;globalThis.RegisterSearchUI?.enhance(host,i18n);if(focusKey){const next=host.querySelector('[data-dock-'+focusKey+']');next?.focus({preventScroll:true});if(focusKey==='search'&&cursor!=null)next?.setSelectionRange(cursor,cursor);}
         }
         // 切换只改变可见性，保留搜索、筛选、选择及管理区域的 DOM 状态。
         function switchView(view,focus=false){
+            globalThis.RegisterSearchUI?.enhance(host,i18n);
             if(!['overview','roles'].includes(view))return;
             activeView=view;remember();
             host.querySelectorAll('[data-dock-view]').forEach(button=>{const selected=button.dataset.dockView===view;button.setAttribute('aria-selected',String(selected));button.tabIndex=selected?0:-1;if(selected&&focus)button.focus();});
@@ -105,9 +106,9 @@
         host.addEventListener('keydown',e=>{const tab=e.target.closest('[data-dock-view]');if(!tab||!['ArrowLeft','ArrowRight','Home','End'].includes(e.key))return;e.preventDefault();switchView(e.key==='Home'?'overview':e.key==='End'?'roles':activeView==='overview'?'roles':'overview',true);});
         env.addEventListener('hashchange',()=>{if(env.location.hash==='#cultivation-overview'){switchView('overview');host.querySelector('#cultivation-overview')?.scrollIntoView();}});
         host.addEventListener('error',e=>{if(e.target.tagName==='IMG')e.target.style.visibility='hidden';},true);
-        host.addEventListener('input',e=>{if(e.target.matches('[data-dock-search]')){filter=e.target.value;remember();host.querySelector('[data-dock-roster]').innerHTML=roster();}});
-        host.addEventListener('change',e=>{if(e.target.matches('[data-dock-source]')){source=e.target.value;remember();host.querySelector('[data-dock-roster]').innerHTML=roster();}});
-        host.addEventListener('change',e=>{if(e.target.matches('[data-dock-status]'))statusFilter=e.target.value;else if(e.target.matches('[data-dock-sort]'))sort=e.target.value;else return;remember();host.querySelector('[data-dock-roster]').innerHTML=roster();});
+        host.addEventListener('input',e=>{if(e.target.matches('[data-dock-search]')){filter=e.target.value;remember();host.querySelector('[data-dock-roster]').innerHTML=roster();globalThis.RegisterSearchUI?.enhance(host,i18n);}});
+        host.addEventListener('change',e=>{if(e.target.matches('[data-dock-source]')){source=e.target.value;remember();host.querySelector('[data-dock-roster]').innerHTML=roster();globalThis.RegisterSearchUI?.enhance(host,i18n);}});
+        host.addEventListener('change',e=>{if(e.target.matches('[data-dock-status]'))statusFilter=e.target.value;else if(e.target.matches('[data-dock-sort]'))sort=e.target.value;else return;remember();host.querySelector('[data-dock-roster]').innerHTML=roster();globalThis.RegisterSearchUI?.enhance(host,i18n);});
         host.addEventListener('click',e=>{if(e.target.closest('[data-dock-reset]')){filter='';source='all';statusFilter='all';sort='recent';remember();render();host.querySelector('[data-dock-search]')?.focus();}if(e.target.closest('a'))remember();});
         env.addEventListener('pagehide',remember);
         let restoredScroll=false;env.addEventListener('pageshow',()=>{if(!restoredScroll&&savedView.scroll){restoredScroll=true;setTimeout(()=>env.scrollTo?.(0,savedView.scroll),150);}});

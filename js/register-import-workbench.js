@@ -64,6 +64,7 @@ function mount({host,i18n,core,service,normalize,catalog,mapRole,record,params,r
             (s.phase==='result'&&record?'<a class="ri-primary-link" href="'+esc(back())+'">'+t('backOriginal')+'</a>':'')+
             '<a href="index.html?view=register&lang='+esc(i18n.locale)+'">'+t('overview')+'</a></div><details data-ri-guide'+(guideOpen?' open':'')+'><summary>'+t('guide')+'</summary><p>'+t('guideText')+'</p><p>'+t('identityHelp')+'</p><p>'+t('draftWarning')+'</p></details></aside></div>';
         host.querySelector('#ri-token').value=token;
+        globalThis.RegisterSearchUI?.enhance(host,i18n,{importTotal:s.rows.length});
         if(previousLive){const next=host.querySelector('#ri-live'),text=next.textContent;next.replaceWith(previousLive);if(previousLive.textContent!==text)previousLive.textContent=text;}
         if(focusId){const input=document.getElementById(focusId);input?.focus({preventScroll:true});if(selection&&['text','search','password'].includes(input?.type))input.setSelectionRange(...selection);}
         else if(actionFocus)host.querySelector('[data-'+actionFocus.k.replace(/[A-Z]/g,x=>'-'+x.toLowerCase())+'="'+CSS.escape(actionFocus.v)+'"]')?.focus({preventScroll:true});
@@ -72,7 +73,7 @@ function mount({host,i18n,core,service,normalize,catalog,mapRole,record,params,r
     model.snapshot().credential=token?'saved':'empty';
     // Inputs and their cursor remain mounted during typing; search only replaces the result list.
     host.addEventListener('input',event=>{
-        if(event.target.id==='ri-search'){model.snapshot().search=event.target.value;host.querySelector('#ri-rows').innerHTML=rows();}
+        if(event.target.id==='ri-search'){model.snapshot().search=event.target.value;host.querySelector('#ri-rows').innerHTML=rows();globalThis.RegisterSearchUI?.enhance(host,i18n,{importTotal:model.snapshot().rows.length});}
         if(['ri-uid','ri-token'].includes(event.target.id)){
             const id=event.target.id,value=event.target.value;
             if(id==='ri-uid')uid=value;else token=value;

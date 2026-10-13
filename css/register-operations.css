@@ -5,7 +5,7 @@
 .dock-config-name{display:block;font-size:13px;color:var(--register-accent);margin-top:8px}.dock-plans{display:flex;flex-direction:column;gap:8px}.dock-plans a{font-size:13px}.dock-score-reason{font-size:12px;color:var(--register-muted)}
 #register-workspace .rw-echo-entry{position:relative;display:grid;grid-template-columns:minmax(0,1fr) 46px;border-bottom:1px solid var(--register-line);align-items:stretch}#register-workspace .rw-echo-entry .rw-echo-row{border:0}#register-workspace .rw-echo-entry>.rw-favorite-toggle{border:0;border-left:1px solid var(--register-line);padding:10px;color:var(--register-accent);background:none;font-size:23px}
 #register-workspace .rw-index-substats{font-size:12px;line-height:1.7;color:var(--register-muted);display:flex;flex-wrap:wrap;gap:4px 12px}#register-workspace .rw-index-substats .rw-stat-cell{display:inline-flex;gap:5px;border:0;padding:0}#register-workspace .rw-echo-index{max-height:72vh;overflow:auto;scrollbar-gutter:stable;scroll-padding:12px}#register-workspace .rw-inspector{position:sticky;top:16px;max-height:80vh;overflow:auto;scrollbar-gutter:stable;padding-top:12px}
-#register-workspace .rw-library-workspace{grid-template-columns:minmax(0,1fr) minmax(300px,400px)}#register-workspace .rw-inspector-close{display:block!important;margin-bottom:14px}#register-workspace .rw-inspector .rw-echo-preview{padding:12px 0}#register-workspace .rw-inspector section{padding:12px 0!important}#register-workspace .rw-inspector section h3{font-size:15px}
+#register-workspace .rw-library-workspace{grid-template-columns:minmax(0,1fr) minmax(300px,400px)}#register-workspace .rw-inspector .rw-echo-preview{padding:12px 0}#register-workspace .rw-inspector section{padding:12px 0!important}#register-workspace .rw-inspector section h3{font-size:15px}
 #role-register .rr-substats-details{margin:20px 0}#role-register .rr-substats-details summary,#role-register .rr-conditions>summary{cursor:pointer;padding:12px 0;color:var(--rr-mint)}#role-register .rr-analysis-summary{display:flex;gap:24px;padding:16px 0;border-bottom:1px solid var(--rr-line);flex-wrap:wrap}#role-register .rr-analysis-summary strong{font-size:23px;display:block}#role-register .rr-problem button{opacity:1;cursor:pointer}#role-register .rr-slot:not(.rr-selected) .rr-slot-status{min-height:24px}#role-register .rr-candidate-list{max-height:55vh;overflow:auto;scrollbar-gutter:stable;scroll-padding:12px}
 #role-register .rr-candidate-list li{display:grid;grid-template-columns:minmax(0,1fr) auto;gap:8px 16px;padding:16px 0;border-bottom:1px solid var(--rr-line)}#role-register .rr-candidate-list li>span{font-size:13px;color:var(--rr-muted)}#role-register .rr-candidate-list button{grid-column:2;grid-row:1/5;align-self:center}#role-register .rr-candidate-list button:disabled{opacity:.6}#role-register .op-filters{font-size:13px}#role-register .op-filters input{min-width:0}#role-register .op-plan-management{padding:18px 0;border-top:1px solid var(--rr-line)}
 .register-shell-page .op-back{display:inline-block;margin-bottom:16px;color:var(--register-accent);text-underline-offset:4px}.register-shell-page .op-empty{padding:32px 0;border-top:1px solid var(--register-line);color:var(--register-muted)}
@@ -30,3 +30,58 @@
 @media(max-width:700px){#role-register .rr-main{display:flex;flex-direction:column}#role-register .rr-identity{display:contents}#role-register .rr-workspace{order:1}#role-register .rr-identity-caption{order:2}#role-register .rr-role-actions{order:3}}
 @media(max-width:700px){#role-register .rr-candidate-list{max-height:none;overflow:visible}.op-keyboard #register-shell nav{display:none}.op-keyboard #register-workspace .rw-actions{position:static}.op-keyboard #role-register .rr-candidate-surface[data-phase=select]{bottom:0;max-height:90dvh}.op-keyboard :is(input,textarea){scroll-margin:40px}}
 @media(max-width:700px){html.register-shell-page{scroll-padding-bottom:124px}.register-shell-page :is(input,textarea,a,button){scroll-margin-bottom:124px}}
+
+/* 两层搜索只调整呈现，原控件与页面事件保持原位逻辑。 */
+.register-shell-page .sf-search{display:grid;grid-template-columns:minmax(180px,1fr) auto auto auto;align-items:end;gap:12px 16px;margin:20px 0;min-width:0}
+#register-workspace>.register-page-heading+[role="alert"]:empty+.sf-search{border-top:0;padding-top:0}
+.register-shell-page .sf-query{grid-column:1;grid-row:1;display:block!important;min-width:0;margin:0!important;text-align:left}
+.register-shell-page .sf-query input{display:block;box-sizing:border-box;width:100%;max-width:none;margin:6px 0 0!important;padding:11px 12px;font:inherit;border:1px solid var(--register-line);background:#1b2420;color:var(--register-ink);min-height:44px}
+.register-shell-page :is(#character-dock,#register-workspace,#role-register,.rw-inventory-dialog) details.sf-advanced{display:contents;max-width:none;text-align:left}
+.register-shell-page .sf-advanced>summary{grid-column:2;grid-row:1;display:flex;align-items:center;justify-content:center;gap:8px;min-height:44px;box-sizing:border-box;padding:10px 14px!important;border:1px solid var(--register-line);color:var(--register-muted);white-space:nowrap;cursor:pointer;list-style:none;transition:background-color .18s,color .18s,border-color .18s}
+.register-shell-page .sf-advanced>summary::-webkit-details-marker{display:none}
+.register-shell-page .sf-advanced>summary:after{content:'⌄';font-size:15px}
+.register-shell-page .sf-advanced[open]>summary{background:rgba(154,213,195,.12);color:var(--register-accent);border-color:#638d7f}
+.register-shell-page .sf-advanced[open]>summary:after{content:'⌃'}
+.register-shell-page .sf-advanced>summary:hover{background:rgba(154,213,195,.05);color:#c2d4ca}
+.register-shell-page .sf-advanced>summary:focus-visible{outline:2px solid var(--register-accent);outline-offset:-4px}
+.register-shell-page .sf-advanced:not([open])>.sf-panel{display:none!important}
+.register-shell-page .sf-panel{grid-column:1/-1;grid-row:2;margin:0!important;animation:sf-reveal .18s ease-out}
+.register-shell-page .sf-closing>.sf-panel{animation:none;opacity:0;transform:translateY(-3px);transition:opacity .18s,transform .18s}
+.register-shell-page .sf-actions{grid-column:3;grid-row:1;display:flex;gap:8px;align-items:center}
+.register-shell-page .sf-actions button{font:inherit;min-height:44px;padding:10px 14px;background:transparent;border:1px solid var(--register-line);color:var(--register-muted);white-space:nowrap}
+.register-shell-page .sf-results{grid-column:4;grid-row:1;font-size:13px;color:var(--register-muted);margin:0!important;padding:12px 0;white-space:nowrap}
+#character-dock .sf-search .sf-actions button{border:1px solid var(--register-line);padding:10px 14px;font-size:14px}
+.rw-inventory-dialog .sf-panel{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:16px;padding:16px 0;border-top:1px solid var(--register-line)}
+@keyframes sf-reveal{from{opacity:0;transform:translateY(-3px)}to{opacity:1;transform:translateY(0)}}
+@media(max-width:960px){.register-shell-page .sf-search{grid-template-columns:minmax(0,1fr) auto}.register-shell-page .sf-actions{grid-column:2;grid-row:2}.register-shell-page .sf-results{grid-column:1;grid-row:2;white-space:normal}.register-shell-page .sf-panel{grid-row:3}}
+@media(max-width:600px){.register-shell-page .sf-search{gap:10px 12px}.register-shell-page .sf-query{grid-column:1/-1}.register-shell-page .sf-advanced>summary{grid-column:1;grid-row:2;font-size:14px;padding:10px!important;white-space:normal;text-align:center}.register-shell-page .sf-actions button{font-size:14px;padding:10px}.register-shell-page .sf-results{grid-column:2;grid-row:1;align-self:start;justify-self:end;padding:0;font-size:11px;line-height:1.5;max-width:170px;text-align:right}.register-shell-page .sf-search:not(:has(.sf-advanced)) .sf-actions{grid-row:2}.register-shell-page .sf-panel{grid-row:3}}
+@media(prefers-reduced-motion:reduce){.register-shell-page .sf-panel{animation:none}}
+
+/* 声骸库只使用页面滚动；能完整容纳的详情才启用 sticky。 */
+#register-workspace .rw-echo-index{max-height:none;overflow:visible;scrollbar-gutter:auto}
+#register-workspace .rw-inspector{position:static;max-height:none;overflow:visible;scrollbar-gutter:auto;align-self:start;padding-top:16px}
+#register-workspace .rw-inspector.rw-sticky{position:sticky;top:16px}
+#register-workspace .rw-library-workspace{display:grid;grid-template-columns:minmax(0,1fr) minmax(300px,380px);align-items:start;gap:28px}
+#register-workspace .rw-echo-entry{margin:0;border-bottom:1px solid var(--register-line);grid-template-columns:minmax(0,1fr) 44px}
+#register-workspace .rw-echo-row{min-height:114px;padding:14px 12px;border-left:3px solid transparent!important;grid-template-columns:56px minmax(0,1fr) minmax(120px,.7fr);gap:10px 16px;text-align:left}
+#register-workspace .rw-echo-row[aria-pressed=true]{border-left-color:var(--register-accent)!important;background:rgba(154,213,195,.12)}
+#register-workspace .rw-echo-row .rw-echo-art,#register-workspace .rw-echo-row img{width:56px;height:64px;object-fit:contain}
+#register-workspace .rw-echo-row .rw-index-substats{grid-column:2/-1;display:flex;gap:5px 12px;font-size:12px}
+#register-workspace .rw-echo-identity strong{font-size:16px}
+#register-workspace .rw-inspector-main .rw-main-reading b{font-size:32px;color:var(--register-accent);font-variant-numeric:tabular-nums}
+#register-workspace .rw-detail-substats{display:grid;grid-template-columns:1fr;gap:0}
+#register-workspace .rw-detail-substats .rw-stat-cell{display:flex;justify-content:space-between;gap:16px;padding:10px 0;border:0;border-bottom:1px solid var(--register-line)}
+#register-workspace .rw-inspector-favorite{min-height:44px;margin:8px 0;padding:8px 14px}
+#register-workspace .rw-inspector .rw-echo-preview{margin-bottom:12px}
+@media(max-width:960px){
+ #register-workspace .rw-library-workspace{display:block}
+ #register-workspace .rw-inspector.rw-sticky{position:static}
+ #register-workspace:has(.rw-inspector.is-open) .sf-search{display:none}
+ #register-workspace .rw-echo-row{grid-template-columns:48px minmax(0,1fr);padding:12px 8px;min-height:130px}
+ #register-workspace .rw-echo-row .rw-echo-art,#register-workspace .rw-echo-row img{width:48px;height:56px}
+ #register-workspace .rw-echo-row>.rw-main-reading{grid-column:2;border:0;padding:0;display:flex;flex-wrap:wrap;gap:4px 12px}
+ #register-workspace .rw-echo-row .rw-main-reading small{display:none}
+ #register-workspace .rw-echo-row .rw-index-substats{display:block;white-space:nowrap;overflow:hidden;text-overflow:ellipsis;line-height:1.6}
+ #register-workspace .rw-echo-row .rw-index-substats :is(span,b){font-size:12px}
+ #register-workspace .rw-inspector{padding-bottom:24px}
+}

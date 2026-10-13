@@ -2,6 +2,7 @@
     'use strict';
     // 三种语言使用相同的 key 和插值参数。
     const rows={
+"ops.advanced":["進階篩選","进阶筛选","Advanced filters"],
 "dock.missingMain":["主詞條資料缺失或無效","主词条数据缺失或无效","Main stat is missing or invalid"],
 "dock.missingSubstats":["副詞條未齊全或有無效資料","副词条未齐全或有无效数据","Substats are missing or contain invalid data"],
 "dock.checkEcho":["請檢查聲骸配置資料","请检查声骸配置数据","Check this Echo’s loadout data"],
