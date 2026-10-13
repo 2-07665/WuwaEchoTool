@@ -80,9 +80,12 @@ html.register-shell-page,html.guide-page{scrollbar-gutter:stable;color-scheme:da
 
 /* 视图切换不改变角色数据，概况与鉴定采用紧凑细线布局。 */
 #character-dock [role="tabpanel"][hidden]{display:none!important}
-.dock-view-tabs{display:flex;gap:28px;border-bottom:1px solid #354a41;margin-top:28px}
-.dock-view-tabs button{font:inherit;font-size:16px;min-height:48px;padding:12px 4px;color:#9cafa5;background:none;border:0;border-bottom:2px solid transparent;cursor:pointer}
-.dock-view-tabs button[aria-selected="true"]{color:#b3efd9;border-bottom-color:#a3e5cd}
+#character-dock .dock-view-tabs{display:flex;justify-content:flex-start;gap:8px;border-bottom:1px solid var(--register-line,#344139);margin-top:28px}
+#character-dock .dock-view-tabs button[role="tab"]{box-sizing:border-box;flex:0 0 auto;font:inherit;font-size:16px;font-weight:400;line-height:1.5;min-height:51px;padding:12px 20px;color:#9cafa5;background:transparent;border:0;border-bottom:3px solid transparent;border-radius:0;box-shadow:none;cursor:pointer;transition:background-color .18s ease,color .18s ease,border-color .18s ease}
+#character-dock .dock-view-tabs button[aria-selected="false"]:hover{color:#c2d4ca;background:rgba(154,213,195,.05)}
+#character-dock .dock-view-tabs button[aria-selected="true"]{color:var(--register-accent,#9ad5c3);font-weight:600;background:rgba(154,213,195,.12);border-bottom-color:var(--register-accent,#9ad5c3)}
+#character-dock .dock-view-tabs button:focus-visible{outline:2px solid var(--register-accent,#9ad5c3);outline-offset:-5px}
+@media(prefers-reduced-motion:reduce){#character-dock .dock-view-tabs button[role="tab"]{transition:none}}
 .rr-cultivation-overview{margin-top:20px;padding:24px;border:1px solid #354d43;background:#131f1a;color:#dce4dd;scroll-margin-top:24px}
 #character-dock .rr-cultivation-overview>h2{font-size:18px}
 .rr-overview-counts{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:24px;margin:20px 0 28px;padding-bottom:20px;border-bottom:1px solid #354a41}
@@ -102,7 +105,7 @@ html.register-shell-page,html.guide-page{scrollbar-gutter:stable;color-scheme:da
 #character-dock .rr-overview-empty{padding:18px 0;color:#a6b9ae;line-height:1.7}
 .rr-overview-hint{font-size:12px;color:#a6b9ae}
 .dock-view-empty{padding:24px 0}
-@media(max-width:700px){.dock-view-tabs{gap:0}.dock-view-tabs button{flex:1}.rr-overview-counts{gap:12px}.rr-overview-counts dd{font-size:28px}.rr-overview-bands,.rr-overview-readings{grid-template-columns:repeat(2,minmax(0,1fr));gap:12px 20px}.rr-overview-bands strong{font-size:22px}.rr-overview-readings dd{font-size:19px}}
+@media(max-width:700px){#character-dock .dock-view-tabs{gap:0}#character-dock .dock-view-tabs button[role="tab"]{flex:1 1 0;min-width:0;padding-left:10px;padding-right:10px}.rr-overview-counts{gap:12px}.rr-overview-counts dd{font-size:28px}.rr-overview-bands,.rr-overview-readings{grid-template-columns:repeat(2,minmax(0,1fr));gap:12px 20px}.rr-overview-bands strong{font-size:22px}.rr-overview-readings dd{font-size:19px}}
 
 /* 槽位警示采用绝对定位，空槽继续显示原有破折号。 */
 #character-dock .dock-recent-slot{position:relative}
