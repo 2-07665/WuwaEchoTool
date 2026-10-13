@@ -1,17 +1,25 @@
 /* 导入转换与传输由两种 presentation 共用，不接触页面节点。 */
 (function(root){
-function convertPhantomData(ycost, curRole, api, now=Date.now()) {
+function convertPhantomData(ycost, curRole, api, now) {
+    if(!ycost?.phantomProp||!Array.isArray(ycost.mainProps)||![1,3,4].includes(Number(ycost.phantomProp.cost))||ycost.subProps!=null&&!Array.isArray(ycost.subProps))throw Error('INVALID_ECHO');
+    const primary=ycost.mainProps[0],text=value=>typeof value==='string'||typeof value==='number'?String(value):null;
+    let identity;
+    if(now!==undefined)identity=now+ycost.phantomProp.phantomPropId; // explicit legacy fixture seed
+    else {const bytes=new Uint32Array(2);root.crypto.getRandomValues(bytes);identity=(bytes[0]&0xffff)*4294967296+bytes[1];}
+    const matches=api.catalog?.filter(e=>e.name===ycost.phantomProp.name&&e.type==='Cost'+ycost.phantomProp.cost);
+    if(matches&&matches.length!==1)throw Error('UNKNOWN_ECHO');
     let newCost = {
-        "costId": now + ycost.phantomProp.phantomPropId,
-        "costListId": ycost.phantomProp.phantomPropId,
+        "costId": identity,
+        "costListId": matches?.[0]?.id??ycost.phantomProp.phantomPropId,
+        "gameEchoTypeId": ycost.phantomProp.phantomPropId,
         "name": ycost.phantomProp.name,
         "type": "Cost" + ycost.phantomProp.cost,
         "imgCode": ycost.phantomProp.iconUrl,
-        "suite": ycost.fetterDetail.iconUrl,
-        "mainAtrri": {
-            "property": guifan(ycost.mainProps[0].attributeName === "攻击" ? "大攻击" : ycost.mainProps[0].attributeName, ycost.mainProps[0].attributeValue),
-            "value": ycost.mainProps[0].attributeValue
-        },
+        "suite": ycost.fetterDetail?.iconUrl||null,
+        "mainAtrri": primary?{
+            "property": guifan(primary.attributeName === "攻击" ? "大攻击" : primary.attributeName, primary.attributeValue),
+            "value": text(primary.attributeValue)
+        }:null,
         "sumScores": 0,
         "propertyList": []
     }
@@ -19,14 +27,17 @@ function convertPhantomData(ycost, curRole, api, now=Date.now()) {
         ycost.subProps.forEach(its => {
             //副词条转化
             newCost.propertyList.push({
-                "property": guifan(its.attributeName, its.attributeValue),
-                "value": its.attributeValue
+                "property": guifan(its?.attributeName, its?.attributeValue),
+                "value": text(its?.attributeValue)
             });
         });
     }
-    newCost.sumScores = api.countMainAttr2(newCost, curRole);
-    newCost.sumScores = parseFloat(newCost.sumScores) + parseFloat(api.sumCostScores(newCost, curRole));
-    newCost.sumScores = newCost.sumScores.toFixed(2);
+    // Incomplete fields remain explicit. The shared view adapter determines score availability;
+    // this legacy cache is populated only when the existing scoring API accepts the data.
+    try{
+        const score=Number(newCost.mainAtrri?api.countMainAttr2(newCost,curRole):0)+Number(api.sumCostScores(newCost,curRole));
+        newCost.sumScores=Number.isFinite(score)?score.toFixed(2):null;
+    }catch(_){newCost.sumScores=null;}
     return newCost;
 }
 
@@ -46,17 +57,17 @@ function guifan(zt, value) {
     } else if (zt === "治疗效果加成") {
         return "治疗";
     } else if (zt === "攻击") {
-        if (value.includes('%')) {
+        if (String(value).includes('%')) {
             return "大攻击";
         }
         return "小攻击";
     } else if (zt === "生命") {
-        if (value.includes('%')) {
+        if (String(value).includes('%')) {
             return "大生命";
         }
         return "小生命";
     } else if (zt === "防御") {
-        if (value.includes('%')) {
+        if (String(value).includes('%')) {
             return "大防御";
         }
         return "小防御";

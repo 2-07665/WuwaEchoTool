@@ -2,7 +2,7 @@
 html.role-register-page{background:#111718;color-scheme:dark}
 .role-register-page body{margin:0;background:#111718}
 .role-register-page body>.mc-main-page{display:none!important}
-#role-register{--rr-ink:#e7eae5;--rr-muted:#a8b4ad;--rr-line:#344139;--rr-mint:#9ad5c3;color:var(--rr-ink);text-align:left;font:14px/1.6 "Segoe UI","Microsoft JhengHei",sans-serif;max-width:1600px;margin:auto;padding:0 48px 24px}
+#role-register{--rr-ink:var(--register-ink,#e7eae5);--rr-muted:var(--register-muted,#a8b4ad);--rr-line:var(--register-line,#344139);--rr-mint:var(--register-accent,#9ad5c3);color:var(--rr-ink);text-align:left;font:14px/1.6 "Segoe UI","Microsoft JhengHei",sans-serif;max-width:1600px;margin:auto;padding:0 48px 24px}
 #role-register *{box-sizing:border-box}#role-register h1,#role-register h2,#role-register h3,#role-register p,#role-register dl,#role-register dd{margin:0}#role-register a{color:inherit;text-decoration:none}#role-register a:hover{text-decoration:underline}#role-register a:focus-visible,#role-register select:focus-visible{outline:2px solid var(--rr-mint);outline-offset:4px}
 #role-register .rr-top{min-height:80px;border-bottom:1px solid var(--rr-line);display:flex;align-items:center;gap:48px}
 #role-register .rr-brand{display:flex;gap:14px;align-items:center;font-size:16px;letter-spacing:1px;flex-shrink:0}#role-register .rr-brand small{display:block;font-size:10px;letter-spacing:2px;color:var(--rr-muted)}

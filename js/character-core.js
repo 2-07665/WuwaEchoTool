@@ -4,6 +4,9 @@
 })(typeof globalThis!=='undefined'?globalThis:this,function(){
     'use strict';
     const copy=x=>JSON.parse(JSON.stringify(x));
+    const IMPORT_SERVER='76402e5b20be2c39f095a152090afddc';
+    async function accountKey(uid,server=IMPORT_SERVER){const bytes=await globalThis.crypto.subtle.digest('SHA-256',new TextEncoder().encode(server+':'+uid));return Array.from(new Uint8Array(bytes),x=>x.toString(16).padStart(2,'0')).join('');}
+    async function importSource(uid,gameRoleId){return {version:1,server:IMPORT_SERVER,accountKey:await accountKey(uid),gameRoleId:String(gameRoleId)};}
     function createRole(entry,id){return {roleId:id,isImport:false,level:0,roleListId:entry.id,totalScore:0,name:entry.name,cls:entry.cls,dbCritNum:0,attackNum:0,costList:[]};}
     function createEcho(entry,id){return {costId:id,costListId:entry.id,name:entry.name,type:entry.type,imgCode:entry.imgCode,suite:null,mainAtrri:null,sumScores:0,propertyList:[]};}
     function removeRole(data,id){
@@ -16,7 +19,9 @@
         function safeKeys(value){if(value&&typeof value==='object'){for(const [key,item]of Object.entries(value)){if(['__proto__','prototype','constructor'].includes(key))throw Error('INVALID_DATA');safeKeys(item);}}}
         safeKeys(data);
         const roleIds=new Set();
-        for(const r of data.role){if(!r||r.roleId==null||roleIds.has(String(r.roleId))||!Array.isArray(r.costList)||r.costList.length>5)throw Error('INVALID_DATA');roleIds.add(String(r.roleId));}
+        for(const r of data.role){if(!r||r.roleId==null||roleIds.has(String(r.roleId))||!Array.isArray(r.costList)||r.costList.length>5)throw Error('INVALID_DATA');
+            if(r.importSource){const s=r.importSource;if(s.version!==1||!/^[a-f0-9]{64}$/.test(s.accountKey)||typeof s.server!=='string'||!s.server||typeof s.gameRoleId!=='string'||!s.gameRoleId||Object.keys(s).sort().join(',')!=='accountKey,gameRoleId,server,version')throw Error('INVALID_DATA');}
+            roleIds.add(String(r.roleId));}
         return data;
     }
     function create({read,write,normalize}){
@@ -56,5 +61,5 @@
         return {load,transact,score,saveEcho,removeEcho,equip};
     }
     function restoreData({json,expectedRaw,readRaw,write}){const incoming=validate(JSON.parse(json));if(readRaw()!==expectedRaw)throw Error('SOURCE_CHANGED');write(copy(incoming));return incoming;}
-    return {createRole,createEcho,removeRole,validate,create,restoreData};
+    return {IMPORT_SERVER,accountKey,importSource,createRole,createEcho,removeRole,validate,create,restoreData};
 });

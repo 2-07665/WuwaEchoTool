@@ -1,0 +1,13 @@
+/* Shared Register vocabulary; Classic is outside this scope. */
+:root{--register-bg:#111718;--register-ink:#e7eae5;--register-muted:#a8b4ad;--register-line:#344139;--register-accent:#9ad5c3}
+.register-shell-page body{background:var(--register-bg);color:var(--register-ink)}
+.register-shell-page #register-workspace,.register-shell-page #character-dock{color:var(--register-ink)}
+.register-shell-page :is(#register-workspace,#character-dock,#role-register) :is(input:not([type=checkbox]),select,textarea){border:1px solid #48564d;border-radius:0;background:#1b2420;color:var(--register-ink);font:inherit;max-width:100%}
+.register-shell-page :is(#register-workspace,#character-dock) button{border-radius:0;box-shadow:none;border-color:var(--register-line);color:var(--register-ink)}
+.register-shell-page :is(#register-workspace,#character-dock) .rw-primary{background:var(--register-accent);color:var(--register-bg);border-color:var(--register-accent)}
+.register-shell-page :is(#register-workspace,#character-dock,#role-register) :focus-visible{outline:2px solid var(--register-accent);outline-offset:4px}
+.register-shell-page #register-workspace :is(nav,fieldset,section){border-color:var(--register-line)}
+.register-shell-page :is(#register-workspace,#character-dock) :is(h1,h2,h3){font-weight:500;overflow-wrap:anywhere}
+.register-shell-page #register-workspace :is(a,p,label,li,small){overflow-wrap:anywhere}
+.register-shell-page #register-workspace :is(.rw-actions,.rw-backup-actions){gap:12px}
+@media(prefers-reduced-motion:reduce){.register-shell-page *{scroll-behavior:auto!important;transition:none!important}}

@@ -6,7 +6,7 @@
     function resolve(entry){
         if(!entry)return null;
         if(typeof entry.portrait==='string'&&/^image\/characters\/[\w-]+\.(?:png|webp|jpe?g|avif)$/i.test(entry.portrait))return entry.portrait;
-        return typeof entry.cls==='string'&&/^mcr-[\w-]+$/.test(entry.cls)?'image/characters/'+entry.cls.slice(4)+'.png':null;
+        return typeof entry.cls==='string'&&/^mcr-[\w-]+$/.test(entry.cls)?'image/characters/'+entry.cls.slice(4)+'.webp':null;
     }
     function classicStyles(catalog){
         return catalog.filter(r=>/^mcr-[\w-]+$/.test(r.cls)).map(r=>{

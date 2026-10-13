@@ -89,7 +89,7 @@ $(function () {
         if (!flag || !confirm("确定要从官方导出数据到本页面吗？")) return;
         flag=false;
         const source=JSON.stringify(getDataFromCache('mcData'));
-        const service=ImportService.create({ajax:$.ajax,host:hostName,methods:methodName,headers:completeHeaders,tokenHeaders:completeHeaders2,storage:localStorage,convert:(echo,role)=>RoleImportCore.convertPhantomData(echo,role,{guifan,countMainAttr2,sumCostScores})});
+        const service=ImportService.create({ajax:$.ajax,host:hostName,methods:methodName,headers:completeHeaders,tokenHeaders:completeHeaders2,storage:localStorage,convert:(echo,role)=>RoleImportCore.convertPhantomData(echo,role,{guifan,countMainAttr2,sumCostScores,catalog:costList})});
         try {
             const updated=await service.detail(String(curData.tzmId||''),{...curRole,gameRoleId:curRole.gameRoleId||mappingRoleId(curRole.roleListId)});
             if(JSON.stringify(getDataFromCache('mcData'))!==source)throw Error('SOURCE_CHANGED');
@@ -329,4 +329,4 @@ function byzt(score) {
 }
 
 //将官方格式的声骸剥离成我的格式-ycost官方格式
-function convertPhantomData(ycost) { return RoleImportCore.convertPhantomData(ycost,curRole,{guifan,countMainAttr2,sumCostScores}); }
+function convertPhantomData(ycost) { return RoleImportCore.convertPhantomData(ycost,curRole,{guifan,countMainAttr2,sumCostScores,catalog:costList}); }

@@ -21,13 +21,21 @@
             if(reason)throw failure(stage,reason,response,status);
             if(response?.success===false||(response?.code!=null&&![200,10902].includes(Number(response.code))))throw failure(stage,'rejected',response,status);
         }
-        const request=(index,data,headers)=>new Promise((resolve,reject)=>{
+        let did=null;
+        const request=(index,data,headers,options={})=>new Promise((resolve,reject)=>{
             const stage=stages[index];
-            api.ajax({url:api.host+api.methods[index],type:'POST',headers,data,dataType:'json',timeout:30000,
-                success:response=>{try{check(response,stage);resolve(response);}catch(error){reject(error);}},
+            const signal=options.signal;
+            if(signal?.aborted){reject(Error('CANCELLED'));return;}
+            headers={...headers};if(headers.did){did=did||headers.did;headers.did=did;}
+            let xhr,settled=false;
+            const finish=(fn,value)=>{if(settled)return;settled=true;signal?.removeEventListener('abort',abort);fn(value);};
+            const abort=()=>{finish(reject,Error('CANCELLED'));xhr?.abort?.();};
+            signal?.addEventListener('abort',abort,{once:true});
+            xhr=api.ajax({url:api.host+api.methods[index],type:'POST',headers,data,dataType:'json',timeout:30000,
+                success:response=>{try{check(response,stage);finish(resolve,response);}catch(error){finish(reject,error);}},
                 error:(xhr,state)=>{
-                    try{if(xhr?.responseJSON)check(xhr.responseJSON,stage,xhr.status);}catch(error){reject(error);return;}
-                    reject(failure(stage,state==='timeout'?'timeout':state==='parsererror'?'format':xhr?.status?'http':'network',null,xhr?.status));
+                    try{if(xhr?.responseJSON)check(xhr.responseJSON,stage,xhr.status);}catch(error){finish(reject,error);return;}
+                    finish(reject,failure(stage,state==='timeout'?'timeout':state==='parsererror'?'format':xhr?.status?'http':'network',null,xhr?.status));
                 }
             });
         });
@@ -38,27 +46,42 @@
                 return data;
             }catch(_){throw failure(stage,'format',r);}
         };
-        async function bind(token){const result=await request(2,'',api.tokenHeaders(token));if(!result?.success)throw failure('bind','format',result);api.storage.setItem('kjq_token',token);}
-        async function list(uid){
+        function store(key,value){try{api.storage.setItem(key,value);}catch(_){throw Error('SAVE_FAILED');}}
+        async function bind(token,options={}){if(!String(token||'').trim())throw Error('TOKEN_REQUIRED');const result=await request(2,'',api.tokenHeaders(token),options);if(!result?.success)throw failure('bind','format',result);if(options.signal?.aborted)throw Error('CANCELLED');store('kjq_token',token);}
+        async function authorize(uid,options){
+            const auth=await request(6,{roleId:uid,serverId:'76402e5b20be2c39f095a152090afddc',forceRefresh:true},api.headers(),options);
+            const data=parse(auth,'auth');if(!data?.accessToken)throw failure('auth','format',auth);
+            if(options?.signal?.aborted)throw Error('CANCELLED');store('kjq_bat',data.accessToken);return data.accessToken;
+        }
+        async function list(uid,options={}){
             if(!/^\d{9}$/.test(uid))throw Error('INVALID_UID');
             if(!api.storage.getItem('kjq_token'))throw Error('TOKEN_REQUIRED');
             const params={gameId:3,roleId:uid,serverId:'76402e5b20be2c39f095a152090afddc'};
-            const auth=await request(6,{roleId:uid,serverId:params.serverId,forceRefresh:true},api.headers());
-            const data=parse(auth,'auth');if(!data?.accessToken)throw failure('auth','format',auth);
-            api.storage.setItem('kjq_bat',data.accessToken);
-            const headers=api.headers(data.accessToken,false),refreshHeaders={...headers};delete refreshHeaders.token;
-            await request(3,params,refreshHeaders);
-            const result=parse(await request(0,params,headers),'list');if(!Array.isArray(result?.roleList))throw failure('list','format');return result.roleList;
+            for(let attempt=0;attempt<2;attempt++){
+                const accessToken=await authorize(uid,options),headers=api.headers(accessToken,false),refreshHeaders={...headers};delete refreshHeaders.token;
+                try{await request(3,params,refreshHeaders,options);
+                    const result=parse(await request(0,params,headers,options),'list');if(!Array.isArray(result?.roleList))throw failure('list','format');return result.roleList;
+                }catch(error){if(attempt||error.importFailure?.reason!=='dataToken')throw error;}
+            }
         }
-        async function detail(uid,record){
+        async function detail(uid,record,options={}){
             if(!/^\d{9}$/.test(uid))throw Error('INVALID_UID');
             const params={gameId:3,roleId:uid,serverId:'76402e5b20be2c39f095a152090afddc',channelId:19,countryCode:1,id:record.gameRoleId};
-            const headers=api.headers(api.storage.getItem('kjq_bat'),false);await request(3,params,headers);
-            const data=parse(await request(1,params,headers),'detail');if(!Array.isArray(data?.chainList)||!Array.isArray(data?.phantomData?.equipPhantomList))throw failure('detail','format');
+            let data;
+            for(let attempt=0;attempt<2;attempt++){
+                const headers=api.headers(api.storage.getItem('kjq_bat'),false);
+                try{await request(3,params,headers,options);data=parse(await request(1,params,headers,options),'detail');break;}
+                catch(error){if(attempt||error.importFailure?.reason!=='dataToken')throw error;await authorize(uid,options);}
+            }
+            if(!Array.isArray(data?.chainList)||!Array.isArray(data?.phantomData?.equipPhantomList)||data.phantomData.equipPhantomList.filter(Boolean).length>5)throw failure('detail','format');
             const role=JSON.parse(JSON.stringify(record));role.level=data.level;role.ming=data.chainList.filter(c=>c.unlocked).length;
-            if(data.weaponData?.weapon){role.weaponImg=data.weaponData.weapon.weaponIcon;role.weaponStar=data.weaponData.weapon.weaponStarLevel;role.weaponlevel=data.weaponData.level;role.weaponReson=data.weaponData.resonLevel;}
-            role.skillList=(data.skillList||[]).slice(0,5).map(s=>({img:s.skill.iconUrl,level:s.level}));
-            role.costList=(data.phantomData?.equipPhantomList||[]).filter(Boolean).map(e=>api.convert(e,role));return role;
+            for(const key of ['weaponImg','weaponStar','weaponlevel','weaponReson','weaponName','weaponGameId'])delete role[key];
+            if(data.weaponData?.weapon){role.weaponImg=data.weaponData.weapon.weaponIcon;role.weaponStar=data.weaponData.weapon.weaponStarLevel;role.weaponlevel=data.weaponData.level;role.weaponReson=data.weaponData.resonLevel;role.weaponName=data.weaponData.weapon.weaponName||data.weaponData.weapon.name||null;role.weaponGameId=data.weaponData.weapon.weaponId??null;}
+            if(data.skillList!=null&&!Array.isArray(data.skillList))throw failure('detail','format');
+            role.skillList=(data.skillList||[]).slice(0,5).map(s=>({img:s?.skill?.iconUrl||null,name:s?.skill?.name||null,level:s?.level??null}));
+            try{role.costList=(data.phantomData?.equipPhantomList||[]).filter(Boolean).map(e=>api.convert(e,role));}catch(_){throw failure('detail','mapping');}
+            if(root.CharacterCore?.importSource)role.importSource=await root.CharacterCore.importSource(uid,record.gameRoleId);
+            if(options.signal?.aborted)throw Error('CANCELLED');return role;
         }
         return {bind,list,detail};
     }

@@ -7,6 +7,9 @@
         const local=RoleLocalConfiguration.create(localStorage);
         const MODEL_VERSION='legacy-scoring-2026-10-08';
         let state=null,epoch=0,busy=false,renderTicket=0;
+        let filters=RegisterCollections.defaults(),listScroll=0,detailsOpen=false,nameInput=null,nameExpected=null;
+        const editorGuard=RegisterUnsaved.create({scope:()=> 'candidate:'+new URL(location.href).searchParams.get('roleid')+':'+state?.position+':'+state?.source,get:()=>state?.fields||null,apply:value=>{if(state)state.fields=value;},revision:()=>state?.baseline?.sourceRevision+':'+RoleDraftModel.canonical(state?.baseline?.conditions||null),serialize:v=>RoleDraftModel.canonical(v&&{...v,catalogId:String(v.catalogId||''),mainStat:{...v.mainStat,value:String(v.mainStat.value??'')},substats:v.substats.map(s=>({...s,value:String(s.value??'')}))}),i18n});editorGuard.pause();
+        let activeNameId=null;const nameGuard=RegisterUnsaved.create({scope:()=> 'plan-name:'+state?.context?.draft?.id,get:()=>nameInput,apply:v=>nameInput=typeof v==='string'?v:null,revision:()=>nameExpected,i18n});nameGuard.pause();
         const uid=()=>crypto.randomUUID();
         const esc=x=>String(x??'').replace(/[&<>"']/g,c=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[c]));
         const t=(key,params)=>esc(i18n.t('candidate.'+key,params));
@@ -35,7 +38,7 @@
         }
         function focus(){host.querySelector('#rr-candidate-title')?.focus();}
         function urlDraft(id){const url=new URL(location.href);if(id)url.searchParams.set('draft',id);else url.searchParams.delete('draft');history.replaceState(null,'',url.pathname+url.search);}
-        function close(){epoch++;state=null;busy=false;urlDraft(null);render();host.querySelector('[data-rr-candidates]')?.focus();}
+        function close(after=()=>{}){if(busy){editorGuard.retain();editorGuard.pause();}const dirty=editorGuard.dirty()||nameGuard.dirty();editorGuard.leave(()=>nameGuard.leave(()=>{editorGuard.pause();nameGuard.pause();epoch++;state=null;busy=false;urlDraft(null);render();host.querySelector('[data-rr-candidates]')?.focus();after();}));return !dirty;}
         async function open(){
             const ticket=++epoch,selected=getController()?.snapshot().selection;
             if(!selected||selected.kind!=='echo'){state={phase:'error',notice:'selectSlot'};render();return;}
@@ -57,18 +60,26 @@
             const scope=records.map(e=>e?.costId);
             state.rows=records.map(record=>{
                 const slot=adapter.fromRecord(record,state.role);
-                return {key:uid(),slot,scope,eligibility:adapter.eligibility(state.baseline,state.position,slot,scope)};
+                const eligibility=adapter.eligibility(state.baseline,state.position,slot,scope);
+                return {key:String(record.costId),record,slot,scope,eligibility,contribution:eligibility.status==='ready'?RegisterCollections.contribution(slot,state.baseline.modelStatus==='available'):null};
             });
         }
         function editorSource(source){
             state.source=source;state.notice=null;
             const echo=source==='clone'?normalize(state.role).slots[state.position-1].echo:null;
             state.fields=RoleCandidates.editor(echo);state.editorIdentity=uid();render();
+            editorGuard.reset();editorGuard.recover();render();
         }
         function editorSlot(){return adapter.fromEditor(state.fields,state.role,state.editorIdentity);}
         function eligible(){const slot=editorSlot();return adapter.eligibility(state.baseline,state.position,slot,[state.editorIdentity]);}
         function summary(e){return `<strong>${name(e)}</strong><span>${tr('loadout.cost',{cost:e.cost??'—'})}</span><span>${stat(e.mainStat)} ${value(e.mainStat)}</span><span>${e.substats.slice(0,5).map(s=>stat(s)+' '+value(s)).join(' · ')||t('noSubstats')}</span>`;}
         function options(list,selected){return '<option value="">'+t('unset')+'</option>'+list.map(k=>`<option value="${esc(k)}"${k===selected?' selected':''}>${tr('stats.'+k)}</option>`).join('');}
+        function candidateRows(){const favorite=id=>{try{return !!JSON.parse(localStorage.getItem('wuwa.register.echoMeta.v1')||'{}')[id]?.favorite;}catch(_){return false;}};return RegisterCollections.echoes(state.rows,filters,{name:e=>i18n.entity('echoes',e.costListId,e.name||''),favorite,complete:s=>s.status==='complete'});}
+        function libraryMarkup(){
+            const opt=(value,label,current)=>'<option value="'+esc(value)+'"'+(String(current)===String(value)?' selected':'')+'>'+label+'</option>',control=(key,label,values)=>'<label>'+label+'<select data-rc-filter="'+key+'">'+opt('',tr('ops.all'),filters[key])+values.map(([v,l])=>opt(v,l,filters[key])).join('')+'</select></label>';
+            const rows=candidateRows();
+            return '<div class="op-filters"><label>'+tr('secondary.search')+'<input type="search" data-rc-filter="search" value="'+esc(filters.search)+'"></label>'+control('cost',tr('secondary.cost'),[1,3,4].map(n=>['Cost'+n,'Cost '+n]))+control('suite',tr('workspace.suite'),[...new Set(state.rows.map(r=>r.record.suite).filter(Boolean))].map(v=>[v,esc(i18n.entity('sets',(typeof suiteAttributeMap==='undefined'?{}:suiteAttributeMap)[v],v))]))+control('main',tr('loadout.mainStat'),[...new Set(state.rows.map(r=>r.slot.echo?.mainStat.key).filter(Boolean))].map(k=>[k,tr('stats.'+k)]))+control('completeness',tr('secondary.complete'),['complete','incomplete'].map(k=>[k,tr('ops.'+k)]))+'<label>'+tr('ops.sort')+'<select data-rc-filter="sort">'+['recent','name','contribution'].map(k=>opt(k,tr('ops.'+(k==='name'?'nameSort':k==='contribution'?'contributionSort':k)),filters.sort)).join('')+'</select></label><label><input type="checkbox" data-rc-filter="favorite"'+(filters.favorite?' checked':'')+'>'+tr('secondary.favoriteOnly')+'</label></div><p class="op-count">'+tr('ops.count',{matched:rows.length,total:state.rows.length})+'<button data-rc-reset>'+tr('ops.reset')+'</button></p><p>'+tr('ops.scope')+'</p><ul class="rr-candidate-list">'+rows.map(row=>'<li>'+summary(row.slot.echo)+'<span>'+tr('ops.contribution')+': '+esc(i18n.format.score(row.contribution))+(row.contribution===null?' · '+tr('ops.unranked'):'')+'</span><span>'+t(row.eligibility.reason)+'</span><button type="button" data-rc-pick="'+esc(row.key)+'"'+(row.eligibility.status==='blocked'?' disabled':'')+'>'+tr('ops.saveCompare')+'</button></li>').join('')+'</ul>'+(rows.length?'':'<p>'+tr(state.rows.length?'ops.noResults':'ops.emptyLibrary')+'</p>');
+        }
         function editorMarkup(){
             const fields=state.fields;
             const catalogOptions=catalog.map(e=>`<option value="${esc(e.id)}"${String(e.id)===String(fields.catalogId)?' selected':''}>${name({catalogId:e.id})} · ${tr('loadout.cost',{cost:Number(String(e.type).replace('Cost',''))})}</option>`).join('');
@@ -108,9 +119,11 @@
             const table=items=>`<table class="rr-compare-table"><thead><tr><th>${ct('metric')}</th><th>${t('current')}</th><th>${t('candidate')}</th><th>${ct('delta')}</th></tr></thead><tbody>${rows(items)}</tbody></table>`;
             const trade=kind=>`<div><h5>${ct(kind)}</h5><p>${r[kind].length?r[kind].map(label).join(' · '):ct('none')}</p></div>`;
             const breakdown=()=>['current','candidate'].map(side=>`<h5>${t(side)}</h5><table class="rr-compare-table"><thead><tr><th>${ct('metric')}</th><th>${tr('analysis.actualValue')}</th><th>${ct('weight')}</th><th>${ct('contribution')}</th></tr></thead><tbody>${(r.breakdown?.[side]||[]).map(s=>`<tr><th scope="row">${stat(s)}</th><td data-label="${tr('analysis.actualValue')}">${value(s)}</td><td data-label="${ct('weight')}">${esc(i18n.format.decimal(s.coefficient))}</td><td data-label="${ct('contribution')}">${esc(i18n.format.decimal(s.contribution))}</td></tr>`).join('')}</tbody></table>`).join('');
-            return `<div class="rr-decision"><p>${ct('scope')}</p><h4>${ct('conclusion.'+r.conclusion)}</h4><p>${ct('why.'+r.conclusion)}</p>${r.validity.status!=='valid'?'<p>'+t(r.validity.status)+'</p>':''}<p>${ct('path',{position:ctx.targetSlot})} ${name(ctx.candidate.echo)}</p><p>${ct('limits')}</p>${r.rows.length?`<div class="rr-tradeoffs">${trade('gains')}${trade('losses')}${trade('unknown')}</div>${table(r.rows.filter(r=>r.delta!==0))}<details><summary>${ct('details')}</summary>${table(r.rows.filter(r=>r.delta===0))}<p>${ct('basis')}</p>${breakdown()}</details>`:''}${r.missing.length?'<p>'+ct('conditions')+': '+r.missing.map(k=>ct('need.'+k)).join(' · ')+'</p>':''}${state.showConditions?`<fieldset><legend>${ct('conditions')}</legend>${r.requirements.map(k=>`<label class="rr-compare-condition"><input type="checkbox" data-rc-condition="${k}"${state.conditions[k]?' checked':''}>${ct('condition.'+k)}</label>`).join('')}</fieldset>`:''}<p role="status">${state.adopted&&r.validity.status==='valid'?ct('adopted'):''}</p><button type="button" data-rc-decision${busy||(state.adopted&&r.conclusion==='recommended')?' disabled':''}>${ct('action.'+r.conclusion)}</button></div>`;
+            return `<div class="rr-decision"><p>${ct('scope')}</p><h4>${ct('conclusion.'+r.conclusion)}</h4><p>${ct('why.'+r.conclusion)}</p>${r.validity.status!=='valid'?'<p>'+t(r.validity.status)+'</p>':''}<p>${ct('path',{position:ctx.targetSlot})} ${name(ctx.candidate.echo)}</p><p>${ct('limits')}</p>${r.rows.length?`<div class="rr-tradeoffs">${trade('gains')}${trade('losses')}${trade('unknown')}</div>${table(r.rows.filter(r=>r.delta!==0))}<details data-rc-details${detailsOpen?' open':''}><summary>${ct('details')}</summary>${table(r.rows.filter(r=>r.delta===0))}<p>${ct('basis')}</p>${breakdown()}</details>`:''}${r.missing.length?'<p>'+ct('conditions')+': '+r.missing.map(k=>ct('need.'+k)).join(' · ')+'</p>':''}${state.showConditions?`<fieldset><legend>${ct('conditions')}</legend>${r.requirements.map(k=>`<label class="rr-compare-condition"><input type="checkbox" data-rc-condition="${k}"${state.conditions[k]?' checked':''}>${ct('condition.'+k)}</label>`).join('')}</fieldset>`:''}<p role="status">${state.adopted&&r.validity.status==='valid'?ct('adopted'):''}</p><button type="button" data-rc-decision${busy||(state.adopted&&r.conclusion==='recommended')?' disabled':''}>${ct('action.'+r.conclusion)}</button></div>`;
         }
         function paint(){
+            const active=host.querySelector(':focus'),filterKey=active?.dataset?.rcFilter,cursor=active?.selectionStart;
+            listScroll=host.querySelector('.rr-candidate-list')?.scrollTop??listScroll;
             host.classList?.toggle('rr-comparing',state?.phase==='context');
             host.querySelector('.rr-candidate-surface')?.remove();
             if(!state)return;
@@ -119,14 +132,17 @@
             let body='';
             if(state.phase==='select'){
                 body=`<nav aria-label="${t('sources')}">${['library','clone','manual'].map(s=>`<button type="button" data-rc-source="${s}" aria-pressed="${state.source===s}">${t(s)}</button>`).join('')}</nav>`;
-                if(state.source==='library')body+=state.rows.length?`<ul class="rr-candidate-list">${state.rows.map(row=>`<li>${summary(row.slot.echo)}<span>${t(row.eligibility.reason)}</span><button type="button" data-rc-pick="${row.key}"${row.eligibility.status==='blocked'?' disabled':''}>${t('select')}</button></li>`).join('')}</ul>`:`<p>${t('empty')}</p>`;
+                if(state.source==='library')body+=libraryMarkup();
                 else body+=editorMarkup();
             }else if(state.phase==='context'){
-                body=compareMarkup();
+                body=compareMarkup()+'<button type="button" data-rc-back>'+tr('ops.backCandidates')+'</button>';
+                const meta=RegisterMetadata.create(localStorage).load();if(meta.ok&&state.context){if(nameInput===null)nameExpected=meta.raw;if(activeNameId!==state.context.draft.id){activeNameId=state.context.draft.id;nameInput=null;nameGuard.reset();nameGuard.recover();}body+='<form class="op-rename" data-rc-rename><label>'+tr('ops.planName')+'<input data-rc-plan-name maxlength="80" value="'+esc(nameInput??RegisterMetadata.draftName(state.context.draft,i18n,meta.data))+'"></label><button>'+tr('ops.rename')+'</button><p role="status" data-rc-name-status></p></form>';}
             }
             const position=state.position;
             parent.insertAdjacentHTML('beforeend',`<section class="rr-candidate-surface" data-phase="${state.phase}" aria-labelledby="rr-candidate-title"><div class="rr-analysis-heading"><h3 id="rr-candidate-title" tabindex="-1">${t(state.phase==='context'?'contextTitle':'title')}${position?' · '+tr('loadout.slot',{position}):''}</h3><button type="button" data-rc-close>${t('close')}</button></div>${state.baseline?'<p>'+tr('role.chain',{chain:state.baseline.conditions.chain})+' · '+tr('register.mode.'+state.baseline.conditions.mode)+'</p>':''}<p role="status">${state.notice?t(state.notice):''}</p>${body}${state.phase==='error'?'<button type="button" data-rc-restart>'+t('restart')+'</button>':''}</section>`);
             if(busy)parent.querySelectorAll('[data-rc-create],[data-rc-pick],[data-rc-source],[data-rc-stat],[data-rc-catalog]').forEach(b=>b.disabled=true);
+            if(filterKey){const input=host.querySelector('[data-rc-filter="'+filterKey+'"]');input?.focus({preventScroll:true});if(filterKey==='search'&&cursor!=null)input?.setSelectionRange(cursor,cursor);}
+            if(host.querySelector('.rr-candidate-list'))host.querySelector('.rr-candidate-list').scrollTop=listScroll;
         }
         async function decision(){
             if(busy||state?.phase!=='context'||!state.result)return;
@@ -183,6 +199,7 @@
                 const saved=navigator.locks?await navigator.locks.request(RoleDraftStorage.KEY,write):await write();
                 if(ticket!==epoch)return;
                 if(!saved.ok){if(saved.validity)state={...origin,phase:'error',notice:saved.validity.status};else origin.notice='storage';return;}
+                editorGuard.markSaved();editorGuard.pause();
                 const latest=await current();if(ticket!==epoch)return;
                 const finalCheck=RoleCandidates.context(origin.baseline,draft,latest.baseline,Date.now(),i18n.locale,prepared.eligibility);
                 state={...origin,phase:finalCheck.context?'context':'error',context:finalCheck.context,notice:finalCheck.context?null:finalCheck.validity.status};urlDraft(draft.id);
@@ -200,8 +217,10 @@
                 const raw=(data()?.role||[]).find(r=>String(r.roleId)===baseline.role.identity);
                 const revision=raw?await digest(raw):null;if(ticket!==epoch)return;
                 if(revision===baseline.sourceRevision){
-                    c.updateModel('ming',baseline.conditions.chain);c.updateModel('damageMode',baseline.conditions.mode);
-                    for(const key of ['extraEnergy','referenceHealth'])if(baseline.conditions[key]!=null)c.updateModel(key,baseline.conditions[key]);
+                    const present=c.snapshot().model.model;
+                    if(present.chain!==baseline.conditions.chain)c.updateModel('ming',baseline.conditions.chain);
+                    if(present.parameters.mode!==baseline.conditions.mode)c.updateModel('damageMode',baseline.conditions.mode);
+                    for(const key of ['extraEnergy','referenceHealth'])if(baseline.conditions[key]!=null&&present.parameters[key]!==baseline.conditions[key])c.updateModel(key,baseline.conditions[key]);
                 }
                 const fresh=await current();if(ticket!==epoch)return;
                 c.restore(draft.targetSlot,draft.originalEchoIdentity);
@@ -217,6 +236,8 @@
             if(b.hasAttribute('data-rr-candidates'))open();
             else if(b.hasAttribute('data-rc-decision'))decision();
             else if(b.hasAttribute('data-rc-close'))close();
+            else if(b.hasAttribute('data-rc-reset')){filters=RegisterCollections.defaults();listScroll=0;paint();}
+            else if(b.hasAttribute('data-rc-back')&&state?.context){nameGuard.leave(()=>{nameGuard.pause();state={...state,phase:'select',context:null,result:null};urlDraft(null);nameInput=null;editorGuard.pause();paint();host.querySelector('[data-rc-filter="search"]')?.focus();});}
             else if(b.hasAttribute('data-rc-restart'))open();
             else if(b.hasAttribute('data-rc-source')&&state?.phase==='select'){
                 if(busy)return;
@@ -227,6 +248,8 @@
         });
         // 数值输入即时写入本地编辑状态，避免点击提交时依赖 blur/change 的触发顺序。
         host.addEventListener('input',event=>{
+            if(event.target.hasAttribute?.('data-rc-plan-name')){nameInput=event.target.value;return;}
+            if(event.target.dataset.rcFilter&&state?.phase==='select'){filters[event.target.dataset.rcFilter]=event.target.type==='checkbox'?event.target.checked:event.target.value;paint();return;}
             const el=event.target;if(!state?.fields||state.phase!=='select'||el.dataset.rcField!=='value')return;
             const stat=el.dataset.rcStat==='main'?state.fields.mainStat:state.fields.substats[Number(el.dataset.rcStat)];
             stat.value=el.value;
@@ -234,6 +257,7 @@
         });
         host.addEventListener('change',event=>{
             const el=event.target;
+            if(el.dataset.rcFilter&&state?.phase==='select'){filters[el.dataset.rcFilter]=el.type==='checkbox'?el.checked:el.value;paint();return;}
             if(el.hasAttribute('data-rc-condition')&&state?.phase==='context'&&!busy){state.conditions[el.dataset.rcCondition]=el.checked;state.focusCondition=el.dataset.rcCondition;render();return;}
             if(!state?.fields||state.phase!=='select')return;
             if(el.hasAttribute('data-rc-catalog')){state.fields.catalogId=el.value;const entry=catalog.find(e=>String(e.id)===el.value);if(entry)state.fields.cost=Number(entry.type.replace('Cost',''));render();host.querySelector('[data-rc-catalog]')?.focus();}
@@ -252,8 +276,10 @@
             if(row.eligibility.status==='blocked'){state.notice=row.eligibility.reason;render();return;}
             await enter(row.slot,row.scope,'inventory');
         }
+        host.addEventListener('toggle',event=>{if(event.target.hasAttribute?.('data-rc-details'))detailsOpen=event.target.open;},true);
+        host.addEventListener('submit',event=>{if(!event.target.matches('[data-rc-rename]')||!state?.context)return;event.preventDefault();const loaded=store.load();if(!loaded.ok||!loaded.data.drafts.some(d=>d.id===state.context.draft.id)){host.querySelector('[data-rc-name-status]').textContent=i18n.t('workspace.SOURCE_CHANGED');return;}const result=RegisterMetadata.create(localStorage).rename('drafts',state.context.draft.id,nameInput??event.target.querySelector('input').value,nameExpected);host.querySelector('[data-rc-name-status]').textContent=i18n.t(result.ok?'ops.renamed':'workspace.'+(result.code==='SOURCE_CHANGED'?'SOURCE_CHANGED':'SAVE_FAILED'));nameExpected=RegisterMetadata.create(localStorage).load().raw;if(result.ok){nameInput=null;nameGuard.markSaved();}});
         return {render,restore,close,fromLibrary,active:()=>!!state||busy,
-            invalidate(reason='stale'){if(state){epoch++;busy=false;state={...state,phase:'error',context:null,notice:reason};render();}},
+            invalidate(reason='stale'){if(state){if(nameGuard.dirty())nameGuard.retain();nameGuard.pause();editorGuard.pause();nameInput=null;epoch++;busy=false;state={...state,phase:'error',context:null,notice:reason};render();}},
             getContext(){return state?.phase==='context'?{...state.context,locale:i18n.locale,result:state.result||null}:null;}};
     }
 })(typeof globalThis!=='undefined'?globalThis:this);
