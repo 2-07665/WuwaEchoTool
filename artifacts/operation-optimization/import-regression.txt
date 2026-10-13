@@ -1,1 +1,0 @@
-PASS: 34 browser acceptance scenarios, 196 screenshots, zero page errors.

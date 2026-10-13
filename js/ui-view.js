@@ -35,6 +35,7 @@
         if(view!=='register')return null;
         const modes={'costedit.html':'echo','unusedEchoes.html':'library','compare.html':'compare','probability.html':'tools','imitate.html':'tools','rule.html':'tools'};
         if(!modes[page])return null;
+        if(['probability.html','imitate.html','rule.html'].includes(page))u.searchParams.set('tool',{'probability.html':'probability','imitate.html':'simulation','rule.html':'rules'}[page]);
         if(page==='costedit.html'&&u.searchParams.get('roleid')==='0')u.searchParams.delete('roleid');
         u.pathname=u.pathname.replace(/[^/]+$/,'register-workspace.html');u.searchParams.set('view','register');u.searchParams.set('mode',modes[page]);
         return u.pathname+u.search;
@@ -74,7 +75,7 @@
             if(state.effective!=='register'){target.innerHTML='<button type="button" data-ui-view="register"><span aria-hidden="true">⇆</span> '+t('entry.switchRegister')+'</button>';return;}
             const modes=[['characters','index.html?view=register'],['echoLibrary','register-workspace.html?view=register&mode=library'],['compare','register-workspace.html?view=register&mode=compare'],['tools','register-workspace.html?view=register&mode=tools'],['backup','register-workspace.html?view=register&mode=backup']];
             const mode=new URL(location.href).searchParams.get('mode');const active=index||/mccost/.test(location.pathname)||mode==='create'||mode==='import'?'characters':mode==='library'||mode==='echo'?'echoLibrary':mode==='compare'?'compare':mode==='backup'?'backup':'tools';
-            target.innerHTML='<a class="rs-brand" href="index.html?view=register">'+brand()+'</a><nav aria-label="'+t('register.navigation')+'">'+modes.map(([key,href])=>'<a href="'+href+'"'+(key===active?' aria-current="page"':'')+' aria-label="'+t(key==='backup'?'workspace.backup':'nav.'+key)+'"><span class="rs-nav-full">'+t(key==='backup'?'workspace.backup':'nav.'+key)+'</span><span class="rs-nav-short" aria-hidden="true">'+t('shell.mobile.'+key)+'</span></a>').join('')+'</nav><details class="rs-settings"><summary>'+t('shell.settings')+'</summary><div>'+language()+'<a href="'+guideUrl+'">'+t('entry.guide')+'</a><button data-ui-view="classic"><span aria-hidden="true">⇆</span> '+t('entry.switchClassic')+'</button></div></details>';
+            target.innerHTML='<a class="rs-brand" href="index.html?view=register">'+brand()+'</a><nav aria-label="'+t('register.navigation')+'">'+modes.map(([key,href])=>'<a href="'+url(href,'register',i18n.locale)+'"'+(key===active?' aria-current="page"':'')+' aria-label="'+t(key==='backup'?'workspace.backup':'nav.'+key)+'"><span class="rs-nav-full">'+t(key==='backup'?'workspace.backup':'nav.'+key)+'</span><span class="rs-nav-short" aria-hidden="true">'+t('shell.mobile.'+key)+'</span></a>').join('')+'</nav><details class="rs-settings"><summary>'+t('shell.settings')+'</summary><div>'+language()+'<a href="'+guideUrl+'">'+t('entry.guide')+'</a><button data-ui-view="classic"><span aria-hidden="true">⇆</span> '+t('entry.switchClassic')+'</button></div></details>';
         }
         function choose(view){
             try{env.localStorage.setItem(KEY,view);}catch(_){}

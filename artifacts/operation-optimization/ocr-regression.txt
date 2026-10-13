@@ -1,1 +1,0 @@
-PASS add choice in 3 locales/Desktop/Mobile, Escape focus, manual route, unavailable crypto.subtle, loading visibility, cancel/retry, duplicate detection, bounded timeout, file URL guidance, no writes

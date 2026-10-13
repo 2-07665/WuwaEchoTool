@@ -21,3 +21,25 @@ yarn-error.log*
 
 # Dependencies
 node_modules/ 
+
+# Generated test output (test programs, seeds and baseline snapshots stay tracked)
+/artifacts/**/*.png
+!/artifacts/screenshot-recognition/blurred.png
+!/artifacts/screenshot-recognition/incomplete.png
+!/artifacts/screenshot-recognition/english-ocr-fixture.png
+/artifacts/**/results.json
+/artifacts/**/summary.json
+/artifacts/**/browser-results.json
+/artifacts/**/acceptance-summary.json
+/artifacts/**/actual-results.json
+/artifacts/**/browser-test-result.json
+/artifacts/**/user-images-results.json
+/artifacts/**/layout-checks.json
+/artifacts/**/*.txt
+/artifacts/**/screenshots.md
+/artifacts/**/*.webm
+/artifacts/**/*.mp4
+/artifacts/**/trace*.zip
+/test-results/
+/playwright-report/
+/blob-report/
