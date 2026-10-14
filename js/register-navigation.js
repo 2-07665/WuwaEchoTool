@@ -2,7 +2,12 @@
 'use strict';
 const KEY='wuwa.register.navigation.v1',origins=['roles','library','history'];
 function safeReturn(value,base){try{if(typeof value!=='string'||!value||value.length>1600)return null;const u=new URL(value,base),b=new URL(base),directory=new URL('.',b).pathname,file=u.pathname.slice(directory.length);if(u.origin!==b.origin||!u.pathname.startsWith(directory)||!['index.html','mccost.html','mccost-readonly.html','register-workspace.html'].includes(file))return null;const p=new URLSearchParams({view:'register'});for(const k of ['lang','roleid','selectedEcho','selectedPosition','draft','from','mode']){const v=u.searchParams.get(k);if(v!=null&&v.length<=100)p.set(k,v);}if(p.has('lang')&&!['zh-TW','zh-CN','en'].includes(p.get('lang')))p.delete('lang');if(p.has('from')&&!origins.includes(p.get('from')))p.delete('from');if(p.has('selectedPosition')&&!/^[1-5]$/.test(p.get('selectedPosition')))p.delete('selectedPosition');if(file==='register-workspace.html'&&!['library','compare'].includes(p.get('mode')))return null;return file+'?'+p;}catch(_){return null;}}
-function create(storage){function load(key){try{const all=JSON.parse(storage.getItem(KEY)||'{}');return all[key]&&typeof all[key]==='object'?all[key]:{};}catch(_){return {};}}function save(key,value){try{const all=JSON.parse(storage.getItem(KEY)||'{}');all[key]=value;storage.setItem(KEY,JSON.stringify(all));return true;}catch(_){return false;}}return {load,save};}
+function create(storage){
+ function read(){const raw=storage.getItem(KEY);let value;try{value=JSON.parse(raw||'{}');}catch(_){return {};}return value&&typeof value==='object'&&!Array.isArray(value)?value:{};}
+ function load(key){try{const value=read()[key];return value&&typeof value==='object'&&!Array.isArray(value)?value:{};}catch(_){return {};}}
+ function save(key,value){try{const all=read();Object.defineProperty(all,key,{value,enumerable:true,configurable:true,writable:true});storage.setItem(KEY,JSON.stringify(all));return true;}catch(_){return false;}}
+ return {load,save};
+}
 function back(params,locale){const from=params.get('from');return (from==='library'?'register-workspace.html?mode=library':from==='history'?'register-workspace.html?mode=compare':'index.html?')+(from==='library'||from==='history'?'&':'')+'view=register&lang='+locale;}
 function mount(env){if(env.UiView?.state.effective!=='register')return;
  function keyboard(){const active=document.activeElement,compact=innerWidth<700&&(env.visualViewport?.height||innerHeight)<560&&active?.matches('input,textarea');document.documentElement.classList.toggle('op-keyboard',!!compact);if(compact)active.scrollIntoView({block:'center',behavior:'auto'});}

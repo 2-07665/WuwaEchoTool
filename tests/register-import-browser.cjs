@@ -1,7 +1,7 @@
 /* Isolated, offline browser acceptance. No personal browser profile or official account is used. */
 const {chromium}=require('C:/Users/user/.cache/codex-runtimes/codex-primary-runtime/dependencies/node/node_modules/playwright');
 const fs=require('node:fs'),http=require('node:http'),path=require('node:path'),vm=require('node:vm'),assert=require('node:assert/strict');
-const root=path.resolve(__dirname,'..'),out=path.join(root,'artifacts','official-import');fs.mkdirSync(out,{recursive:true});
+const root=path.resolve(__dirname,'..'),out=require('./browser-qa.cjs').output('official-import');fs.mkdirSync(out,{recursive:true});
 const env={$:()=>{},console:{log(){}}};vm.runInNewContext(fs.readFileSync(path.join(root,'js/base.js'),'utf8')+';globalThis.api={roleList,costList};',env);
 const entries=env.api.roleList.slice(0,3),echoes=[59,51,52,35,39].map(id=>env.api.costList.find(e=>e.id===id));
 const list=entries.map(r=>({roleId:r.gid,roleName:r.name,level:90}));
@@ -47,7 +47,7 @@ async function capture(page,name){
  server=http.createServer((req,res)=>{const file=path.resolve(root,'.'+decodeURIComponent(req.url.split('?')[0]));if(!file.startsWith(root+path.sep)){res.writeHead(403).end();return;}fs.readFile(file,(error,data)=>{if(error){res.writeHead(404).end();return;}res.setHeader('Content-Type',({'.html':'text/html','.js':'text/javascript','.css':'text/css','.png':'image/png','.webp':'image/webp'}[path.extname(file)]||'application/octet-stream'));res.end(data);});});
  await new Promise(r=>server.listen(0,'127.0.0.1',r));base='http://127.0.0.1:'+server.address().port;
  browser=await chromium.launch({channel:'msedge',headless:true});
- for(const width of [1440,1024,390,360])for(const locale of ['zh-TW','zh-CN','en']){
+ for(const width of require('./browser-qa.cjs').widths([1440,1024,390,360]))for(const locale of ['zh-TW','zh-CN','en']){
   const {page,context,control}=await contextFor({width,locale});const prefix=width+'-'+locale;
   assert.equal(await page.evaluate(()=>localStorage.getItem('mcData')),null);await capture(page,prefix+'-connect');
   await page.locator('#ri-token').fill('fixture-token');await page.locator('[data-ri-action=toggle]').click();assert.equal(await page.locator('#ri-token').getAttribute('type'),'text');await page.locator('[data-ri-action=toggle]').click();
@@ -99,7 +99,7 @@ async function capture(page,name){
   reports.push({scenario:'empty-save entry, invalid UID, missing Token, keyboard-sized viewport, keyboard checkbox, account mismatch and navigation cancellation',passed:true});await context.close();
  }
  // Related Register actions use real forms and core storage; Classic runs on the same saved records.
- for(const width of [1440,1024,390,360])for(const locale of ['zh-TW','zh-CN','en']){
+ for(const width of require('./browser-qa.cjs').widths([1440,1024,390,360]))for(const locale of ['zh-TW','zh-CN','en']){
   const {context,page}=await contextFor({width,locale}),prefix='unified-'+width+'-'+locale;
   const workspace=mode=>base+'/register-workspace.html?view=register&lang='+locale+'&mode='+mode;
   async function shot(name){if(name!=='classic')assert.ok(await page.evaluate(()=>document.documentElement.scrollWidth<=innerWidth+1),name+' overflow');await page.screenshot({path:path.join(out,prefix+'-'+name+'.png'),fullPage:true});}

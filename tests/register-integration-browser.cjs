@@ -1,7 +1,7 @@
 async function selectFilter(page,selector,value){const input=page.locator(selector);if(!await input.isVisible()){const summary=page.locator('.sf-search:has('+selector+') .sf-advanced>summary');if(await summary.count())await summary.click();}await input.selectOption(value);}
 const {chromium}=require('C:/Users/user/.cache/codex-runtimes/codex-primary-runtime/dependencies/node/node_modules/playwright');
 const fs=require('node:fs'),path=require('node:path'),http=require('node:http'),assert=require('node:assert/strict');
-const root=path.resolve(__dirname,'..'),out=path.join(root,'artifacts','register-integration');fs.mkdirSync(out,{recursive:true});
+const root=path.resolve(__dirname,'..'),out=require('./browser-qa.cjs').output('register-integration');fs.mkdirSync(out,{recursive:true});
 let server,browser,lastPage;const reports=[],errors=[];
 async function seed(page){await page.evaluate(()=>{
  const clone=x=>JSON.parse(JSON.stringify(x)),normalize=RoleViewModel.createAdapter({roleList,costList,suiteAttributeMap,newCharacterModels,getRoleScoreConfig,getScoreDetails,countScores,countMainAttr,countMainAttr2,getRoleEnergyCorrection});
@@ -16,7 +16,7 @@ async function shot(page,file){assert.ok(await page.evaluate(()=>document.docume
 (async()=>{
  server=http.createServer((req,res)=>{const file=path.resolve(root,'.'+decodeURIComponent(req.url.split('?')[0]));if(!file.startsWith(root+path.sep))return res.writeHead(403).end();fs.readFile(file,(err,data)=>{if(err)return res.writeHead(404).end();res.setHeader('Content-Type',({'.html':'text/html','.js':'text/javascript','.css':'text/css','.png':'image/png'}[path.extname(file)]||'application/octet-stream'));res.end(data);});});await new Promise(r=>server.listen(0,'127.0.0.1',r));const base='http://127.0.0.1:'+server.address().port;
  browser=await chromium.launch({channel:'msedge',headless:true});
- for(const width of [1440,390])for(const locale of ['zh-TW','zh-CN','en']){
+ for(const width of require('./browser-qa.cjs').widths([1440,390]))for(const locale of ['zh-TW','zh-CN','en']){
   const context=await browser.newContext({viewport:{width,height:width<700?844:1000},reducedMotion:'reduce'}),page=await context.newPage();lastPage=page;page.on('pageerror',e=>errors.push(e.message));page.on('dialog',d=>d.accept());await context.route('**/*',r=>new URL(r.request().url()).hostname==='127.0.0.1'?r.continue():r.abort());
   const prefix=width+'-'+locale,index=base+'/index.html?view=register&lang='+locale,role=id=>base+'/mccost.html?view=register&lang='+locale+'&roleid='+id,work=mode=>base+'/register-workspace.html?view=register&lang='+locale+'&mode='+mode;
   await page.goto(index);await page.locator('[role=tablist]').waitFor();await seed(page);await page.reload();await page.locator('[data-dock-view=roles]').click();await page.locator('[data-dock-picker] summary').click();await page.locator('[data-dock-search]').fill('Primary');await selectFilter(page,'[data-dock-sort]','name');const core=await page.evaluate(()=>localStorage.getItem('mcData'));await page.locator('.dock-character-link').click();await chooseSlot(page,2);
