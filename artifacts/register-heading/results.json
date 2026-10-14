@@ -1,0 +1,79 @@
+{
+  "isolated": true,
+  "reports": [
+    {
+      "width": 1440,
+      "locale": "zh-TW",
+      "passed": true,
+      "checks": "shared header alignment and normal/hover/focus/disabled parity; add dialog/manual save; four redundant top returns removed; desktop detail back DOM absent; mobile back and resize retained; nav and data unchanged; no overflow"
+    },
+    {
+      "width": 1440,
+      "locale": "zh-CN",
+      "passed": true,
+      "checks": "shared header alignment and normal/hover/focus/disabled parity; add dialog/manual save; four redundant top returns removed; desktop detail back DOM absent; mobile back and resize retained; nav and data unchanged; no overflow"
+    },
+    {
+      "width": 1440,
+      "locale": "en",
+      "passed": true,
+      "checks": "shared header alignment and normal/hover/focus/disabled parity; add dialog/manual save; four redundant top returns removed; desktop detail back DOM absent; mobile back and resize retained; nav and data unchanged; no overflow"
+    },
+    {
+      "width": 1024,
+      "locale": "zh-TW",
+      "passed": true,
+      "checks": "shared header alignment and normal/hover/focus/disabled parity; add dialog/manual save; four redundant top returns removed; desktop detail back DOM absent; mobile back and resize retained; nav and data unchanged; no overflow"
+    },
+    {
+      "width": 1024,
+      "locale": "zh-CN",
+      "passed": true,
+      "checks": "shared header alignment and normal/hover/focus/disabled parity; add dialog/manual save; four redundant top returns removed; desktop detail back DOM absent; mobile back and resize retained; nav and data unchanged; no overflow"
+    },
+    {
+      "width": 1024,
+      "locale": "en",
+      "passed": true,
+      "checks": "shared header alignment and normal/hover/focus/disabled parity; add dialog/manual save; four redundant top returns removed; desktop detail back DOM absent; mobile back and resize retained; nav and data unchanged; no overflow"
+    },
+    {
+      "width": 390,
+      "locale": "zh-TW",
+      "passed": true,
+      "checks": "shared header alignment and normal/hover/focus/disabled parity; add dialog/manual save; four redundant top returns removed; desktop detail back DOM absent; mobile back and resize retained; nav and data unchanged; no overflow"
+    },
+    {
+      "width": 390,
+      "locale": "zh-CN",
+      "passed": true,
+      "checks": "shared header alignment and normal/hover/focus/disabled parity; add dialog/manual save; four redundant top returns removed; desktop detail back DOM absent; mobile back and resize retained; nav and data unchanged; no overflow"
+    },
+    {
+      "width": 390,
+      "locale": "en",
+      "passed": true,
+      "checks": "shared header alignment and normal/hover/focus/disabled parity; add dialog/manual save; four redundant top returns removed; desktop detail back DOM absent; mobile back and resize retained; nav and data unchanged; no overflow"
+    },
+    {
+      "width": 360,
+      "locale": "zh-TW",
+      "passed": true,
+      "checks": "shared header alignment and normal/hover/focus/disabled parity; add dialog/manual save; four redundant top returns removed; desktop detail back DOM absent; mobile back and resize retained; nav and data unchanged; no overflow"
+    },
+    {
+      "width": 360,
+      "locale": "zh-CN",
+      "passed": true,
+      "checks": "shared header alignment and normal/hover/focus/disabled parity; add dialog/manual save; four redundant top returns removed; desktop detail back DOM absent; mobile back and resize retained; nav and data unchanged; no overflow"
+    },
+    {
+      "width": 360,
+      "locale": "en",
+      "passed": true,
+      "checks": "shared header alignment and normal/hover/focus/disabled parity; add dialog/manual save; four redundant top returns removed; desktop detail back DOM absent; mobile back and resize retained; nav and data unchanged; no overflow"
+    }
+  ],
+  "pageErrors": [],
+  "realMobile": false
+}

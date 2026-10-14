@@ -1,0 +1,60 @@
+{
+  "report": [
+    {
+      "locale": "zh-TW",
+      "count": 2,
+      "views": true,
+      "searchRetained": true,
+      "keyboard": true,
+      "mobile": true,
+      "unchanged": true
+    },
+    {
+      "locale": "zh-TW",
+      "count": 24,
+      "views": true,
+      "searchRetained": true,
+      "keyboard": true,
+      "mobile": true,
+      "unchanged": true
+    },
+    {
+      "locale": "zh-CN",
+      "count": 2,
+      "views": true,
+      "searchRetained": true,
+      "keyboard": true,
+      "mobile": true,
+      "unchanged": true
+    },
+    {
+      "locale": "zh-CN",
+      "count": 24,
+      "views": true,
+      "searchRetained": true,
+      "keyboard": true,
+      "mobile": true,
+      "unchanged": true
+    },
+    {
+      "locale": "en",
+      "count": 2,
+      "views": true,
+      "searchRetained": true,
+      "keyboard": true,
+      "mobile": true,
+      "unchanged": true
+    },
+    {
+      "locale": "en",
+      "count": 24,
+      "views": true,
+      "searchRetained": true,
+      "keyboard": true,
+      "mobile": true,
+      "unchanged": true
+    }
+  ],
+  "errors": [],
+  "management": true
+}

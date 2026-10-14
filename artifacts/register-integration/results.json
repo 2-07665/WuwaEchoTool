@@ -1,0 +1,44 @@
+{
+  "isolated": true,
+  "realOfficialAccount": false,
+  "realMobileDevice": false,
+  "reports": [
+    {
+      "width": 1440,
+      "locale": "zh-TW",
+      "passed": true,
+      "flows": "role/library context and slot, two distinct named plans/reopen, stale inventory across tabs/reload/history, deleted selection/role, candidate keep/discard/Escape, one slot prompt, failed model save/navigation/reload, simultaneous dirty forms, role switching/recent"
+    },
+    {
+      "width": 1440,
+      "locale": "zh-CN",
+      "passed": true,
+      "flows": "role/library context and slot, two distinct named plans/reopen, stale inventory across tabs/reload/history, deleted selection/role, candidate keep/discard/Escape, one slot prompt, failed model save/navigation/reload, simultaneous dirty forms, role switching/recent"
+    },
+    {
+      "width": 1440,
+      "locale": "en",
+      "passed": true,
+      "flows": "role/library context and slot, two distinct named plans/reopen, stale inventory across tabs/reload/history, deleted selection/role, candidate keep/discard/Escape, one slot prompt, failed model save/navigation/reload, simultaneous dirty forms, role switching/recent"
+    },
+    {
+      "width": 390,
+      "locale": "zh-TW",
+      "passed": true,
+      "flows": "role/library context and slot, two distinct named plans/reopen, stale inventory across tabs/reload/history, deleted selection/role, candidate keep/discard/Escape, one slot prompt, failed model save/navigation/reload, simultaneous dirty forms, role switching/recent"
+    },
+    {
+      "width": 390,
+      "locale": "zh-CN",
+      "passed": true,
+      "flows": "role/library context and slot, two distinct named plans/reopen, stale inventory across tabs/reload/history, deleted selection/role, candidate keep/discard/Escape, one slot prompt, failed model save/navigation/reload, simultaneous dirty forms, role switching/recent"
+    },
+    {
+      "width": 390,
+      "locale": "en",
+      "passed": true,
+      "flows": "role/library context and slot, two distinct named plans/reopen, stale inventory across tabs/reload/history, deleted selection/role, candidate keep/discard/Escape, one slot prompt, failed model save/navigation/reload, simultaneous dirty forms, role switching/recent"
+    }
+  ],
+  "pageErrors": []
+}

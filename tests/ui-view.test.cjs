@@ -3,6 +3,14 @@ const views=require('../js/ui-view.js'),i18n=require('../js/i18n.js'),messages=r
 const local=require('../js/role-local-configuration.js'),controller=require('../js/role-register-controller.js');
 // 首页切换保留部署目录，且清除角色、草稿和导览参数。
 for(const base of ['file:///C:/Users/user/Downloads/WuwaEchoTool/','https://test.invalid/tools/wuwa/','https://test.invalid/']){
+    for(const page of ['index.html?view=register','register-workspace.html?view=register&mode=tools']){
+        for(const destination of ['index.html','register-workspace.html?mode=library','register-workspace.html?mode=compare','register-workspace.html?mode=tools','register-workspace.html?mode=backup']){
+            const current=base+page;
+            const result=new URL(views.url(destination,'register','zh-TW',current),current);
+            const expected=new URL(destination,base);expected.searchParams.set('view','register');expected.searchParams.set('lang','zh-TW');
+            assert.equal(result.href,expected.href);
+        }
+    }
     for(const page of ['index.html?guide=1','mccost.html?roleid=101&view=classic','register-workspace.html?mode=echo&draft=abc']){
         assert.equal(views.homeUrl(base+page,'register','en'),base+'index.html?view=register&lang=en');
         assert.equal(views.homeUrl(base+page,'classic','en'),base+'index.html?view=classic');

@@ -1,0 +1,21 @@
+{
+  "node": {
+    "passed": 59,
+    "failed": 0
+  },
+  "browser": {
+    "heading": 12,
+    "search": 12,
+    "operations": 36,
+    "integration": 6,
+    "import": 34,
+    "tabs": 12,
+    "failed": 0
+  },
+  "ocr": {
+    "startup": "passed",
+    "saveSession": "passed"
+  },
+  "isolated": true,
+  "realMobile": false
+}

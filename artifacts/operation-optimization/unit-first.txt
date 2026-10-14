@@ -1,0 +1,121 @@
+PASS: 42 chain/mode profiles, model parity, reference sets, mode separation, fixed crit, energy thresholds, legacy fields and import/manual parity.
+✔ tests\character-chain-scoring.test.cjs (766.7948ms)
+PASS: Dock source selection, manual/import baseline resume, stale/model rejection and Classic initial rendering without persistence.
+✔ tests\character-dock.test.cjs (737.2576ms)
+PASS: deletion source conflicts and isolation, duplicate identity rejection, immutable share snapshot, incomplete share score, Classic locale isolation, translated breadcrumb and role actions.
+✔ tests\final-acceptance.test.cjs (709.5985ms)
+PASS: locale precedence/mapping, persistence and blocked storage, lang/subscriptions, 791 matching trilingual keys, Intl formatters, neutral view model and score/save invariance.
+✔ tests\i18n.test.cjs (681.4092ms)
+PASS: import error stages, business failures, refresh stop, malformed responses, transport failures, safe diagnostics and three locales.
+✔ tests\import-errors.test.cjs (653.3806ms)
+PASS: login and data headers are isolated; no token or b-at leakage in either direction.
+✔ tests\import-headers.test.cjs (624.8028ms)
+PASS: shared core transactions, cancellation/conflicts, equip/remove, duplicate identity, Cost limit, native routes, 126 frozen legacy probability cases, 100 five-stat simulations, synthetic import transport and score parity.
+✔ tests\milestone3-core.test.cjs (595.6314ms)
+PASS: orphan cleanup, two-namespace rollback, corrupt history protection, explicit corrupt-core restore, source conflict, reverse Classic routes, complete workspace/guide/dock dictionaries.
+✔ tests\milestone3-storage.test.cjs (566.9438ms)
+PASS: 91 new chain/scenario profiles, reference scores, gender parity, mixed elements, fixed crit, HP caps, healing and import/manual parity.
+✔ tests\new-character-scoring.test.cjs (538.9902ms)
+PASS: root chooser ignores saved preferences on HTTP/file URLs; explicit views resolve; trilingual visible manual/import index and primary creation links; empty onboarding; no core writes.
+✔ tests\rc2-workspace.test.cjs (511.7457ms)
+✔ full backup roundtrip excludes token and validates before restore (2.2874ms)
+✔ invalid version never mutates storage (0.1079ms)
+✔ full backup restores valid adoption storage, including legacy export revision compatibility (1.9467ms)
+PASS: 280 synthetic manual/import pairs against legacy page functions; 840 localized selected renders; 266 nonzero loadout corrections; stale caches and legacy sorting/writes isolated on copies.
+✔ tests\register-fixture-acceptance.test.cjs (3002.4135ms)
+✔ search, visible-only all, multi-select, unknown/duplicate blocking and preview/cancel isolation (13.4578ms)
+✔ partial success, one bounded queue, retry failed only, save successful items (26.6921ms)
+✔ cancel stops scheduling and ignores a non-abortable response (1.3606ms)
+✔ UID/token invalidation and dispose prevent old list/detail and commits (0.806ms)
+✔ explicit save, idempotent submit, UID separation, reliable update preserves local ID (9.9878ms)
+✔ legacy source requires a target; cannot overwrite manual or another UID (7.974ms)
+✔ multiple source matches require explicit target (3.1321ms)
+✔ skip and failed items never save, partial batch may commit (2.1195ms)
+✔ local conflict retains preview, preserves foreign writes and reconfirms affected target (4.1962ms)
+✔ storage failure retains batch, no partial writes or saved links, retry unique IDs (2.1798ms)
+✔ complete backup roundtrip includes inline source; delete removes it; legacy schema survives (4.9149ms)
+✔ source update invalidates baseline/draft while preserving draft and adoption storage (7.2699ms)
+✔ three-language keys complete and new/import scoring uses the shared adapter (4.681ms)
+✔ real transport chain reauthorizes once for list/detail data credentials and aborts safely (1.4806ms)
+✔ repeated dataToken cannot loop; empty token and invalid UID never issue transport (0.1884ms)
+✔ localized search and credential clear preserve core data, with recovery on partial clear failure (2.6698ms)
+✔ credential storage failure is classified without raw exceptions, and connection stays unverified (0.5222ms)
+✔ conversion rejects unknown Echo mappings and uses unique snapshot identities, with numeric flat stats (2.5381ms)
+PASS Classic parity: 45 fixtures, all 16 appraisal levels, strict boundaries, imported precedence, rounding, localized appraisal and empty/incomplete data.
+PASS mixed completeness: persistent four bands and natural empty state, partial distribution, no partial appraisal, imported precedence, three locales, no mutation.
+✔ tests\register-overview.test.cjs (395.4454ms)
+node:assert:152
+  throw new AssertionError(obj);
+  ^
+
+AssertionError [ERR_ASSERTION]: Expected values to be strictly equal:
+
+6 !== 10
+
+    at Object.<anonymous> (C:\Users\user\Downloads\WuwaEchoTool\tests\register-secondary-views.test.cjs:16:9)
+    at Module._compile (node:internal/modules/cjs/loader:1761:14)
+    at Object..js (node:internal/modules/cjs/loader:1893:10)
+    at Module.load (node:internal/modules/cjs/loader:1481:32)
+    at Module._load (node:internal/modules/cjs/loader:1300:12)
+    at TracingChannel.traceSync (node:diagnostics_channel:328:14)
+    at wrapModuleLoad (node:internal/modules/cjs/loader:245:24)
+    at Module.executeUserEntryPoint [as runMain] (node:internal/modules/run_main:154:5)
+    at node:internal/main/run_main_module:33:47 {
+  generatedMessage: true,
+  code: 'ERR_ASSERTION',
+  actual: 6,
+  expected: 10,
+  operator: 'strictEqual',
+  diff: 'simple'
+}
+
+Node.js v24.13.0
+✖ tests\register-secondary-views.test.cjs (300.9793ms)
+PASS: PNG download, local file selection/redraw, cancel/mismatch recovery, three locales, immutable model.
+✔ tests\register-share.test.cjs (334.2879ms)
+ReferenceError: RegisterCollections is not defined
+    at Object.mount (evalmachine.<anonymous>:10:21)
+    at harness (C:\Users\user\Downloads\WuwaEchoTool\tests\role-candidates.test.cjs:56:42)
+    at C:\Users\user\Downloads\WuwaEchoTool\tests\role-candidates.test.cjs:72:23
+    at Object.<anonymous> (C:\Users\user\Downloads\WuwaEchoTool\tests\role-candidates.test.cjs:118:3)
+    at Module._compile (node:internal/modules/cjs/loader:1761:14)
+    at Object..js (node:internal/modules/cjs/loader:1893:10)
+    at Module.load (node:internal/modules/cjs/loader:1481:32)
+    at Module._load (node:internal/modules/cjs/loader:1300:12)
+    at TracingChannel.traceSync (node:diagnostics_channel:328:14)
+    at wrapModuleLoad (node:internal/modules/cjs/loader:245:24)
+✖ tests\role-candidates.test.cjs (269.2298ms)
+PASS: decision rules, scoring parity, percentage points, energy uncertainty, incomplete/stale/model conditions, local adoption and corruption isolation.
+✔ tests\role-compare.test.cjs (271.6387ms)
+PASS: 2 manual/import baseline lifecycles; immutable semantic snapshots, candidate uniqueness, multiple drafts, stale/incompatible gating, all supported mechanisms, locale invariance, versioned storage, conflicts, deletion, backup roundtrip, corruption/quota isolation and unchanged mcData.
+✔ tests\role-draft.test.cjs (238.9117ms)
+PASS: real legacy edit/add callbacks; no initialization/cancel writes, explicit save/add only, original and preview return routes, unchanged Echo order, new instance restoration.
+✔ tests\role-register-editor.test.cjs (204.4084ms)
+PASS: 30 localized selected renders; all five slots, toggle/collapse, stable ordering, model refresh, removed/moved/ambiguous IDs, return URLs, empty/incomplete/unknown models, no input mutation or selection/locale recalculation.
+✔ tests\role-register-interaction.test.cjs (329.5154ms)
+PASS: shared rendering, 97 complete trilingual keys, five positions/one hidden analysis host, common scale, missing/unknown models, manual/import parity, locale-only writes and Desktop opt-in.
+✔ tests\role-register.test.cjs (354.9524ms)
+PASS: 60 real-model manual/import pairs; immutable inputs, stable slots, stale-cache replacement, missing/invalid data, unit separation and DOM/storage-free browser export.
+✔ tests\role-view-model.test.cjs (279.0789ms)
+PASS: trilingual parsing, one Echo, fixed-stat exclusion, unknown catalog, missing Cost/value/percent, existing rolls, manual conversion, Core library/equip/score parity, no OCR writes and Classic isolation.
+✔ tests\screenshot-recognition.test.cjs (625.1114ms)
+PASS: 32 routing combinations, first visit, URL precedence, mobile Register, locale/view isolation, recent roles, Classic editor return and isolated adoption backup.
+✔ tests\ui-view.test.cjs (123.327ms)
+ℹ tests 44
+ℹ suites 0
+ℹ pass 42
+ℹ fail 2
+ℹ cancelled 0
+ℹ skipped 0
+ℹ todo 0
+ℹ duration_ms 3322.3612
+
+✖ failing tests:
+
+test at tests\register-secondary-views.test.cjs:1:1
+✖ tests\register-secondary-views.test.cjs (300.9793ms)
+  'test failed'
+
+test at tests\role-candidates.test.cjs:1:1
+✖ tests\role-candidates.test.cjs (269.2298ms)
+  'test failed'

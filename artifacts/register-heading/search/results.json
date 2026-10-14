@@ -1,0 +1,103 @@
+{
+  "isolated": true,
+  "reports": [
+    {
+      "width": 1440,
+      "locale": "zh-TW",
+      "passed": true,
+      "echoes": 200,
+      "roles": 30,
+      "flows": "all five advanced-filter surfaces: default/expand/count/collapse/reset; no writes; stable 200 list nodes, favorite isolation, fit-aware sticky, long detail, mobile return, empty results, inventory"
+    },
+    {
+      "width": 1440,
+      "locale": "zh-CN",
+      "passed": true,
+      "echoes": 200,
+      "roles": 30,
+      "flows": "all five advanced-filter surfaces: default/expand/count/collapse/reset; no writes; stable 200 list nodes, favorite isolation, fit-aware sticky, long detail, mobile return, empty results, inventory"
+    },
+    {
+      "width": 1440,
+      "locale": "en",
+      "passed": true,
+      "echoes": 200,
+      "roles": 30,
+      "flows": "all five advanced-filter surfaces: default/expand/count/collapse/reset; no writes; stable 200 list nodes, favorite isolation, fit-aware sticky, long detail, mobile return, empty results, inventory"
+    },
+    {
+      "width": 1024,
+      "locale": "zh-TW",
+      "passed": true,
+      "echoes": 200,
+      "roles": 30,
+      "flows": "all five advanced-filter surfaces: default/expand/count/collapse/reset; no writes; stable 200 list nodes, favorite isolation, fit-aware sticky, long detail, mobile return, empty results, inventory"
+    },
+    {
+      "width": 1024,
+      "locale": "zh-CN",
+      "passed": true,
+      "echoes": 200,
+      "roles": 30,
+      "flows": "all five advanced-filter surfaces: default/expand/count/collapse/reset; no writes; stable 200 list nodes, favorite isolation, fit-aware sticky, long detail, mobile return, empty results, inventory"
+    },
+    {
+      "width": 1024,
+      "locale": "en",
+      "passed": true,
+      "echoes": 200,
+      "roles": 30,
+      "flows": "all five advanced-filter surfaces: default/expand/count/collapse/reset; no writes; stable 200 list nodes, favorite isolation, fit-aware sticky, long detail, mobile return, empty results, inventory"
+    },
+    {
+      "width": 390,
+      "locale": "zh-TW",
+      "passed": true,
+      "echoes": 200,
+      "roles": 30,
+      "flows": "all five advanced-filter surfaces: default/expand/count/collapse/reset; no writes; stable 200 list nodes, favorite isolation, fit-aware sticky, long detail, mobile return, empty results, inventory"
+    },
+    {
+      "width": 390,
+      "locale": "zh-CN",
+      "passed": true,
+      "echoes": 200,
+      "roles": 30,
+      "flows": "all five advanced-filter surfaces: default/expand/count/collapse/reset; no writes; stable 200 list nodes, favorite isolation, fit-aware sticky, long detail, mobile return, empty results, inventory"
+    },
+    {
+      "width": 390,
+      "locale": "en",
+      "passed": true,
+      "echoes": 200,
+      "roles": 30,
+      "flows": "all five advanced-filter surfaces: default/expand/count/collapse/reset; no writes; stable 200 list nodes, favorite isolation, fit-aware sticky, long detail, mobile return, empty results, inventory"
+    },
+    {
+      "width": 360,
+      "locale": "zh-TW",
+      "passed": true,
+      "echoes": 200,
+      "roles": 30,
+      "flows": "all five advanced-filter surfaces: default/expand/count/collapse/reset; no writes; stable 200 list nodes, favorite isolation, fit-aware sticky, long detail, mobile return, empty results, inventory"
+    },
+    {
+      "width": 360,
+      "locale": "zh-CN",
+      "passed": true,
+      "echoes": 200,
+      "roles": 30,
+      "flows": "all five advanced-filter surfaces: default/expand/count/collapse/reset; no writes; stable 200 list nodes, favorite isolation, fit-aware sticky, long detail, mobile return, empty results, inventory"
+    },
+    {
+      "width": 360,
+      "locale": "en",
+      "passed": true,
+      "echoes": 200,
+      "roles": 30,
+      "flows": "all five advanced-filter surfaces: default/expand/count/collapse/reset; no writes; stable 200 list nodes, favorite isolation, fit-aware sticky, long detail, mobile return, empty results, inventory"
+    }
+  ],
+  "pageErrors": [],
+  "realMobile": false
+}

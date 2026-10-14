@@ -40,7 +40,7 @@
         u.pathname=u.pathname.replace(/[^/]+$/,'register-workspace.html');u.searchParams.set('view','register');u.searchParams.set('mode',modes[page]);
         return u.pathname+u.search;
     }
-    function url(href,view,locale){const u=new URL(href,'https://local.invalid');u.searchParams.set('view',view);if(locale)u.searchParams.set('lang',locale);return u.pathname+u.search+u.hash;}
+    function url(href,view,locale,base='https://local.invalid/'){const u=new URL(href,base);u.searchParams.set('view',view);if(locale)u.searchParams.set('lang',locale);return u.pathname+u.search+u.hash;}
     function homeUrl(href,view,locale){const next=new URL('index.html',href);next.searchParams.set('view',view);if(view==='register'&&locale)next.searchParams.set('lang',locale);return next.href;}
     function recent(storage,id){try{const old=JSON.parse(storage.getItem(RECENT)||'[]');const ids=Array.isArray(old)?old.filter(x=>typeof x==='string'):[];if(id!=null){const next=[String(id),...ids.filter(x=>x!==String(id))].slice(0,20);storage.setItem(RECENT,JSON.stringify(next));return next;}return ids;}catch(_){return [];}}
     function mount(env){
@@ -75,7 +75,7 @@
             if(state.effective!=='register'){target.innerHTML='<button type="button" data-ui-view="register"><span aria-hidden="true">⇆</span> '+t('entry.switchRegister')+'</button>';return;}
             const modes=[['characters','index.html?view=register'],['echoLibrary','register-workspace.html?view=register&mode=library'],['compare','register-workspace.html?view=register&mode=compare'],['tools','register-workspace.html?view=register&mode=tools'],['backup','register-workspace.html?view=register&mode=backup']];
             const mode=new URL(location.href).searchParams.get('mode');const active=index||/mccost/.test(location.pathname)||mode==='create'||mode==='import'?'characters':mode==='library'||mode==='echo'?'echoLibrary':mode==='compare'?'compare':mode==='backup'?'backup':'tools';
-            target.innerHTML='<a class="rs-brand" href="index.html?view=register">'+brand()+'</a><nav aria-label="'+t('register.navigation')+'">'+modes.map(([key,href])=>'<a href="'+url(href,'register',i18n.locale)+'"'+(key===active?' aria-current="page"':'')+' aria-label="'+t(key==='backup'?'workspace.backup':'nav.'+key)+'"><span class="rs-nav-full">'+t(key==='backup'?'workspace.backup':'nav.'+key)+'</span><span class="rs-nav-short" aria-hidden="true">'+t('shell.mobile.'+key)+'</span></a>').join('')+'</nav><details class="rs-settings"><summary>'+t('shell.settings')+'</summary><div>'+language()+'<a href="'+guideUrl+'">'+t('entry.guide')+'</a><button data-ui-view="classic"><span aria-hidden="true">⇆</span> '+t('entry.switchClassic')+'</button></div></details>';
+            target.innerHTML='<a class="rs-brand" href="index.html?view=register">'+brand()+'</a><nav aria-label="'+t('register.navigation')+'">'+modes.map(([key,href])=>'<a href="'+url(href,'register',i18n.locale,location.href)+'"'+(key===active?' aria-current="page"':'')+' aria-label="'+t(key==='backup'?'workspace.backup':'nav.'+key)+'"><span class="rs-nav-full">'+t(key==='backup'?'workspace.backup':'nav.'+key)+'</span><span class="rs-nav-short" aria-hidden="true">'+t('shell.mobile.'+key)+'</span></a>').join('')+'</nav><details class="rs-settings"><summary>'+t('shell.settings')+'</summary><div>'+language()+'<a href="'+guideUrl+'">'+t('entry.guide')+'</a><button data-ui-view="classic"><span aria-hidden="true">⇆</span> '+t('entry.switchClassic')+'</button></div></details>';
         }
         function choose(view){
             try{env.localStorage.setItem(KEY,view);}catch(_){}
@@ -88,8 +88,8 @@
             const next=new URL(link.href,location.href);if(next.origin!==location.origin)return;
             const selected=valid(next.searchParams.get('view'))?next.searchParams.get('view'):state.requested;
             const native=nativeUrl(next.href,selected);
-            if(native){link.href=url(native,selected,i18n.locale);return;}
-            if(/\/(?:index.html|mccost(?:-readonly)?\.html)?$/.test(next.pathname)&&!next.searchParams.has('view')&&!next.searchParams.has('guide'))link.href=url(next.href,state.requested||'classic',i18n.locale);
+            if(native){link.href=url(native,selected,i18n.locale,location.href);return;}
+            if(/\/(?:index.html|mccost(?:-readonly)?\.html)?$/.test(next.pathname)&&!next.searchParams.has('view')&&!next.searchParams.has('guide'))link.href=url(next.href,state.requested||'classic',i18n.locale,location.href);
         });
         target.addEventListener('change',e=>{if(e.target.matches('[data-ui-locale]')){i18n.setLocale(e.target.value);env.dispatchEvent(new CustomEvent('wuwa-locale',{detail:e.target.value}));}});
         env.addEventListener('wuwa-locale',e=>{if(i18n.locale!==e.detail)i18n.setLocale(e.detail);});

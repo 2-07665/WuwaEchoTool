@@ -1,0 +1,16 @@
+{
+  "regeneratedAfterCleanupRollback": true,
+  "node": {
+    "passed": 64,
+    "failed": 0
+  },
+  "browser": {
+    "tools": 12,
+    "failed": 0
+  },
+  "localLinks": {
+    "checked": 326,
+    "missing": 0
+  },
+  "realMobile": false
+}

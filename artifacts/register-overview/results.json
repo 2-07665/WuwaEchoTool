@@ -1,0 +1,30 @@
+{
+  "locales": [
+    {
+      "locale": "zh-TW",
+      "width": 2040,
+      "height": 2112,
+      "singleLine": true,
+      "aligned": true,
+      "previewMatchesDownload": true
+    },
+    {
+      "locale": "zh-CN",
+      "width": 2040,
+      "height": 2112,
+      "singleLine": true,
+      "aligned": true,
+      "previewMatchesDownload": true
+    },
+    {
+      "locale": "en",
+      "width": 2040,
+      "height": 2112,
+      "singleLine": true,
+      "aligned": true,
+      "previewMatchesDownload": true
+    }
+  ],
+  "errors": [],
+  "compactPixelIdentical": true
+}
