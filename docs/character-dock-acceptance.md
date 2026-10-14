@@ -1,45 +1,74 @@
-# Milestone 2：Character Dock 与双入口
+# Register 角色工作台與養成總覽
 
-## 实现
+## 現行操作
 
-- `ui-view.js`：纯 resolve + 浏览器入口，URL > 保存偏好 > 首访选择。URL 不写偏好；顶部显式切换才写 `wuwa.ui.view`。locale 独立保存在 `wuwa.ui.locale`。
-- `character-dock.js` / `character-dock.css`：角色身份锚点、五槽共同尺度、真实模型评分与 issues、最近角色、最近一份比较状态。全部角色、搜索、来源筛选按需展开，不使用角色卡片网格。
-- 最近角色只保存 ID 到 `wuwa.ui.recentRoles.v1`，不写入 mcData。没有角色显示导入/建立入口；创建使用共享 Classic 工作流，避免复制另一套 domain 编辑逻辑。
-- 所有现有 HTML 加入全局切换入口与相同 i18n 基础。Classic 正文保持原操作与原文案，新增入口和 Dock 三语完整。
-- `role-register-mode.js` 使用同一 resolve 结果，角色入口可按偏好进入 Register。显式 Classic URL 不被 Register 偏好覆盖。Classic 编辑返回保留 Classic，Register 编辑返回仍保留原槽位上下文。
+首頁無合法 view 時顯示 Register／Classic 雙入口；歷史偏好不會讓首頁自動跳過選擇。Register 支援桌面與手機，不再回退 Classic。手動建立、官方導入、角色分析均有新版入口，兩版共用 mcData 與計算核心。
 
-## 数据与计算边界
+養成總覽／角色列表一次只顯示一個主要面板。Selected、Hover、focus-visible 可區分，保留 tablist／tab／tabpanel、aria-selected／controls、方向鍵及 Home／End；尊重 reduced-motion。來源、角色／配置搜尋、資料／草稿狀態、原序／名稱／評分升降／完整度排序只作用於展示副本。沒有可用分數時顯示原因，不補零。重設與符合數／總數不影響全帳號統計。
 
-两种界面读取同一个 mcData，无 schema 迁移、无评分公式副本、未修改 base.js。Dock 使用现有 role-view-model/scoring API。
+配置名與方案名由 RegisterMetadata 獨立引用原身份，完整備份相容舊資料。進出分析後保留頁籤、搜尋、篩選、排序及合理位置。最近角色在 pageshow／focus 時重新讀取；失效連結安全返回。
 
-旧 Classic 角色渲染曾在首次加载时保存校准缓存。现在初始化使用 `persist=false`：仍调用原计算函数显示正确结果，但只切换界面不写回存档。明确编辑和模型修改仍走原保存流程。首次选择和 Dock 跳过 index.js 旧初始化，不新建空 mcData、不弹出旧导入设置。
+## 多方案與來源驗證
 
-Register 导向手动建立时抑制无关的旧首页偏好弹窗，避免双 modal 重叠；不自动确认任何导入凭证或保存操作。
+同角色可查看多份方案。打開前重新驗證角色、五槽、模型及庫存候選來源；有效才顯示差值。需重比、來源消失、已保存及本地採用分開顯示，名稱或採用狀態不能繞過驗證。本地採用不改遊戲装备。
 
-## Draft 恢复和备份
+## Classic 統計含義及安全重用
 
-Dock 用当前源数据 SHA-256、现有模型版本、五槽和模型条件调用 RoleDraftModel.assess。valid 才提供带 draft ID 的继续链接；stale/incompatible 标为重新比较，不带旧 draft。进入比较后 role-candidate-surface 再验证一次，避免导航期间源数据变化。
+Classic 的 `pulaoPJ()` 是跨角色、讀取已儲存 `totalScore` 的統計：
 
-主屏显示所选角色最近更新的一份 draft（含已采用状态），不是跨角色独立声骸库。采用记录仍不改变当前五槽和角色评分。
+1. 只要有任何 `isImport` 為 truthy 的角色，就只統計匯入角色。
+2. 沒有匯入角色，才統計所有手動角色。
+3. 計數是互斥區間：`>90`、`>80 且 ≤90`、`>70 且 ≤80`、`>60 且 ≤70`。剛好 90 計入大畢業，80 計入中畢業，70 計入小畢業，60 不算畢業。
+4. 整體評分是所選角色總分的合計，不是百分制總評；平均值分母是統計範圍內的角色數，含未畢業角色。
+5. 保留原本先 `toFixed(2)` 再判定稱號的順序與所有嚴格大於條件。
 
-新增 adoption exportData/restore，与 draft 独立 export/restore 一并放在 Dock 折叠区。JSON 可复制保存；显式恢复替换对应集合，先校验，损坏存储不覆盖。恢复后重新验证；核心角色备份仍由原机制共享。Milestone 3 再统一完整备份 UX、下载文件、历史草稿管理与孤立采用引用清理。
+純計算由 `pulaoPJ()` 原樣抽至 `base.js` 的 `getCultivationOverview(roles)`；Classic 的 DOM、圖片、文案與 UI 不改，改呼叫共用函式後仍進行原本 DOM 回填。Register 同樣呼叫此函式，依其回傳的 `pulaoSay.level` 取得三語稱號、練度與評語；沒有另一份評分規則。
 
-## Mobile
+Register 的 `RegisterOverview.prepare()` 不重算／寫入 totalScore。總覽固定保留四個畢業等級與摘要欄位，並顯示可統計完整角色及未完成／分數待補數量。部分資料完整時，只使用共用 Classic 函式取得完整角色的畢業數量，明示這是部分分布；全範圍總分、平均、等級與稱號仍標示暫不可用，不使用子集產生全範圍鑑定。沒有可統計角色時，畢業數量顯示破折號，避免虛假零值。完整性仍由既有 RoleViewModel summary.status 與保存分數有效性判斷，匯入優先規則不變。
 
-1100px 以下 Register 安全回退 Classic，session 内说明一次，保存偏好不变。Desktop Register 缩窄时重新载入为 Classic；旧编辑器不因尺寸变化重新载入，防止丢失未保存编辑。Mobile Register 在 Milestone 3 完成后移除此临时回退。
+養成總覽由工作台頁籤獨立顯示，與角色列表不同时堆疊。分析頁的總覽入口保留跨角色範圍說明，不需先打開分享。
 
-## 验收
+## 百分比來源
 
-- 全部 13 组自动测试通过，含 32 种 URL/preference/尺寸组合、三语隔离、最近角色、Classic 返回路由、独立 adoption 备份损坏保护。
-- 手动/导入 fixture：Dock assess valid、源编辑 stale、模型条件 incompatible；Classic 初始化不产生持久化写入。
-- 保留 280 对 synthetic 新旧计算对照、840 次三语渲染、266 个非零整套校正、既有编辑保存返回测试。
-- 浏览器：无偏好首次选择，三语可切换；选择 Register 后无 URL 再次进入 Dock；Classic URL override 不修改 Register preference；显式 Classic 切换后无 URL 进入 Classic。稽核确认切换核心数据保持逐字不变。
-- 浏览器：空 fixture 显示 onboarding，无 0 分统计；通过共用 Classic 建立一个合成角色后，Register 读取同一新角色并显示五个空槽和 incomplete。
-- 浏览器：源 fixture 暴击由 9.3 改成 9.9 后，Dock 总分 72.12 → 72.34、槽 03 分数 9.59 → 9.81，旧 draft 标记需要重新比较。
-- Desktop 1440px 首次选择与 Dock 三语无水平溢出；Dock 英文内容宽度与 scrollWidth 同为 1425（滚动条除外）。截图检查共同配置带、角色图像和长英文换行。
-- 390px 实测无 character-dock，显示 Classic；不强制缩小 Desktop 布局。
-- 所有测试改动在独立 localhost fixture 副本操作，结束已恢复原 fixture、locale 和 UI preference。未使用真实玩家数据，1D.5 仍待补。
+Classic 的「超越玩家比例」是 `sumScore * 100 / 1200`，取兩位小數後上限 100。它沒有實際玩家樣本、分布或伺服器資料，因此無法解釋成百分位。Register 完全不展示此百分比，僅展示既有總分、均分、分級與稱號。Classic 原有算法和呈現維持不變。
 
-## 下一里程碑
+## 同資料對照
 
-Milestone 3：Mobile 独立编排、工具与导航整合、统一备份/还原 UX、草稿历史管理、最终 rollout 回归。Classic 长期保留，不进行自动淘汰。本阶段完成后等待用户验收。
+合成資料：8 位手動角色的已保存總分為 `90, 80, 70, 60, 90.01, 80.01, 70.01, 60.01`，各自具有完整五聲骸。
+
+| 項目 | Classic | Register |
+|---|---:|---:|
+| 完美畢業 >90 | 1 | 1 |
+| 大畢業 (80,90] | 2 | 2 |
+| 中畢業 (70,80] | 2 | 2 |
+| 小畢業 (60,70] | 2 | 2 |
+| 統計角色數 | 8 | 8 |
+| 合計分數 | 600.04 | 600.04 |
+| 平均分數 | 75.00 | 75（同值，依現有格式器省略尾零） |
+| 練度 | 入门怒涛级大佬 | 入門怒濤級大佬 |
+| 稱號 | 大鸣偏将军 | 大鳴偏將軍 |
+
+補充混合来源案例：手動 99 分 + 匯入 65 分，兩版都只計 1 位匯入角色、總分 65、均分 65、小畢業 1 位。保存分數刻意用邊界值測試，並非從示範聲骸重新計分。
+
+## 統計核對
+
+計算公式、原有分級與來源優先規則未修改。這一輪沒有修改 base.js 或 Classic 的 index.js，也沒有修改分享圖、mcData、Echo schema、資料寫入或聲骸庫。
+
+- 全角色概況：角色總數與未篩選的完整列表一致；完成判斷使用現有完整配置與有效保存分數条件。只新增展示用的 total / completed / remaining，沒有寫入存檔。
+- 畢業分布及鑑定：保留有匯入角色就採匯入角色、否則採手動角色的既有規則。混合來源時，上方總角色數與本次鑑定角色數可能不同，未擅自改成合併統計。
+- 同一遊戲角色的不同保存配置各佔一筆列表記錄；不按角色名稱合併。Dock 原本就拒絕重複 roleId 的損壞資料；沒有新增去重或評分規則。分布不會同時把手動與匯入來源加在一起。
+- 未完成配置不進入畢業分布。部分資料完整時仍只顯示其已確認分布，不以子集產生整體平均或称号。
+- 分級保持互斥且嚴格大於：>90、(80,90]、(70,80]、(60,70]。完整保留小數取捨及原來 16 種稱號判斷。
+- 列表分數為原有即時計算值，鑑定沿用保存分數；若舊存檔分數過時，两者可能不同。這是原有行為，本次沒有更動或偷偷回寫。最終截图使用一致的合成分数，边界值另由单元测试覆盖。
+
+## 代表圖片與歷史驗收
+
+保留三語桌面／手機的 2 位及 24 位角色總覽，及空、未完成、部分完成圖片；皆位於 `artifacts/register-overview-tabs/`。它們記錄總覽階段的合成資料，不把歷史圖片描述為今日重新拍攝。現行角色列表及跨頁情境見 [整體圖像索引](../artifacts/operation-optimization/screenshots.md)。
+
+- [繁中總覽](../artifacts/register-overview-tabs/overview-2-zh-TW.png)、[簡中](../artifacts/register-overview-tabs/overview-2-zh-CN.png)、[英文](../artifacts/register-overview-tabs/overview-2-en.png)。
+- [手機繁中](../artifacts/register-overview-tabs/mobile-overview-2-zh-TW.png)、[簡中](../artifacts/register-overview-tabs/mobile-overview-2-zh-CN.png)、[英文](../artifacts/register-overview-tabs/mobile-overview-2-en.png)。
+- [部分完成](../artifacts/register-overview-tabs/partial-zh-TW.png)、[空資料](../artifacts/register-overview-tabs/empty-zh-TW.png)、[未完成](../artifacts/register-overview-tabs/incomplete-zh-TW.png)。
+
+2026-10-12 的總覽驗收核對 Classic 45 組資料與 16 種稱號；三語完整／部分／空資料的统计來源、存檔不變與键盤切換已記錄通過。這是歷史結果，最新完整測試與重跑方式見 [整體驗收](register-operations-acceptance.md)。
+
+保留 `artifacts/register-overview/classic-before.js`：正式 Node 測試直接依賴這份 Classic 基準。QA 程式、seed 與模型／統計规则不因圖片整理而移除。

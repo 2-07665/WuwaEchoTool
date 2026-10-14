@@ -113,7 +113,7 @@ incompatible 优先于 stale。草稿自己改变模型条件也会要求重新�
 - remove：删除指定 draft，同时清理不再被任何草稿引用的 baseline，不接触角色数据。
 - exportData / restore：仅用于独立草稿 envelope。restore 是显式整包替换，需 expectedRevision；先验证整包再写入，失败不写。损坏的现有 namespace 不允许被静默覆盖，未来恢复 UI 应先提供原始备份与明确重置流程。
 - 当前没有前代草稿格式，因此不虚构 migration。未知版本 fail closed；未来版本使用显式迁移器，先保留旧 namespace，再验证新结果，不修改 mcData。
-- 现有 mcdata.json 导出／恢复行为完全不变，目前不会携带草稿。未来完整备份可以添加并列 drafts envelope；旧角色备份仍可独立读取。
+- 舊核心備份仍可獨立讀取，不宣稱包含草稿。RegisterBackup 的完整備份已包含並列 drafts、adoptions、echoMeta、names；各自仍沿用既有校驗及保存語意。
 
 ## 验收结果
 
@@ -130,4 +130,4 @@ incompatible 优先于 stale。草稿自己改变模型条件也会要求重新�
 9. 旧 mcData 不变，所有草稿写入均限定到独立 key。
 10. 损坏 JSON、未知版本、孤立引用、重复 ID、拒绝存储、写入配额失败均安全回报；备份往返和 revision 冲突检查通过。
 
-另外重新执行原有八个测试脚本，全部通过。评分公式、正式页面、字典和原存档 schema 均未修改。真实玩家资料仍留待 1D.5，2A 完成后停止，不进入 2B。
+另外重新执行原有八个测试脚本，全部通过。评分公式、正式页面、字典和原存档 schema 均未修改。真实玩家资料仍留待 1D.5，草稿已連接現行候選／比較流程；本段列出的結果是初始契約驗收紀錄。

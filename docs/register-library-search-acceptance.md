@@ -1,4 +1,4 @@
-# Register 聲骸庫與搜尋介面驗收
+# Register 聲骸庫、搜尋與標題列
 
 本輪維持原有計算、角色資料、草稿與備份格式；沒有變更 Classic 功能、公式、權重、門檻，沒有部署或推送。
 
@@ -39,7 +39,7 @@
 - `index.html`、`mccost.html`、`mccost-readonly.html`、`register-workspace.html`：載入共用 UI 腳本。
 - 新增 `tests/register-search-ui.test.cjs`、`tests/register-search-browser.cjs`；既有兩份操作／整合瀏覽器測試改為先展開進階條件，再操作原控制項，並共用既有 30 配置／200 聲骸測試資料。
 
-## 測試結果
+## 歷史測試結果（2026-10-13 搜尋階段）
 
 | 驗收 | 通過 | 失敗 |
 | --- | ---: | ---: |
@@ -83,3 +83,14 @@ node artifacts/screenshot-recognition/save-session-regression.cjs
 5. 真實官方服務更新、實拍截圖 OCR、備份與分享下載，使用測試資料核對。
 
 未自動驗證：真實手機／平板硬體軟鍵盤及手勢、Safari／Firefox、真實官方帳號與服務、外部圖片服務可用性。自動化桌面／手機為 Edge viewport 和觸控模擬。已測範圍沒有尚未處理的已知問題；上述項目需實機或外部服務驗收。
+
+
+## 標題列與返回入口
+
+新增聲骸位於標題右側，與工作台新增角色共用 register-page-heading／dock-create-actions；手機合理換行。聲骸庫、比較紀錄、工具及資料管理不再顯示標題上方的返回原清單；桌面詳情也不顯示冗餘返回。960px 以下的獨立詳情仍保留返回列表，並恢復列表位置與焦點。編輯、新增、OCR、候選比較的返回／取消／關閉仍有實際用途，不刪除共用導覽與三語翻譯。
+
+## 裝備與資料安全
+
+Inspector 的編輯、加入角色、比較、刪除使用原核心。只可加入手動配置，沿用可用位置、五顆及 12 Cost 上限；官方配置維持唯讀。比較帶入角色、位置、原裝備及候選身份，再使用既有 eligibility 和 baseline 校驗。來源已變、已刪、已裝備或身份重複時停止舊結果。資料管理的完整備份與跨頁衝突處理見 [整體流程](register-operations-acceptance.md)。
+
+標題列歷史驗收為四種寬度 × 三語 12 組；保留 results／summary 與目前代表圖。最新全部測試數量以整體驗收及本次實際輸出為準。

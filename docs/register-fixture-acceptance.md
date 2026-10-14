@@ -46,11 +46,11 @@
 
 三语 UI key 完整不代表全游戏实体名称目录已经完整翻译。未收录的上游声骸目录 ID 仍使用既有本地化 ID 标签，保留原始身份／图片字段，不伪装成另一个已知声骸。上游真实 ID、名称、图片与套装的覆盖情况需要在 1D.5 使用实际记录核查。合成 URL 透传测试不能证明真实图片一定可加载。
 
-## 测试与改动
+## 初始交叉驗收紀錄（2026-10-08）
 
 八个测试脚本全部通过：character-chain-scoring、new-character-scoring、i18n、role-view-model、role-register、role-register-interaction、role-register-editor、register-fixture-acceptance。
 
-新增文件仅为本记录和交叉验收测试。未修改生产 JS、HTML、CSS、字典、存档格式或评分公式；原版入口保持不变，register 仍为 `view=register` Desktop 预览。未加入 Phase 2 功能。
+新增文件仅为本记录和交叉验收测试。未修改生产 JS、HTML、CSS、字典、存档格式或评分公式；以上是該日資料對照階段的修改範圍；目前 Register 已有雙入口、手機、候選／比較及完整流程。本文只保留可重跑的新舊計算一致性方法與結果。
 
 ## 1D.5 待验收
 

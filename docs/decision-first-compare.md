@@ -37,7 +37,7 @@ compare 每次 render 检查来源摘要和模型条件；验证期间移除旧�
 
 signature 是 baseline+draft 的稳定序列化，采用记录引用完整现存草稿而非复制 mcData。重新打开 URL 中的 draft 后必须重新验证 baseline，记录不能绕过验证。stale 后不显示“已采用”并停止使用旧结果。损坏存储不自动覆盖，采用失败保留来源和草稿。
 
-既有 backup/restore 不变，仍不包含 Phase 2 命名空间；不能宣称采用记录已被旧备份覆盖。Milestone 3 应统一版本化导出、还原后来源验证与孤立记录清理。当前草稿删除不会修改角色；残留采用引用不用于物化配置。
+舊核心及獨立草稿備份仍有自己的範圍。RegisterBackup 完整備份已整合 Phase 2／採用及名稱；還原後重新驗證來源，刪除草稿清理採用與名稱引用，不修改來源角色。失效採用引用不物化配置。
 
 ## 验收记录
 
@@ -47,4 +47,4 @@ signature 是 baseline+draft 的稳定序列化，采用记录引用完整现存
 - 浏览器繁中、简中、英文切换保留 draft 和采用状态，文档语言同步，英文页面 scrollWidth=clientWidth=1425（含滚动条后的内容宽度）。
 - 数据均为 representative fixtures，非真实玩家账号。1D.5 仍为 Real-data Acceptance Pending。
 
-本里程碑只改变 register 预览，不改变 production 默认入口、mcData schema 或评分公式。
+比較已接入正式 Register 操作；mcData 與評分公式仍共用既有核心。

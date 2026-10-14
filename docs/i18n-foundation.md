@@ -1,15 +1,15 @@
 # 1A.5 国际化基础
 
-当前仅建立基础模块，不修改旧页面、不挂载语言选择器，也不启动 1B。
+本文記錄共用國際化契約；模組已接入 Register 與入口。Classic 維持簡中且不覆蓋 Register 語言偏好。
 
 ## 模块与加载顺序
 
 - `stat-keys.js`：旧中文属性标识与稳定英文 key 的兼容映射。
 - `role-view-model.js`：依赖 `StatKeys`，保持无 DOM、无存储、无 locale 参数。
-- `i18n-dictionaries.js`：100 个 key，每个均提供 zh-TW / zh-CN / en 文案。
+- `i18n-dictionaries.js`：既有及後續新增的 key，每个均提供 zh-TW / zh-CN / en 文案。
 - `i18n.js`：依赖 `EchoDictionaries`，负责解析语言、偏好持久化、翻译和显示格式化。
 
-浏览器加载顺序为字典 → i18n、StatKeys → view model；模块加载本身无副作用。1B 的页面初始化代码再调用 `EchoI18n.createBrowser(window)`，并通过 `subscribe` 重新渲染文字。语言选择器调用 `setLocale('en')` 等明确操作，不调用 reload。后续 Desktop 选择器放在顶部次要区域；Mobile 入口留待对应阶段。
+浏览器加载顺序为字典 → i18n、StatKeys → view model；模块加载本身无副作用。現行頁面初始化呼叫 `EchoI18n.createBrowser(window)`，并通过 `subscribe` 重新渲染文字。语言选择器调用 `setLocale('en')` 等明确操作，不调用 reload。目前 Register 桌面／手機與入口均有語言控制；Classic 不掛載新版語言選擇器。
 
 ## 语言解析
 
@@ -42,7 +42,7 @@
 
 ## View model v2
 
-存档版本不变，只有尚未接入 UI 的衍生契约升为 schemaVersion:2：
+存档版本不变，共用衍生契約使用 schemaVersion:2，已接入 Register：
 
 - stat.key 取代公开 property；value 是 number，unit 是 percent / flat 等语义标记，不拼接百分号。
 - stat.legacy.property / legacy.raw 保存兼容审计输入，不能当成新版 UI key。
@@ -70,16 +70,16 @@ format 提供 integer、decimal、percentage、percentagePoint、score、dateTim
 | 文件 | 依赖 | 本阶段处理 |
 | --- | --- | --- |
 | base.js | getScoreDetails 按中文 property 分支，countMainAttr 匹配中文主词条，能量校正及参考表使用中文名称，suiteAttributeMap 中文 key | 保留原公式与输入协议，通过兼容映射隔离 |
-| mccost.js / mccost2.js | 中文词条汇总、单双暴统计、includes("效")、属性名称转换和直接 HTML 文案 | 不接入自动全文翻译；1B 新 renderer 改用稳定 key |
-| costedit.js | 中文选项值、主词条字符串、重复词条识别、概率与保存计算 | 暂保留旧编辑器，不将翻译文案写回 option value |
-| compare.js | 词条名称比较、去重和旧中文结论 | 留待 Phase 2 统一比较状态 |
-| probability.js / imitate.js / helperFunctions.js | 中文词条类别、概率判断和显示生成 | 后续逐页接入，不批量替换字符串 |
-| index.js / unusedEchoes.js | 目录名称、筛选入口及直接中文文案 | 首页与声骸库整合时单独处理 |
+| mccost.js / mccost2.js | 中文词条汇总、单双暴统计、includes("效")、属性名称转换和直接 HTML 文案 | Classic 不接入自動全文翻譯；Register renderer 使用穩定 key |
+| costedit.js | 中文选项值、主词条字符串、重复词条识别、概率与保存计算 | Classic 舊編輯器維持原協定；Register 編輯呈現呼叫共用核心，不把翻譯文案寫回 option value |
+| compare.js | 词条名称比较、去重和旧中文结论 | Classic 舊比較保留；Register 使用 RoleCompare 與 baseline／draft 的獨立狀態 |
+| probability.js / imitate.js / helperFunctions.js | 中文词条类别、概率判断和显示生成 | Classic 保留；RegisterTools 接入共用 core/API，不批量替換中文業務字串 |
+| index.js / unusedEchoes.js | 目录名称、筛选入口及直接中文文案 | Classic 保留；Register 工作台／聲骸庫以獨立 presentation 讀取共用資料 |
 
 最大的风险是把 locale 翻译值写回 property 或 mainAtrri，使旧 switch 无法匹配而返回零分。禁止把整个旧 DOM 文本替换成另一语言后再读取 DOM 作为计算输入。
 
 ## 测试与范围
 
-`node tests/i18n.test.cjs` 验证解析顺序、地区映射、存储失败、跨实例偏好、html.lang、订阅取消、100 个三语 key 和参数一致性、缺词回退、Intl 格式化、切换语言后 view model 和存档不变。
+`node tests/i18n.test.cjs` 验证解析顺序、地区映射、存储失败、跨实例偏好、html.lang、订阅取消、全部三語 key 和参数一致性、缺词回退、Intl 格式化、切换语言后 view model 和存档不变。
 
-其余三套回归测试继续通过：60 组手动/导入模型配对、42 组链数/模态、91 组新角色场景。测试使用构造记录与真实计分函数，没有连接真实账号。语言控制器使用注入环境测试；由于本阶段不挂载 UI，尚未宣称完成新页面浏览器交互验收。
+其余三套回归测试继续通过：60 组手动/导入模型配对、42 组链数/模态、91 组新角色场景。测试使用构造记录与真实计分函数，没有连接真实账号。语言控制器使用注入环境测试；目前三語瀏覽器導覽與互動的驗收見 register-operations-acceptance.md；此處保留語言模組的注入環境與合成資料邊界。
