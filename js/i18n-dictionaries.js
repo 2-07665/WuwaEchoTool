@@ -2,6 +2,19 @@
     'use strict';
     // 三种语言使用相同的 key 和插值参数。
     const rows={
+"ops.nameSaved":["已保存：{name}","已保存：{name}","Saved: {name}"],
+"ops.nameInvalid":["請輸入 1–80 個非空白字元的名稱。","请输入 1–80 个非空白字符的名称。","Enter a non-blank name of 1–80 characters."],
+"ops.nameUnavailable":["名稱資料無法讀取，未覆蓋原有內容。請檢查儲存空間或備份。","名称资料无法读取，未覆盖原有内容。请检查存储空间或备份。","Names could not be read. Existing data was kept. Check storage or a backup."],
+"ops.editConfiguration":["編輯配置","编辑配置","Edit loadout"],
+"share.chartHelp":["圖表說明","图表说明","Chart details"],
+
+"workspace.scoringSettings":["角色評分設定","角色评分设置","Character scoring settings"],
+"share.radarTitle":["單件評分分布","单件评分分布","Echo score distribution"],
+"share.radarScale":["統一座標 0–{max} 分","统一坐标 0–{max} 分","Shared scale: 0–{max} pts"],
+"share.radarScope":["原始貢獻分；不同 Cost 不代表相同品質比例。","原始贡献分；不同 Cost 不代表相同质量比例。","Raw contributions; different Costs do not imply equal quality ratios."],
+"share.radarPartial":["缺值或負分只標示讀數，不填入比例。","缺值或负分只标示读数，不填入比例。","Missing or negative scores: labels only, without a filled profile."],
+"share.loadoutCorrection":["整套評分沿用既有校正，不等於五件相加。","整套评分沿用既有校正，不等于五件相加。","Total uses existing loadout correction; it is not the sum of the five scores."],
+
 "tools.flow":["設定條件 → 執行 → 查看摘要與詳情；三個工具共用參考角色，操作會在此瀏覽器分頁保留。","设置条件 → 执行 → 查看摘要与详情；三个工具共享参考角色，操作会在此浏览器标签页保留。","Set conditions → run → read the summary and details. Tools share a reference character and retain work in this browser tab."],
 "tools.reference":["參考角色模型","参考角色模型","Reference character model"],
 "tools.inputs":["輸入條件","输入条件","Input conditions"],
@@ -324,6 +337,12 @@
 'share.chooseImages':['選擇本地圖片並下載 PNG','选择本地图片并下载 PNG','Choose local images and download PNG'],
 'share.chooseImagesHelp':['本地檔案模式需要你選取原圖才能匯出。請選擇：{files}。圖片只在此預覽使用，不會上傳或修改存檔。','本地文件模式需要你选择原图才能导出。请选择：{files}。图片仅用于此预览，不会上传或修改存档。','Local file mode requires selecting the source images to export. Choose: {files}. Images stay in this preview; nothing is uploaded or saved to character data.'],
 'share.exporting':['正在產生 PNG…','正在生成 PNG…','Generating PNG…'],
+'share.loading':['正在準備分享圖片…','正在准备分享图片…','Preparing share image…'],
+'register.observationDetails':['查看判讀說明','查看判读说明','How to read this finding'],
+'register.swipeSlots':['左右滑動比較五件聲骸','左右滑动比较五件声骸','Swipe to compare all five Echoes'],
+'workspace.manageConfiguration':['配置與角色管理','配置与角色管理','Loadout & character management'],
+'workspace.saved':['聲骸已儲存。','声骸已保存。','Echo saved.'],
+'workspace.deleted':['聲骸已刪除。','声骸已删除。','Echo deleted.'],
 'share.downloadStarted':['已送出 PNG 下載，請查看瀏覽器的下載項目。','已发起 PNG 下载，请查看浏览器的下载列表。','PNG download requested. Check your browser downloads.'],
 'share.scope':['聲骸配置評分 · 不是 DPS 或完整角色戰力','声骸配置评分 · 不是 DPS 或完整角色战力','Echo loadout score · Not DPS or total character power'],
 'share.conditions':['依目前分析條件產生，僅供展示；不含登入資訊或完整存檔。','按当前分析条件生成，仅供展示；不含登录信息或完整存档。','Generated from current analysis conditions for sharing; contains no credentials or full save data.'],
@@ -379,6 +398,8 @@
         "workspace.edit":["編輯","编辑","Edit"],
         "workspace.delete":["刪除","删除","Delete"],
         "workspace.addEcho":["新增聲骸","新增声骸","Add Echo"],
+        "workspace.favoriteSaved":["已收藏聲骸。","已收藏声骸。","Echo added to favorites."],
+        "workspace.favoriteRemoved":["已取消收藏。","已取消收藏。","Echo removed from favorites."],
         "workspace.confirmDelete":["刪除此聲骸？此操作會更新共用聲骸庫。","删除此声骸？此操作会更新共享声骸库。","Delete this Echo from the shared library?"],
         "workspace.incompleteAllowed":["尚未解鎖的副詞條可以留空；不完整資料不會視為完整配置。","尚未解锁的副词条可以留空；不完整数据不会视为完整配置。","Leave locked substats empty. Incomplete data is not treated as a complete loadout."],
         "workspace.libraryScope":["與 Classic 共用聲骸資料。比較候選不會修改這裡的原件。","与 Classic 共用声骸数据。比较候选不会修改这里的原件。","Echoes are shared with Classic. Comparison candidates do not modify these originals."],

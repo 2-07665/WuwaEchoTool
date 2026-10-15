@@ -35,6 +35,7 @@
         const format={
             integer:(n)=>number(n,{maximumFractionDigits:0}),
             decimal:(n,digits=2)=>number(n,{minimumFractionDigits:0,maximumFractionDigits:digits}),
+            scoreValue:(n)=>number(n,{minimumFractionDigits:2,maximumFractionDigits:2}),
             // 数据值 6.3 表示 6.3%，不是比例 .063；仅在显示时换算。
             percentage:(n,digits=1)=>finite(n)?number(n/100,{style:'percent',maximumFractionDigits:digits}):t('common.unavailable'),
             percentagePoint:(n,digits=1)=>finite(n)?t('format.percentagePoint',{value:number(n,{maximumFractionDigits:digits,signDisplay:'exceptZero'})}):t('common.unavailable'),

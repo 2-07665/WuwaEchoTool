@@ -1,0 +1,35 @@
+{
+  "passed": true,
+  "reports": [
+    {
+      "path": "/index.html?view=register",
+      "status": 200,
+      "bytes": 12329
+    },
+    {
+      "path": "/mccost.html?view=register",
+      "status": 200,
+      "bytes": 13196
+    },
+    {
+      "path": "/js/base.js",
+      "status": 200,
+      "bytes": 302878
+    },
+    {
+      "path": "/css/role-register.css",
+      "status": 200,
+      "bytes": 27694
+    },
+    {
+      "path": "/library/ocr/worker.min.js",
+      "status": 200,
+      "bytes": 111164
+    },
+    {
+      "path": "/library/ocr/chi_tra.traineddata.gz",
+      "status": 200,
+      "bytes": 1667198
+    }
+  ]
+}

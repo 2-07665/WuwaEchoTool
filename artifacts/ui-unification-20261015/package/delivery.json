@@ -1,0 +1,16 @@
+{
+  "zipName": "WuwaEchoTool_ChatGPT_Full_20261015_0903.zip",
+  "zipPath": "C:\\Users\\user\\Downloads\\WuwaEchoTool\\artifacts\\ui-unification-20261015\\package\\final.zip",
+  "bytes": 87901623,
+  "mib": 83.8295202255249,
+  "files": 612,
+  "payloadChecksums": 610,
+  "originalFiles": 573,
+  "byteIdenticalOriginals": 572,
+  "sanitizedFiles": [
+    "js/base.js"
+  ],
+  "crcAndShaVerified": true,
+  "sha256": "a4f91ea52c609d17a57bbe99cf99df7d406e683c41fc2becc06b4d95481c1119",
+  "localTime": "202610150903"
+}

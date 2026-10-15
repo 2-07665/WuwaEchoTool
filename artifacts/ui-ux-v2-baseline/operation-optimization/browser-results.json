@@ -1,0 +1,48 @@
+{
+  "isolated": true,
+  "realOfficialAccountRetested": false,
+  "realMobileKeyboard": false,
+  "reports": [
+    {
+      "width": 1440,
+      "locale": "en",
+      "large": true,
+      "passed": true,
+      "flows": "roles → analysis → edit → candidates → compare/back; library → edit/compare/back; history → draft/back; unsaved retain/discard; backup names restore"
+    },
+    {
+      "width": 1440,
+      "locale": "en",
+      "large": false,
+      "passed": true,
+      "flows": "4 configurations, 8 Echoes, empty results/reset, keyboard viewport, unchanged and dirty candidates, locale retention, model invalidation, share PNG, tools"
+    },
+    {
+      "width": 1440,
+      "locale": "en",
+      "empty": true,
+      "passed": true
+    }
+  ],
+  "pageErrors": [],
+  "screenshots": [
+    "1440-en-analysis.png",
+    "1440-en-backup.png",
+    "1440-en-candidates.png",
+    "1440-en-comparison.png",
+    "1440-en-empty-library.png",
+    "1440-en-empty-slots.png",
+    "1440-en-library.png",
+    "1440-en-model-invalidated.png",
+    "1440-en-plans.png",
+    "1440-en-roles.png",
+    "1440-en-share.png",
+    "1440-en-small-roles.png",
+    "1440-en-tools.png",
+    "1440-en-unknown-model.png",
+    "1440-en-unsaved.png"
+  ],
+  "shareExports": [
+    "1440-en-share-export.png"
+  ]
+}

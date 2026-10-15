@@ -1,0 +1,277 @@
+{
+  "exports": [
+    {
+      "locale": "zh-TW",
+      "scenario": "normal",
+      "mode": "compact",
+      "width": 1440,
+      "height": 1150,
+      "previewMatchesDownload": true,
+      "resonanceSymbols": 5
+    },
+    {
+      "locale": "zh-TW",
+      "scenario": "normal",
+      "mode": "detailed",
+      "width": 2040,
+      "height": 2112,
+      "previewMatchesDownload": true,
+      "resonanceSymbols": 5
+    },
+    {
+      "locale": "zh-TW",
+      "scenario": "long",
+      "mode": "compact",
+      "width": 1440,
+      "height": 1284,
+      "previewMatchesDownload": true,
+      "resonanceSymbols": 5
+    },
+    {
+      "locale": "zh-TW",
+      "scenario": "long",
+      "mode": "detailed",
+      "width": 2040,
+      "height": 2204,
+      "previewMatchesDownload": true,
+      "resonanceSymbols": 5
+    },
+    {
+      "locale": "zh-TW",
+      "scenario": "partial",
+      "mode": "compact",
+      "width": 1440,
+      "height": 1150,
+      "previewMatchesDownload": true,
+      "resonanceSymbols": 5
+    },
+    {
+      "locale": "zh-TW",
+      "scenario": "partial",
+      "mode": "detailed",
+      "width": 2040,
+      "height": 2112,
+      "previewMatchesDownload": true,
+      "resonanceSymbols": 5
+    },
+    {
+      "locale": "zh-TW",
+      "scenario": "unknown",
+      "mode": "compact",
+      "width": 1440,
+      "height": 1150,
+      "previewMatchesDownload": true,
+      "resonanceSymbols": 5
+    },
+    {
+      "locale": "zh-TW",
+      "scenario": "unknown",
+      "mode": "detailed",
+      "width": 2040,
+      "height": 2112,
+      "previewMatchesDownload": true,
+      "resonanceSymbols": 5
+    },
+    {
+      "locale": "zh-TW",
+      "scenario": "empty",
+      "mode": "compact",
+      "width": 1440,
+      "height": 1150,
+      "previewMatchesDownload": true,
+      "resonanceSymbols": 5
+    },
+    {
+      "locale": "zh-TW",
+      "scenario": "empty",
+      "mode": "detailed",
+      "width": 2040,
+      "height": 2019,
+      "previewMatchesDownload": true,
+      "resonanceSymbols": 5
+    },
+    {
+      "locale": "zh-CN",
+      "scenario": "normal",
+      "mode": "compact",
+      "width": 1440,
+      "height": 1150,
+      "previewMatchesDownload": true,
+      "resonanceSymbols": 5
+    },
+    {
+      "locale": "zh-CN",
+      "scenario": "normal",
+      "mode": "detailed",
+      "width": 2040,
+      "height": 2112,
+      "previewMatchesDownload": true,
+      "resonanceSymbols": 5
+    },
+    {
+      "locale": "zh-CN",
+      "scenario": "long",
+      "mode": "compact",
+      "width": 1440,
+      "height": 1284,
+      "previewMatchesDownload": true,
+      "resonanceSymbols": 5
+    },
+    {
+      "locale": "zh-CN",
+      "scenario": "long",
+      "mode": "detailed",
+      "width": 2040,
+      "height": 2204,
+      "previewMatchesDownload": true,
+      "resonanceSymbols": 5
+    },
+    {
+      "locale": "zh-CN",
+      "scenario": "partial",
+      "mode": "compact",
+      "width": 1440,
+      "height": 1150,
+      "previewMatchesDownload": true,
+      "resonanceSymbols": 5
+    },
+    {
+      "locale": "zh-CN",
+      "scenario": "partial",
+      "mode": "detailed",
+      "width": 2040,
+      "height": 2112,
+      "previewMatchesDownload": true,
+      "resonanceSymbols": 5
+    },
+    {
+      "locale": "zh-CN",
+      "scenario": "unknown",
+      "mode": "compact",
+      "width": 1440,
+      "height": 1150,
+      "previewMatchesDownload": true,
+      "resonanceSymbols": 5
+    },
+    {
+      "locale": "zh-CN",
+      "scenario": "unknown",
+      "mode": "detailed",
+      "width": 2040,
+      "height": 2112,
+      "previewMatchesDownload": true,
+      "resonanceSymbols": 5
+    },
+    {
+      "locale": "zh-CN",
+      "scenario": "empty",
+      "mode": "compact",
+      "width": 1440,
+      "height": 1150,
+      "previewMatchesDownload": true,
+      "resonanceSymbols": 5
+    },
+    {
+      "locale": "zh-CN",
+      "scenario": "empty",
+      "mode": "detailed",
+      "width": 2040,
+      "height": 2019,
+      "previewMatchesDownload": true,
+      "resonanceSymbols": 5
+    },
+    {
+      "locale": "en",
+      "scenario": "normal",
+      "mode": "compact",
+      "width": 1440,
+      "height": 1150,
+      "previewMatchesDownload": true,
+      "resonanceSymbols": 5
+    },
+    {
+      "locale": "en",
+      "scenario": "normal",
+      "mode": "detailed",
+      "width": 2040,
+      "height": 2112,
+      "previewMatchesDownload": true,
+      "resonanceSymbols": 5
+    },
+    {
+      "locale": "en",
+      "scenario": "long",
+      "mode": "compact",
+      "width": 1440,
+      "height": 1284,
+      "previewMatchesDownload": true,
+      "resonanceSymbols": 5
+    },
+    {
+      "locale": "en",
+      "scenario": "long",
+      "mode": "detailed",
+      "width": 2040,
+      "height": 2204,
+      "previewMatchesDownload": true,
+      "resonanceSymbols": 5
+    },
+    {
+      "locale": "en",
+      "scenario": "partial",
+      "mode": "compact",
+      "width": 1440,
+      "height": 1150,
+      "previewMatchesDownload": true,
+      "resonanceSymbols": 5
+    },
+    {
+      "locale": "en",
+      "scenario": "partial",
+      "mode": "detailed",
+      "width": 2040,
+      "height": 2112,
+      "previewMatchesDownload": true,
+      "resonanceSymbols": 5
+    },
+    {
+      "locale": "en",
+      "scenario": "unknown",
+      "mode": "compact",
+      "width": 1440,
+      "height": 1150,
+      "previewMatchesDownload": true,
+      "resonanceSymbols": 5
+    },
+    {
+      "locale": "en",
+      "scenario": "unknown",
+      "mode": "detailed",
+      "width": 2040,
+      "height": 2112,
+      "previewMatchesDownload": true,
+      "resonanceSymbols": 5
+    },
+    {
+      "locale": "en",
+      "scenario": "empty",
+      "mode": "compact",
+      "width": 1440,
+      "height": 1150,
+      "previewMatchesDownload": true,
+      "resonanceSymbols": 5
+    },
+    {
+      "locale": "en",
+      "scenario": "empty",
+      "mode": "detailed",
+      "width": 2040,
+      "height": 2019,
+      "previewMatchesDownload": true,
+      "resonanceSymbols": 5
+    }
+  ],
+  "pageErrors": [],
+  "isolatedSyntheticData": true,
+  "classicCoreUnchanged": true
+}

@@ -1,0 +1,16 @@
+{
+  "zipName": "WuwaEchoTool_ChatGPT_Full_20261015_1112.zip",
+  "zipPath": "C:\\Users\\user\\Downloads\\WuwaEchoTool\\artifacts\\detail-image-delete-20261015\\final.zip",
+  "bytes": 85693898,
+  "mib": 81.72406959533691,
+  "files": 606,
+  "payloadChecksums": 604,
+  "originalFiles": 568,
+  "byteIdenticalOriginals": 567,
+  "sanitizedFiles": [
+    "js/base.js"
+  ],
+  "crcAndShaVerified": true,
+  "sha256": "53d96a60a0c6bf6847597fca99d8929e8853ced71b1171ffc1c22ef4a098d160",
+  "localTime": "202610151112"
+}

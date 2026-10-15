@@ -1,0 +1,9 @@
+{
+  "files": 605,
+  "textFiles": 257,
+  "docxXml": 6,
+  "privateNames": [],
+  "highConfidenceSecretFindings": [],
+  "realBrowserStorageCopied": false,
+  "notes": "检查.env/私钥/凭证文件名和高可信秘密模式，扫描原DOCX XML；测试数据为隔离合成。模式检查不是对所有未知凭证格式的形式证明。"
+}

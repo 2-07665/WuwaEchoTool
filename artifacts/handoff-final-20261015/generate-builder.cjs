@@ -1,0 +1,23 @@
+/* 复用已验证封装器，区分本次重测与上一轮产品开发证据。 */
+const fs=require('node:fs'),path=require('node:path'),assert=require('node:assert/strict'),root=path.resolve(__dirname,'../..');
+let s=fs.readFileSync(path.join(root,'artifacts/ui-polish-save-20261015/build.cjs'),'utf8');
+s=s.replace("'ui-polish-save-20261015'];","'ui-polish-save-20261015','handoff-final-20261015'];");
+s=s.replaceAll("walk(path.join(work,'baseline'))","walk(path.join(root,'artifacts/ui-polish-save-20261015/baseline'))");
+s=s.replace("path.relative(path.join(work,'baseline'),f)","path.relative(path.join(root,'artifacts/ui-polish-save-20261015/baseline'),f)");
+s=s.replace("result=p=>JSON.parse(read(path.join(work,p)))","result=p=>JSON.parse(read(path.join(root,'artifacts/ui-polish-save-20261015',p)))");
+s=s.replace("write('handoff/evidence/'+rel,fs.readFileSync(path.join(work,rel)))","write('handoff/evidence/'+rel,fs.readFileSync(path.join(['unit-results.txt','static-results.txt','asset-check.json','security-check.json'].includes(rel)?work:path.join(root,'artifacts/ui-polish-save-20261015'),rel)))");
+s=s.replace("fs.readFileSync(path.join(work,'preview',from))","fs.readFileSync(path.join(root,'artifacts/ui-polish-save-20261015/preview',from))");
+const marker="};for(const [n,t] of Object.entries(notes))write('handoff/'+n,t);";
+assert.ok(s.includes(marker));
+const injected=`};
+ const freshShare=JSON.parse(read(path.join(work,'qa/ui-ux-focused/results.json'))),freshPolish=JSON.parse(read(path.join(work,'preview/results.json')));
+ assert.equal(freshShare.exports.length,30);assert.equal(freshPolish.reports.length,24);assert.equal(freshPolish.exports.length,6);for(const r of [freshShare,freshPolish])assert.equal(r.pageErrors.length,0);
+ write('handoff/evidence/current-share-results.json',JSON.stringify(freshShare,null,2));write('handoff/evidence/current-save-layout-results.json',JSON.stringify(freshPolish,null,2));
+ notes['00_READ_FIRST.md']+='# 本次封装说明\\n\\n本次仅核对当前文件、生成交接与必要检查，未修改产品。最新产品开发是上一轮UI精修和名称反馈修复。本次重新执行72单元、静态检查、24保存/布局矩阵、30通用分享与6张新任务分享；42工作台/36操作/6跨页/Classic属于上一轮历史记录，本次未重跑。\\n';
+ notes['01_CURRENT_PROGRESS.md']=notes['01_CURRENT_PROGRESS.md'].replace('已测试：本轮72单元、静态244资源/102脚本，24保存/布局矩阵、42工作台、36操作、6跨页、30通用PNG及6新任务真实导出、Classic像素对照。详见05，不以历史结果代替本次执行。','已测试：本次重新执行72单元、244资源/102脚本、24组保存与布局、30通用PNG及6张双版导出。此前42工作台、36操作、6跨页及Classic像素结果另列历史证据，详见05。');
+ notes['04_LATEST_CHANGES.md']='# 本次任务与最新产品开发\\n\\n本次Codex任务只创建artifacts/handoff-final-20261015下的封装工具、handoff文件和测试证据，不改HTML/js/css及产品文档。以下记录上一轮实际产品修改；累计Git差异不能全部归属本次。\\n\\n'+notes['04_LATEST_CHANGES.md'];
+ notes['03_NEXT_IMPROVEMENTS.md']=notes['03_NEXT_IMPROVEMENTS.md'].replaceAll('喚取','唤取');
+ for(const [n,t] of Object.entries(notes))write('handoff/'+n,t);`;
+s=s.replace(marker,injected);
+fs.writeFileSync(path.join(__dirname,'build.cjs'),s);
+console.log('封装器准备完成，不修改产品源码。');

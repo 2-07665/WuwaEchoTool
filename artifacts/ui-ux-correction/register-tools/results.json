@@ -1,0 +1,43 @@
+{
+  "isolated": true,
+  "reports": [
+    {
+      "width": 1440,
+      "locale": "zh-TW",
+      "passed": true,
+      "flows": "probability/stale/result/details; simulation 0→5/reset/cancel; rules; shared role; tool switching, reload, navigation, language, keyboard, error retry, session failure, entry routing and Classic"
+    },
+    {
+      "width": 1440,
+      "locale": "zh-CN",
+      "passed": true,
+      "flows": "probability/stale/result/details; simulation 0→5/reset/cancel; rules; shared role; tool switching, reload, navigation, language, keyboard, error retry, session failure, entry routing and Classic"
+    },
+    {
+      "width": 1440,
+      "locale": "en",
+      "passed": true,
+      "flows": "probability/stale/result/details; simulation 0→5/reset/cancel; rules; shared role; tool switching, reload, navigation, language, keyboard, error retry, session failure, entry routing and Classic"
+    },
+    {
+      "width": 320,
+      "locale": "zh-TW",
+      "passed": true,
+      "flows": "probability/stale/result/details; simulation 0→5/reset/cancel; rules; shared role; tool switching, reload, navigation, language, keyboard, error retry, session failure, entry routing and Classic"
+    },
+    {
+      "width": 320,
+      "locale": "zh-CN",
+      "passed": true,
+      "flows": "probability/stale/result/details; simulation 0→5/reset/cancel; rules; shared role; tool switching, reload, navigation, language, keyboard, error retry, session failure, entry routing and Classic"
+    },
+    {
+      "width": 320,
+      "locale": "en",
+      "passed": true,
+      "flows": "probability/stale/result/details; simulation 0→5/reset/cancel; rules; shared role; tool switching, reload, navigation, language, keyboard, error retry, session failure, entry routing and Classic"
+    }
+  ],
+  "pageErrors": [],
+  "realMobile": false
+}

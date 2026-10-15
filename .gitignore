@@ -20,4 +20,11 @@ yarn-debug.log*
 yarn-error.log*
 
 # Dependencies
-node_modules/ 
+node_modules/
+# 本机交接包、重复封装副本与生成截图不随源码提交
+/artifacts/**/*.zip
+/artifacts/**/WuwaEchoTool/
+/artifacts/**/extracted/
+/artifacts/**/preview/
+/artifacts/**/qa/
+/artifacts/cleanup-*.json

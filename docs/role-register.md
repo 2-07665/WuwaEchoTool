@@ -12,7 +12,7 @@
 | `js/role-register-page.js` | 从 `mcData.role` 按实例 `roleid` 读取，呼叫同一個 adapter／renderer，編排選取、模型、草稿、返回及資料變更事件 |
 | `js/role-register-renderer.js` | 无 DOM／存储依赖的 HTML 生成器；输出已用翻译 key 清单 |
 | `.rr-identity` | 左侧身份锚点、角色图像、存档配置说明 |
-| `.rr-loadout` / `.rr-slot` | 一条共同基线上的五个固定位置，公共行高，无独立背景和卡片边框 |
+| `.rr-loadout` / `.rr-slot` | 五个固定位置的装备卡片，独立背景和细边框；普通网格配合文本量测对齐读数 |
 | `.rr-rail` | 已知副词条累计，明确排除角色、武器、主词条；不伪装完整角色面板 |
 | `.rr-evaluation` | 整体评分与集中问题摘要，明确最低贡献不是替换建议 |
 | `.rr-inline-analysis` | 五槽之後唯一原位宿主，連接所選槽位、候選及比較 |
@@ -61,10 +61,10 @@ renderer 不读取 `.mc-cost-list` 或旧 DOM。原 DOM 保留在未启用预览
 ## DOM 更新与可访问性
 
 `role-register-page.js` 保留五个 `.rr-slot` 节点、唯一 `.rr-inline-analysis` 宿主与 `.rr-connector` 节点，更新内部展示内容和状态属性，不向页面追加分析面板。
-连接线在原节点上调整 `left`，180ms 过渡；`prefers-reduced-motion: reduce` 关闭过渡，程序滚动使用 `auto`。
+新版卡片通过边框、淡背景及状态文字表达选取；连接线节点仅为兼容保留且隐藏。卡片不依赖 subgrid，程序滚动尊重 `prefers-reduced-motion`。
 
 槽位使用原生 button，因此支持 Tab、Shift+Tab、Enter、Space；`aria-pressed`、`aria-expanded` 与 `aria-controls` 同步更新。
-Selected 还使用文字与下划线，hover 使用虚线轮廓，键盘 focus 使用实线轮廓。
+Selected 同时使用边框、淡背景与文字；hover 和键盘 focus 均有清楚轮廓。
 Escape 或收合按钮返回当前槽位焦点；问题摘要入口展开后把焦点移到分析标题。
 语言切换保持控制器状态，仅重绘 presentation，包含隐藏标签和区域 `aria-label`，不调用 adapter 或写入角色数据。
 
@@ -150,3 +150,20 @@ Escape 或收合按钮返回当前槽位焦点；问题摘要入口展开后把�
 所有歷史測試數字只代表該次驗收，不代表目前測試總數。
 
 合成資料、Edge viewport 與實際帳號／實機驗收須分開記錄。
+
+
+## 角色工作台装备卡片改版（2026-10-14）
+
+以 `docs/role-workspace-redesign.md` 为当前布局和验收说明。桌面为 260px 角色栏与主工作区，五件等宽装备卡片；手机为单栏摘要与 132px 原生横向卡片。配置与危险操作收进明确的管理入口，不改变名称或保存语义。
+
+`alignCards()` 只量测五件名称／主词条文本高度，不调用评分或存储 API；普通 CSS grid 使用同一组测量值对齐。图片固定容器，加载失败不会改变布局。
+
+选取后完整副词条明细默认展开，用户收合状态在切槽和语言重绘时保留。语言换行改变上方高度时，保留当前分析区的阅读锚点。原生横向滚动不再自动切换选取。管理展开状态仅在页面内存保留，不修改存档格式。
+
+## 2026-10-15 工作台精修与分享重设计
+
+角色评分设置已移入左侧身份卡，底部保留额外条件与模型解释；仅移除工作台重复总览区块，首页跨角色总览与导航保留。分享雷达为同图原始贡献分坐标，不是跨 Cost 质量百分比。最新实现与验收边界见 ui-share-refinement.md 和 register-share-acceptance.md。
+
+## 2026-10-15 配置名称精修
+
+名称仍使用 RegisterMetadata 角色名称映射，不改变 mcData 或新增多套方案。保存后同步规范化名称，成功与失败提示在重绘后保留；元数据损坏不覆盖。列表新增编辑配置定位入口，图片 contain，删除仍需确认。详细基准和测试见 docs/ui-polish-save.md。

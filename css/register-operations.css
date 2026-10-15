@@ -3,22 +3,20 @@
 .op-count{display:flex;justify-content:space-between;align-items:center;gap:16px;margin:18px 0;color:var(--register-muted)}.op-count button,.op-filters button,.op-rename button{font:inherit;padding:8px 14px;color:var(--register-ink);background:transparent;border:1px solid var(--register-line);cursor:pointer}
 .op-rename{display:flex;gap:12px;flex-wrap:wrap;margin:16px 0}.op-rename label{flex:1;min-width:140px}.op-rename input{width:100%;box-sizing:border-box;padding:10px}.op-rename button{align-self:end}.op-rename [role=status]{width:100%}
 .dock-config-name{display:block;font-size:13px;color:var(--register-accent);margin-top:8px}.dock-plans{display:flex;flex-direction:column;gap:8px}.dock-plans a{font-size:13px}.dock-score-reason{font-size:12px;color:var(--register-muted)}
-#register-workspace .rw-echo-entry{position:relative;display:grid;grid-template-columns:minmax(0,1fr) 46px;border-bottom:1px solid var(--register-line);align-items:stretch}#register-workspace .rw-echo-entry .rw-echo-row{border:0}#register-workspace .rw-echo-entry>.rw-favorite-toggle{border:0;border-left:1px solid var(--register-line);padding:10px;color:var(--register-accent);background:none;font-size:23px}
+#register-workspace .rw-echo-entry{display:grid;grid-template-columns:minmax(0,1fr);border-bottom:1px solid var(--register-line)}#register-workspace .rw-echo-entry .rw-echo-row{grid-area:1/1;border:0;padding-right:12px}#register-workspace .rw-echo-entry>.rw-favorite-toggle{grid-area:1/1;align-self:start;justify-self:end;margin:10px;width:44px;height:44px;min-height:44px;display:inline-flex;align-items:center;justify-content:center;border:1px solid var(--register-line);border-radius:8px;padding:0;color:var(--register-accent);background:#1b2b2c;font-size:23px}
 #register-workspace .rw-index-substats{font-size:12px;line-height:1.7;color:var(--register-muted);display:flex;flex-wrap:wrap;gap:4px 12px}#register-workspace .rw-index-substats .rw-stat-cell{display:inline-flex;gap:5px;border:0;padding:0}#register-workspace .rw-echo-index{max-height:72vh;overflow:auto;scrollbar-gutter:stable;scroll-padding:12px}#register-workspace .rw-inspector{position:sticky;top:16px;max-height:80vh;overflow:auto;scrollbar-gutter:stable;padding-top:12px}
-#register-workspace .rw-library-workspace{grid-template-columns:minmax(0,1fr) minmax(300px,400px)}#register-workspace .rw-inspector .rw-echo-preview{padding:12px 0}#register-workspace .rw-inspector section{padding:12px 0!important}#register-workspace .rw-inspector section h3{font-size:15px}
-#role-register .rr-substats-details{margin:20px 0}#role-register .rr-substats-details summary,#role-register .rr-conditions>summary{cursor:pointer;padding:12px 0;color:var(--rr-mint)}#role-register .rr-analysis-summary{display:flex;gap:24px;padding:16px 0;border-bottom:1px solid var(--rr-line);flex-wrap:wrap}#role-register .rr-analysis-summary strong{font-size:23px;display:block}#role-register .rr-problem button{opacity:1;cursor:pointer}#role-register .rr-slot:not(.rr-selected) .rr-slot-status{min-height:24px}#role-register .rr-candidate-list{max-height:55vh;overflow:auto;scrollbar-gutter:stable;scroll-padding:12px}
-#role-register .rr-candidate-list li{display:grid;grid-template-columns:minmax(0,1fr) auto;gap:8px 16px;padding:16px 0;border-bottom:1px solid var(--rr-line)}#role-register .rr-candidate-list li>span{font-size:13px;color:var(--rr-muted)}#role-register .rr-candidate-list button{grid-column:2;grid-row:1/5;align-self:center}#role-register .rr-candidate-list button:disabled{opacity:.6}#role-register .op-filters{font-size:13px}#role-register .op-filters input{min-width:0}#role-register .op-plan-management{padding:18px 0;border-top:1px solid var(--rr-line)}
+#register-workspace .rw-inspector .rw-echo-preview{padding:12px 0}#register-workspace .rw-inspector section{padding:12px 0}#register-workspace .rw-inspector section h3{font-size:15px}
 .register-shell-page .op-back{display:inline-block;margin-bottom:16px;color:var(--register-accent);text-underline-offset:4px}.register-shell-page .op-empty{padding:32px 0;border-top:1px solid var(--register-line);color:var(--register-muted)}
-@media(max-width:1100px){.register-shell-page :is(#character-dock,#register-workspace,#role-register) .op-filters{grid-template-columns:repeat(3,minmax(0,1fr))}#register-workspace .rw-library-workspace{gap:20px;grid-template-columns:minmax(0,1fr) 310px}}
-@media(max-width:700px){.register-shell-page :is(#character-dock,#register-workspace,#role-register) .op-filters{grid-template-columns:repeat(2,minmax(0,1fr))}#register-workspace .rw-library-workspace{display:block}#register-workspace .rw-echo-index{max-height:none;overflow:visible}#register-workspace .rw-inspector{position:static;max-height:none;overflow:visible}#register-workspace .rw-library-workspace:has(.rw-inspector.is-open) .rw-echo-index{display:none}#register-workspace .rw-echo-entry .rw-echo-row{padding-left:0;grid-template-columns:48px minmax(0,1fr)}#role-register .rr-candidate-list li{grid-template-columns:minmax(0,1fr)}#role-register .rr-candidate-list button{grid-column:1;grid-row:auto;justify-self:start}#role-register .rr-analysis-summary{gap:16px}#role-register .rr-portrait{display:none}.op-count{flex-wrap:wrap}}
+@media(max-width:1100px){.register-shell-page :is(#character-dock,#register-workspace,#role-register) .op-filters{grid-template-columns:repeat(3,minmax(0,1fr))}}
+@media(max-width:700px){.register-shell-page :is(#character-dock,#register-workspace,#role-register) .op-filters{grid-template-columns:repeat(2,minmax(0,1fr))}#register-workspace .rw-library-workspace{display:block}#register-workspace .rw-echo-index{max-height:none;overflow:visible}#register-workspace .rw-inspector{position:static;max-height:none;overflow:visible}#register-workspace .rw-library-workspace:has(.rw-inspector.is-open) .rw-echo-index{display:none}#register-workspace .rw-echo-entry .rw-echo-row{padding-left:0;grid-template-columns:48px minmax(0,1fr)}.op-count{flex-wrap:wrap}}
 @media(prefers-reduced-motion:reduce){.register-shell-page *{scroll-behavior:auto!important;transition:none!important;animation:none!important}}
-#role-register.rr-comparing .rr-analysis-content>:is(.rr-substats-details,.rr-analysis-summary){display:none}
 .dock-roster li>.dock-plans{grid-column:1/-1;padding:12px 0;border-top:1px solid var(--register-line)}
 #character-dock .dock-roster li{display:grid;grid-template-columns:minmax(0,1fr) auto;gap:0 16px}#character-dock .dock-roster li>.dock-plans{grid-column:1/-1}
 .op-current-config{color:var(--register-accent)!important;font-size:14px!important;margin:8px 0 16px!important}
 /* 复用工作台页签的交互层级；仅作用于 Register 的既有按钮。 */
 .register-shell-page :is(#character-dock,#register-workspace,#role-register) button:not(:disabled){cursor:pointer;transition:background-color .18s ease,color .18s ease,border-color .18s ease}
-.register-shell-page :is(#character-dock,#register-workspace,#role-register) button:not(:disabled):not([aria-pressed="true"]):not([aria-selected="true"]):hover{background-color:rgba(154,213,195,.05);color:#c2d4ca}
+.register-shell-page :is(#character-dock,#register-workspace,#role-register) button:not(:disabled):not([data-delete-role]):not([aria-pressed="true"]):not([aria-selected="true"]):hover{background-color:rgba(154,213,195,.05);color:#c2d4ca}
+.register-shell-page :is(#register-workspace,#character-dock) button.rw-primary:not(:disabled):hover{background-color:#b3e3d3;color:var(--register-bg);border-color:#b3e3d3}
 .register-shell-page :is(#register-workspace,#role-register) button[aria-pressed="true"]{background-color:rgba(154,213,195,.12);color:var(--register-accent);font-weight:600}
 .register-shell-page :is(#character-dock,#register-workspace,#role-register) button:focus-visible{outline:2px solid var(--register-accent);outline-offset:-4px}
 .register-shell-page :is(#character-dock,#register-workspace,#role-register) button:disabled{cursor:not-allowed;opacity:.5}
@@ -26,9 +24,8 @@
 .register-shell-page :is(#character-dock,#register-workspace,#role-register) [aria-busy="true"] button:disabled{cursor:wait}
 .register-shell-page :is(#character-dock,#register-workspace,#role-register) [role="status"]:not(:empty){color:var(--register-accent)}
 .register-shell-page :is(#character-dock,#register-workspace,#role-register) [role="alert"]:not(:empty){color:#d5b58a}
-#role-register .op-plan-management a[aria-current="true"]{color:var(--register-accent);font-weight:600;text-decoration:underline;text-underline-offset:4px}
-@media(max-width:700px){#role-register .rr-main{display:flex;flex-direction:column}#role-register .rr-identity{display:contents}#role-register .rr-workspace{order:1}#role-register .rr-identity-caption{order:2}#role-register .rr-role-actions{order:3}}
-@media(max-width:700px){#role-register .rr-candidate-list{max-height:none;overflow:visible}.op-keyboard #register-shell nav{display:none}.op-keyboard #register-workspace .rw-actions{position:static}.op-keyboard #role-register .rr-candidate-surface[data-phase=select]{bottom:0;max-height:90dvh}.op-keyboard :is(input,textarea){scroll-margin:40px}}
+@media(max-width:700px){}
+@media(max-width:700px){.op-keyboard #register-shell nav{display:none}.op-keyboard #register-workspace .rw-actions{position:static}.op-keyboard #role-register .rr-candidate-surface[data-phase=select]{bottom:0;max-height:90dvh}.op-keyboard :is(input,textarea){scroll-margin:40px}}
 @media(max-width:700px){html.register-shell-page{scroll-padding-bottom:124px}.register-shell-page :is(input,textarea,a,button){scroll-margin-bottom:124px}}
 
 /* 两层搜索只调整呈现，原控件与页面事件保持原位逻辑。 */
@@ -61,8 +58,8 @@
 #register-workspace .rw-echo-index{max-height:none;overflow:visible;scrollbar-gutter:auto}
 #register-workspace .rw-inspector{position:static;max-height:none;overflow:visible;scrollbar-gutter:auto;align-self:start;padding-top:16px}
 #register-workspace .rw-inspector.rw-sticky{position:sticky;top:16px}
-#register-workspace .rw-library-workspace{display:grid;grid-template-columns:minmax(0,1fr) minmax(300px,380px);align-items:start;gap:28px}
-#register-workspace .rw-echo-entry{margin:0;border-bottom:1px solid var(--register-line);grid-template-columns:minmax(0,1fr) 44px}
+#register-workspace .rw-library-workspace{display:grid;grid-template-columns:minmax(0,1.6fr) minmax(0,1fr);align-items:start;gap:14px}
+#register-workspace .rw-echo-entry{margin:0;border-bottom:1px solid var(--register-line);grid-template-columns:minmax(0,1fr)}
 #register-workspace .rw-echo-row{min-height:114px;padding:14px 12px;border-left:3px solid transparent!important;grid-template-columns:56px minmax(0,1fr) minmax(120px,.7fr);gap:10px 16px;text-align:left}
 #register-workspace .rw-echo-row[aria-pressed=true]{border-left-color:var(--register-accent)!important;background:rgba(154,213,195,.12)}
 #register-workspace .rw-echo-row .rw-echo-art,#register-workspace .rw-echo-row img{width:56px;height:64px;object-fit:contain}
@@ -79,9 +76,48 @@
  #register-workspace:has(.rw-inspector.is-open) .sf-search{display:none}
  #register-workspace .rw-echo-row{grid-template-columns:48px minmax(0,1fr);padding:12px 8px;min-height:130px}
  #register-workspace .rw-echo-row .rw-echo-art,#register-workspace .rw-echo-row img{width:48px;height:56px}
- #register-workspace .rw-echo-row>.rw-main-reading{grid-column:2;border:0;padding:0;display:flex;flex-wrap:wrap;gap:4px 12px}
+ #register-workspace .rw-library-workspace .rw-echo-row>.rw-main-reading{grid-column:2;border:0;padding:0;display:flex;flex-wrap:wrap;gap:4px 12px}
  #register-workspace .rw-echo-row .rw-main-reading small{display:none}
  #register-workspace .rw-echo-row .rw-index-substats{display:block;white-space:nowrap;overflow:hidden;text-overflow:ellipsis;line-height:1.6}
  #register-workspace .rw-echo-row .rw-index-substats :is(span,b){font-size:12px}
  #register-workspace .rw-inspector{padding-bottom:24px}
 }
+
+/* 清单摘要与工具说明不再降至 12px，仍保持主次读数差异。 */
+.register-shell-page #register-workspace .rw-echo-row .rw-index-substats,.register-shell-page #register-workspace .rw-echo-row .rw-index-substats :is(span,b){font-size:14px;line-height:1.55;color:var(--register-muted)}
+.register-shell-page #register-workspace #rw-tools :is(.rt-eyebrow,.rt-metrics dt,.rt-context p){font-size:14px;color:var(--register-muted);line-height:1.55}
+
+/* 收藏与整张条目共享网格，不另占操作栏；仅在相邻内容预留触控区域。 */
+#register-workspace .rw-library-workspace .rw-echo-row>.rw-main-reading{padding-right:48px}
+@media(max-width:960px){#register-workspace .rw-library-workspace .rw-echo-row>.rw-echo-identity{padding-right:48px}#register-workspace .rw-library-workspace .rw-echo-row>.rw-main-reading{padding-right:0}}
+
+/* 装备详情独立分区；保留库双栏、移动返回和原操作标记。 */
+#register-workspace .rw-inspector .rw-equipment-hero{text-align:center;padding:12px 12px 18px;border-radius:12px;background:radial-gradient(ellipse at 50% 24%,#294b46 0,transparent 70%)}
+#register-workspace .rw-inspector .rw-equipment-hero .rw-echo-preview{display:flex;flex-direction:column;align-items:center;gap:12px;padding:4px 0 0;margin:0;border:0;min-width:0}
+#register-workspace .rw-inspector .rw-equipment-hero .rw-echo-art{display:grid;place-items:center;width:132px;height:132px;box-sizing:border-box;padding:12px;border:1px solid var(--register-line);border-radius:12px;background:#122225;overflow:visible}
+#register-workspace .rw-inspector .rw-equipment-hero img{width:100%;height:100%;max-width:100%;max-height:100%;min-width:0;min-height:0;object-fit:contain;object-position:center}
+#register-workspace .rw-inspector .rw-equipment-hero h3{font-size:23px;line-height:1.4;margin:0;overflow-wrap:anywhere}
+#register-workspace .rw-inspector .rw-equipment-hero .rw-echo-preview p{display:flex;flex-wrap:wrap;justify-content:center;gap:8px;margin:0}
+#register-workspace .rw-equipment-hero .rw-echo-preview p span{padding:4px 10px;border:1px solid var(--register-line);border-radius:20px;font-size:14px}
+#register-workspace .rw-inspector .rw-equipment-hero .rw-completeness{font-size:14px;margin:12px 0 0}
+#register-workspace .rw-inspector :is(.rw-equipment-card,.rw-equipment-compare){padding:16px;margin-top:14px;border:1px solid var(--register-line);border-radius:12px;background:#142526}
+#register-workspace .rw-inspector .rw-equipment-card h3{font-size:15px;color:var(--register-muted);margin-bottom:10px}
+#register-workspace .rw-inspector-main .rw-main-reading{display:grid;gap:5px;text-align:center}
+#register-workspace .rw-inspector-main .rw-main-reading small{font-size:13px;color:var(--register-muted)}
+#register-workspace .rw-inspector-main .rw-main-reading b{font-size:38px;line-height:1.25}
+#register-workspace .rw-inspector .rw-detail-substats{gap:6px}
+#register-workspace .rw-inspector .rw-detail-substats .rw-stat-cell{min-height:40px;padding:8px 10px;box-sizing:border-box;border:0;border-radius:7px;align-items:center;background:#1b3030;font-size:15px;line-height:1.5}
+#register-workspace .rw-detail-substats .rw-stat-cell b{text-align:right;white-space:nowrap;color:#e0f1eb;font-variant-numeric:tabular-nums}
+#register-workspace .rw-inspector .rw-equipment-actions{border:0;margin-top:18px;padding:0}
+#register-workspace .rw-equipment-secondary{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:10px}
+#register-workspace .rw-equipment-secondary :is(a,button){display:flex;align-items:center;justify-content:center;box-sizing:border-box;min-height:44px;margin:0;padding:10px;border:1px solid var(--register-line);border-radius:8px;background:#203635;color:var(--register-text);text-decoration:none;text-align:center;font-size:15px;line-height:1.4}
+#register-workspace .rw-inspector .rw-equip-action{margin-top:14px;padding:14px;border:1px solid #456b61;border-radius:12px;background:#1b302d;max-width:none;text-align:left}
+#register-workspace .rw-equip-action summary{font-size:16px;font-weight:600;color:#c2eadc;cursor:pointer}
+#register-workspace .rw-inspector :is(.rw-equip-action,.rw-equipment-compare) label{display:grid;gap:7px;margin:14px 0;min-width:0}
+#register-workspace .rw-inspector :is(.rw-equip-action,.rw-equipment-compare) select{width:100%;min-width:0;max-width:100%;box-sizing:border-box;min-height:44px;margin:0}
+#register-workspace .rw-inspector :is([data-equip],[data-library-compare]){width:100%;min-height:44px;box-sizing:border-box;border-radius:8px;font-size:15px;padding:10px}
+#register-workspace .rw-inspector [data-equip]:not(:disabled){background:#8dd3be;color:#10231e;border:1px solid #a7e2cf;font-weight:600}
+#register-workspace .rw-inspector .rw-equipment-compare h3{font-size:17px}
+#register-workspace .rw-inspector :is(.rw-equipment-compare,.rw-equip-action,.rw-equipment-context) p{font-size:14px;line-height:1.6;color:var(--register-muted)}
+#register-workspace .rw-inspector .rw-equipment-danger{margin-top:20px;padding:0;border:0}
+#register-workspace .rw-equipment-danger [data-remove]{display:block;width:100%;box-sizing:border-box;min-height:44px;margin:0;font-size:15px;line-height:1.4;padding:9px 14px;border:1px solid #78504f;border-radius:8px;background:#35272a;color:#e4bab6}

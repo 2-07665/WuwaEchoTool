@@ -1,0 +1,2529 @@
+{
+  "exports": [
+    {
+      "locale": "zh-TW",
+      "scenario": "base",
+      "mode": "compact",
+      "width": 1440,
+      "height": 1170,
+      "radar": {
+        "min": 0,
+        "max": 30,
+        "scope": "raw-role-score-contribution",
+        "filled": true,
+        "entries": [
+          {
+            "position": 1,
+            "value": 21.92,
+            "status": "complete"
+          },
+          {
+            "position": 2,
+            "value": 17.02,
+            "status": "complete"
+          },
+          {
+            "position": 3,
+            "value": 15.69,
+            "status": "complete"
+          },
+          {
+            "position": 4,
+            "value": 13.52,
+            "status": "complete"
+          },
+          {
+            "position": 5,
+            "value": 13.52,
+            "status": "complete"
+          }
+        ]
+      },
+      "downloadMatches": true,
+      "total": 77.83
+    },
+    {
+      "locale": "zh-TW",
+      "scenario": "base",
+      "mode": "detailed",
+      "width": 2040,
+      "height": 1959,
+      "radar": {
+        "min": 0,
+        "max": 30,
+        "scope": "raw-role-score-contribution",
+        "filled": true,
+        "entries": [
+          {
+            "position": 1,
+            "value": 21.92,
+            "status": "complete"
+          },
+          {
+            "position": 2,
+            "value": 17.02,
+            "status": "complete"
+          },
+          {
+            "position": 3,
+            "value": 15.69,
+            "status": "complete"
+          },
+          {
+            "position": 4,
+            "value": 13.52,
+            "status": "complete"
+          },
+          {
+            "position": 5,
+            "value": 13.52,
+            "status": "complete"
+          }
+        ]
+      },
+      "downloadMatches": true,
+      "total": 77.83
+    },
+    {
+      "locale": "zh-TW",
+      "scenario": "tune",
+      "mode": "compact",
+      "width": 1440,
+      "height": 1170,
+      "radar": {
+        "min": 0,
+        "max": 20,
+        "scope": "raw-role-score-contribution",
+        "filled": true,
+        "entries": [
+          {
+            "position": 1,
+            "value": 19.82,
+            "status": "complete"
+          },
+          {
+            "position": 2,
+            "value": 16.84,
+            "status": "complete"
+          },
+          {
+            "position": 3,
+            "value": 13.97,
+            "status": "complete"
+          },
+          {
+            "position": 4,
+            "value": 12.33,
+            "status": "complete"
+          },
+          {
+            "position": 5,
+            "value": 12.33,
+            "status": "complete"
+          }
+        ]
+      },
+      "downloadMatches": true,
+      "total": 71.81
+    },
+    {
+      "locale": "zh-TW",
+      "scenario": "tune",
+      "mode": "detailed",
+      "width": 2040,
+      "height": 1959,
+      "radar": {
+        "min": 0,
+        "max": 20,
+        "scope": "raw-role-score-contribution",
+        "filled": true,
+        "entries": [
+          {
+            "position": 1,
+            "value": 19.82,
+            "status": "complete"
+          },
+          {
+            "position": 2,
+            "value": 16.84,
+            "status": "complete"
+          },
+          {
+            "position": 3,
+            "value": 13.97,
+            "status": "complete"
+          },
+          {
+            "position": 4,
+            "value": 12.33,
+            "status": "complete"
+          },
+          {
+            "position": 5,
+            "value": 12.33,
+            "status": "complete"
+          }
+        ]
+      },
+      "downloadMatches": true,
+      "total": 71.81
+    },
+    {
+      "locale": "zh-TW",
+      "scenario": "fusion",
+      "mode": "compact",
+      "width": 1440,
+      "height": 1170,
+      "radar": {
+        "min": 0,
+        "max": 30,
+        "scope": "raw-role-score-contribution",
+        "filled": true,
+        "entries": [
+          {
+            "position": 1,
+            "value": 20.6,
+            "status": "complete"
+          },
+          {
+            "position": 2,
+            "value": 16.48,
+            "status": "complete"
+          },
+          {
+            "position": 3,
+            "value": 15.4,
+            "status": "complete"
+          },
+          {
+            "position": 4,
+            "value": 12.53,
+            "status": "complete"
+          },
+          {
+            "position": 5,
+            "value": 12.53,
+            "status": "complete"
+          }
+        ]
+      },
+      "downloadMatches": true,
+      "total": 72.75
+    },
+    {
+      "locale": "zh-TW",
+      "scenario": "fusion",
+      "mode": "detailed",
+      "width": 2040,
+      "height": 1959,
+      "radar": {
+        "min": 0,
+        "max": 30,
+        "scope": "raw-role-score-contribution",
+        "filled": true,
+        "entries": [
+          {
+            "position": 1,
+            "value": 20.6,
+            "status": "complete"
+          },
+          {
+            "position": 2,
+            "value": 16.48,
+            "status": "complete"
+          },
+          {
+            "position": 3,
+            "value": 15.4,
+            "status": "complete"
+          },
+          {
+            "position": 4,
+            "value": 12.53,
+            "status": "complete"
+          },
+          {
+            "position": 5,
+            "value": 12.53,
+            "status": "complete"
+          }
+        ]
+      },
+      "downloadMatches": true,
+      "total": 72.75
+    },
+    {
+      "locale": "zh-TW",
+      "scenario": "harmony",
+      "mode": "compact",
+      "width": 1440,
+      "height": 1170,
+      "radar": {
+        "min": 0,
+        "max": 30,
+        "scope": "raw-role-score-contribution",
+        "filled": true,
+        "entries": [
+          {
+            "position": 1,
+            "value": 20.89,
+            "status": "complete"
+          },
+          {
+            "position": 2,
+            "value": 16.04,
+            "status": "complete"
+          },
+          {
+            "position": 3,
+            "value": 17.92,
+            "status": "complete"
+          },
+          {
+            "position": 4,
+            "value": 12.54,
+            "status": "complete"
+          },
+          {
+            "position": 5,
+            "value": 12.54,
+            "status": "complete"
+          }
+        ]
+      },
+      "downloadMatches": true,
+      "total": 74.92
+    },
+    {
+      "locale": "zh-TW",
+      "scenario": "harmony",
+      "mode": "detailed",
+      "width": 2040,
+      "height": 1959,
+      "radar": {
+        "min": 0,
+        "max": 30,
+        "scope": "raw-role-score-contribution",
+        "filled": true,
+        "entries": [
+          {
+            "position": 1,
+            "value": 20.89,
+            "status": "complete"
+          },
+          {
+            "position": 2,
+            "value": 16.04,
+            "status": "complete"
+          },
+          {
+            "position": 3,
+            "value": 17.92,
+            "status": "complete"
+          },
+          {
+            "position": 4,
+            "value": 12.54,
+            "status": "complete"
+          },
+          {
+            "position": 5,
+            "value": 12.54,
+            "status": "complete"
+          }
+        ]
+      },
+      "downloadMatches": true,
+      "total": 74.92
+    },
+    {
+      "locale": "zh-TW",
+      "scenario": "health",
+      "mode": "compact",
+      "width": 1440,
+      "height": 1170,
+      "radar": {
+        "min": 0,
+        "max": 30,
+        "scope": "raw-role-score-contribution",
+        "filled": true,
+        "entries": [
+          {
+            "position": 1,
+            "value": 25.01,
+            "status": "complete"
+          },
+          {
+            "position": 2,
+            "value": 19.83,
+            "status": "complete"
+          },
+          {
+            "position": 3,
+            "value": 17.06,
+            "status": "complete"
+          },
+          {
+            "position": 4,
+            "value": 13.53,
+            "status": "complete"
+          },
+          {
+            "position": 5,
+            "value": 13.53,
+            "status": "complete"
+          }
+        ]
+      },
+      "downloadMatches": true,
+      "total": 83.96
+    },
+    {
+      "locale": "zh-TW",
+      "scenario": "health",
+      "mode": "detailed",
+      "width": 2040,
+      "height": 1959,
+      "radar": {
+        "min": 0,
+        "max": 30,
+        "scope": "raw-role-score-contribution",
+        "filled": true,
+        "entries": [
+          {
+            "position": 1,
+            "value": 25.01,
+            "status": "complete"
+          },
+          {
+            "position": 2,
+            "value": 19.83,
+            "status": "complete"
+          },
+          {
+            "position": 3,
+            "value": 17.06,
+            "status": "complete"
+          },
+          {
+            "position": 4,
+            "value": 13.53,
+            "status": "complete"
+          },
+          {
+            "position": 5,
+            "value": 13.53,
+            "status": "complete"
+          }
+        ]
+      },
+      "downloadMatches": true,
+      "total": 83.96
+    },
+    {
+      "locale": "zh-TW",
+      "scenario": "cost44111",
+      "mode": "compact",
+      "width": 1440,
+      "height": 1170,
+      "radar": {
+        "min": 0,
+        "max": 30,
+        "scope": "raw-role-score-contribution",
+        "filled": true,
+        "entries": [
+          {
+            "position": 1,
+            "value": 21.92,
+            "status": "complete"
+          },
+          {
+            "position": 2,
+            "value": 21.92,
+            "status": "complete"
+          },
+          {
+            "position": 3,
+            "value": 13.52,
+            "status": "complete"
+          },
+          {
+            "position": 4,
+            "value": 13.52,
+            "status": "complete"
+          },
+          {
+            "position": 5,
+            "value": 13.52,
+            "status": "complete"
+          }
+        ]
+      },
+      "downloadMatches": true,
+      "total": 84.17
+    },
+    {
+      "locale": "zh-TW",
+      "scenario": "cost44111",
+      "mode": "detailed",
+      "width": 2040,
+      "height": 1959,
+      "radar": {
+        "min": 0,
+        "max": 30,
+        "scope": "raw-role-score-contribution",
+        "filled": true,
+        "entries": [
+          {
+            "position": 1,
+            "value": 21.92,
+            "status": "complete"
+          },
+          {
+            "position": 2,
+            "value": 21.92,
+            "status": "complete"
+          },
+          {
+            "position": 3,
+            "value": 13.52,
+            "status": "complete"
+          },
+          {
+            "position": 4,
+            "value": 13.52,
+            "status": "complete"
+          },
+          {
+            "position": 5,
+            "value": 13.52,
+            "status": "complete"
+          }
+        ]
+      },
+      "downloadMatches": true,
+      "total": 84.17
+    },
+    {
+      "locale": "zh-TW",
+      "scenario": "cost33311",
+      "mode": "compact",
+      "width": 1440,
+      "height": 1170,
+      "radar": {
+        "min": 0,
+        "max": 20,
+        "scope": "raw-role-score-contribution",
+        "filled": true,
+        "entries": [
+          {
+            "position": 1,
+            "value": 17.02,
+            "status": "complete"
+          },
+          {
+            "position": 2,
+            "value": 15.69,
+            "status": "complete"
+          },
+          {
+            "position": 3,
+            "value": 17.02,
+            "status": "complete"
+          },
+          {
+            "position": 4,
+            "value": 13.52,
+            "status": "complete"
+          },
+          {
+            "position": 5,
+            "value": 13.52,
+            "status": "complete"
+          }
+        ]
+      },
+      "downloadMatches": true,
+      "total": 72.93
+    },
+    {
+      "locale": "zh-TW",
+      "scenario": "cost33311",
+      "mode": "detailed",
+      "width": 2040,
+      "height": 1959,
+      "radar": {
+        "min": 0,
+        "max": 20,
+        "scope": "raw-role-score-contribution",
+        "filled": true,
+        "entries": [
+          {
+            "position": 1,
+            "value": 17.02,
+            "status": "complete"
+          },
+          {
+            "position": 2,
+            "value": 15.69,
+            "status": "complete"
+          },
+          {
+            "position": 3,
+            "value": 17.02,
+            "status": "complete"
+          },
+          {
+            "position": 4,
+            "value": 13.52,
+            "status": "complete"
+          },
+          {
+            "position": 5,
+            "value": 13.52,
+            "status": "complete"
+          }
+        ]
+      },
+      "downloadMatches": true,
+      "total": 72.93
+    },
+    {
+      "locale": "zh-TW",
+      "scenario": "partial",
+      "mode": "compact",
+      "width": 1440,
+      "height": 1170,
+      "radar": {
+        "min": 0,
+        "max": 30,
+        "scope": "raw-role-score-contribution",
+        "filled": false,
+        "entries": [
+          {
+            "position": 1,
+            "value": 21.92,
+            "status": "complete"
+          },
+          {
+            "position": 2,
+            "value": 17.02,
+            "status": "complete"
+          },
+          {
+            "position": 3,
+            "value": 15.69,
+            "status": "complete"
+          },
+          {
+            "position": 4,
+            "value": null,
+            "status": "empty"
+          },
+          {
+            "position": 5,
+            "value": null,
+            "status": "empty"
+          }
+        ]
+      },
+      "downloadMatches": true,
+      "total": null
+    },
+    {
+      "locale": "zh-TW",
+      "scenario": "partial",
+      "mode": "detailed",
+      "width": 2040,
+      "height": 1959,
+      "radar": {
+        "min": 0,
+        "max": 30,
+        "scope": "raw-role-score-contribution",
+        "filled": false,
+        "entries": [
+          {
+            "position": 1,
+            "value": 21.92,
+            "status": "complete"
+          },
+          {
+            "position": 2,
+            "value": 17.02,
+            "status": "complete"
+          },
+          {
+            "position": 3,
+            "value": 15.69,
+            "status": "complete"
+          },
+          {
+            "position": 4,
+            "value": null,
+            "status": "empty"
+          },
+          {
+            "position": 5,
+            "value": null,
+            "status": "empty"
+          }
+        ]
+      },
+      "downloadMatches": true,
+      "total": null
+    },
+    {
+      "locale": "zh-TW",
+      "scenario": "zero",
+      "mode": "compact",
+      "width": 1440,
+      "height": 1170,
+      "radar": {
+        "min": 0,
+        "max": 1,
+        "scope": "raw-role-score-contribution",
+        "filled": true,
+        "entries": [
+          {
+            "position": 1,
+            "value": 0,
+            "status": "complete"
+          },
+          {
+            "position": 2,
+            "value": 0,
+            "status": "complete"
+          },
+          {
+            "position": 3,
+            "value": 0,
+            "status": "complete"
+          },
+          {
+            "position": 4,
+            "value": 0,
+            "status": "complete"
+          },
+          {
+            "position": 5,
+            "value": 0,
+            "status": "complete"
+          }
+        ]
+      },
+      "downloadMatches": true,
+      "total": 0
+    },
+    {
+      "locale": "zh-TW",
+      "scenario": "zero",
+      "mode": "detailed",
+      "width": 2040,
+      "height": 1959,
+      "radar": {
+        "min": 0,
+        "max": 1,
+        "scope": "raw-role-score-contribution",
+        "filled": true,
+        "entries": [
+          {
+            "position": 1,
+            "value": 0,
+            "status": "complete"
+          },
+          {
+            "position": 2,
+            "value": 0,
+            "status": "complete"
+          },
+          {
+            "position": 3,
+            "value": 0,
+            "status": "complete"
+          },
+          {
+            "position": 4,
+            "value": 0,
+            "status": "complete"
+          },
+          {
+            "position": 5,
+            "value": 0,
+            "status": "complete"
+          }
+        ]
+      },
+      "downloadMatches": true,
+      "total": 0
+    },
+    {
+      "locale": "zh-TW",
+      "scenario": "negative",
+      "mode": "compact",
+      "width": 1440,
+      "height": 1170,
+      "radar": {
+        "min": 0,
+        "max": 1,
+        "scope": "raw-role-score-contribution",
+        "filled": false,
+        "entries": [
+          {
+            "position": 1,
+            "value": -3,
+            "status": "complete"
+          },
+          {
+            "position": 2,
+            "value": -3,
+            "status": "complete"
+          },
+          {
+            "position": 3,
+            "value": -3,
+            "status": "complete"
+          },
+          {
+            "position": 4,
+            "value": -3,
+            "status": "complete"
+          },
+          {
+            "position": 5,
+            "value": -3,
+            "status": "complete"
+          }
+        ]
+      },
+      "downloadMatches": true,
+      "total": -17
+    },
+    {
+      "locale": "zh-TW",
+      "scenario": "negative",
+      "mode": "detailed",
+      "width": 2040,
+      "height": 1959,
+      "radar": {
+        "min": 0,
+        "max": 1,
+        "scope": "raw-role-score-contribution",
+        "filled": false,
+        "entries": [
+          {
+            "position": 1,
+            "value": -3,
+            "status": "complete"
+          },
+          {
+            "position": 2,
+            "value": -3,
+            "status": "complete"
+          },
+          {
+            "position": 3,
+            "value": -3,
+            "status": "complete"
+          },
+          {
+            "position": 4,
+            "value": -3,
+            "status": "complete"
+          },
+          {
+            "position": 5,
+            "value": -3,
+            "status": "complete"
+          }
+        ]
+      },
+      "downloadMatches": true,
+      "total": -17
+    },
+    {
+      "locale": "zh-CN",
+      "scenario": "base",
+      "mode": "compact",
+      "width": 1440,
+      "height": 1170,
+      "radar": {
+        "min": 0,
+        "max": 30,
+        "scope": "raw-role-score-contribution",
+        "filled": true,
+        "entries": [
+          {
+            "position": 1,
+            "value": 21.92,
+            "status": "complete"
+          },
+          {
+            "position": 2,
+            "value": 17.02,
+            "status": "complete"
+          },
+          {
+            "position": 3,
+            "value": 15.69,
+            "status": "complete"
+          },
+          {
+            "position": 4,
+            "value": 13.52,
+            "status": "complete"
+          },
+          {
+            "position": 5,
+            "value": 13.52,
+            "status": "complete"
+          }
+        ]
+      },
+      "downloadMatches": true,
+      "total": 77.83
+    },
+    {
+      "locale": "zh-CN",
+      "scenario": "base",
+      "mode": "detailed",
+      "width": 2040,
+      "height": 1959,
+      "radar": {
+        "min": 0,
+        "max": 30,
+        "scope": "raw-role-score-contribution",
+        "filled": true,
+        "entries": [
+          {
+            "position": 1,
+            "value": 21.92,
+            "status": "complete"
+          },
+          {
+            "position": 2,
+            "value": 17.02,
+            "status": "complete"
+          },
+          {
+            "position": 3,
+            "value": 15.69,
+            "status": "complete"
+          },
+          {
+            "position": 4,
+            "value": 13.52,
+            "status": "complete"
+          },
+          {
+            "position": 5,
+            "value": 13.52,
+            "status": "complete"
+          }
+        ]
+      },
+      "downloadMatches": true,
+      "total": 77.83
+    },
+    {
+      "locale": "zh-CN",
+      "scenario": "tune",
+      "mode": "compact",
+      "width": 1440,
+      "height": 1170,
+      "radar": {
+        "min": 0,
+        "max": 20,
+        "scope": "raw-role-score-contribution",
+        "filled": true,
+        "entries": [
+          {
+            "position": 1,
+            "value": 19.82,
+            "status": "complete"
+          },
+          {
+            "position": 2,
+            "value": 16.84,
+            "status": "complete"
+          },
+          {
+            "position": 3,
+            "value": 13.97,
+            "status": "complete"
+          },
+          {
+            "position": 4,
+            "value": 12.33,
+            "status": "complete"
+          },
+          {
+            "position": 5,
+            "value": 12.33,
+            "status": "complete"
+          }
+        ]
+      },
+      "downloadMatches": true,
+      "total": 71.81
+    },
+    {
+      "locale": "zh-CN",
+      "scenario": "tune",
+      "mode": "detailed",
+      "width": 2040,
+      "height": 1959,
+      "radar": {
+        "min": 0,
+        "max": 20,
+        "scope": "raw-role-score-contribution",
+        "filled": true,
+        "entries": [
+          {
+            "position": 1,
+            "value": 19.82,
+            "status": "complete"
+          },
+          {
+            "position": 2,
+            "value": 16.84,
+            "status": "complete"
+          },
+          {
+            "position": 3,
+            "value": 13.97,
+            "status": "complete"
+          },
+          {
+            "position": 4,
+            "value": 12.33,
+            "status": "complete"
+          },
+          {
+            "position": 5,
+            "value": 12.33,
+            "status": "complete"
+          }
+        ]
+      },
+      "downloadMatches": true,
+      "total": 71.81
+    },
+    {
+      "locale": "zh-CN",
+      "scenario": "fusion",
+      "mode": "compact",
+      "width": 1440,
+      "height": 1170,
+      "radar": {
+        "min": 0,
+        "max": 30,
+        "scope": "raw-role-score-contribution",
+        "filled": true,
+        "entries": [
+          {
+            "position": 1,
+            "value": 20.6,
+            "status": "complete"
+          },
+          {
+            "position": 2,
+            "value": 16.48,
+            "status": "complete"
+          },
+          {
+            "position": 3,
+            "value": 15.4,
+            "status": "complete"
+          },
+          {
+            "position": 4,
+            "value": 12.53,
+            "status": "complete"
+          },
+          {
+            "position": 5,
+            "value": 12.53,
+            "status": "complete"
+          }
+        ]
+      },
+      "downloadMatches": true,
+      "total": 72.75
+    },
+    {
+      "locale": "zh-CN",
+      "scenario": "fusion",
+      "mode": "detailed",
+      "width": 2040,
+      "height": 1959,
+      "radar": {
+        "min": 0,
+        "max": 30,
+        "scope": "raw-role-score-contribution",
+        "filled": true,
+        "entries": [
+          {
+            "position": 1,
+            "value": 20.6,
+            "status": "complete"
+          },
+          {
+            "position": 2,
+            "value": 16.48,
+            "status": "complete"
+          },
+          {
+            "position": 3,
+            "value": 15.4,
+            "status": "complete"
+          },
+          {
+            "position": 4,
+            "value": 12.53,
+            "status": "complete"
+          },
+          {
+            "position": 5,
+            "value": 12.53,
+            "status": "complete"
+          }
+        ]
+      },
+      "downloadMatches": true,
+      "total": 72.75
+    },
+    {
+      "locale": "zh-CN",
+      "scenario": "harmony",
+      "mode": "compact",
+      "width": 1440,
+      "height": 1170,
+      "radar": {
+        "min": 0,
+        "max": 30,
+        "scope": "raw-role-score-contribution",
+        "filled": true,
+        "entries": [
+          {
+            "position": 1,
+            "value": 20.89,
+            "status": "complete"
+          },
+          {
+            "position": 2,
+            "value": 16.04,
+            "status": "complete"
+          },
+          {
+            "position": 3,
+            "value": 17.92,
+            "status": "complete"
+          },
+          {
+            "position": 4,
+            "value": 12.54,
+            "status": "complete"
+          },
+          {
+            "position": 5,
+            "value": 12.54,
+            "status": "complete"
+          }
+        ]
+      },
+      "downloadMatches": true,
+      "total": 74.92
+    },
+    {
+      "locale": "zh-CN",
+      "scenario": "harmony",
+      "mode": "detailed",
+      "width": 2040,
+      "height": 1959,
+      "radar": {
+        "min": 0,
+        "max": 30,
+        "scope": "raw-role-score-contribution",
+        "filled": true,
+        "entries": [
+          {
+            "position": 1,
+            "value": 20.89,
+            "status": "complete"
+          },
+          {
+            "position": 2,
+            "value": 16.04,
+            "status": "complete"
+          },
+          {
+            "position": 3,
+            "value": 17.92,
+            "status": "complete"
+          },
+          {
+            "position": 4,
+            "value": 12.54,
+            "status": "complete"
+          },
+          {
+            "position": 5,
+            "value": 12.54,
+            "status": "complete"
+          }
+        ]
+      },
+      "downloadMatches": true,
+      "total": 74.92
+    },
+    {
+      "locale": "zh-CN",
+      "scenario": "health",
+      "mode": "compact",
+      "width": 1440,
+      "height": 1170,
+      "radar": {
+        "min": 0,
+        "max": 30,
+        "scope": "raw-role-score-contribution",
+        "filled": true,
+        "entries": [
+          {
+            "position": 1,
+            "value": 25.01,
+            "status": "complete"
+          },
+          {
+            "position": 2,
+            "value": 19.83,
+            "status": "complete"
+          },
+          {
+            "position": 3,
+            "value": 17.06,
+            "status": "complete"
+          },
+          {
+            "position": 4,
+            "value": 13.53,
+            "status": "complete"
+          },
+          {
+            "position": 5,
+            "value": 13.53,
+            "status": "complete"
+          }
+        ]
+      },
+      "downloadMatches": true,
+      "total": 83.96
+    },
+    {
+      "locale": "zh-CN",
+      "scenario": "health",
+      "mode": "detailed",
+      "width": 2040,
+      "height": 1959,
+      "radar": {
+        "min": 0,
+        "max": 30,
+        "scope": "raw-role-score-contribution",
+        "filled": true,
+        "entries": [
+          {
+            "position": 1,
+            "value": 25.01,
+            "status": "complete"
+          },
+          {
+            "position": 2,
+            "value": 19.83,
+            "status": "complete"
+          },
+          {
+            "position": 3,
+            "value": 17.06,
+            "status": "complete"
+          },
+          {
+            "position": 4,
+            "value": 13.53,
+            "status": "complete"
+          },
+          {
+            "position": 5,
+            "value": 13.53,
+            "status": "complete"
+          }
+        ]
+      },
+      "downloadMatches": true,
+      "total": 83.96
+    },
+    {
+      "locale": "zh-CN",
+      "scenario": "cost44111",
+      "mode": "compact",
+      "width": 1440,
+      "height": 1170,
+      "radar": {
+        "min": 0,
+        "max": 30,
+        "scope": "raw-role-score-contribution",
+        "filled": true,
+        "entries": [
+          {
+            "position": 1,
+            "value": 21.92,
+            "status": "complete"
+          },
+          {
+            "position": 2,
+            "value": 21.92,
+            "status": "complete"
+          },
+          {
+            "position": 3,
+            "value": 13.52,
+            "status": "complete"
+          },
+          {
+            "position": 4,
+            "value": 13.52,
+            "status": "complete"
+          },
+          {
+            "position": 5,
+            "value": 13.52,
+            "status": "complete"
+          }
+        ]
+      },
+      "downloadMatches": true,
+      "total": 84.17
+    },
+    {
+      "locale": "zh-CN",
+      "scenario": "cost44111",
+      "mode": "detailed",
+      "width": 2040,
+      "height": 1959,
+      "radar": {
+        "min": 0,
+        "max": 30,
+        "scope": "raw-role-score-contribution",
+        "filled": true,
+        "entries": [
+          {
+            "position": 1,
+            "value": 21.92,
+            "status": "complete"
+          },
+          {
+            "position": 2,
+            "value": 21.92,
+            "status": "complete"
+          },
+          {
+            "position": 3,
+            "value": 13.52,
+            "status": "complete"
+          },
+          {
+            "position": 4,
+            "value": 13.52,
+            "status": "complete"
+          },
+          {
+            "position": 5,
+            "value": 13.52,
+            "status": "complete"
+          }
+        ]
+      },
+      "downloadMatches": true,
+      "total": 84.17
+    },
+    {
+      "locale": "zh-CN",
+      "scenario": "cost33311",
+      "mode": "compact",
+      "width": 1440,
+      "height": 1170,
+      "radar": {
+        "min": 0,
+        "max": 20,
+        "scope": "raw-role-score-contribution",
+        "filled": true,
+        "entries": [
+          {
+            "position": 1,
+            "value": 17.02,
+            "status": "complete"
+          },
+          {
+            "position": 2,
+            "value": 15.69,
+            "status": "complete"
+          },
+          {
+            "position": 3,
+            "value": 17.02,
+            "status": "complete"
+          },
+          {
+            "position": 4,
+            "value": 13.52,
+            "status": "complete"
+          },
+          {
+            "position": 5,
+            "value": 13.52,
+            "status": "complete"
+          }
+        ]
+      },
+      "downloadMatches": true,
+      "total": 72.93
+    },
+    {
+      "locale": "zh-CN",
+      "scenario": "cost33311",
+      "mode": "detailed",
+      "width": 2040,
+      "height": 1959,
+      "radar": {
+        "min": 0,
+        "max": 20,
+        "scope": "raw-role-score-contribution",
+        "filled": true,
+        "entries": [
+          {
+            "position": 1,
+            "value": 17.02,
+            "status": "complete"
+          },
+          {
+            "position": 2,
+            "value": 15.69,
+            "status": "complete"
+          },
+          {
+            "position": 3,
+            "value": 17.02,
+            "status": "complete"
+          },
+          {
+            "position": 4,
+            "value": 13.52,
+            "status": "complete"
+          },
+          {
+            "position": 5,
+            "value": 13.52,
+            "status": "complete"
+          }
+        ]
+      },
+      "downloadMatches": true,
+      "total": 72.93
+    },
+    {
+      "locale": "zh-CN",
+      "scenario": "partial",
+      "mode": "compact",
+      "width": 1440,
+      "height": 1170,
+      "radar": {
+        "min": 0,
+        "max": 30,
+        "scope": "raw-role-score-contribution",
+        "filled": false,
+        "entries": [
+          {
+            "position": 1,
+            "value": 21.92,
+            "status": "complete"
+          },
+          {
+            "position": 2,
+            "value": 17.02,
+            "status": "complete"
+          },
+          {
+            "position": 3,
+            "value": 15.69,
+            "status": "complete"
+          },
+          {
+            "position": 4,
+            "value": null,
+            "status": "empty"
+          },
+          {
+            "position": 5,
+            "value": null,
+            "status": "empty"
+          }
+        ]
+      },
+      "downloadMatches": true,
+      "total": null
+    },
+    {
+      "locale": "zh-CN",
+      "scenario": "partial",
+      "mode": "detailed",
+      "width": 2040,
+      "height": 1959,
+      "radar": {
+        "min": 0,
+        "max": 30,
+        "scope": "raw-role-score-contribution",
+        "filled": false,
+        "entries": [
+          {
+            "position": 1,
+            "value": 21.92,
+            "status": "complete"
+          },
+          {
+            "position": 2,
+            "value": 17.02,
+            "status": "complete"
+          },
+          {
+            "position": 3,
+            "value": 15.69,
+            "status": "complete"
+          },
+          {
+            "position": 4,
+            "value": null,
+            "status": "empty"
+          },
+          {
+            "position": 5,
+            "value": null,
+            "status": "empty"
+          }
+        ]
+      },
+      "downloadMatches": true,
+      "total": null
+    },
+    {
+      "locale": "zh-CN",
+      "scenario": "zero",
+      "mode": "compact",
+      "width": 1440,
+      "height": 1170,
+      "radar": {
+        "min": 0,
+        "max": 1,
+        "scope": "raw-role-score-contribution",
+        "filled": true,
+        "entries": [
+          {
+            "position": 1,
+            "value": 0,
+            "status": "complete"
+          },
+          {
+            "position": 2,
+            "value": 0,
+            "status": "complete"
+          },
+          {
+            "position": 3,
+            "value": 0,
+            "status": "complete"
+          },
+          {
+            "position": 4,
+            "value": 0,
+            "status": "complete"
+          },
+          {
+            "position": 5,
+            "value": 0,
+            "status": "complete"
+          }
+        ]
+      },
+      "downloadMatches": true,
+      "total": 0
+    },
+    {
+      "locale": "zh-CN",
+      "scenario": "zero",
+      "mode": "detailed",
+      "width": 2040,
+      "height": 1959,
+      "radar": {
+        "min": 0,
+        "max": 1,
+        "scope": "raw-role-score-contribution",
+        "filled": true,
+        "entries": [
+          {
+            "position": 1,
+            "value": 0,
+            "status": "complete"
+          },
+          {
+            "position": 2,
+            "value": 0,
+            "status": "complete"
+          },
+          {
+            "position": 3,
+            "value": 0,
+            "status": "complete"
+          },
+          {
+            "position": 4,
+            "value": 0,
+            "status": "complete"
+          },
+          {
+            "position": 5,
+            "value": 0,
+            "status": "complete"
+          }
+        ]
+      },
+      "downloadMatches": true,
+      "total": 0
+    },
+    {
+      "locale": "zh-CN",
+      "scenario": "negative",
+      "mode": "compact",
+      "width": 1440,
+      "height": 1170,
+      "radar": {
+        "min": 0,
+        "max": 1,
+        "scope": "raw-role-score-contribution",
+        "filled": false,
+        "entries": [
+          {
+            "position": 1,
+            "value": -3,
+            "status": "complete"
+          },
+          {
+            "position": 2,
+            "value": -3,
+            "status": "complete"
+          },
+          {
+            "position": 3,
+            "value": -3,
+            "status": "complete"
+          },
+          {
+            "position": 4,
+            "value": -3,
+            "status": "complete"
+          },
+          {
+            "position": 5,
+            "value": -3,
+            "status": "complete"
+          }
+        ]
+      },
+      "downloadMatches": true,
+      "total": -17
+    },
+    {
+      "locale": "zh-CN",
+      "scenario": "negative",
+      "mode": "detailed",
+      "width": 2040,
+      "height": 1959,
+      "radar": {
+        "min": 0,
+        "max": 1,
+        "scope": "raw-role-score-contribution",
+        "filled": false,
+        "entries": [
+          {
+            "position": 1,
+            "value": -3,
+            "status": "complete"
+          },
+          {
+            "position": 2,
+            "value": -3,
+            "status": "complete"
+          },
+          {
+            "position": 3,
+            "value": -3,
+            "status": "complete"
+          },
+          {
+            "position": 4,
+            "value": -3,
+            "status": "complete"
+          },
+          {
+            "position": 5,
+            "value": -3,
+            "status": "complete"
+          }
+        ]
+      },
+      "downloadMatches": true,
+      "total": -17
+    },
+    {
+      "locale": "en",
+      "scenario": "base",
+      "mode": "compact",
+      "width": 1440,
+      "height": 1170,
+      "radar": {
+        "min": 0,
+        "max": 30,
+        "scope": "raw-role-score-contribution",
+        "filled": true,
+        "entries": [
+          {
+            "position": 1,
+            "value": 21.92,
+            "status": "complete"
+          },
+          {
+            "position": 2,
+            "value": 17.02,
+            "status": "complete"
+          },
+          {
+            "position": 3,
+            "value": 15.69,
+            "status": "complete"
+          },
+          {
+            "position": 4,
+            "value": 13.52,
+            "status": "complete"
+          },
+          {
+            "position": 5,
+            "value": 13.52,
+            "status": "complete"
+          }
+        ]
+      },
+      "downloadMatches": true,
+      "total": 77.83
+    },
+    {
+      "locale": "en",
+      "scenario": "base",
+      "mode": "detailed",
+      "width": 2040,
+      "height": 1980,
+      "radar": {
+        "min": 0,
+        "max": 30,
+        "scope": "raw-role-score-contribution",
+        "filled": true,
+        "entries": [
+          {
+            "position": 1,
+            "value": 21.92,
+            "status": "complete"
+          },
+          {
+            "position": 2,
+            "value": 17.02,
+            "status": "complete"
+          },
+          {
+            "position": 3,
+            "value": 15.69,
+            "status": "complete"
+          },
+          {
+            "position": 4,
+            "value": 13.52,
+            "status": "complete"
+          },
+          {
+            "position": 5,
+            "value": 13.52,
+            "status": "complete"
+          }
+        ]
+      },
+      "downloadMatches": true,
+      "total": 77.83
+    },
+    {
+      "locale": "en",
+      "scenario": "tune",
+      "mode": "compact",
+      "width": 1440,
+      "height": 1170,
+      "radar": {
+        "min": 0,
+        "max": 20,
+        "scope": "raw-role-score-contribution",
+        "filled": true,
+        "entries": [
+          {
+            "position": 1,
+            "value": 19.82,
+            "status": "complete"
+          },
+          {
+            "position": 2,
+            "value": 16.84,
+            "status": "complete"
+          },
+          {
+            "position": 3,
+            "value": 13.97,
+            "status": "complete"
+          },
+          {
+            "position": 4,
+            "value": 12.33,
+            "status": "complete"
+          },
+          {
+            "position": 5,
+            "value": 12.33,
+            "status": "complete"
+          }
+        ]
+      },
+      "downloadMatches": true,
+      "total": 71.81
+    },
+    {
+      "locale": "en",
+      "scenario": "tune",
+      "mode": "detailed",
+      "width": 2040,
+      "height": 1980,
+      "radar": {
+        "min": 0,
+        "max": 20,
+        "scope": "raw-role-score-contribution",
+        "filled": true,
+        "entries": [
+          {
+            "position": 1,
+            "value": 19.82,
+            "status": "complete"
+          },
+          {
+            "position": 2,
+            "value": 16.84,
+            "status": "complete"
+          },
+          {
+            "position": 3,
+            "value": 13.97,
+            "status": "complete"
+          },
+          {
+            "position": 4,
+            "value": 12.33,
+            "status": "complete"
+          },
+          {
+            "position": 5,
+            "value": 12.33,
+            "status": "complete"
+          }
+        ]
+      },
+      "downloadMatches": true,
+      "total": 71.81
+    },
+    {
+      "locale": "en",
+      "scenario": "fusion",
+      "mode": "compact",
+      "width": 1440,
+      "height": 1170,
+      "radar": {
+        "min": 0,
+        "max": 30,
+        "scope": "raw-role-score-contribution",
+        "filled": true,
+        "entries": [
+          {
+            "position": 1,
+            "value": 20.6,
+            "status": "complete"
+          },
+          {
+            "position": 2,
+            "value": 16.48,
+            "status": "complete"
+          },
+          {
+            "position": 3,
+            "value": 15.4,
+            "status": "complete"
+          },
+          {
+            "position": 4,
+            "value": 12.53,
+            "status": "complete"
+          },
+          {
+            "position": 5,
+            "value": 12.53,
+            "status": "complete"
+          }
+        ]
+      },
+      "downloadMatches": true,
+      "total": 72.75
+    },
+    {
+      "locale": "en",
+      "scenario": "fusion",
+      "mode": "detailed",
+      "width": 2040,
+      "height": 1980,
+      "radar": {
+        "min": 0,
+        "max": 30,
+        "scope": "raw-role-score-contribution",
+        "filled": true,
+        "entries": [
+          {
+            "position": 1,
+            "value": 20.6,
+            "status": "complete"
+          },
+          {
+            "position": 2,
+            "value": 16.48,
+            "status": "complete"
+          },
+          {
+            "position": 3,
+            "value": 15.4,
+            "status": "complete"
+          },
+          {
+            "position": 4,
+            "value": 12.53,
+            "status": "complete"
+          },
+          {
+            "position": 5,
+            "value": 12.53,
+            "status": "complete"
+          }
+        ]
+      },
+      "downloadMatches": true,
+      "total": 72.75
+    },
+    {
+      "locale": "en",
+      "scenario": "harmony",
+      "mode": "compact",
+      "width": 1440,
+      "height": 1170,
+      "radar": {
+        "min": 0,
+        "max": 30,
+        "scope": "raw-role-score-contribution",
+        "filled": true,
+        "entries": [
+          {
+            "position": 1,
+            "value": 20.89,
+            "status": "complete"
+          },
+          {
+            "position": 2,
+            "value": 16.04,
+            "status": "complete"
+          },
+          {
+            "position": 3,
+            "value": 17.92,
+            "status": "complete"
+          },
+          {
+            "position": 4,
+            "value": 12.54,
+            "status": "complete"
+          },
+          {
+            "position": 5,
+            "value": 12.54,
+            "status": "complete"
+          }
+        ]
+      },
+      "downloadMatches": true,
+      "total": 74.92
+    },
+    {
+      "locale": "en",
+      "scenario": "harmony",
+      "mode": "detailed",
+      "width": 2040,
+      "height": 1980,
+      "radar": {
+        "min": 0,
+        "max": 30,
+        "scope": "raw-role-score-contribution",
+        "filled": true,
+        "entries": [
+          {
+            "position": 1,
+            "value": 20.89,
+            "status": "complete"
+          },
+          {
+            "position": 2,
+            "value": 16.04,
+            "status": "complete"
+          },
+          {
+            "position": 3,
+            "value": 17.92,
+            "status": "complete"
+          },
+          {
+            "position": 4,
+            "value": 12.54,
+            "status": "complete"
+          },
+          {
+            "position": 5,
+            "value": 12.54,
+            "status": "complete"
+          }
+        ]
+      },
+      "downloadMatches": true,
+      "total": 74.92
+    },
+    {
+      "locale": "en",
+      "scenario": "health",
+      "mode": "compact",
+      "width": 1440,
+      "height": 1170,
+      "radar": {
+        "min": 0,
+        "max": 30,
+        "scope": "raw-role-score-contribution",
+        "filled": true,
+        "entries": [
+          {
+            "position": 1,
+            "value": 25.01,
+            "status": "complete"
+          },
+          {
+            "position": 2,
+            "value": 19.83,
+            "status": "complete"
+          },
+          {
+            "position": 3,
+            "value": 17.06,
+            "status": "complete"
+          },
+          {
+            "position": 4,
+            "value": 13.53,
+            "status": "complete"
+          },
+          {
+            "position": 5,
+            "value": 13.53,
+            "status": "complete"
+          }
+        ]
+      },
+      "downloadMatches": true,
+      "total": 83.96
+    },
+    {
+      "locale": "en",
+      "scenario": "health",
+      "mode": "detailed",
+      "width": 2040,
+      "height": 1980,
+      "radar": {
+        "min": 0,
+        "max": 30,
+        "scope": "raw-role-score-contribution",
+        "filled": true,
+        "entries": [
+          {
+            "position": 1,
+            "value": 25.01,
+            "status": "complete"
+          },
+          {
+            "position": 2,
+            "value": 19.83,
+            "status": "complete"
+          },
+          {
+            "position": 3,
+            "value": 17.06,
+            "status": "complete"
+          },
+          {
+            "position": 4,
+            "value": 13.53,
+            "status": "complete"
+          },
+          {
+            "position": 5,
+            "value": 13.53,
+            "status": "complete"
+          }
+        ]
+      },
+      "downloadMatches": true,
+      "total": 83.96
+    },
+    {
+      "locale": "en",
+      "scenario": "cost44111",
+      "mode": "compact",
+      "width": 1440,
+      "height": 1170,
+      "radar": {
+        "min": 0,
+        "max": 30,
+        "scope": "raw-role-score-contribution",
+        "filled": true,
+        "entries": [
+          {
+            "position": 1,
+            "value": 21.92,
+            "status": "complete"
+          },
+          {
+            "position": 2,
+            "value": 21.92,
+            "status": "complete"
+          },
+          {
+            "position": 3,
+            "value": 13.52,
+            "status": "complete"
+          },
+          {
+            "position": 4,
+            "value": 13.52,
+            "status": "complete"
+          },
+          {
+            "position": 5,
+            "value": 13.52,
+            "status": "complete"
+          }
+        ]
+      },
+      "downloadMatches": true,
+      "total": 84.17
+    },
+    {
+      "locale": "en",
+      "scenario": "cost44111",
+      "mode": "detailed",
+      "width": 2040,
+      "height": 1980,
+      "radar": {
+        "min": 0,
+        "max": 30,
+        "scope": "raw-role-score-contribution",
+        "filled": true,
+        "entries": [
+          {
+            "position": 1,
+            "value": 21.92,
+            "status": "complete"
+          },
+          {
+            "position": 2,
+            "value": 21.92,
+            "status": "complete"
+          },
+          {
+            "position": 3,
+            "value": 13.52,
+            "status": "complete"
+          },
+          {
+            "position": 4,
+            "value": 13.52,
+            "status": "complete"
+          },
+          {
+            "position": 5,
+            "value": 13.52,
+            "status": "complete"
+          }
+        ]
+      },
+      "downloadMatches": true,
+      "total": 84.17
+    },
+    {
+      "locale": "en",
+      "scenario": "cost33311",
+      "mode": "compact",
+      "width": 1440,
+      "height": 1170,
+      "radar": {
+        "min": 0,
+        "max": 20,
+        "scope": "raw-role-score-contribution",
+        "filled": true,
+        "entries": [
+          {
+            "position": 1,
+            "value": 17.02,
+            "status": "complete"
+          },
+          {
+            "position": 2,
+            "value": 15.69,
+            "status": "complete"
+          },
+          {
+            "position": 3,
+            "value": 17.02,
+            "status": "complete"
+          },
+          {
+            "position": 4,
+            "value": 13.52,
+            "status": "complete"
+          },
+          {
+            "position": 5,
+            "value": 13.52,
+            "status": "complete"
+          }
+        ]
+      },
+      "downloadMatches": true,
+      "total": 72.93
+    },
+    {
+      "locale": "en",
+      "scenario": "cost33311",
+      "mode": "detailed",
+      "width": 2040,
+      "height": 1980,
+      "radar": {
+        "min": 0,
+        "max": 20,
+        "scope": "raw-role-score-contribution",
+        "filled": true,
+        "entries": [
+          {
+            "position": 1,
+            "value": 17.02,
+            "status": "complete"
+          },
+          {
+            "position": 2,
+            "value": 15.69,
+            "status": "complete"
+          },
+          {
+            "position": 3,
+            "value": 17.02,
+            "status": "complete"
+          },
+          {
+            "position": 4,
+            "value": 13.52,
+            "status": "complete"
+          },
+          {
+            "position": 5,
+            "value": 13.52,
+            "status": "complete"
+          }
+        ]
+      },
+      "downloadMatches": true,
+      "total": 72.93
+    },
+    {
+      "locale": "en",
+      "scenario": "partial",
+      "mode": "compact",
+      "width": 1440,
+      "height": 1170,
+      "radar": {
+        "min": 0,
+        "max": 30,
+        "scope": "raw-role-score-contribution",
+        "filled": false,
+        "entries": [
+          {
+            "position": 1,
+            "value": 21.92,
+            "status": "complete"
+          },
+          {
+            "position": 2,
+            "value": 17.02,
+            "status": "complete"
+          },
+          {
+            "position": 3,
+            "value": 15.69,
+            "status": "complete"
+          },
+          {
+            "position": 4,
+            "value": null,
+            "status": "empty"
+          },
+          {
+            "position": 5,
+            "value": null,
+            "status": "empty"
+          }
+        ]
+      },
+      "downloadMatches": true,
+      "total": null
+    },
+    {
+      "locale": "en",
+      "scenario": "partial",
+      "mode": "detailed",
+      "width": 2040,
+      "height": 1980,
+      "radar": {
+        "min": 0,
+        "max": 30,
+        "scope": "raw-role-score-contribution",
+        "filled": false,
+        "entries": [
+          {
+            "position": 1,
+            "value": 21.92,
+            "status": "complete"
+          },
+          {
+            "position": 2,
+            "value": 17.02,
+            "status": "complete"
+          },
+          {
+            "position": 3,
+            "value": 15.69,
+            "status": "complete"
+          },
+          {
+            "position": 4,
+            "value": null,
+            "status": "empty"
+          },
+          {
+            "position": 5,
+            "value": null,
+            "status": "empty"
+          }
+        ]
+      },
+      "downloadMatches": true,
+      "total": null
+    },
+    {
+      "locale": "en",
+      "scenario": "zero",
+      "mode": "compact",
+      "width": 1440,
+      "height": 1170,
+      "radar": {
+        "min": 0,
+        "max": 1,
+        "scope": "raw-role-score-contribution",
+        "filled": true,
+        "entries": [
+          {
+            "position": 1,
+            "value": 0,
+            "status": "complete"
+          },
+          {
+            "position": 2,
+            "value": 0,
+            "status": "complete"
+          },
+          {
+            "position": 3,
+            "value": 0,
+            "status": "complete"
+          },
+          {
+            "position": 4,
+            "value": 0,
+            "status": "complete"
+          },
+          {
+            "position": 5,
+            "value": 0,
+            "status": "complete"
+          }
+        ]
+      },
+      "downloadMatches": true,
+      "total": 0
+    },
+    {
+      "locale": "en",
+      "scenario": "zero",
+      "mode": "detailed",
+      "width": 2040,
+      "height": 1980,
+      "radar": {
+        "min": 0,
+        "max": 1,
+        "scope": "raw-role-score-contribution",
+        "filled": true,
+        "entries": [
+          {
+            "position": 1,
+            "value": 0,
+            "status": "complete"
+          },
+          {
+            "position": 2,
+            "value": 0,
+            "status": "complete"
+          },
+          {
+            "position": 3,
+            "value": 0,
+            "status": "complete"
+          },
+          {
+            "position": 4,
+            "value": 0,
+            "status": "complete"
+          },
+          {
+            "position": 5,
+            "value": 0,
+            "status": "complete"
+          }
+        ]
+      },
+      "downloadMatches": true,
+      "total": 0
+    },
+    {
+      "locale": "en",
+      "scenario": "negative",
+      "mode": "compact",
+      "width": 1440,
+      "height": 1170,
+      "radar": {
+        "min": 0,
+        "max": 1,
+        "scope": "raw-role-score-contribution",
+        "filled": false,
+        "entries": [
+          {
+            "position": 1,
+            "value": -3,
+            "status": "complete"
+          },
+          {
+            "position": 2,
+            "value": -3,
+            "status": "complete"
+          },
+          {
+            "position": 3,
+            "value": -3,
+            "status": "complete"
+          },
+          {
+            "position": 4,
+            "value": -3,
+            "status": "complete"
+          },
+          {
+            "position": 5,
+            "value": -3,
+            "status": "complete"
+          }
+        ]
+      },
+      "downloadMatches": true,
+      "total": -17
+    },
+    {
+      "locale": "en",
+      "scenario": "negative",
+      "mode": "detailed",
+      "width": 2040,
+      "height": 1980,
+      "radar": {
+        "min": 0,
+        "max": 1,
+        "scope": "raw-role-score-contribution",
+        "filled": false,
+        "entries": [
+          {
+            "position": 1,
+            "value": -3,
+            "status": "complete"
+          },
+          {
+            "position": 2,
+            "value": -3,
+            "status": "complete"
+          },
+          {
+            "position": 3,
+            "value": -3,
+            "status": "complete"
+          },
+          {
+            "position": 4,
+            "value": -3,
+            "status": "complete"
+          },
+          {
+            "position": 5,
+            "value": -3,
+            "status": "complete"
+          }
+        ]
+      },
+      "downloadMatches": true,
+      "total": -17
+    }
+  ],
+  "pageErrors": [],
+  "classicPixelParity": true,
+  "synthetic": true,
+  "realMobileDevice": false,
+  "realOfficialAccount": false
+}

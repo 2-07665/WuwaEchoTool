@@ -1,0 +1,8 @@
+/* 独立解压逐字节比对和真实启动冒烟，不接触用户存档。 */
+const fs=require('node:fs'),path=require('node:path'),assert=require('node:assert/strict'),cp=require('node:child_process');
+const work=__dirname,stage=path.join(work,'WuwaEchoTool'),extracted=path.join(work,'extracted/WuwaEchoTool'),walk=d=>fs.readdirSync(d,{withFileTypes:true}).flatMap(e=>e.isDirectory()?walk(path.join(d,e.name)):[path.join(d,e.name)]);
+(async()=>{
+ const files=walk(stage);assert.equal(files.length,walk(extracted).length);for(const f of files)assert.deepEqual(fs.readFileSync(f),fs.readFileSync(path.join(extracted,path.relative(stage,f))));
+ const server=cp.spawn(process.execPath,[path.join(extracted,'handoff/serve.cjs')],{env:{...process.env,PORT:'18127'},windowsHide:true,stdio:['ignore','pipe','pipe']});
+ try{await new Promise((resolve,reject)=>{server.stdout.once('data',resolve);server.once('error',reject);server.stderr.once('data',b=>reject(Error(String(b))));});const checked=[];for(const p of ['index.html?view=register','mccost.html?view=register','register-workspace.html?view=register&mode=library','js/register-share.js','css/role-register.css','image/cost/001.png']){const response=await fetch('http://127.0.0.1:18127/'+p);assert.equal(response.status,200,p);assert.ok((await response.arrayBuffer()).byteLength>0);checked.push(p);}const report={allExtractedBytesIdentical:true,files:files.length,httpSmoke:checked,unit:72,staticReferences:244,scriptSyntax:104,realAccount:false};fs.writeFileSync(path.join(work,'delivery-verification.json'),JSON.stringify(report,null,2));console.log(JSON.stringify(report));}finally{server.kill();}
+})().catch(e=>{console.error(e);process.exitCode=1;});

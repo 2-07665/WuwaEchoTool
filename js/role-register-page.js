@@ -10,19 +10,31 @@ document.addEventListener('DOMContentLoaded',function(){
     legacy.searchParams.delete('draft');
     let controller=null,error=null,lastRecord=null,candidateSurface=null;
     let modelPersistence='modelAutoSave';
+    let managementOpen=window.matchMedia?window.matchMedia('(min-width: 1100px)').matches:true;
+    host.addEventListener('toggle',event=>{if(event.target.matches?.('.rr-role-management')&&event.target.isConnected)managementOpen=event.target.open;},true);
     let modelGuard=null,modelRevision=null;
     const navigation=RegisterNavigation.create(sessionStorage),analysisKey='analysis:'+id;
+    const operationNotice=navigation.takeNotice('role:'+id);
     function rememberAnalysis(){const selection=controller?.snapshot().selection;if(!controller)return;navigation.save(analysisKey,{position:selection?.position||null,echo:selection?.kind==='echo'?controller.snapshot().model.slots[selection.position-1].echo?.id:null,scroll:scrollY});}
-    let configInput=null,metadataExpected=null,planTicket=0,configGuard=null;
+    let configInput=null,metadataExpected=null,planTicket=0,configGuard=null,configNotice=null;
+    function showConfigNotice(){
+        const status=host.querySelector('[data-op-name-status]'),input=host.querySelector('[data-op-config-name]');if(!status)return;
+        status.textContent=configNotice?i18n.t(configNotice.key,configNotice.params):'';
+        status.dataset.state=configNotice?.error?'error':'success';status.setAttribute('role',configNotice?.error?'alert':'status');
+        input?.setAttribute('aria-invalid',String(configNotice?.key==='ops.nameInvalid'));
+    }
     const escapeOps=x=>String(x??'').replace(/[&<>"']/g,c=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[c]));
     function decorate(){
         if(typeof RegisterMetadata==='undefined'||!controller)return;
-        const loaded=RegisterMetadata.create(localStorage).load(),record=read(),caption=host.querySelector('.rr-identity-caption');if(!loaded.ok||!record||!caption)return;
+        const loaded=RegisterMetadata.create(localStorage).load(),record=read(),caption=host.querySelector('.rr-identity-caption');if(!record||!caption)return;
+        if(!loaded.ok)configNotice={key:'ops.nameUnavailable',error:true};
         if(configInput===null)metadataExpected=loaded.raw;
         if(!configGuard){configGuard=RegisterUnsaved.create({scope:'config-name:'+id,get:()=>configInput,apply:value=>configInput=typeof value==='string'?value:null,revision:()=>metadataExpected,i18n});configGuard.recover();}
         const label=RegisterMetadata.roleName({role:JSON.parse(localStorage.getItem('mcData')).role},record,i18n,loaded.data);
         host.querySelector('.rr-identity h1')?.insertAdjacentHTML('afterend','<p class="op-current-config">'+escapeOps(label)+'</p>');
-        caption.insertAdjacentHTML('beforeend','<form class="op-rename" data-op-rename-role><label>'+escapeOps(i18n.t('ops.name'))+'<input maxlength="80" data-op-config-name value="'+escapeOps(configInput??label)+'"></label><button>'+escapeOps(i18n.t('ops.rename'))+'</button><small>'+escapeOps(i18n.t('ops.nameHelp'))+'</small><p role="status" data-op-name-status></p></form><section class="op-plan-management"><h2>'+escapeOps(i18n.t('ops.plans'))+'</h2><div data-op-plans></div></section>');
+        host.querySelector('[data-summary-config]')?.replaceChildren(document.createTextNode(label));
+        caption.insertAdjacentHTML('beforeend','<form class="op-rename" data-op-rename-role novalidate><label for="rr-config-name">'+escapeOps(i18n.t('ops.name'))+'</label><input id="rr-config-name" maxlength="80" aria-describedby="rr-config-status" data-op-config-name value="'+escapeOps(configInput??label)+'"><button type="submit">'+escapeOps(i18n.t('ops.rename'))+'</button><p id="rr-config-status" aria-live="polite" aria-atomic="true" data-op-name-status></p></form><section class="op-plan-management"><h2>'+escapeOps(i18n.t('ops.plans'))+'</h2><div data-op-plans></div></section>');
+        showConfigNotice();
         const back=host.querySelector('.rr-breadcrumb a');if(back)back.href=RegisterNavigation.back(new URL(location.href).searchParams,i18n.locale);
         const ticket=++planTicket;
         crypto.subtle.digest('SHA-256',new TextEncoder().encode(RoleDraftModel.canonical(record))).then(bytes=>{
@@ -34,8 +46,25 @@ document.addEventListener('DOMContentLoaded',function(){
             host.querySelector('[data-op-plans]')?.replaceChildren();if(host.querySelector('[data-op-plans]'))host.querySelector('[data-op-plans]').innerHTML=html||'<p>'+escapeOps(i18n.t('ops.noPlans'))+'</p>';
         }).catch(()=>{});
     }
-    host.addEventListener('input',event=>{if(event.target.matches('[data-op-config-name]'))configInput=event.target.value;});
-    host.addEventListener('submit',event=>{if(!event.target.matches('[data-op-rename-role]'))return;event.preventDefault();const status=host.querySelector('[data-op-name-status]');if(!read()){status.textContent=i18n.t('workspace.SOURCE_CHANGED');return;}const result=RegisterMetadata.create(localStorage).rename('roles',id,configInput??event.target.querySelector('input').value,metadataExpected);if(result.ok){configInput=null;configGuard?.markSaved();metadataExpected=RegisterMetadata.create(localStorage).load().raw;status.textContent=i18n.t('ops.renamed');}else {status.textContent=i18n.t('workspace.'+(result.code==='SOURCE_CHANGED'?'SOURCE_CHANGED':'SAVE_FAILED'));metadataExpected=RegisterMetadata.create(localStorage).load().raw;}});
+    host.addEventListener('input',event=>{if(event.target.matches('[data-op-config-name]')){configInput=event.target.value;configNotice=null;showConfigNotice();}});
+    host.addEventListener('submit',event=>{
+        if(!event.target.matches('[data-op-rename-role]'))return;event.preventDefault();
+        // 只保存既有 roles 名称映射；不新增装备方案，也不触碰 mcData。
+        let result;
+        try{result=read()?RegisterMetadata.create(localStorage).rename('roles',id,configInput??event.target.querySelector('input').value,metadataExpected):{ok:false,code:'SOURCE_CHANGED'};}
+        catch(_){result={ok:false,code:'SAVE_FAILED'};}
+        const loaded=RegisterMetadata.create(localStorage).load();
+        if(result.ok&&loaded.ok){
+            const label=loaded.data.roles[id];configInput=null;metadataExpected=loaded.raw;configGuard?.markSaved();
+            host.querySelectorAll('.op-current-config,[data-summary-config]').forEach(node=>node.textContent=label);
+            event.target.querySelector('input').value=label;
+            configNotice={key:'ops.nameSaved',params:{name:label}};
+        }else {
+            configNotice={key:!loaded.ok?'ops.nameUnavailable':result.code==='SOURCE_CHANGED'?'workspace.SOURCE_CHANGED':result.code==='INVALID_METADATA'?'ops.nameInvalid':'workspace.SAVE_FAILED',error:true};
+            if(loaded.ok)metadataExpected=loaded.raw;
+        }
+        showConfigNotice();
+    });
     function saveModel(){
         if(!controller?.snapshot().modelChanged)return;
         if(modelPersistence==='modelSaveConflict')return;
@@ -63,17 +92,28 @@ document.addEventListener('DOMContentLoaded',function(){
         element?.focus({preventScroll:true});
         if(scroll)element?.scrollIntoView({block:'nearest',behavior:motion()});
     }
+    // 只量测展示文本；不依赖 subgrid，不调用评分或存储入口。
+    function alignCards(){
+        const loadout=host.querySelector('.rr-loadout');if(!loadout)return;
+        loadout.style.removeProperty('--rr-name-height');loadout.style.removeProperty('--rr-label-height');
+        const cards=Array.from(loadout.querySelectorAll('.rr-slot'));
+        const names=cards.map(card=>card.querySelector('h3')?.scrollHeight||0),labels=cards.map(card=>card.querySelector('.rr-main-stat span')?.scrollHeight||0);
+        loadout.style.setProperty('--rr-name-height',Math.max(38,...names)+'px');
+        loadout.style.setProperty('--rr-label-height',Math.max(20,...labels)+'px');
+    }
     function render(focusSelector){
-        const expanded=host.querySelector('.rr-substats-details')?.open,active=document.activeElement,cursor=active?.selectionStart;let rememberedFocus=null;if(active?.dataset?.rcFilter)rememberedFocus='[data-rc-filter="'+active.dataset.rcFilter+'"]';if(active?.hasAttribute?.('data-rc-stat'))rememberedFocus='[data-rc-stat="'+active.dataset.rcStat+'"][data-rc-field="'+active.dataset.rcField+'"]';if(active?.hasAttribute?.('data-rc-plan-name'))rememberedFocus='[data-rc-plan-name]';if(active?.hasAttribute?.('data-op-config-name'))rememberedFocus='[data-op-config-name]';
+        const pageScroll=typeof scrollY==='number'?scrollY:0;
+        const oldPanel=host.querySelector('.rr-inline-analysis'),anchorTop=oldPanel&&!oldPanel.hidden?oldPanel.getBoundingClientRect().top:null;
+        const observationOpen=host.querySelector('.rr-observation-details')?.open,expanded=host.querySelector('.rr-substats-details')?.open,active=document.activeElement,cursor=active?.selectionStart;let rememberedFocus=null;if(active?.dataset?.rcFilter)rememberedFocus='[data-rc-filter="'+active.dataset.rcFilter+'"]';if(active?.hasAttribute?.('data-rc-stat'))rememberedFocus='[data-rc-stat="'+active.dataset.rcStat+'"][data-rc-field="'+active.dataset.rcField+'"]';if(active?.hasAttribute?.('data-rc-plan-name'))rememberedFocus='[data-rc-plan-name]';if(active?.hasAttribute?.('data-op-config-name'))rememberedFocus='[data-op-config-name]';
         const state=controller?.snapshot(),model=state?.model;
         const catalogId=Number(model?.role.catalogId);
         const modes=newCharacterModels.settings[catalogId]?.modes.map(m=>m[0])||(catalogId===49?['tune','fusion']:catalogId===53?['fusion','harmony']:[]);
-        const html=RoleRegisterRenderer.render(model,i18n,{error,interaction:{...state,modelPersistence},modelModes:modes,legacyUrl:legacy.pathname+legacy.search}).html;
+        const html=RoleRegisterRenderer.render(model,i18n,{error,interaction:{...state,modelPersistence,managementOpen},modelModes:modes,legacyUrl:legacy.pathname+legacy.search}).html;
         if(!host.querySelector('.rr-workspace')||!model||error)host.innerHTML=html;
         else {
             const template=document.createElement('template');template.innerHTML=html;
             const next=template.content;
-            // 保留五槽节点和唯一分析宿主，连接线的 left 可在原节点上平滑更新。
+            // 保留五槽节点与唯一分析宿主，只更新展示内容和状态。
             for(const slot of model.slots){
                 const selector='.rr-slot[data-slot-position="'+slot.position+'"]';
                 const current=host.querySelector(selector),fresh=next.querySelector(selector);
@@ -92,7 +132,12 @@ document.addEventListener('DOMContentLoaded',function(){
         }
         document.title=i18n.t('register.pageTitle');
         candidateSurface?.render();
-        decorate();if(expanded!==undefined&&host.querySelector('.rr-substats-details'))host.querySelector('.rr-substats-details').open=expanded;
+        decorate();if(observationOpen!==undefined&&host.querySelector('.rr-observation-details'))host.querySelector('.rr-observation-details').open=observationOpen;if(operationNotice&&!state?.notice){host.querySelector('.rr-announcement').textContent=i18n.t('workspace.'+operationNotice);}if(expanded!==undefined&&host.querySelector('.rr-substats-details'))host.querySelector('.rr-substats-details').open=expanded;
+        alignCards();if(typeof scrollTo==='function'){
+            const panel=host.querySelector('.rr-inline-analysis');
+            // 语言换行改变上方高度时保留分析阅读位置，而非固定失去语义的像素偏移。
+            scrollTo(0,anchorTop!==null&&panel&&!panel.hidden?scrollY+panel.getBoundingClientRect().top-anchorTop:pageScroll);
+        }
         if(focusSelector)focus(focusSelector);else if(rememberedFocus){const next=host.querySelector(rememberedFocus);next?.focus({preventScroll:true});if(next?.type==='text'&&cursor!=null)next.setSelectionRange(cursor,cursor);}
     }
     function refresh(force=false){
@@ -126,6 +171,10 @@ document.addEventListener('DOMContentLoaded',function(){
         dialog.append(choices,actions);document.body.append(dialog);dialog.showModal();choices.querySelector('button').focus();
     });
     refresh();
+    if(location.hash==='#rr-config-name'){
+        managementOpen=true;const management=host.querySelector('.rr-role-management');if(management)management.open=true;
+        focus('#rr-config-name',true);
+    }
     modelRevision=lastRecord;
     modelGuard=RegisterUnsaved.create({scope:'model:'+id,get:()=>controller?.modelChanges()||{},apply:changes=>{if(controller&&changes&&typeof changes==='object')for(const [field,value]of Object.entries(changes))controller.updateModel(field,value);},revision:()=>modelRevision,i18n});
     if(modelGuard.recover()&&controller?.snapshot().modelChanged){modelPersistence='modelSaveFailed';render();}
@@ -152,15 +201,7 @@ document.addEventListener('DOMContentLoaded',function(){
         }else if(button.hasAttribute('data-rr-reset')){controller.resetModel();modelRevision=lastRecord;modelGuard.markSaved();modelPersistence='modelAutoSave';candidateSurface.invalidate('incompatible');refresh(true);focus('[data-rr-reset]');}
         else if(button.hasAttribute('data-rr-save-model')){saveModel();render('[data-rr-reset]');}
     });
-    let touchOrigin=null;
-    host.addEventListener('touchstart',event=>{if(event.target.closest('.rr-loadout')){const point=event.touches[0];touchOrigin={x:point.clientX,y:point.clientY};}},{passive:true});
-    host.addEventListener('touchend',event=>{
-        if(!touchOrigin||!controller)return;const point=event.changedTouches[0],dx=point.clientX-touchOrigin.x,dy=point.clientY-touchOrigin.y;touchOrigin=null;
-        if(Math.abs(dx)<60||Math.abs(dx)<Math.abs(dy))return;
-        const state=controller.snapshot(),position=Math.min(5,Math.max(1,(state.selection?.position||1)+(dx<0?1:-1)));
-        if(state.selection?.position===position)return;
-        const finish=()=>{controller.select(position,state.identities[position]||null);render();};if(candidateSurface.active())candidateSurface.close(finish);else finish();
-    },{passive:true});
+    // 横向滑动交给原生滚动容器，不把滑动误当作下一槽选择。
     host.addEventListener('keydown',event=>{
         if(event.key==='Escape'&&controller?.snapshot().selection){
             event.preventDefault();const position=controller.snapshot().selection.position;controller.collapse();render('.rr-slot[data-slot-position="'+position+'"] .rr-slot-trigger');
@@ -182,6 +223,8 @@ document.addEventListener('DOMContentLoaded',function(){
     window.addEventListener('pageshow',()=>refresh());
     window.addEventListener('focus',()=>refresh());
     window.addEventListener('storage',event=>{if(event.key==='mcData'||event.key===null){refresh();candidateSurface.render();}else if([RoleDraftStorage.KEY,RoleLocalConfiguration.KEY,RegisterMetadata.KEY].includes(event.key))render();});
+    window.addEventListener('resize',alignCards);
+    document.fonts?.ready.then(alignCards);
     window.addEventListener('pagehide',rememberAnalysis);
     window.addEventListener('wuwa-core-updated',()=>refresh());
 });

@@ -1,0 +1,10 @@
+{
+  "js/base.js": "07173543cc22786a29a2b14dc22571151067e7c8a317be8127adbf61c54474cd",
+  "js/character-core.js": "cba95f36ef8fb5126ae202c457e6a6006dbbc59aa3acf3270c4893baa3f6e42d",
+  "js/role-view-model.js": "c09126a091115f393ac2562c01609c4d0dce1f0bbf35cb0c6d40289a77d78d80",
+  "js/register-metadata.js": "761d466c6229f2f140bb1d0d7e284bca3c312f36edf4108c0bccba294c197ed8",
+  "js/role-register-page.js": "0979db67ec9d91d0c893d126fd47eb7cf3e50b45f5fee78aad81a496d8d181de",
+  "js/register-overview.js": "10a20758ea4545b50ecf4a8f2dc0a77491e03fc508a49c46176a1202b6f3a21e",
+  "js/role-register-renderer.js": "afad0ab10efe229a03bf8c8fbbff4e3cd93178dda915e95576580d7b92fb85ce",
+  "css/character-dock.css": "2bc3124df0a75c0dfe0092870f02327a2049f56462f9bbd87aae271164ee91db"
+}

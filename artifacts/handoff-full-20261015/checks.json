@@ -1,0 +1,47 @@
+{
+  "date": "2026-10-15",
+  "source": {
+    "unitTests": 70,
+    "failures": 0,
+    "staticReferences": 244,
+    "syntaxScripts": 99,
+    "gitDiffCheck": true
+  },
+  "copy": [
+    {
+      "name": "unit",
+      "command": "node --test tests/character-chain-scoring.test.cjs tests/character-dock.test.cjs tests/final-acceptance.test.cjs tests/i18n.test.cjs tests/import-errors.test.cjs tests/import-headers.test.cjs tests/milestone3-core.test.cjs tests/milestone3-storage.test.cjs tests/new-character-scoring.test.cjs tests/rc2-workspace.test.cjs tests/register-backup.test.cjs tests/register-fixture-acceptance.test.cjs tests/register-import.test.cjs tests/register-integration.test.cjs tests/register-operations.test.cjs tests/register-overview.test.cjs tests/register-search-ui.test.cjs tests/register-secondary-views.test.cjs tests/register-share.test.cjs tests/register-tools.test.cjs tests/role-candidates.test.cjs tests/role-compare.test.cjs tests/role-draft.test.cjs tests/role-register-editor.test.cjs tests/role-register-interaction.test.cjs tests/role-register.test.cjs tests/role-view-model.test.cjs tests/screenshot-recognition.test.cjs tests/ui-ux.test.cjs tests/ui-view.test.cjs",
+      "cwd": "交接副本",
+      "exitCode": 0,
+      "summary": "shared rendering, 100 complete trilingual keys, five positions/one hidden analysis host, common scale, missing/unknown models, manual/import parity, locale-only writes and Desktop opt-in.\n✔ tests\\role-register.test.cjs (556.2996ms)\nPASS: 60 real-model manual/import pairs; immutable inputs, stable slots, stale-cache replacement, missing/invalid data, unit separation and DOM/storage-free browser export.\n✔ tests\\role-view-model.test.cjs (440.5033ms)\nPASS: trilingual parsing, one Echo, fixed-stat exclusion, unknown catalog, missing Cost/value/percent, existing rolls, manual conversion, Core library/equip/score parity, no OCR writes and Classic isolation.\n✔ tests\\screenshot-recognition.test.cjs (917.8809ms)\n✔ score readings keep two decimals and missing values across all locales (24.0068ms)\n✔ operation feedback is consumed once by the intended destination without touching saved data (1.5574ms)\n✔ share images load together, reuse successful assets, and close cancels outstanding work (17.825ms)\n✔ compact output expands for long Echo names and preserves footer space and data (5.0983ms)\nPASS: 32 routing combinations, first visit, URL precedence, mobile Register, locale/view isolation, recent roles, Classic editor return and isolated adoption backup.\n✔ tests\\ui-view.test.cjs (204.2075ms)\nℹ tests 70\nℹ suites 0\nℹ pass 70\nℹ fail 0\nℹ cancelled 0\nℹ skipped 0\nℹ todo 0\nℹ duration_ms 14720.1606\n"
+    },
+    {
+      "name": "static",
+      "command": "node tests/ui-ux-static.cjs",
+      "cwd": "交接副本",
+      "exitCode": 0,
+      "summary": "PASS: 244 local entry dependencies and 99 script syntax checks; static release requires no bundler.\n"
+    },
+    {
+      "name": "helper-serve",
+      "command": "node --check handoff/serve.cjs",
+      "cwd": "交接副本",
+      "exitCode": 0,
+      "summary": ""
+    },
+    {
+      "name": "helper-runner",
+      "command": "node --check handoff/run-browser.cjs",
+      "cwd": "交接副本",
+      "exitCode": 0,
+      "summary": ""
+    },
+    {
+      "name": "helper-verifier",
+      "command": "node --check handoff/verify.cjs",
+      "cwd": "交接副本",
+      "exitCode": 0,
+      "summary": ""
+    }
+  ]
+}

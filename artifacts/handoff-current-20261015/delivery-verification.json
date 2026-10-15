@@ -1,0 +1,16 @@
+{
+  "allExtractedBytesIdentical": true,
+  "files": 599,
+  "httpSmoke": [
+    "index.html?view=register",
+    "mccost.html?view=register",
+    "register-workspace.html?view=register&mode=library",
+    "js/register-share.js",
+    "css/role-register.css",
+    "image/cost/001.png"
+  ],
+  "unit": 72,
+  "staticReferences": 244,
+  "scriptSyntax": 103,
+  "realAccount": false
+}

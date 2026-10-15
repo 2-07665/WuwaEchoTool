@@ -1,0 +1,203 @@
+{
+  "reports": [
+    {
+      "width": 1440,
+      "locale": "zh-TW",
+      "sharedBaselines": true,
+      "readableFonts": true,
+      "fourReadings": true,
+      "renameSynced": true,
+      "deleteCancelled": true,
+      "mobileScroll": false,
+      "coreUnchanged": true
+    },
+    {
+      "width": 1440,
+      "locale": "zh-CN",
+      "sharedBaselines": true,
+      "readableFonts": true,
+      "fourReadings": true,
+      "renameSynced": true,
+      "deleteCancelled": true,
+      "mobileScroll": false,
+      "coreUnchanged": true
+    },
+    {
+      "width": 1440,
+      "locale": "en",
+      "sharedBaselines": true,
+      "readableFonts": true,
+      "fourReadings": true,
+      "renameSynced": true,
+      "deleteCancelled": true,
+      "mobileScroll": false,
+      "coreUnchanged": true
+    },
+    {
+      "width": 1280,
+      "locale": "zh-TW",
+      "sharedBaselines": true,
+      "readableFonts": true,
+      "fourReadings": true,
+      "renameSynced": true,
+      "deleteCancelled": true,
+      "mobileScroll": false,
+      "coreUnchanged": true
+    },
+    {
+      "width": 1280,
+      "locale": "zh-CN",
+      "sharedBaselines": true,
+      "readableFonts": true,
+      "fourReadings": true,
+      "renameSynced": true,
+      "deleteCancelled": true,
+      "mobileScroll": false,
+      "coreUnchanged": true
+    },
+    {
+      "width": 1280,
+      "locale": "en",
+      "sharedBaselines": true,
+      "readableFonts": true,
+      "fourReadings": true,
+      "renameSynced": true,
+      "deleteCancelled": true,
+      "mobileScroll": false,
+      "coreUnchanged": true
+    },
+    {
+      "width": 1024,
+      "locale": "zh-TW",
+      "sharedBaselines": true,
+      "readableFonts": true,
+      "fourReadings": true,
+      "renameSynced": true,
+      "deleteCancelled": true,
+      "mobileScroll": false,
+      "coreUnchanged": true
+    },
+    {
+      "width": 1024,
+      "locale": "zh-CN",
+      "sharedBaselines": true,
+      "readableFonts": true,
+      "fourReadings": true,
+      "renameSynced": true,
+      "deleteCancelled": true,
+      "mobileScroll": false,
+      "coreUnchanged": true
+    },
+    {
+      "width": 1024,
+      "locale": "en",
+      "sharedBaselines": true,
+      "readableFonts": true,
+      "fourReadings": true,
+      "renameSynced": true,
+      "deleteCancelled": true,
+      "mobileScroll": false,
+      "coreUnchanged": true
+    },
+    {
+      "width": 768,
+      "locale": "zh-TW",
+      "sharedBaselines": true,
+      "readableFonts": true,
+      "fourReadings": true,
+      "renameSynced": true,
+      "deleteCancelled": true,
+      "mobileScroll": false,
+      "coreUnchanged": true
+    },
+    {
+      "width": 768,
+      "locale": "zh-CN",
+      "sharedBaselines": true,
+      "readableFonts": true,
+      "fourReadings": true,
+      "renameSynced": true,
+      "deleteCancelled": true,
+      "mobileScroll": false,
+      "coreUnchanged": true
+    },
+    {
+      "width": 768,
+      "locale": "en",
+      "sharedBaselines": true,
+      "readableFonts": true,
+      "fourReadings": true,
+      "renameSynced": true,
+      "deleteCancelled": true,
+      "mobileScroll": false,
+      "coreUnchanged": true
+    },
+    {
+      "width": 390,
+      "locale": "zh-TW",
+      "sharedBaselines": true,
+      "readableFonts": true,
+      "fourReadings": true,
+      "renameSynced": true,
+      "deleteCancelled": true,
+      "mobileScroll": true,
+      "coreUnchanged": true
+    },
+    {
+      "width": 390,
+      "locale": "zh-CN",
+      "sharedBaselines": true,
+      "readableFonts": true,
+      "fourReadings": true,
+      "renameSynced": true,
+      "deleteCancelled": true,
+      "mobileScroll": true,
+      "coreUnchanged": true
+    },
+    {
+      "width": 390,
+      "locale": "en",
+      "sharedBaselines": true,
+      "readableFonts": true,
+      "fourReadings": true,
+      "renameSynced": true,
+      "deleteCancelled": true,
+      "mobileScroll": true,
+      "coreUnchanged": true
+    },
+    {
+      "width": 320,
+      "locale": "zh-TW",
+      "sharedBaselines": true,
+      "readableFonts": true,
+      "fourReadings": true,
+      "renameSynced": true,
+      "deleteCancelled": true,
+      "mobileScroll": true,
+      "coreUnchanged": true
+    },
+    {
+      "width": 320,
+      "locale": "zh-CN",
+      "sharedBaselines": true,
+      "readableFonts": true,
+      "fourReadings": true,
+      "renameSynced": true,
+      "deleteCancelled": true,
+      "mobileScroll": true,
+      "coreUnchanged": true
+    },
+    {
+      "width": 320,
+      "locale": "en",
+      "sharedBaselines": true,
+      "readableFonts": true,
+      "fourReadings": true,
+      "renameSynced": true,
+      "deleteCancelled": true,
+      "mobileScroll": true,
+      "coreUnchanged": true
+    }
+  ],
+  "pageErrors": []
+}

@@ -3,7 +3,7 @@ const I18n=require('../js/i18n.js');
 async function run(protocol,locale,mode){
     let tainted=false,downloads=0,picks=0;const drawn=[],borders=[];
     const nodes=[];
-    const ctx=new Proxy({fillText:(s)=>drawn.push(s),strokeRect:()=>borders.push(ctx.strokeStyle),measureText:s=>({width:s.length*10}),drawImage:img=>{if(img.src.startsWith('image/')&&protocol==='file:')tainted=true;},getImageData:()=>{if(tainted)throw Object.assign(Error(),{name:'SecurityError'});}},{get:(o,k)=>k in o?o[k]:()=>{}});
+    const ctx=new Proxy({fillText:(s)=>drawn.push(s),stroke:()=>borders.push(ctx.strokeStyle),measureText:s=>({width:s.length*10}),drawImage:img=>{if(img.src.startsWith('image/')&&protocol==='file:')tainted=true;},getImageData:()=>{if(tainted)throw Object.assign(Error(),{name:'SecurityError'});}},{get:(o,k)=>k in o?o[k]:()=>{}});
     function element(tag){
         const node={classList:{add(){},remove(){}},tag,children:[],append(...xs){this.children.push(...xs);},setAttribute(){},focus(){},showModal(){},close(){},remove(){},getContext:()=>ctx,toBlob:fn=>fn(new Blob(['png'])),click(){if(tag==='a')downloads++;if(tag==='input')picks++;}};
         if(tag==='canvas')Object.defineProperty(node,'width',{set(){tainted=false;}});
@@ -21,10 +21,13 @@ async function run(protocol,locale,mode){
     assert.equal(downloads,0);assert.equal(drawn.length,0);const choice=nodes.find(n=>n.tag==='button'&&n.textContent===i18n.t('share.'+mode));await choice.onclick();
     const save=nodes.find(n=>n.tag==='button'&&[i18n.t('share.download'),i18n.t('share.chooseImages')].includes(n.textContent)),picker=nodes.find(n=>n.tag==='input');
     const renderedHeight=nodes.find(n=>n.tag==='canvas').height;
-    if(mode==='detailed')assert.ok(renderedHeight>=1900);else assert.equal(renderedHeight,1150);
-    if(mode==='detailed')assert.ok(drawn.some(s=>s.includes(i18n.t('summary.energyCorrection'))));
-    if(mode==='detailed'){assert.equal(borders.filter(c=>c==='#578c7d').length,1);assert.equal(borders.filter(c=>c==='#3d5047').length,4);}else assert.equal(borders.length,0);
+    assert.ok(renderedHeight>=1000);if(mode==='detailed')assert.ok(renderedHeight>=1800);
+    assert.ok(drawn.includes(i18n.t('share.radarTitle')));assert.ok(drawn.includes(i18n.t('register.brand')));assert.ok(drawn.includes(i18n.t('register.brandLatin')));
+    if(mode==='detailed'){assert.equal(borders.filter(c=>c==='#578c7d').length,1);assert.equal(borders.filter(c=>c==='#3d5047').length,4);}else assert.equal(borders.filter(c=>c==='#578c7d'||c==='#3d5047').length,0);
     assert.equal(save.disabled,false);
+    const max=context.module.exports.radarData(model).max;
+    const technical=[i18n.t('share.loadoutCorrection'),i18n.t('share.radarScope'),i18n.t('share.radarPartial'),i18n.t('share.radarScale',{max:i18n.format.decimal(max)})];
+    assert.ok(drawn.every(word=>!technical.includes(word)));
     if(protocol==='file:'){
         assert.equal(save.textContent,i18n.t('share.chooseImages'));
         save.onclick();assert.equal(picks,1);assert.equal(downloads,0);

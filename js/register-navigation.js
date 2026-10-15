@@ -6,7 +6,10 @@ function create(storage){
  function read(){const raw=storage.getItem(KEY);let value;try{value=JSON.parse(raw||'{}');}catch(_){return {};}return value&&typeof value==='object'&&!Array.isArray(value)?value:{};}
  function load(key){try{const value=read()[key];return value&&typeof value==='object'&&!Array.isArray(value)?value:{};}catch(_){return {};}}
  function save(key,value){try{const all=read();Object.defineProperty(all,key,{value,enumerable:true,configurable:true,writable:true});storage.setItem(KEY,JSON.stringify(all));return true;}catch(_){return false;}}
- return {load,save};
+ // 操作回馈只在本次会话传递一次，不写入玩家存档。
+ function notify(target,code){return save('feedback',{target,code});}
+ function takeNotice(target){const notice=load('feedback');if(notice.target!==target)return null;save('feedback',{});return ['saved','deleted'].includes(notice.code)?notice.code:null;}
+ return {load,save,notify,takeNotice};
 }
 function back(params,locale){const from=params.get('from');return (from==='library'?'register-workspace.html?mode=library':from==='history'?'register-workspace.html?mode=compare':'index.html?')+(from==='library'||from==='history'?'&':'')+'view=register&lang='+locale;}
 function mount(env){if(env.UiView?.state.effective!=='register')return;

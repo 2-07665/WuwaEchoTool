@@ -1,0 +1,16 @@
+{
+  "zipName": "WuwaEchoTool_ChatGPT_Full_20261015_0818.zip",
+  "zipPath": "C:\\Users\\user\\Downloads\\WuwaEchoTool\\artifacts\\handoff-full-20261015\\final.zip",
+  "bytes": 86276845,
+  "mib": 82.28001117706299,
+  "files": 601,
+  "payloadChecksums": 599,
+  "originalFiles": 564,
+  "byteIdenticalOriginals": 563,
+  "sanitizedFiles": [
+    "js/base.js"
+  ],
+  "crcAndShaVerified": true,
+  "sha256": "ec0e91fa4496ef18916ec8db0e784496c62010a94c48d02bd71326fbcb64fd57",
+  "localTime": "202610150818"
+}

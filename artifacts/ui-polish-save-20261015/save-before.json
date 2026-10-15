@@ -1,0 +1,9 @@
+{
+  "afterSubmit": {
+    "stored": "保存回归样例",
+    "input": "  保存回归样例  ",
+    "status": "名称已保存。"
+  },
+  "afterLanguageRender": "",
+  "scope": "wuwa.register.names.v1.roles[roleId]"
+}

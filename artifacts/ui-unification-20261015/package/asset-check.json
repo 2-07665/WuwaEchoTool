@@ -1,0 +1,40 @@
+{
+  "references": 335,
+  "missing": [],
+  "external": [
+    {
+      "file": "index.html",
+      "url": "https://prod-alicdn-community.kurobbs.com/forum/bd95e4edbfa54ae48f1efde1b410019c20240814.png"
+    },
+    {
+      "file": "index.html",
+      "url": "https://cdnjs.cloudflare.com/ajax/libs/crypto-js/4.0.0/crypto-js.min.js"
+    },
+    {
+      "file": "mccost-readonly.html",
+      "url": "https://web-static.kurobbs.com/adminConfig/36/role_skill_icon/1719546296126.png"
+    },
+    {
+      "file": "mccost-readonly.html",
+      "url": "https://web-static.kurobbs.com/adminConfig/36/role_skill_icon/1719546296126.png"
+    },
+    {
+      "file": "mccost-readonly.html",
+      "url": "https://web-static.kurobbs.com/adminConfig/36/role_skill_icon/1719546296126.png"
+    },
+    {
+      "file": "mccost-readonly.html",
+      "url": "https://web-static.kurobbs.com/adminConfig/36/role_skill_icon/1719546296126.png"
+    },
+    {
+      "file": "mccost-readonly.html",
+      "url": "https://web-static.kurobbs.com/adminConfig/36/role_skill_icon/1719546296126.png"
+    },
+    {
+      "file": "mccost-readonly.html",
+      "url": "https://cdnjs.cloudflare.com/ajax/libs/crypto-js/4.0.0/crypto-js.min.js"
+    }
+  ],
+  "allImageAndLibraryFilesIncluded": true,
+  "dynamicPaths": "全部 image/library 原样复制；浏览器矩阵补充验证。"
+}
