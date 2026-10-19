@@ -1,0 +1,1 @@
+PASS 996 files; 995 SHA-256 checks; SHA256SUMS excludes itself.

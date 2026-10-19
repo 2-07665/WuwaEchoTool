@@ -1,0 +1,134 @@
+
+> wuwa-echo-tool@2.0.0 test
+> node --test tests/*.test.cjs
+
+PASS: 42 chain/mode profiles, model parity, reference sets, mode separation, fixed crit, energy thresholds, legacy fields and import/manual parity.
+✔ tests\character-chain-scoring.test.cjs (771.693ms)
+PASS: Dock source selection, manual/import baseline resume, stale/model rejection and Classic initial rendering without persistence.
+✔ tests\character-dock.test.cjs (774.7396ms)
+PASS: deletion source conflicts and isolation, duplicate identity rejection, immutable share snapshot, incomplete share score, Classic locale isolation, translated breadcrumb and role actions.
+✔ tests\final-acceptance.test.cjs (777.5316ms)
+PASS: locale precedence/mapping, persistence and blocked storage, lang/subscriptions, 864 matching trilingual keys, Intl formatters, neutral view model and score/save invariance.
+✔ tests\i18n.test.cjs (812.5987ms)
+PASS: import error stages, business failures, refresh stop, malformed responses, transport failures, safe diagnostics and three locales.
+✔ tests\import-errors.test.cjs (755.1147ms)
+PASS: login and data headers are isolated; no token or b-at leakage in either direction.
+✔ tests\import-headers.test.cjs (790.0657ms)
+PASS: shared core transactions, cancellation/conflicts, equip/remove, duplicate identity, Cost limit, native routes, 126 frozen legacy probability cases, 100 five-stat simulations, synthetic import transport and score parity.
+✔ tests\milestone3-core.test.cjs (794.3793ms)
+PASS: orphan cleanup, two-namespace rollback, corrupt history protection, explicit corrupt-core restore, source conflict, reverse Classic routes, complete workspace/guide/dock dictionaries.
+✔ tests\milestone3-storage.test.cjs (803.7587ms)
+PASS: 91 new chain/scenario profiles, reference scores, gender parity, mixed elements, fixed crit, HP caps, healing and import/manual parity.
+✔ tests\new-character-scoring.test.cjs (773.8398ms)
+PASS: root chooser ignores saved preferences on HTTP/file URLs; explicit views resolve; trilingual visible manual/import index and primary creation links; empty onboarding; no core writes.
+✔ tests\rc2-workspace.test.cjs (740.4725ms)
+✔ full backup roundtrip excludes token and validates before restore (3.7828ms)
+✔ invalid version never mutates storage (0.1396ms)
+✔ full backup restores valid adoption storage, including legacy export revision compatibility (1.5272ms)
+PASS: 280 synthetic manual/import pairs against legacy page functions; 840 localized selected renders; 266 nonzero loadout corrections; stale caches and legacy sorting/writes isolated on copies.
+✔ tests\register-fixture-acceptance.test.cjs (3137.6973ms)
+✔ search, visible-only all, multi-select, unknown/duplicate blocking and preview/cancel isolation (12.2305ms)
+✔ partial success, one bounded queue, retry failed only, save successful items (55.5809ms)
+✔ cancel stops scheduling and ignores a non-abortable response (0.6816ms)
+✔ UID/token invalidation and dispose prevent old list/detail and commits (0.6259ms)
+✔ explicit save, idempotent submit, UID separation, reliable update preserves local ID (9.2811ms)
+✔ legacy source requires a target; cannot overwrite manual or another UID (3.8576ms)
+✔ multiple source matches require explicit target (2.9472ms)
+✔ skip and failed items never save, partial batch may commit (2.3817ms)
+✔ local conflict retains preview, preserves foreign writes and reconfirms affected target (3.6831ms)
+✔ storage failure retains batch, no partial writes or saved links, retry unique IDs (2.1488ms)
+✔ complete backup roundtrip includes inline source; delete removes it; legacy schema survives (7.128ms)
+✔ source update invalidates baseline/draft while preserving draft and adoption storage (6.3947ms)
+✔ three-language keys complete and new/import scoring uses the shared adapter (3.9615ms)
+✔ real transport chain reauthorizes once for list/detail data credentials and aborts safely (1.3251ms)
+✔ repeated dataToken cannot loop; empty token and invalid UID never issue transport (0.1877ms)
+✔ localized search and credential clear preserve core data, with recovery on partial clear failure (2.7627ms)
+✔ credential storage failure is classified without raw exceptions, and connection stays unverified (0.3271ms)
+✔ conversion rejects unknown Echo mappings and uses unique snapshot identities, with numeric flat stats (2.1351ms)
+✔ corrupt navigation sessions recover on explicit save without touching roles, plans or other valid views (2.7403ms)
+✔ navigation storage read/write failures report failure and preserve the existing session (0.1891ms)
+✔ inventory plans become stale for changed, removed, duplicated or equipped sources, without mutating snapshots (4.1343ms)
+✔ inventory validation ignores display caches but checks Cost, main stat and set; manual plans remain snapshots (2.127ms)
+✔ explicit core save stays clean when optional session cleanup fails; incompatible recovery does not apply (1.2657ms)
+✔ removing one adopted plan cleans its reference and name, preserves another plan and the original roles (14.1598ms)
+✔ downloads, new-tab links and in-page anchors do not leave or discard dirty input (1.0214ms)
+✔ role sorting/filtering is immutable, stable and never ranks unavailable values as zero (1.2327ms)
+✔ Echo filtering preserves blocked candidates and numeric ranking excludes unreliable values (0.3097ms)
+✔ names are isolated, conflict-safe and survive old/new full backups without changing mcData (2.7111ms)
+✔ multi-key explicit changes recover only written keys and leave data intact on later write failure (0.183ms)
+✔ return addresses stay in the Register allowlist and session state never enters core data (0.6835ms)
+✔ names do not affect source revisions or scores; deleting a draft removes names and adoption only (15.8927ms)
+✔ all new messages have matching translations and reject unsafe metadata (2.2906ms)
+✔ unsaved input distinguishes semantic changes, retains only in session, and marks explicit save clean (1.2813ms)
+node:fs:439
+    return binding.readFileUtf8(path, stringToFlags(options.flag));
+                   ^
+
+Error: ENOENT: no such file or directory, open 'C:\Users\user\Downloads\WuwaEchoTool\artifacts\handoff-20261019\stage\WuwaEchoTool\artifacts\register-overview\classic-before.js'
+    at Object.readFileSync (node:fs:439:20)
+    at Object.<anonymous> (C:\Users\user\Downloads\WuwaEchoTool\artifacts\handoff-20261019\stage\WuwaEchoTool\tests\register-overview.test.cjs:4:108)
+    at Module._compile (node:internal/modules/cjs/loader:1761:14)
+    at Object..js (node:internal/modules/cjs/loader:1893:10)
+    at Module.load (node:internal/modules/cjs/loader:1481:32)
+    at Module._load (node:internal/modules/cjs/loader:1300:12)
+    at TracingChannel.traceSync (node:diagnostics_channel:328:14)
+    at wrapModuleLoad (node:internal/modules/cjs/loader:245:24)
+    at Module.executeUserEntryPoint [as runMain] (node:internal/modules/run_main:154:5)
+    at node:internal/main/run_main_module:33:47 {
+  errno: -4058,
+  code: 'ENOENT',
+  syscall: 'open',
+  path: 'C:\\Users\\user\\Downloads\\WuwaEchoTool\\artifacts\\handoff-20261019\\stage\\WuwaEchoTool\\artifacts\\register-overview\\classic-before.js'
+}
+
+Node.js v24.13.0
+✖ tests\register-overview.test.cjs (274.6058ms)
+✔ advanced counts compare each control to its own default and count multi-select once (1.5807ms)
+✔ selecting an Echo reuses normalized library readings; changing source invalidates the cache without writes (53.5743ms)
+PASS: shared image catalog, selection, filters, duplicate identity guards, collapsed backup controls, revalidated history presentation, three-language keys and immutable input.
+✔ tests\register-secondary-views.test.cjs (468.0716ms)
+PASS: PNG download, local file selection/redraw, cancel/mismatch recovery, three locales, immutable model.
+✔ tests\register-share.test.cjs (428.6977ms)
+✔ Register results match the existing probability core for every frozen legacy profile and all roles (634.1736ms)
+✔ input changes invalidate old results, target inspection does not, and tools retain independent work (0.3362ms)
+✔ seeded simulation, resources and rule coefficients are unchanged from the original calls (9.5218ms)
+✔ saved UI state restores inputs and results; malformed state is isolated; invalid conditions never reach core (0.6589ms)
+✔ legacy tool entry URLs select the matching Register tool without changing Classic routes (2.0185ms)
+PASS: all five slots; manual/import and three locales; library/copy adapters, edited value snapshot, close/return, draft storage isolation, refresh revalidation, stale/incompatible rejection, incomplete without conclusions and immutable contexts.
+✔ tests\role-candidates.test.cjs (13789.3669ms)
+PASS: decision rules, scoring parity, percentage points, energy uncertainty, incomplete/stale/model conditions, local adoption and corruption isolation.
+✔ tests\role-compare.test.cjs (330.1365ms)
+PASS: 2 manual/import baseline lifecycles; immutable semantic snapshots, candidate uniqueness, multiple drafts, stale/incompatible gating, all supported mechanisms, locale invariance, versioned storage, conflicts, deletion, backup roundtrip, corruption/quota isolation and unchanged mcData.
+✔ tests\role-draft.test.cjs (298.3328ms)
+PASS: real legacy edit/add callbacks; no initialization/cancel writes, explicit save/add only, original and preview return routes, unchanged Echo order, new instance restoration.
+✔ tests\role-register-editor.test.cjs (259.8305ms)
+PASS: 30 localized selected renders; all five slots, toggle/collapse, stable ordering, model refresh, removed/moved/ambiguous IDs, return URLs, empty/incomplete/unknown models, no input mutation or selection/locale recalculation.
+✔ tests\role-register-interaction.test.cjs (349.2182ms)
+PASS: shared rendering, 95 complete trilingual keys, five positions/one hidden analysis host, common scale, missing/unknown models, manual/import parity, locale-only writes and Desktop opt-in.
+✔ tests\role-register.test.cjs (374.7354ms)
+PASS: 60 real-model manual/import pairs; immutable inputs, stable slots, stale-cache replacement, missing/invalid data, unit separation and DOM/storage-free browser export.
+✔ tests\role-view-model.test.cjs (291.5547ms)
+PASS: trilingual parsing, one Echo, fixed-stat exclusion, unknown catalog, missing Cost/value/percent, existing rolls, manual conversion, Core library/equip/score parity, no OCR writes and Classic isolation.
+✔ tests\screenshot-recognition.test.cjs (657.3213ms)
+✔ radar retains all five actual contributions and shared score scale without changing total (1.1955ms)
+✔ zero is a real coordinate; incomplete, unavailable and negative values use labels without fill (0.3294ms)
+✔ score readings keep two decimals and missing values across all locales (14.5243ms)
+✔ operation feedback is consumed once by the intended destination without touching saved data (0.7023ms)
+✔ share images load together, reuse successful assets, and close cancels outstanding work (14.4876ms)
+✔ compact output expands for long Echo names and preserves footer space and data (2.6204ms)
+PASS: 32 routing combinations, first visit, URL precedence, mobile Register, locale/view isolation, recent roles, Classic editor return and isolated adoption backup.
+✔ tests\ui-view.test.cjs (132.0224ms)
+ℹ tests 72
+ℹ suites 0
+ℹ pass 71
+ℹ fail 1
+ℹ cancelled 0
+ℹ skipped 0
+ℹ todo 0
+ℹ duration_ms 14433.879
+
+✖ failing tests:
+
+test at tests\register-overview.test.cjs:1:1
+✖ tests\register-overview.test.cjs (274.6058ms)
+  'test failed'

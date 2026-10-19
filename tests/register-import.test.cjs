@@ -1,7 +1,7 @@
 const {test}=require('node:test'),assert=require('node:assert/strict'),fs=require('node:fs'),vm=require('node:vm');
 const Model=require('../js/register-import-model.js'),Core=require('../js/character-core.js'),View=require('../js/role-view-model.js'),Backup=require('../js/register-backup.js'),Draft=require('../js/role-draft-model.js'),I18n=require('../js/i18n.js');
 const env={$:()=>{},console:{log(){}}};
-vm.runInNewContext(fs.readFileSync('js/base.js','utf8')+';globalThis.api={roleList,costList,suiteAttributeMap,newCharacterModels,getRoleScoreConfig,getScoreDetails,countScores,countMainAttr,countMainAttr2,getRoleEnergyCorrection,sumCostScores};',env);
+vm.runInNewContext(fs.readFileSync('js/base.js','utf8')+';globalThis.api={roleList,costList,suiteAttributeMap,newCharacterModels,getRoleScoreConfig,getScoreDetails,countScores,countMainAttr,countMainAttr2,getRoleEnergyCorrection,sumCostScores,mappingOfficialRoleId,mappingRoleId};',env);
 vm.runInNewContext(fs.readFileSync('js/import-service.js','utf8'),env);vm.runInNewContext(fs.readFileSync('js/role-import-core.js','utf8'),env);
 const api=env.api,normalize=View.createAdapter(api),clone=x=>JSON.parse(JSON.stringify(x));
 const remote=api.roleList.slice(0,3).map(r=>({roleId:r.gid,roleName:r.name,level:90}));
@@ -11,10 +11,43 @@ function setup({roles=[],list=remote,detail,service:override}={}){
  const cache=new Map([['kjq_token','fixture-token']]),storage={getItem:k=>cache.get(k)??null,setItem:(k,v)=>cache.set(k,v),removeItem:k=>cache.delete(k)};
  const core=Core.create({read:()=>data,write:d=>{if(failWrite)throw Error('quota');data=clone(d);storage.setItem('mcData',JSON.stringify(data));writes++;},normalize}),calls=[];
  const service=override||{bind:async token=>{calls.push('bind');storage.setItem('kjq_token',token);},list:async()=>{calls.push('list');return clone(list);},detail:async(uid,r,opt)=>{calls.push(String(r.gameRoleId));if(detail)return detail(uid,r,opt);return {...imported(r.roleListId),roleId:r.roleId};}};
- const model=Model.create({core,service,catalog:api.roleList,mapRole:id=>api.roleList.find(r=>r.gid===id)?.id,normalize,storage});
+ const model=Model.create({core,service,catalog:api.roleList,mapRole:api.mappingOfficialRoleId,normalize,storage});
  return {model,core,storage,calls,get data(){return clone(data);},get writes(){return writes;},set data(value){data=clone(value);},set failWrite(value){failWrite=value;}};
 }
 async function ready(s,uid='123456789'){assert.equal(await s.model.connect(uid,'fixture-token'),true);s.model.selectAll();await s.model.read();}
+test('official names map the three reported characters through preview and explicit save',async()=>{
+ const list=[{roleId:990052,roleName:'绯雪',level:90},{roleId:990055,roleName:'丽贝卡',level:40},{roleId:990056,roleName:'洛瑟菈',level:90}]; // Synthetic IDs, not official numeric IDs.
+ const s=setup({list,detail:async(uid,r)=>({...imported(r.roleListId),roleId:r.roleId,gameRoleId:r.gameRoleId})});
+ await ready(s);
+ assert.deepEqual(s.model.snapshot().rows.map(r=>r.entry.id),[52,55,56]);
+ assert.ok(s.model.snapshot().rows.every(r=>r.known&&r.status==='done'));
+ assert.equal(s.writes,0);assert.equal(await s.model.save(),true);
+ assert.deepEqual(s.data.role.map(r=>r.roleListId),[52,55,56]);
+ assert.deepEqual(s.data.role.map(r=>r.gameRoleId),list.map(r=>r.roleId));
+ assert.deepEqual(s.data.role.map(r=>r.importSource.gameRoleId),list.map(r=>String(r.roleId)));
+ assert.equal(api.roleList.find(r=>r.id===55).name,'丽贝卡');
+ for(const row of list)assert.equal(api.mappingRoleId(row.roleId,row.roleName),api.mappingOfficialRoleId(row.roleId,row.roleName));
+});
+
+test('legacy aliases stay compatible while ambiguous names and duplicate identities stay blocked',async()=>{
+ for(const name of ['蕾贝卡','蕾貝卡','麗貝卡'])assert.equal(api.mappingOfficialRoleId(990055,name),55);
+ assert.equal(api.mappingOfficialRoleId(990052,'緋雪'),52);
+ assert.equal(api.mappingOfficialRoleId('990052',' 绯 雪 '),52);
+ for(const name of ['绯','丽贝','洛瑟','漂泊者','unknown'])assert.equal(api.mappingOfficialRoleId(990099,name),0);
+ for(const id of [0,null,undefined,'','invalid'])assert.equal(api.mappingOfficialRoleId(id,'绯雪'),0);
+ const registered=api.roleList.find(r=>r.gid!==0);
+ assert.equal(api.mappingOfficialRoleId(String(registered.gid),'unused label'),registered.id);
+ assert.equal(api.mappingRoleId(registered.id),registered.gid);
+ api.roleList.push({...registered,id:999});
+ try{assert.equal(api.mappingOfficialRoleId(registered.gid,'绯雪'),0);}finally{api.roleList.pop();}
+ api.roleList.push({...api.roleList.find(r=>r.id===55),name:'绯雪'});
+ try{assert.equal(api.mappingOfficialRoleId(990052,'绯雪'),0);}finally{api.roleList.pop();}
+ const s=setup({list:[{roleId:990055,roleName:'蕾贝卡'},{roleId:990056,roleName:'洛瑟菈'},{roleId:990056,roleName:'洛瑟菈'},{roleId:990099,roleName:'绯'}]});
+ await s.model.connect('123456789','fixture-token');s.model.selectAll();
+ assert.deepEqual(s.model.snapshot().rows.map(r=>r.known),[true,false,false,false]);
+ assert.equal(s.model.snapshot().selected.size,1);assert.equal(s.writes,0);
+});
+
 test('search, visible-only all, multi-select, unknown/duplicate blocking and preview/cancel isolation',async()=>{
  const s=setup({list:[...remote,{roleId:999999,roleName:'unknown'}]});await s.model.connect('123456789','fixture-token');
  s.model.snapshot().search=remote[0].roleName;s.model.selectAll();assert.equal(s.model.snapshot().selected.size,1);

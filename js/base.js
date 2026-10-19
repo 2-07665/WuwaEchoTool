@@ -811,10 +811,10 @@ const roleList = [
         "other": 0.05,
         "maxscore": 494.6
     },
-    {   //蕾贝卡
+    {   //丽贝卡（官方简体名称）
         "id": 55,
         "gid": 0,
-        "name": "蕾贝卡",
+        "name": "丽贝卡",
         "star": 5,
         "rule": 1,
         "cls": "mcr-leibeika",
@@ -7587,16 +7587,23 @@ function getRandomInt(min, max) {
     return Math.floor(Math.random() * (max - min + 1)) + min; // 返回min到max之间的随机整数
 }
 
-//官方角色ID互相映射我的体系角色ID
+// Official import is one-way: registered IDs first, then explicit, unique full names.
+function mappingOfficialRoleId(rid, roleName) {
+    if (!/^[1-9]\d*$/.test(String(rid))) return 0;
+    const registered = roleList.filter(item => item.gid !== 0 && String(item.gid) === String(rid));
+    if (registered.length) return registered.length === 1 ? registered[0].id : 0;
+    const normalize = value => String(value || '').replace(/[·・\-\s（）()]/g, '');
+    const aliases = {'蕾贝卡':'丽贝卡', '蕾貝卡':'丽贝卡', '麗貝卡':'丽贝卡', '緋雪':'绯雪', '漂泊者女导电':'漂泊者导电女', '漂泊者男导电':'漂泊者导电男'};
+    const label = normalize(roleName), canonical = aliases[label] || label;
+    if (!canonical) return 0;
+    const fallbackIds = [52, 55, 56, ...newCharacterModels.ids];
+    const matches = roleList.filter(item => fallbackIds.includes(item.id) && normalize(item.name) === canonical);
+    return matches.length === 1 ? matches[0].id : 0;
+}
+
+//官方角色ID互相映射我的体系角色ID；无名称调用保留旧版反向查询。
 function mappingRoleId(rid, roleName) {
-    // New API roles may not yet have a numeric mapping. Only match an explicit full name.
-    if (roleName && !roleList.some(item => item.gid !== 0 && rid == item.gid)) {
-        const normalized = String(roleName).replace(/[·・\-\s（）()]/g, '');
-        const aliases = {'漂泊者女导电':57, '漂泊者男导电':58};
-        if (aliases[normalized]) return aliases[normalized];
-        const match = roleList.find(item => newCharacterModels.ids.includes(item.id) && item.name.replace(/[·・\-\s（）()]/g, '') === normalized);
-        if (match) return match.id;
-    }
+    if (roleName) return mappingOfficialRoleId(rid, roleName);
     let re = 0;
     roleList.forEach((item) => {
         if (rid == item.gid) {

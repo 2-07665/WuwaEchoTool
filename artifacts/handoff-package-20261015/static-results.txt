@@ -1,0 +1,1 @@
+PASS: 244 local entry dependencies and 105 script syntax checks; static release requires no bundler.

@@ -1,0 +1,508 @@
+{
+  "reports": [
+    {
+      "width": 1440,
+      "locale": "zh-TW",
+      "source": "manual",
+      "saveReloadAndRoleReturn": true,
+      "feedbackSurvivesRender": true,
+      "failedWriteAndValidation": true,
+      "sourceConflict": true,
+      "corruptMetadataPreserved": true,
+      "coreUnchanged": true
+    },
+    {
+      "width": 1440,
+      "locale": "zh-TW",
+      "source": "imported",
+      "saveReloadAndRoleReturn": true,
+      "feedbackSurvivesRender": true,
+      "failedWriteAndValidation": true,
+      "sourceConflict": true,
+      "corruptMetadataPreserved": true,
+      "coreUnchanged": true
+    },
+    {
+      "width": 1440,
+      "locale": "zh-CN",
+      "source": "manual",
+      "saveReloadAndRoleReturn": true,
+      "feedbackSurvivesRender": true,
+      "failedWriteAndValidation": true,
+      "sourceConflict": true,
+      "corruptMetadataPreserved": true,
+      "coreUnchanged": true
+    },
+    {
+      "width": 1440,
+      "locale": "zh-CN",
+      "source": "imported",
+      "saveReloadAndRoleReturn": true,
+      "feedbackSurvivesRender": true,
+      "failedWriteAndValidation": true,
+      "sourceConflict": true,
+      "corruptMetadataPreserved": true,
+      "coreUnchanged": true
+    },
+    {
+      "width": 1440,
+      "locale": "en",
+      "source": "manual",
+      "saveReloadAndRoleReturn": true,
+      "feedbackSurvivesRender": true,
+      "failedWriteAndValidation": true,
+      "sourceConflict": true,
+      "corruptMetadataPreserved": true,
+      "coreUnchanged": true
+    },
+    {
+      "width": 1440,
+      "locale": "en",
+      "source": "imported",
+      "saveReloadAndRoleReturn": true,
+      "feedbackSurvivesRender": true,
+      "failedWriteAndValidation": true,
+      "sourceConflict": true,
+      "corruptMetadataPreserved": true,
+      "coreUnchanged": true
+    },
+    {
+      "width": 1024,
+      "locale": "zh-TW",
+      "source": "manual",
+      "saveReloadAndRoleReturn": true,
+      "feedbackSurvivesRender": true,
+      "failedWriteAndValidation": true,
+      "sourceConflict": true,
+      "corruptMetadataPreserved": true,
+      "coreUnchanged": true
+    },
+    {
+      "width": 1024,
+      "locale": "zh-TW",
+      "source": "imported",
+      "saveReloadAndRoleReturn": true,
+      "feedbackSurvivesRender": true,
+      "failedWriteAndValidation": true,
+      "sourceConflict": true,
+      "corruptMetadataPreserved": true,
+      "coreUnchanged": true
+    },
+    {
+      "width": 1024,
+      "locale": "zh-CN",
+      "source": "manual",
+      "saveReloadAndRoleReturn": true,
+      "feedbackSurvivesRender": true,
+      "failedWriteAndValidation": true,
+      "sourceConflict": true,
+      "corruptMetadataPreserved": true,
+      "coreUnchanged": true
+    },
+    {
+      "width": 1024,
+      "locale": "zh-CN",
+      "source": "imported",
+      "saveReloadAndRoleReturn": true,
+      "feedbackSurvivesRender": true,
+      "failedWriteAndValidation": true,
+      "sourceConflict": true,
+      "corruptMetadataPreserved": true,
+      "coreUnchanged": true
+    },
+    {
+      "width": 1024,
+      "locale": "en",
+      "source": "manual",
+      "saveReloadAndRoleReturn": true,
+      "feedbackSurvivesRender": true,
+      "failedWriteAndValidation": true,
+      "sourceConflict": true,
+      "corruptMetadataPreserved": true,
+      "coreUnchanged": true
+    },
+    {
+      "width": 1024,
+      "locale": "en",
+      "source": "imported",
+      "saveReloadAndRoleReturn": true,
+      "feedbackSurvivesRender": true,
+      "failedWriteAndValidation": true,
+      "sourceConflict": true,
+      "corruptMetadataPreserved": true,
+      "coreUnchanged": true
+    },
+    {
+      "width": 390,
+      "locale": "zh-TW",
+      "source": "manual",
+      "saveReloadAndRoleReturn": true,
+      "feedbackSurvivesRender": true,
+      "failedWriteAndValidation": true,
+      "sourceConflict": true,
+      "corruptMetadataPreserved": true,
+      "coreUnchanged": true
+    },
+    {
+      "width": 390,
+      "locale": "zh-TW",
+      "source": "imported",
+      "saveReloadAndRoleReturn": true,
+      "feedbackSurvivesRender": true,
+      "failedWriteAndValidation": true,
+      "sourceConflict": true,
+      "corruptMetadataPreserved": true,
+      "coreUnchanged": true
+    },
+    {
+      "width": 390,
+      "locale": "zh-CN",
+      "source": "manual",
+      "saveReloadAndRoleReturn": true,
+      "feedbackSurvivesRender": true,
+      "failedWriteAndValidation": true,
+      "sourceConflict": true,
+      "corruptMetadataPreserved": true,
+      "coreUnchanged": true
+    },
+    {
+      "width": 390,
+      "locale": "zh-CN",
+      "source": "imported",
+      "saveReloadAndRoleReturn": true,
+      "feedbackSurvivesRender": true,
+      "failedWriteAndValidation": true,
+      "sourceConflict": true,
+      "corruptMetadataPreserved": true,
+      "coreUnchanged": true
+    },
+    {
+      "width": 390,
+      "locale": "en",
+      "source": "manual",
+      "saveReloadAndRoleReturn": true,
+      "feedbackSurvivesRender": true,
+      "failedWriteAndValidation": true,
+      "sourceConflict": true,
+      "corruptMetadataPreserved": true,
+      "coreUnchanged": true
+    },
+    {
+      "width": 390,
+      "locale": "en",
+      "source": "imported",
+      "saveReloadAndRoleReturn": true,
+      "feedbackSurvivesRender": true,
+      "failedWriteAndValidation": true,
+      "sourceConflict": true,
+      "corruptMetadataPreserved": true,
+      "coreUnchanged": true
+    },
+    {
+      "width": 320,
+      "locale": "zh-TW",
+      "source": "manual",
+      "saveReloadAndRoleReturn": true,
+      "feedbackSurvivesRender": true,
+      "failedWriteAndValidation": true,
+      "sourceConflict": true,
+      "corruptMetadataPreserved": true,
+      "coreUnchanged": true
+    },
+    {
+      "width": 320,
+      "locale": "zh-TW",
+      "source": "imported",
+      "saveReloadAndRoleReturn": true,
+      "feedbackSurvivesRender": true,
+      "failedWriteAndValidation": true,
+      "sourceConflict": true,
+      "corruptMetadataPreserved": true,
+      "coreUnchanged": true
+    },
+    {
+      "width": 320,
+      "locale": "zh-CN",
+      "source": "manual",
+      "saveReloadAndRoleReturn": true,
+      "feedbackSurvivesRender": true,
+      "failedWriteAndValidation": true,
+      "sourceConflict": true,
+      "corruptMetadataPreserved": true,
+      "coreUnchanged": true
+    },
+    {
+      "width": 320,
+      "locale": "zh-CN",
+      "source": "imported",
+      "saveReloadAndRoleReturn": true,
+      "feedbackSurvivesRender": true,
+      "failedWriteAndValidation": true,
+      "sourceConflict": true,
+      "corruptMetadataPreserved": true,
+      "coreUnchanged": true
+    },
+    {
+      "width": 320,
+      "locale": "en",
+      "source": "manual",
+      "saveReloadAndRoleReturn": true,
+      "feedbackSurvivesRender": true,
+      "failedWriteAndValidation": true,
+      "sourceConflict": true,
+      "corruptMetadataPreserved": true,
+      "coreUnchanged": true
+    },
+    {
+      "width": 320,
+      "locale": "en",
+      "source": "imported",
+      "saveReloadAndRoleReturn": true,
+      "feedbackSurvivesRender": true,
+      "failedWriteAndValidation": true,
+      "sourceConflict": true,
+      "corruptMetadataPreserved": true,
+      "coreUnchanged": true
+    }
+  ],
+  "exports": [
+    {
+      "locale": "zh-TW",
+      "mode": "compact",
+      "radar": {
+        "min": 0,
+        "max": 30,
+        "scope": "raw-role-score-contribution",
+        "filled": true,
+        "entries": [
+          {
+            "position": 1,
+            "value": 20.98,
+            "status": "complete"
+          },
+          {
+            "position": 2,
+            "value": 18,
+            "status": "complete"
+          },
+          {
+            "position": 3,
+            "value": 15.15,
+            "status": "complete"
+          },
+          {
+            "position": 4,
+            "value": 13.51,
+            "status": "complete"
+          },
+          {
+            "position": 5,
+            "value": 13.51,
+            "status": "complete"
+          }
+        ]
+      },
+      "downloadMatches": true,
+      "technicalTextOutsideCanvas": true
+    },
+    {
+      "locale": "zh-TW",
+      "mode": "detailed",
+      "radar": {
+        "min": 0,
+        "max": 30,
+        "scope": "raw-role-score-contribution",
+        "filled": true,
+        "entries": [
+          {
+            "position": 1,
+            "value": 20.98,
+            "status": "complete"
+          },
+          {
+            "position": 2,
+            "value": 18,
+            "status": "complete"
+          },
+          {
+            "position": 3,
+            "value": 15.15,
+            "status": "complete"
+          },
+          {
+            "position": 4,
+            "value": 13.51,
+            "status": "complete"
+          },
+          {
+            "position": 5,
+            "value": 13.51,
+            "status": "complete"
+          }
+        ]
+      },
+      "downloadMatches": true,
+      "technicalTextOutsideCanvas": true
+    },
+    {
+      "locale": "zh-CN",
+      "mode": "compact",
+      "radar": {
+        "min": 0,
+        "max": 30,
+        "scope": "raw-role-score-contribution",
+        "filled": true,
+        "entries": [
+          {
+            "position": 1,
+            "value": 20.98,
+            "status": "complete"
+          },
+          {
+            "position": 2,
+            "value": 18,
+            "status": "complete"
+          },
+          {
+            "position": 3,
+            "value": 15.15,
+            "status": "complete"
+          },
+          {
+            "position": 4,
+            "value": 13.51,
+            "status": "complete"
+          },
+          {
+            "position": 5,
+            "value": 13.51,
+            "status": "complete"
+          }
+        ]
+      },
+      "downloadMatches": true,
+      "technicalTextOutsideCanvas": true
+    },
+    {
+      "locale": "zh-CN",
+      "mode": "detailed",
+      "radar": {
+        "min": 0,
+        "max": 30,
+        "scope": "raw-role-score-contribution",
+        "filled": true,
+        "entries": [
+          {
+            "position": 1,
+            "value": 20.98,
+            "status": "complete"
+          },
+          {
+            "position": 2,
+            "value": 18,
+            "status": "complete"
+          },
+          {
+            "position": 3,
+            "value": 15.15,
+            "status": "complete"
+          },
+          {
+            "position": 4,
+            "value": 13.51,
+            "status": "complete"
+          },
+          {
+            "position": 5,
+            "value": 13.51,
+            "status": "complete"
+          }
+        ]
+      },
+      "downloadMatches": true,
+      "technicalTextOutsideCanvas": true
+    },
+    {
+      "locale": "en",
+      "mode": "compact",
+      "radar": {
+        "min": 0,
+        "max": 30,
+        "scope": "raw-role-score-contribution",
+        "filled": true,
+        "entries": [
+          {
+            "position": 1,
+            "value": 20.98,
+            "status": "complete"
+          },
+          {
+            "position": 2,
+            "value": 18,
+            "status": "complete"
+          },
+          {
+            "position": 3,
+            "value": 15.15,
+            "status": "complete"
+          },
+          {
+            "position": 4,
+            "value": 13.51,
+            "status": "complete"
+          },
+          {
+            "position": 5,
+            "value": 13.51,
+            "status": "complete"
+          }
+        ]
+      },
+      "downloadMatches": true,
+      "technicalTextOutsideCanvas": true
+    },
+    {
+      "locale": "en",
+      "mode": "detailed",
+      "radar": {
+        "min": 0,
+        "max": 30,
+        "scope": "raw-role-score-contribution",
+        "filled": true,
+        "entries": [
+          {
+            "position": 1,
+            "value": 20.98,
+            "status": "complete"
+          },
+          {
+            "position": 2,
+            "value": 18,
+            "status": "complete"
+          },
+          {
+            "position": 3,
+            "value": 15.15,
+            "status": "complete"
+          },
+          {
+            "position": 4,
+            "value": 13.51,
+            "status": "complete"
+          },
+          {
+            "position": 5,
+            "value": 13.51,
+            "status": "complete"
+          }
+        ]
+      },
+      "downloadMatches": true,
+      "technicalTextOutsideCanvas": true
+    }
+  ],
+  "pageErrors": [],
+  "synthetic": true,
+  "realMobileDevice": false,
+  "realOfficialAccount": false
+}

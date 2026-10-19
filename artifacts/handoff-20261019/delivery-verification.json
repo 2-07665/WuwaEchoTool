@@ -1,0 +1,33 @@
+{
+  "zip": "C:\\Users\\user\\Downloads\\WuwaEchoTool\\artifacts\\handoff-20261019\\delivery\\WuwaEchoTool_ChatGPT_Full_20261019_0956.zip",
+  "formalDestination": "C:\\Users\\user\\Downloads\\WuwaEchoTool_ChatGPT_Full_20261019_0956.zip",
+  "zipBytes": 91337175,
+  "zipMiB": 87.11,
+  "fileCount": 996,
+  "sha256": "64b5dbaf55981214fe9893c44bdb93dc6797e2d502694b35d848a102cd26525e",
+  "crc": "PASS",
+  "duplicatePaths": 0,
+  "archiveVsStagingEveryByte": "PASS",
+  "extractedNodeVerification": "PASS 996 files; 995 SHA-256 checks; SHA256SUMS excludes itself.",
+  "missingLocalResources": 0,
+  "sanitizedFiles": [
+    {
+      "path": "js/base.js",
+      "reason": "unused legacy tokenList JWT removed in archive copy only",
+      "count": 1
+    }
+  ],
+  "originalWorkingFilesUnchanged": true,
+  "extractedUnitTests": {
+    "tests": 72,
+    "pass": 72,
+    "fail": 0
+  },
+  "extractedStaticCheck": {
+    "references": 244,
+    "scripts": 105,
+    "result": "PASS"
+  },
+  "formalCopySha256Match": true,
+  "formalDelivered": true
+}

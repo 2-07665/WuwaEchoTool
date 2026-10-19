@@ -47,6 +47,23 @@ async function capture(page,name){
  server=http.createServer((req,res)=>{const file=path.resolve(root,'.'+decodeURIComponent(req.url.split('?')[0]));if(!file.startsWith(root+path.sep)){res.writeHead(403).end();return;}fs.readFile(file,(error,data)=>{if(error){res.writeHead(404).end();return;}res.setHeader('Content-Type',({'.html':'text/html','.js':'text/javascript','.css':'text/css','.png':'image/png','.webp':'image/webp'}[path.extname(file)]||'application/octet-stream'));res.end(data);});});
  await new Promise(r=>server.listen(0,'127.0.0.1',r));base='http://127.0.0.1:'+server.address().port;
  browser=await chromium.launch({channel:'msedge',headless:true});
+ for(const width of [1440,320])for(const locale of ['zh-TW','zh-CN','en']){
+  const {page,context,control}=await contextFor({width,locale});
+  const reported=[{roleId:990052,roleName:'绯雪',level:90},{roleId:990055,roleName:'丽贝卡',level:40},{roleId:990056,roleName:'洛瑟菈',level:90}];
+  control.list=reported;await connect(page);
+  assert.equal(await page.locator('[data-ri-select]:disabled').count(),0);
+  for(const row of reported)assert.ok((await page.locator('#register-workspace').innerText()).includes(row.roleName));
+  await page.locator('[data-ri-action=all]').click();await read(page);
+  assert.equal(await page.locator('[data-ri-details]').count(),3);
+  assert.equal(await page.evaluate(()=>localStorage.getItem('mcData')),null);
+  await page.locator('[data-ri-action=save]').click();await page.locator('.ri-result-summary').waitFor();
+  const saved=await page.evaluate(()=>JSON.parse(localStorage.getItem('mcData')).role);
+  assert.deepEqual(saved.map(r=>r.roleListId),[52,55,56]);
+  assert.deepEqual(saved.map(r=>r.importSource.gameRoleId),reported.map(r=>String(r.roleId)));
+  assert.equal(await page.evaluate(()=>roleList.find(r=>r.id===55).name),'丽贝卡');
+  await capture(page,width+'-'+locale+'-reported-characters');
+  reports.push({width,locale,scenario:'reported three characters: official simplified names, selectable, preview, explicit save and source identity',passed:true});await context.close();
+ }
  for(const width of require('./browser-qa.cjs').widths([1440,1024,390,360]))for(const locale of ['zh-TW','zh-CN','en']){
   const {page,context,control}=await contextFor({width,locale});const prefix=width+'-'+locale;
   assert.equal(await page.evaluate(()=>localStorage.getItem('mcData')),null);await capture(page,prefix+'-connect');

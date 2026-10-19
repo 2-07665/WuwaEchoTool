@@ -1,0 +1,1027 @@
+{
+  "reports": [
+    {
+      "imageChecks": [
+        {
+          "id": "10000",
+          "naturalWidth": 106,
+          "naturalHeight": 106,
+          "w": 106,
+          "h": 106,
+          "left": 13,
+          "top": 13,
+          "centerX": 0,
+          "centerY": 0,
+          "fit": "contain",
+          "position": "50% 50%"
+        },
+        {
+          "id": "10002",
+          "naturalWidth": 107,
+          "naturalHeight": 107,
+          "w": 106,
+          "h": 106,
+          "left": 13,
+          "top": 13,
+          "centerX": 0,
+          "centerY": 0,
+          "fit": "contain",
+          "position": "50% 50%"
+        },
+        {
+          "id": "10007",
+          "naturalWidth": 107,
+          "naturalHeight": 107,
+          "w": 106,
+          "h": 106,
+          "left": 13,
+          "top": 13,
+          "centerX": 0,
+          "centerY": 0,
+          "fit": "contain",
+          "position": "50% 50%"
+        }
+      ],
+      "deleteCancelAndConfirm": true,
+      "fullWidthDelete": true,
+      "noRedundantTitle": true,
+      "width": 1440,
+      "locale": "zh-TW",
+      "portraits": [
+        {
+          "left": 10,
+          "width": 76,
+          "height": 104,
+          "contain": "contain",
+          "cardHeight": 215.78125
+        },
+        {
+          "left": 10,
+          "width": 76,
+          "height": 104,
+          "contain": "contain",
+          "cardHeight": 215.78125
+        },
+        {
+          "left": 10,
+          "width": 76,
+          "height": 104,
+          "contain": "contain",
+          "cardHeight": 215.78125
+        },
+        {
+          "left": 10,
+          "width": 76,
+          "height": 104,
+          "contain": "contain",
+          "cardHeight": 138
+        }
+      ],
+      "cardHeightUnchanged": true,
+      "onlyDeleteAction": true,
+      "keyboardAndCancel": true,
+      "favoriteSyncBothDirections": true,
+      "favoriteDoesNotSelect": true,
+      "desktopGap": 14,
+      "noHorizontalOverflow": true
+    },
+    {
+      "imageChecks": [
+        {
+          "id": "10000",
+          "naturalWidth": 106,
+          "naturalHeight": 106,
+          "w": 106,
+          "h": 106,
+          "left": 13,
+          "top": 13,
+          "centerX": 0,
+          "centerY": 0,
+          "fit": "contain",
+          "position": "50% 50%"
+        },
+        {
+          "id": "10002",
+          "naturalWidth": 107,
+          "naturalHeight": 107,
+          "w": 106,
+          "h": 106,
+          "left": 13,
+          "top": 13,
+          "centerX": 0,
+          "centerY": 0,
+          "fit": "contain",
+          "position": "50% 50%"
+        },
+        {
+          "id": "10007",
+          "naturalWidth": 107,
+          "naturalHeight": 107,
+          "w": 106,
+          "h": 106,
+          "left": 13,
+          "top": 13,
+          "centerX": 0,
+          "centerY": 0,
+          "fit": "contain",
+          "position": "50% 50%"
+        }
+      ],
+      "deleteCancelAndConfirm": true,
+      "fullWidthDelete": true,
+      "noRedundantTitle": true,
+      "width": 1440,
+      "locale": "zh-CN",
+      "portraits": [
+        {
+          "left": 10,
+          "width": 76,
+          "height": 104,
+          "contain": "contain",
+          "cardHeight": 215.78125
+        },
+        {
+          "left": 10,
+          "width": 76,
+          "height": 104,
+          "contain": "contain",
+          "cardHeight": 215.78125
+        },
+        {
+          "left": 10,
+          "width": 76,
+          "height": 104,
+          "contain": "contain",
+          "cardHeight": 215.78125
+        },
+        {
+          "left": 10,
+          "width": 76,
+          "height": 104,
+          "contain": "contain",
+          "cardHeight": 138
+        }
+      ],
+      "cardHeightUnchanged": true,
+      "onlyDeleteAction": true,
+      "keyboardAndCancel": true,
+      "favoriteSyncBothDirections": true,
+      "favoriteDoesNotSelect": true,
+      "desktopGap": 14,
+      "noHorizontalOverflow": true
+    },
+    {
+      "imageChecks": [
+        {
+          "id": "10000",
+          "naturalWidth": 106,
+          "naturalHeight": 106,
+          "w": 106,
+          "h": 106,
+          "left": 13,
+          "top": 13,
+          "centerX": 0,
+          "centerY": 0,
+          "fit": "contain",
+          "position": "50% 50%"
+        },
+        {
+          "id": "10002",
+          "naturalWidth": 107,
+          "naturalHeight": 107,
+          "w": 106,
+          "h": 106,
+          "left": 13,
+          "top": 13,
+          "centerX": 0,
+          "centerY": 0,
+          "fit": "contain",
+          "position": "50% 50%"
+        },
+        {
+          "id": "10007",
+          "naturalWidth": 107,
+          "naturalHeight": 107,
+          "w": 106,
+          "h": 106,
+          "left": 13,
+          "top": 13,
+          "centerX": 0,
+          "centerY": 0,
+          "fit": "contain",
+          "position": "50% 50%"
+        }
+      ],
+      "deleteCancelAndConfirm": true,
+      "fullWidthDelete": true,
+      "noRedundantTitle": true,
+      "width": 1440,
+      "locale": "en",
+      "portraits": [
+        {
+          "left": 10,
+          "width": 76,
+          "height": 104,
+          "contain": "contain",
+          "cardHeight": 215.78125
+        },
+        {
+          "left": 10,
+          "width": 76,
+          "height": 104,
+          "contain": "contain",
+          "cardHeight": 215.78125
+        },
+        {
+          "left": 10,
+          "width": 76,
+          "height": 104,
+          "contain": "contain",
+          "cardHeight": 215.78125
+        },
+        {
+          "left": 10,
+          "width": 76,
+          "height": 104,
+          "contain": "contain",
+          "cardHeight": 138
+        }
+      ],
+      "cardHeightUnchanged": true,
+      "onlyDeleteAction": true,
+      "keyboardAndCancel": true,
+      "favoriteSyncBothDirections": true,
+      "favoriteDoesNotSelect": true,
+      "desktopGap": 14,
+      "noHorizontalOverflow": true
+    },
+    {
+      "imageChecks": [
+        {
+          "id": "10000",
+          "naturalWidth": 106,
+          "naturalHeight": 106,
+          "w": 106,
+          "h": 106,
+          "left": 13,
+          "top": 13,
+          "centerX": 0,
+          "centerY": 0,
+          "fit": "contain",
+          "position": "50% 50%"
+        },
+        {
+          "id": "10002",
+          "naturalWidth": 107,
+          "naturalHeight": 107,
+          "w": 106,
+          "h": 106,
+          "left": 13,
+          "top": 13,
+          "centerX": 0,
+          "centerY": 0,
+          "fit": "contain",
+          "position": "50% 50%"
+        },
+        {
+          "id": "10007",
+          "naturalWidth": 107,
+          "naturalHeight": 107,
+          "w": 106,
+          "h": 106,
+          "left": 13,
+          "top": 13,
+          "centerX": 0,
+          "centerY": 0,
+          "fit": "contain",
+          "position": "50% 50%"
+        }
+      ],
+      "deleteCancelAndConfirm": true,
+      "fullWidthDelete": true,
+      "noRedundantTitle": true,
+      "width": 1024,
+      "locale": "zh-TW",
+      "portraits": [
+        {
+          "left": 10,
+          "width": 72,
+          "height": 100,
+          "contain": "contain",
+          "cardHeight": 298.71875
+        },
+        {
+          "left": 10,
+          "width": 72,
+          "height": 100,
+          "contain": "contain",
+          "cardHeight": 298.71875
+        },
+        {
+          "left": 10,
+          "width": 72,
+          "height": 100,
+          "contain": "contain",
+          "cardHeight": 298.71875
+        },
+        {
+          "left": 10,
+          "width": 72,
+          "height": 100,
+          "contain": "contain",
+          "cardHeight": 191.25
+        }
+      ],
+      "cardHeightUnchanged": true,
+      "onlyDeleteAction": true,
+      "keyboardAndCancel": true,
+      "favoriteSyncBothDirections": true,
+      "favoriteDoesNotSelect": true,
+      "desktopGap": 14,
+      "noHorizontalOverflow": true
+    },
+    {
+      "imageChecks": [
+        {
+          "id": "10000",
+          "naturalWidth": 106,
+          "naturalHeight": 106,
+          "w": 106,
+          "h": 106,
+          "left": 13,
+          "top": 13,
+          "centerX": 0,
+          "centerY": 0,
+          "fit": "contain",
+          "position": "50% 50%"
+        },
+        {
+          "id": "10002",
+          "naturalWidth": 107,
+          "naturalHeight": 107,
+          "w": 106,
+          "h": 106,
+          "left": 13,
+          "top": 13,
+          "centerX": 0,
+          "centerY": 0,
+          "fit": "contain",
+          "position": "50% 50%"
+        },
+        {
+          "id": "10007",
+          "naturalWidth": 107,
+          "naturalHeight": 107,
+          "w": 106,
+          "h": 106,
+          "left": 13,
+          "top": 13,
+          "centerX": 0,
+          "centerY": 0,
+          "fit": "contain",
+          "position": "50% 50%"
+        }
+      ],
+      "deleteCancelAndConfirm": true,
+      "fullWidthDelete": true,
+      "noRedundantTitle": true,
+      "width": 1024,
+      "locale": "zh-CN",
+      "portraits": [
+        {
+          "left": 10,
+          "width": 72,
+          "height": 100,
+          "contain": "contain",
+          "cardHeight": 298.71875
+        },
+        {
+          "left": 10,
+          "width": 72,
+          "height": 100,
+          "contain": "contain",
+          "cardHeight": 298.71875
+        },
+        {
+          "left": 10,
+          "width": 72,
+          "height": 100,
+          "contain": "contain",
+          "cardHeight": 298.71875
+        },
+        {
+          "left": 10,
+          "width": 72,
+          "height": 100,
+          "contain": "contain",
+          "cardHeight": 191.25
+        }
+      ],
+      "cardHeightUnchanged": true,
+      "onlyDeleteAction": true,
+      "keyboardAndCancel": true,
+      "favoriteSyncBothDirections": true,
+      "favoriteDoesNotSelect": true,
+      "desktopGap": 14,
+      "noHorizontalOverflow": true
+    },
+    {
+      "imageChecks": [
+        {
+          "id": "10000",
+          "naturalWidth": 106,
+          "naturalHeight": 106,
+          "w": 106,
+          "h": 106,
+          "left": 13,
+          "top": 13,
+          "centerX": 0,
+          "centerY": 0,
+          "fit": "contain",
+          "position": "50% 50%"
+        },
+        {
+          "id": "10002",
+          "naturalWidth": 107,
+          "naturalHeight": 107,
+          "w": 106,
+          "h": 106,
+          "left": 13,
+          "top": 13,
+          "centerX": 0,
+          "centerY": 0,
+          "fit": "contain",
+          "position": "50% 50%"
+        },
+        {
+          "id": "10007",
+          "naturalWidth": 107,
+          "naturalHeight": 107,
+          "w": 106,
+          "h": 106,
+          "left": 13,
+          "top": 13,
+          "centerX": 0,
+          "centerY": 0,
+          "fit": "contain",
+          "position": "50% 50%"
+        }
+      ],
+      "deleteCancelAndConfirm": true,
+      "fullWidthDelete": true,
+      "noRedundantTitle": true,
+      "width": 1024,
+      "locale": "en",
+      "portraits": [
+        {
+          "left": 10,
+          "width": 72,
+          "height": 100,
+          "contain": "contain",
+          "cardHeight": 298.71875
+        },
+        {
+          "left": 10,
+          "width": 72,
+          "height": 100,
+          "contain": "contain",
+          "cardHeight": 298.71875
+        },
+        {
+          "left": 10,
+          "width": 72,
+          "height": 100,
+          "contain": "contain",
+          "cardHeight": 320.40625
+        },
+        {
+          "left": 10,
+          "width": 72,
+          "height": 100,
+          "contain": "contain",
+          "cardHeight": 191.25
+        }
+      ],
+      "cardHeightUnchanged": true,
+      "onlyDeleteAction": true,
+      "keyboardAndCancel": true,
+      "favoriteSyncBothDirections": true,
+      "favoriteDoesNotSelect": true,
+      "desktopGap": 14,
+      "noHorizontalOverflow": true
+    },
+    {
+      "imageChecks": [
+        {
+          "id": "10000",
+          "naturalWidth": 106,
+          "naturalHeight": 106,
+          "w": 106,
+          "h": 106,
+          "left": 13,
+          "top": 13,
+          "centerX": 0,
+          "centerY": 0,
+          "fit": "contain",
+          "position": "50% 50%"
+        },
+        {
+          "id": "10002",
+          "naturalWidth": 107,
+          "naturalHeight": 107,
+          "w": 106,
+          "h": 106,
+          "left": 13,
+          "top": 13,
+          "centerX": 0,
+          "centerY": 0,
+          "fit": "contain",
+          "position": "50% 50%"
+        },
+        {
+          "id": "10007",
+          "naturalWidth": 107,
+          "naturalHeight": 107,
+          "w": 106,
+          "h": 106,
+          "left": 13,
+          "top": 13,
+          "centerX": 0,
+          "centerY": 0,
+          "fit": "contain",
+          "position": "50% 50%"
+        }
+      ],
+      "deleteCancelAndConfirm": true,
+      "fullWidthDelete": true,
+      "noRedundantTitle": true,
+      "width": 390,
+      "locale": "zh-TW",
+      "portraits": [
+        {
+          "left": 10,
+          "width": 72,
+          "height": 100,
+          "contain": "contain",
+          "cardHeight": 365.109375
+        },
+        {
+          "left": 10,
+          "width": 72,
+          "height": 100,
+          "contain": "contain",
+          "cardHeight": 387.5
+        },
+        {
+          "left": 10,
+          "width": 72,
+          "height": 100,
+          "contain": "contain",
+          "cardHeight": 430.875
+        },
+        {
+          "left": 10,
+          "width": 72,
+          "height": 100,
+          "contain": "contain",
+          "cardHeight": 235.25
+        }
+      ],
+      "cardHeightUnchanged": true,
+      "onlyDeleteAction": true,
+      "keyboardAndCancel": true,
+      "favoriteSyncBothDirections": true,
+      "favoriteDoesNotSelect": true,
+      "desktopGap": null,
+      "noHorizontalOverflow": true
+    },
+    {
+      "imageChecks": [
+        {
+          "id": "10000",
+          "naturalWidth": 106,
+          "naturalHeight": 106,
+          "w": 106,
+          "h": 106,
+          "left": 13,
+          "top": 13,
+          "centerX": 0,
+          "centerY": 0,
+          "fit": "contain",
+          "position": "50% 50%"
+        },
+        {
+          "id": "10002",
+          "naturalWidth": 107,
+          "naturalHeight": 107,
+          "w": 106,
+          "h": 106,
+          "left": 13,
+          "top": 13,
+          "centerX": 0,
+          "centerY": 0,
+          "fit": "contain",
+          "position": "50% 50%"
+        },
+        {
+          "id": "10007",
+          "naturalWidth": 107,
+          "naturalHeight": 107,
+          "w": 106,
+          "h": 106,
+          "left": 13,
+          "top": 13,
+          "centerX": 0,
+          "centerY": 0,
+          "fit": "contain",
+          "position": "50% 50%"
+        }
+      ],
+      "deleteCancelAndConfirm": true,
+      "fullWidthDelete": true,
+      "noRedundantTitle": true,
+      "width": 390,
+      "locale": "zh-CN",
+      "portraits": [
+        {
+          "left": 10,
+          "width": 72,
+          "height": 100,
+          "contain": "contain",
+          "cardHeight": 365.109375
+        },
+        {
+          "left": 10,
+          "width": 72,
+          "height": 100,
+          "contain": "contain",
+          "cardHeight": 387.5
+        },
+        {
+          "left": 10,
+          "width": 72,
+          "height": 100,
+          "contain": "contain",
+          "cardHeight": 430.875
+        },
+        {
+          "left": 10,
+          "width": 72,
+          "height": 100,
+          "contain": "contain",
+          "cardHeight": 235.25
+        }
+      ],
+      "cardHeightUnchanged": true,
+      "onlyDeleteAction": true,
+      "keyboardAndCancel": true,
+      "favoriteSyncBothDirections": true,
+      "favoriteDoesNotSelect": true,
+      "desktopGap": null,
+      "noHorizontalOverflow": true
+    },
+    {
+      "imageChecks": [
+        {
+          "id": "10000",
+          "naturalWidth": 106,
+          "naturalHeight": 106,
+          "w": 106,
+          "h": 106,
+          "left": 13,
+          "top": 13,
+          "centerX": 0,
+          "centerY": 0,
+          "fit": "contain",
+          "position": "50% 50%"
+        },
+        {
+          "id": "10002",
+          "naturalWidth": 107,
+          "naturalHeight": 107,
+          "w": 106,
+          "h": 106,
+          "left": 13,
+          "top": 13,
+          "centerX": 0,
+          "centerY": 0,
+          "fit": "contain",
+          "position": "50% 50%"
+        },
+        {
+          "id": "10007",
+          "naturalWidth": 107,
+          "naturalHeight": 107,
+          "w": 106,
+          "h": 106,
+          "left": 13,
+          "top": 13,
+          "centerX": 0,
+          "centerY": 0,
+          "fit": "contain",
+          "position": "50% 50%"
+        }
+      ],
+      "deleteCancelAndConfirm": true,
+      "fullWidthDelete": true,
+      "noRedundantTitle": true,
+      "width": 390,
+      "locale": "en",
+      "portraits": [
+        {
+          "left": 10,
+          "width": 72,
+          "height": 100,
+          "contain": "contain",
+          "cardHeight": 342.71875
+        },
+        {
+          "left": 10,
+          "width": 72,
+          "height": 100,
+          "contain": "contain",
+          "cardHeight": 342.71875
+        },
+        {
+          "left": 10,
+          "width": 72,
+          "height": 100,
+          "contain": "contain",
+          "cardHeight": 452.5625
+        },
+        {
+          "left": 10,
+          "width": 72,
+          "height": 100,
+          "contain": "contain",
+          "cardHeight": 256.9375
+        }
+      ],
+      "cardHeightUnchanged": true,
+      "onlyDeleteAction": true,
+      "keyboardAndCancel": true,
+      "favoriteSyncBothDirections": true,
+      "favoriteDoesNotSelect": true,
+      "desktopGap": null,
+      "noHorizontalOverflow": true
+    },
+    {
+      "imageChecks": [
+        {
+          "id": "10000",
+          "naturalWidth": 106,
+          "naturalHeight": 106,
+          "w": 106,
+          "h": 106,
+          "left": 13,
+          "top": 13,
+          "centerX": 0,
+          "centerY": 0,
+          "fit": "contain",
+          "position": "50% 50%"
+        },
+        {
+          "id": "10002",
+          "naturalWidth": 107,
+          "naturalHeight": 107,
+          "w": 106,
+          "h": 106,
+          "left": 13,
+          "top": 13,
+          "centerX": 0,
+          "centerY": 0,
+          "fit": "contain",
+          "position": "50% 50%"
+        },
+        {
+          "id": "10007",
+          "naturalWidth": 107,
+          "naturalHeight": 107,
+          "w": 106,
+          "h": 106,
+          "left": 13,
+          "top": 13,
+          "centerX": 0,
+          "centerY": 0,
+          "fit": "contain",
+          "position": "50% 50%"
+        }
+      ],
+      "deleteCancelAndConfirm": true,
+      "fullWidthDelete": true,
+      "noRedundantTitle": true,
+      "width": 320,
+      "locale": "zh-TW",
+      "portraits": [
+        {
+          "left": 10,
+          "width": 72,
+          "height": 100,
+          "contain": "contain",
+          "cardHeight": 386.796875
+        },
+        {
+          "left": 10,
+          "width": 72,
+          "height": 100,
+          "contain": "contain",
+          "cardHeight": 387.5
+        },
+        {
+          "left": 10,
+          "width": 72,
+          "height": 100,
+          "contain": "contain",
+          "cardHeight": 452.5625
+        },
+        {
+          "left": 10,
+          "width": 72,
+          "height": 100,
+          "contain": "contain",
+          "cardHeight": 235.25
+        }
+      ],
+      "cardHeightUnchanged": true,
+      "onlyDeleteAction": true,
+      "keyboardAndCancel": true,
+      "favoriteSyncBothDirections": true,
+      "favoriteDoesNotSelect": true,
+      "desktopGap": null,
+      "noHorizontalOverflow": true
+    },
+    {
+      "imageChecks": [
+        {
+          "id": "10000",
+          "naturalWidth": 106,
+          "naturalHeight": 106,
+          "w": 106,
+          "h": 106,
+          "left": 13,
+          "top": 13,
+          "centerX": 0,
+          "centerY": 0,
+          "fit": "contain",
+          "position": "50% 50%"
+        },
+        {
+          "id": "10002",
+          "naturalWidth": 107,
+          "naturalHeight": 107,
+          "w": 106,
+          "h": 106,
+          "left": 13,
+          "top": 13,
+          "centerX": 0,
+          "centerY": 0,
+          "fit": "contain",
+          "position": "50% 50%"
+        },
+        {
+          "id": "10007",
+          "naturalWidth": 107,
+          "naturalHeight": 107,
+          "w": 106,
+          "h": 106,
+          "left": 13,
+          "top": 13,
+          "centerX": 0,
+          "centerY": 0,
+          "fit": "contain",
+          "position": "50% 50%"
+        }
+      ],
+      "deleteCancelAndConfirm": true,
+      "fullWidthDelete": true,
+      "noRedundantTitle": true,
+      "width": 320,
+      "locale": "zh-CN",
+      "portraits": [
+        {
+          "left": 10,
+          "width": 72,
+          "height": 100,
+          "contain": "contain",
+          "cardHeight": 386.796875
+        },
+        {
+          "left": 10,
+          "width": 72,
+          "height": 100,
+          "contain": "contain",
+          "cardHeight": 387.5
+        },
+        {
+          "left": 10,
+          "width": 72,
+          "height": 100,
+          "contain": "contain",
+          "cardHeight": 452.5625
+        },
+        {
+          "left": 10,
+          "width": 72,
+          "height": 100,
+          "contain": "contain",
+          "cardHeight": 235.25
+        }
+      ],
+      "cardHeightUnchanged": true,
+      "onlyDeleteAction": true,
+      "keyboardAndCancel": true,
+      "favoriteSyncBothDirections": true,
+      "favoriteDoesNotSelect": true,
+      "desktopGap": null,
+      "noHorizontalOverflow": true
+    },
+    {
+      "imageChecks": [
+        {
+          "id": "10000",
+          "naturalWidth": 106,
+          "naturalHeight": 106,
+          "w": 106,
+          "h": 106,
+          "left": 13,
+          "top": 13,
+          "centerX": 0,
+          "centerY": 0,
+          "fit": "contain",
+          "position": "50% 50%"
+        },
+        {
+          "id": "10002",
+          "naturalWidth": 107,
+          "naturalHeight": 107,
+          "w": 106,
+          "h": 106,
+          "left": 13,
+          "top": 13,
+          "centerX": 0,
+          "centerY": 0,
+          "fit": "contain",
+          "position": "50% 50%"
+        },
+        {
+          "id": "10007",
+          "naturalWidth": 107,
+          "naturalHeight": 107,
+          "w": 106,
+          "h": 106,
+          "left": 13,
+          "top": 13,
+          "centerX": 0,
+          "centerY": 0,
+          "fit": "contain",
+          "position": "50% 50%"
+        }
+      ],
+      "deleteCancelAndConfirm": true,
+      "fullWidthDelete": true,
+      "noRedundantTitle": true,
+      "width": 320,
+      "locale": "en",
+      "portraits": [
+        {
+          "left": 10,
+          "width": 72,
+          "height": 100,
+          "contain": "contain",
+          "cardHeight": 451.859375
+        },
+        {
+          "left": 10,
+          "width": 72,
+          "height": 100,
+          "contain": "contain",
+          "cardHeight": 474.25
+        },
+        {
+          "left": 10,
+          "width": 72,
+          "height": 100,
+          "contain": "contain",
+          "cardHeight": 561
+        },
+        {
+          "left": 10,
+          "width": 72,
+          "height": 100,
+          "contain": "contain",
+          "cardHeight": 300.3125
+        }
+      ],
+      "cardHeightUnchanged": true,
+      "onlyDeleteAction": true,
+      "keyboardAndCancel": true,
+      "favoriteSyncBothDirections": true,
+      "favoriteDoesNotSelect": true,
+      "desktopGap": null,
+      "noHorizontalOverflow": true
+    }
+  ],
+  "pageErrors": [],
+  "synthetic": true,
+  "realDevice": false
+}

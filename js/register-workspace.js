@@ -22,12 +22,7 @@ document.addEventListener('DOMContentLoaded',function(){
     function roleLink(r,pos,id){const u=new URLSearchParams({view:'register',roleid:r.roleId,lang:i18n.locale});if(pos){u.set('selectedPosition',pos);u.set('selectedEcho',id);}return (r.isImport?'mccost-readonly.html':'mccost.html')+'?'+u;}
     function back(){const safe=RegisterNavigation.safeReturn(params.get('returnTo')||(mode==='library'?librarySaved.returnTo:null),location.href);if(safe){const u=new URL(safe,location.href),target=u.searchParams.get('roleid');if(target&&!data.role.some(r=>String(r.roleId)===target))return 'index.html?view=register&lang='+i18n.locale;if(!record||!target||target===String(record.roleId)){u.searchParams.set('lang',i18n.locale);return u.pathname+u.search;}}if(mode==='echo'&&!record)return url('library');const pos=echo?record?.costList.findIndex(e=>String(e.costId)===echoId)+1:Number(params.get('selectedPosition'));return record?roleLink(record,pos,echo?.costId||params.get('selectedEcho')):'index.html?view=register&lang='+i18n.locale;}
     if(mode==='import'){
-        RegisterImportWorkbench.mount({host,i18n,core,service:importer,normalize,catalog:roleList,mapRole:(id,label)=>{
-            const matches=roleList.filter(r=>r.gid!==0&&String(r.gid)===String(id));
-            if(matches.length===1)return matches[0].id;if(matches.length>1)return null;
-            const mapped=mappingRoleId(id,label),entry=roleList.find(r=>String(r.id)===String(mapped));
-            return entry&&String(entry.name).replace(/[·・\-\s（）()]/g,'')===String(label||'').replace(/[·・\-\s（）()]/g,'')?entry.id:null;
-        },record,params,roleLink,back});return;
+        RegisterImportWorkbench.mount({host,i18n,core,service:importer,normalize,catalog:roleList,mapRole:mappingOfficialRoleId,record,params,roleLink,back});return;
     }
     const mains={Cost1:['攻击18%','生命22.8%','防御18%'],Cost3:['攻击力30%','生命30%','防御38%','共鸣效率32%','属伤30%',...['导电','衍射','湮灭','气动','热熔','冷凝'].map(x=>x+'伤害30%')],Cost4:['暴击22%','暴伤44%','攻击力33%','生命33%','防御41.8%','治疗26.4%']};
     function mainLabel(raw,type){const dummy={roleId:1,roleListId:1,costList:[{type,mainAtrri:raw,propertyList:[]}]};const stat=normalize(dummy).slots[0].echo.mainStat;return tr('stats.'+stat.key)+' '+esc(i18n.format.percentage(stat.value));}

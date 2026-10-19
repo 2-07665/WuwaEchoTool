@@ -1,0 +1,17 @@
+{
+  "zipName": "WuwaEchoTool_ChatGPT_Full_20261015_1426.zip",
+  "zipPath": "C:\\Users\\user\\Downloads\\WuwaEchoTool_ChatGPT_Full_20261015_1426.zip",
+  "bytes": 97823304,
+  "mib": 93.29157257080078,
+  "files": 922,
+  "payloadChecksums": 920,
+  "originalFiles": 883,
+  "byteIdenticalOriginals": 882,
+  "sanitizedFiles": [
+    "js/base.js"
+  ],
+  "crcAndShaVerified": true,
+  "sha256": "31ebfa6ebbf63b3e197fbe08d6e44f97cfed0fe100a01fd4566b534534183587",
+  "localTime": "202610151426",
+  "temporaryDirectoriesRemoved": true
+}
