@@ -2618,84 +2618,84 @@ const rows={
 };
 Object.assign(rows,{
   "abyss": [
-    "非酋",
-    "非酋",
-    "Against the Tide"
+    "永夜非酋王",
+    "永夜非酋王",
+    "Eternal Night Chief"
   ],
   "headwind": [
-    "大非",
-    "大非",
-    "Rough Waters"
+    "非酋大祭司",
+    "非酋大祭司",
+    "High Priest of Misfortune"
   ],
   "breeze": [
-    "小非",
-    "小非",
-    "Gentle Headwind"
+    "非酋部族新秀",
+    "非酋部族新秀",
+    "Misfortune Clan Initiate"
   ],
   "steady": [
-    "平常心",
-    "平常心",
-    "Steady Seas"
+    "歐非中立領主",
+    "欧非中立领主",
+    "Neutral Lord of Fortune"
   ],
   "lucky": [
-    "小歐",
-    "小欧",
-    "Fair Winds"
+    "歐氣榮譽貴族",
+    "欧气荣誉贵族",
+    "Honorary Noble of Fortune"
   ],
   "radiant": [
-    "大歐",
-    "大欧",
-    "Rising Star"
+    "歐氣至尊親王",
+    "欧气至尊亲王",
+    "Supreme Prince of Fortune"
   ],
   "star": [
-    "歐皇",
-    "欧皇",
-    "Fortune’s Favorite"
+    "歐皇大帝",
+    "欧皇大帝",
+    "Great Emperor of Fortune"
   ],
   "fate": [
-    "天選歐皇",
-    "天选欧皇",
-    "Chosen by the Stars"
+    "神眷至高歐皇",
+    "神眷至高欧皇",
+    "Divine Supreme Emperor of Fortune"
   ],
   "abyss.desc": [
-    "逆風中的共鳴，記錄仍有起伏。",
-    "逆风中的共鸣，记录仍有起伏。",
-    "Resonance against the tide; fortune can change."
+    "第 1/8 階 · 最非（由非到歐）。逆風中的共鳴，記錄仍有起伏。",
+    "第 1/8 阶 · 最非（由非到欧）。逆风中的共鸣，记录仍有起伏。",
+    "Tier 1/8 · Unluckiest. Higher is luckier; fortune can change."
   ],
   "headwind.desc": [
-    "這段旅程的等待較長。",
-    "这段旅程的等待较长。",
-    "A longer wait on this stretch of the journey."
+    "第 2/8 階（由非到歐）。這段旅程的等待較長。",
+    "第 2/8 阶（由非到欧）。这段旅程的等待较长。",
+    "Tier 2/8 · Higher is luckier. A longer wait on this journey."
   ],
   "breeze.desc": [
-    "微逆風，靜待下一次共鳴。",
-    "微逆风，静待下一次共鸣。",
-    "A little headwind along the way."
+    "第 3/8 階（由非到歐）。微逆風，靜待下一次共鳴。",
+    "第 3/8 阶（由非到欧）。微逆风，静待下一次共鸣。",
+    "Tier 3/8 · Higher is luckier. A little headwind along the way."
   ],
   "steady.desc": [
-    "潮起潮落，平常心以待。",
-    "潮起潮落，平常心以待。",
-    "Taking the ebb and flow in stride."
+    "第 4/8 階（由非到歐）。歐氣與非氣，在這段記錄中保持均衡。",
+    "第 4/8 阶（由非到欧）。欧气与非气，在这段记录中保持均衡。",
+    "Tier 4/8 · Higher is luckier. Good and bad luck balance out."
   ],
   "lucky.desc": [
-    "順風的共鳴，留下一點驚喜。",
-    "顺风的共鸣，留下一点惊喜。",
-    "A welcome touch of good fortune."
+    "第 5/8 階（由非到歐）。順風的共鳴，留下一點驚喜。",
+    "第 5/8 阶（由非到欧）。顺风的共鸣，留下一点惊喜。",
+    "Tier 5/8 · Higher is luckier. A welcome touch of good fortune."
   ],
   "radiant.desc": [
-    "星軌明亮，共鳴頻頻回響。",
-    "星轨明亮，共鸣频频回响。",
-    "Bright star trails and fortunate echoes."
+    "第 6/8 階（由非到歐）。星軌明亮，共鳴頻頻回響。",
+    "第 6/8 阶（由非到欧）。星轨明亮，共鸣频频回响。",
+    "Tier 6/8 · Higher is luckier. Bright trails and fortunate echoes."
   ],
   "star.desc": [
-    "好運在這段記錄中閃耀。",
-    "好运在这段记录中闪耀。",
-    "Fortune shines through these records."
+    "第 7/8 階（由非到歐）。好運在這段記錄中閃耀。",
+    "第 7/8 阶（由非到欧）。好运在这段记录中闪耀。",
+    "Tier 7/8 · Higher is luckier. Fortune shines through these records."
   ],
   "fate.desc": [
-    "星辰相應，仍以樣本為證。",
-    "星辰相应，仍以样本为证。",
-    "An exceptional run, grounded in the evidence."
+    "第 8/8 階 · 最歐（由非到歐）。星辰相應，仍以樣本為證。",
+    "第 8/8 阶 · 最欧（由非到欧）。星辰相应，仍以样本为证。",
+    "Tier 8/8 · Luckiest. An exceptional run, grounded in evidence."
   ],
   "evaluation.noRecords": [
     "無記錄",
