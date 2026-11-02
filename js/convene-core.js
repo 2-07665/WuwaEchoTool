@@ -66,6 +66,56 @@ function achievementDetails(stats){
  const copies=new Map();let seven=[];for(const r of stats.five.filter(isCharacter)){copies.set(r.item,(copies.get(r.item)||0)+1);if(copies.get(r.item)===7)seven.push(r);}add('seven',1,seven);
  add('collab',1,stats.five.filter(r=>[101,102].includes(r.pool)));add('weaponGold',1,stats.five.filter(isWeapon));add('fourCollect',30,rows.filter(r=>r.rank===4));
  const months=new Set(),monthEvents=rows.filter(r=>!months.has(r.time.slice(0,7))&&months.add(r.time.slice(0,7)));add('months',6,monthEvents);
+ // 连胜/连歪只看普通限定池已确认的小保；大保底不算小保机会，未知、冲突和断档打断连续性。
+ let bestWins=0,bestLosses=0,bestEarly20=0,bestEarly10=0,bestOnes=0;
+ const win3=[],win5=[],win7=[],loss3=[],afterPity=[],twinStars=[],earlyFour=[],earlyFive=[],threeGold=[],fourGold=[];
+ const confirmedWins=stats.five.filter(r=>r.pool===1&&!r.conflict&&!r.anomaly&&r.effectiveResult==='win');
+ const opportunities=stats.five.filter(r=>r.pool===1&&!r.conflict&&!r.anomaly&&['win','loss'].includes(r.effectiveResult));
+ for(const p of stats.pools){
+  if(!POOLS[p.pool]?.repeat||!POOLS[p.pool]?.hard)continue;
+  let wins=0,losses=0,early20=0,early10=0,ones=0;
+  for(let i=0;i<p.five.length;i++){
+   const r=p.five[i],prev=p.five[i-1],continuous=prev&&r.segment>=0&&r.segment===prev.segment&&r.interval!=null;
+   if(!continuous){wins=0;losses=0;early20=0;early10=0;ones=0;}
+   // 连续间隔必须完整有效，并在同一保底组与连续区间；首金下限、异常均不计入。
+   const exact=r.segment>=0&&r.interval!=null&&!r.anomaly;
+   early20=exact&&r.interval<=20?early20+1:0;
+   early10=exact&&r.interval<=10?early10+1:0;
+   ones=exact&&r.interval===1?ones+1:0;
+   bestEarly20=Math.max(bestEarly20,early20);bestEarly10=Math.max(bestEarly10,early10);bestOnes=Math.max(bestOnes,ones);
+   if(early20===4)earlyFour.push(r);
+   if(early10===5)earlyFive.push(r);
+   if(ones===2)threeGold.push(r);
+   if(ones===3)fourGold.push(r);
+   if(continuous&&!r.anomaly&&!prev.anomaly&&prev.interval!=null){
+    if(prev.interval>=75&&r.interval<=10)afterPity.push(r);
+    if(prev.interval+r.interval<=10)twinStars.push(r);
+   }
+   if(p.pool!==1)continue;
+   if(r.segment<0||r.anomaly||r.conflict||!['win','loss','guarantee'].includes(r.effectiveResult)){wins=0;losses=0;continue;}
+   if(r.effectiveResult==='win'){wins++;losses=0;}
+   else if(r.effectiveResult==='loss'){losses++;wins=0;}
+   bestWins=Math.max(bestWins,wins);bestLosses=Math.max(bestLosses,losses);
+   if(r.effectiveResult==='win'&&wins===3)win3.push(r);
+   if(r.effectiveResult==='win'&&wins===5)win5.push(r);
+   if(r.effectiveResult==='win'&&wins===7)win7.push(r);
+   if(r.effectiveResult==='loss'&&losses===3)loss3.push(r);
+  }
+ }
+ // 连续成就显示最长连续机会数，日期取首次达标事件；累计成就继续使用既有事件计数。
+ const addRun=(key,target,best,events,known=opportunities.length>0)=>{const date=events.slice().sort(order)[0]?.time||null;out.push({key,target,progress:known?Math.min(target,best):null,state:date?'unlocked':known?'notReached':'insufficient',date});};
+ addRun('upWin3',3,bestWins,win3);addRun('upWin5',5,bestWins,win5);addRun('upLoss3',3,bestLosses,loss3);
+ add('afterPity',1,afterPity,valid.length>=2);add('twinStars',1,twinStars,valid.length>=2);
+ add('upWin10',10,confirmedWins,opportunities.length>0);
+ add('fiveCharacters10',10,unique(r=>r.rank===5&&isCharacter(r)));add('months12',12,monthEvents);
+ addRun('early4',4,bestEarly20,earlyFour,valid.length>0);
+ addRun('consecutive2',2,bestOnes,threeGold,valid.length>0);
+ add('afterPity3',3,afterPity,valid.length>=2);
+ add('fiveCharacters20',20,unique(r=>r.rank===5&&isCharacter(r)));
+ addRun('upWin7',7,bestWins,win7);
+ addRun('early5',5,bestEarly10,earlyFive,valid.length>0);
+ addRun('consecutive3',3,bestOnes,fourGold,valid.length>0);
+ add('afterPity7',7,afterPity,valid.length>=2);
  return out;
 }
 function ratingDetails(stats){const l=stats.luck;return {...l,rules:RATING_RULES,eligiblePulls:stats.pools.filter(p=>p.rule.repeat).reduce((n,p)=>n+p.total,0),reason:l.status==='noRecords'?'noIntervals':l.status==='insufficient'?'smallSample':l.reasons.includes('topGate')?'topGate':l.status==='provisional'?'coverageGate':'qualified',censored:stats.five.filter(f=>f.interval==null).length,gaps:stats.pools.reduce((n,p)=>n+p.gaps,0),excluded:stats.five.filter(f=>f.interval==null||!POOLS[f.pool]?.repeat||!POOLS[f.pool]?.hard||f.anomaly).map(f=>({id:f.id,pool:f.pool,time:f.time,reason:f.anomaly?'intervalAnomaly':!POOLS[f.pool]?.repeat||!POOLS[f.pool]?.hard?'unsupportedPool':'unknownInterval'}))};}

@@ -1,0 +1,54 @@
+{
+  "flows": [
+    {
+      "width": 1440,
+      "locale": "zh-CN",
+      "count": 42,
+      "storageUnchanged": true,
+      "svgCanvas": 42,
+      "shares": 2
+    },
+    {
+      "width": 1440,
+      "locale": "zh-TW",
+      "count": 42,
+      "storageUnchanged": true,
+      "svgCanvas": 42,
+      "shares": 2
+    },
+    {
+      "width": 1440,
+      "locale": "en",
+      "count": 42,
+      "storageUnchanged": true,
+      "svgCanvas": 42,
+      "shares": 2
+    },
+    {
+      "width": 390,
+      "locale": "zh-CN",
+      "count": 42,
+      "storageUnchanged": true,
+      "svgCanvas": 42,
+      "shares": 2
+    },
+    {
+      "width": 390,
+      "locale": "zh-TW",
+      "count": 42,
+      "storageUnchanged": true,
+      "svgCanvas": 42,
+      "shares": 2
+    },
+    {
+      "width": 390,
+      "locale": "en",
+      "count": 42,
+      "storageUnchanged": true,
+      "svgCanvas": 42,
+      "shares": 2
+    }
+  ],
+  "pageErrors": [],
+  "allDataSynthetic": true
+}

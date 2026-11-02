@@ -2617,6 +2617,108 @@ const rows={
   ]
 };
 Object.assign(rows,{
+  "afterPity7": ["破曉神諭", "破晓神谕", "Oracle of Dawn"],
+  "condition.afterPity7": [
+    "累計 7 次苦盡星來：有效普通池同一連續區間，相鄰兩個完整五星間隔先達 75 抽以上，再不超過 10 抽。",
+    "累计 7 次苦尽星来：有效普通池同一连续区间，相邻两个完整五星间隔先达 75 抽以上，再不超过 10 抽。",
+    "Accumulate 7 Stars After Hardship events: in a continuous standard-mechanism pool segment, an interval of at least 75 pulls is immediately followed by one of at most 10. Both must be complete."
+  ],
+  "rarity.mythic": ["神話", "神话", "Mythic"],
+  "early4": ["群星連奏", "群星连奏", "Stellar Quartet"],
+  "condition.early4": [
+    "有效普通池同一連續區間，連續 4 個完整五星間隔均不超過 20 抽；缺口或異常中斷連續。",
+    "有效普通池同一连续区间，连续 4 个完整五星间隔均不超过 20 抽；缺口或异常中断连续。",
+    "In one continuous standard-mechanism pool segment, record 4 consecutive complete five-star intervals of at most 20 pulls. Gaps or anomalies break the streak."
+  ],
+  "consecutive2": ["三金接力", "三金接力", "Triple-Gold Relay"],
+  "condition.consecutive2": [
+    "有效普通池同一連續區間，連續兩個完整五星間隔均為 1 抽，即連續三抽出金；不代表同一十連。",
+    "有效普通池同一连续区间，连续两个完整五星间隔均为 1 抽，即连续三抽出金；不代表同一十连。",
+    "In one continuous standard-mechanism pool segment, record 2 consecutive complete one-pull five-star intervals: three five-stars in three successive pulls, not necessarily one ten-pull batch."
+  ],
+  "afterPity3": ["破曉長歌", "破晓长歌", "Dawn’s Refrain"],
+  "condition.afterPity3": [
+    "累計 3 次苦盡星來：有效普通池同一連續區間，相鄰兩個完整五星間隔先達 75 抽以上，再不超過 10 抽。",
+    "累计 3 次苦尽星来：有效普通池同一连续区间，相邻两个完整五星间隔先达 75 抽以上，再不超过 10 抽。",
+    "Accumulate 3 Stars After Hardship events: in a continuous standard-mechanism pool segment, an interval of at least 75 pulls is immediately followed by one of at most 10. Both must be complete."
+  ],
+  "fiveCharacters20": ["群星殿堂", "群星殿堂", "Hall of Stars"],
+  "condition.fiveCharacters20": [
+    "紀錄中取得 20 位不同五星角色；同一角色重複取得只計一位。",
+    "记录中取得 20 位不同五星角色；同一角色重复取得只计一位。",
+    "Record 20 distinct five-star Resonators. Repeated acquisitions of the same Resonator count once."
+  ],
+  "upWin7": ["不敗歐皇", "不败欧皇", "Undefeated Emperor"],
+  "condition.upWin7": [
+    "普通限定角色池同一連續區間，連續 7 次已確認的小保命中 UP；大保底不計次，未知、衝突或缺口中斷連續。",
+    "普通限定角色池同一连续区间，连续 7 次已确认的小保命中 UP；大保底不计次，未知、冲突或缺口中断连续。",
+    "Win 7 consecutive confirmed 50/50s in one continuous featured Resonator pool segment. Guarantees do not count; unknowns, conflicts or gaps break the streak."
+  ],
+  "early5": ["群星俯首", "群星俯首", "Stars Bow Before You"],
+  "condition.early5": [
+    "有效普通池同一連續區間，連續 5 個完整五星間隔均不超過 10 抽；缺口或異常中斷連續。",
+    "有效普通池同一连续区间，连续 5 个完整五星间隔均不超过 10 抽；缺口或异常中断连续。",
+    "In one continuous standard-mechanism pool segment, record 5 consecutive complete five-star intervals of at most 10 pulls. Gaps or anomalies break the streak."
+  ],
+  "consecutive3": ["四曜神蹟", "四曜神迹", "Fourfold Miracle"],
+  "condition.consecutive3": [
+    "有效普通池同一連續區間，連續三個完整五星間隔均為 1 抽，即連續四抽出金；不代表同一十連。",
+    "有效普通池同一连续区间，连续三个完整五星间隔均为 1 抽，即连续四抽出金；不代表同一十连。",
+    "In one continuous standard-mechanism pool segment, record 3 consecutive complete one-pull five-star intervals: four five-stars in four successive pulls, not necessarily one ten-pull batch."
+  ],
+  "achievementVisualGuide": [
+    "主圖案對應成就內容，相關進階成就沿用同一主題；外框與金屬色表示稀有度。",
+    "主图案对应成就内容，相关进阶成就沿用同一主题；外框与金属色表示稀有度。",
+    "Symbols represent achievement conditions; related milestones share a theme. Frames and metal colors indicate rarity."
+  ],
+  "upWin3": ["三連不歪", "三连不歪", "Three Straight UP Wins"],
+  "condition.upWin3": [
+    "普通限定角色池同一連續區間，連續 3 次已確認的小保命中 UP；大保底不計次，未知或缺口中斷連續。",
+    "普通限定角色池同一连续区间，连续 3 次已确认的小保命中 UP；大保底不计次，未知或缺口中断连续。",
+    "Win 3 consecutive confirmed 50/50s in one continuous featured Resonator pool segment. Guarantees do not count; unknowns or gaps break the streak."
+  ],
+  "upWin5": ["歐皇巡禮", "欧皇巡礼", "Emperor’s Pilgrimage"],
+  "condition.upWin5": [
+    "普通限定角色池同一連續區間，連續 5 次已確認的小保命中 UP；大保底不計次，未知或缺口中斷連續。",
+    "普通限定角色池同一连续区间，连续 5 次已确认的小保命中 UP；大保底不计次，未知或缺口中断连续。",
+    "Win 5 consecutive confirmed 50/50s in one continuous featured Resonator pool segment. Guarantees do not count; unknowns or gaps break the streak."
+  ],
+  "upLoss3": ["命運逆流", "命运逆流", "Against Destiny"],
+  "condition.upLoss3": [
+    "普通限定角色池同一連續區間，連續 3 次已確認的小保歪出；中間的大保底不計次，未知或缺口中斷連續。",
+    "普通限定角色池同一连续区间，连续 3 次已确认的小保歪出；中间的大保底不计次，未知或缺口中断连续。",
+    "Lose 3 consecutive confirmed 50/50s in one continuous featured Resonator pool segment. Intervening guarantees do not count; unknowns or gaps break the streak."
+  ],
+  "afterPity": ["苦盡星來", "苦尽星来", "Stars After Hardship"],
+  "condition.afterPity": [
+    "有效普通池同一連續區間，相鄰兩個完整五星間隔先達 75 抽以上，再不超過 10 抽。",
+    "有效普通池同一连续区间，相邻两个完整五星间隔先达 75 抽以上，再不超过 10 抽。",
+    "In one continuous standard-mechanism pool segment, two adjacent complete five-star intervals are first at least 75 pulls, then at most 10."
+  ],
+  "twinStars": ["雙星交輝", "双星交辉", "Twin-Star Radiance"],
+  "condition.twinStars": [
+    "有效普通池同一連續區間，相鄰兩個完整五星間隔合計不超過 10 抽；不代表同一十連。",
+    "有效普通池同一连续区间，相邻两个完整五星间隔合计不超过 10 抽；不代表同一十连。",
+    "In one continuous standard-mechanism pool segment, two adjacent complete five-star intervals total at most 10 pulls. This does not imply one ten-pull batch."
+  ],
+  "upWin10": ["百折不歪", "百折不歪", "Unwavering Fortune"],
+  "condition.upWin10": [
+    "普通限定角色池累計 10 次已確認的小保命中 UP，不要求連續；大保底與未知結果不計。",
+    "普通限定角色池累计 10 次已确认的小保命中 UP，不要求连续；大保底与未知结果不计。",
+    "Accumulate 10 confirmed 50/50 wins in the featured Resonator pool, not necessarily consecutive. Guarantees and unknown results do not count."
+  ],
+  "fiveCharacters10": ["群星旅伴", "群星旅伴", "Starbound Companions"],
+  "condition.fiveCharacters10": [
+    "紀錄中取得 10 位不同五星角色；同一角色重複取得只計一位。",
+    "记录中取得 10 位不同五星角色；同一角色重复取得只计一位。",
+    "Record 10 distinct five-star Resonators. Repeated acquisitions of the same Resonator count once."
+  ],
+  "months12": ["歲月留聲", "岁月留声", "Echoes of a Year"],
+  "condition.months12": [
+    "紀錄涵蓋 12 個不同月份，不要求連續；不代表登入天數。",
+    "记录涵盖 12 个不同月份，不要求连续；不代表登入天数。",
+    "Save records from 12 distinct months, not necessarily consecutive. This is not a login-day count."
+  ],
   "abyss": [
     "永夜非酋王",
     "永夜非酋王",

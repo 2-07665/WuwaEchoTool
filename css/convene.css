@@ -403,12 +403,15 @@ body.convene-page{background:#0e181c;color:#e8eee7;color-scheme:dark}
 @media(prefers-reduced-motion:reduce){#convene-app .cv-engraving,#convene-app .cv-badge{animation:none}}
 
 /* Collection room: shelves, medal plinths and difficulty metadata. */
-#convene-app .cv-vault-header{display:flex;justify-content:space-between;align-items:center;gap:24px;padding:30px 0 35px;border-bottom:1px solid #66847a66;margin-bottom:36px}
-#convene-app .cv-vault-header h1{font-size:32px;margin:10px 0}
-#convene-app .cv-vault-header>div>small{letter-spacing:4px;color:#b9cfc3}
-#convene-app .cv-vault-count{display:flex;flex-direction:column;flex-shrink:0;text-align:right}
-#convene-app .cv-vault-count strong{font-size:54px;color:#e4cf98;font-weight:500}
-#convene-app .cv-vault-count strong small{font-size:18px}
+#convene-app .cv-vault-header{display:flex;justify-content:flex-end;align-items:center;gap:16px;margin-bottom:20px}
+#convene-app .cv-vault-count{display:flex;align-items:center;gap:12px;flex-shrink:0}
+#convene-app .cv-vault-count>span{font-size:12px;color:#aebfba}
+#convene-app .cv-vault-count strong{font-size:30px;line-height:1.2;color:#e4cf98;font-weight:500;font-variant-numeric:tabular-nums}
+#convene-app .cv-vault-count strong small{font-size:14px;color:#aebfba}
+#convene-app .cv-vault-header>progress{appearance:none;width:112px;height:4px;border:0;border-radius:4px;overflow:hidden;background:#294039;color:#e4cf98;accent-color:#e4cf98}
+#convene-app .cv-vault-header>progress::-webkit-progress-bar{background:#294039}
+#convene-app .cv-vault-header>progress::-webkit-progress-value{background:#e4cf98;border-radius:4px}
+#convene-app .cv-vault-header>progress::-moz-progress-bar{background:#e4cf98;border-radius:4px}
 #convene-app .cv-vault-shelf{--shelf:#a7bfb6;margin-bottom:42px}
 #convene-app .cv-vault-shelf[data-rarity-shelf=legendary]{--shelf:#e5c47b}
 #convene-app .cv-vault-shelf[data-rarity-shelf=epic]{--shelf:#c6a5e3}
@@ -434,11 +437,9 @@ body.convene-page{background:#0e181c;color:#e8eee7;color-scheme:dark}
 @media(max-width:700px){
  #convene-app .cv-tabs{grid-template-columns:repeat(5,minmax(0,1fr));gap:4px}
  #convene-app .cv-tabs button{font-size:11px;overflow-wrap:anywhere;line-height:1.45;padding:12px 2px}
- #convene-app .cv-vault-header{gap:14px;padding:12px 0 24px;margin-bottom:24px}
- #convene-app .cv-vault-header h1{font-size:25px}
- #convene-app .cv-vault-header p{font-size:11px}
- #convene-app .cv-vault-header>div>small{font-size:8px;letter-spacing:2px}
- #convene-app .cv-vault-count strong{font-size:38px}
+ #convene-app .cv-vault-header{gap:12px;margin-bottom:16px}
+ #convene-app .cv-vault-count strong{font-size:26px}
+ #convene-app .cv-vault-header>progress{width:88px}
  #convene-app .cv-vault-grid{grid-template-columns:repeat(2,minmax(0,1fr));gap:12px}
  #convene-app .cv-collectible-top{padding:10px;font-size:9px;gap:5px}
  #convene-app .cv-trophy-plinth{height:133px}
@@ -506,6 +507,10 @@ body.convene-page{background:#0e181c;color:#e8eee7;color-scheme:dark}
 #convene-app [data-rarity=rare],#convene-app [data-rarity-shelf=rare]{--shelf:var(--cv-rarity-rare)}
 #convene-app [data-rarity=epic],#convene-app [data-rarity-shelf=epic]{--shelf:var(--cv-rarity-epic)}
 #convene-app [data-rarity=legendary],#convene-app [data-rarity-shelf=legendary]{--shelf:var(--cv-rarity-legendary)}
+#convene-app [data-rarity=mythic],#convene-app [data-rarity-shelf=mythic]{--shelf:var(--cv-rarity-mythic)}
+#convene-app .cv-collectible[data-rarity=mythic]{background:radial-gradient(ellipse at top left,#a9e4df0d,transparent 65%),radial-gradient(ellipse at bottom right,#bca7e012,transparent 65%),linear-gradient(155deg,#252d3c,#111f29)}
+#convene-app .cv-collectible[data-rarity=mythic][data-state=unlocked]{border-color:#d8d2ed99;box-shadow:inset 0 2px #eee8ff,0 14px 22px #0002}
+@media(min-width:1101px){#convene-app .cv-vault-shelf[data-rarity-shelf=mythic] .cv-vault-grid{grid-template-columns:repeat(4,minmax(0,1fr))}}
 #convene-app .cv-collectible-copy h3,#convene-app .cv-achievement-mini strong{color:var(--shelf)}
 #convene-app .cv-collectible:not([data-state=unlocked]) .cv-trophy-plinth svg{filter:saturate(.65) brightness(.78);opacity:.85}
 #convene-app .cv-collectible .cv-trophy-plinth{background:radial-gradient(ellipse at center,color-mix(in srgb,var(--shelf) 16%,transparent),transparent 70%);border-bottom:1px solid color-mix(in srgb,var(--shelf) 25%,transparent)}
