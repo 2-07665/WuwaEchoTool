@@ -17,6 +17,10 @@ for(const width of [1440,390,360])for(const locale of ['zh-TW','zh-CN','en']){
  A.ok(await page.evaluate(()=>document.documentElement.scrollWidth<=innerWidth+1));
  await page.screenshot({path:path.join(out,width+'-'+locale+'.png'),fullPage:true});
  await page.locator('[data-pool-card="1"] [data-focus-pool]').click();A.equal(await page.locator('[data-pool-rating]').count(),1);
+ const focused=page.locator('[data-pool-card="1"]');A.equal(await focused.locator('.cv-pool-actions button').count(),1);
+ if(width===1440)A.ok(await focused.evaluate(e=>{const rating=e.querySelector('.cv-pool-rating').getBoundingClientRect(),core=e.querySelector('.cv-pool-core').getBoundingClientRect();return rating.right<=core.left&&e.getBoundingClientRect().height<750;}),'desktop analysis groups information in two compact columns');
+ A.ok(await focused.evaluate(e=>{const card=e.getBoundingClientRect(),footer=e.querySelector('.cv-pool-bottom'),latest=footer.querySelector('.cv-pool-latest').getBoundingClientRect(),actions=footer.querySelector('.cv-pool-actions').getBoundingClientRect();return e.scrollWidth<=e.clientWidth+1&&actions.right<=card.right&&actions.bottom<=card.bottom&&!(actions.left<latest.right&&actions.right>latest.left&&actions.top<latest.bottom&&actions.bottom>latest.top);}));
+ if(locale==='zh-TW'||locale==='en')await focused.screenshot({path:path.join(out,width+'-'+locale+'-analysis-layout.png')});
  await page.locator('[data-view=overview]').first().click();await page.locator('[data-share=overall]').click();await page.locator('[data-png]:not([disabled])').waitFor();await page.locator('[data-close]').click();
  if(width===1440&&locale==='zh-TW'||width===390&&locale==='en')for(const pool of [1,2]){
   await page.locator('[data-share-pool="'+pool+'"]').click();

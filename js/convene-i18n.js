@@ -3037,6 +3037,15 @@ atlasUnranked:['尚未定階','尚未定阶','Not yet ranked'],
 atlasChainPosition:['第 {n} 階 / 7','第 {n} 阶 / 7','Tier {n} / 7'],
 atlasChainLevel:['目前共鳴鏈','当前共鸣链','Current Resonance Chain']
 });
+Object.assign(rows,{
+acqTitle:['角色抽取戰績','角色抽取战绩','Resonator pull record'],
+acqFastest:['單隻最低花費','单只最低花费','Lowest copy cost'],
+acqShare:['分享抽取戰績','分享抽取战绩','Share pull record'],
+acqCost:['抽取得本隻','抽取得本只','pulls for this copy'],
+acqManualCost:['手動補入／兌換','手动补入／兑换','Manual entry / exchange'],
+acqGoldInterval:['本次出金間隔','本次出金间隔','5-star interval'],
+acqCostRule:['取得花費包含可確認的中途歪出；出金間隔只計距離上一個五星的抽數。缺少紀錄顯示 —，手動補入與兌換不推算抽數。','取得花费包含可确认的中途歪出；出金间隔只计距离上一个五星的抽数。缺少记录显示 —，手动补入与兑换不推算抽数。','Copy cost includes verified lost chances. The 5-star interval counts pulls since the previous 5-star. Missing costs show —; manual entries and exchanges have no inferred cost.']
+});
 function create(locale='zh-CN'){const index={'zh-TW':0,'zh-CN':1,en:2}[locale]??1;return (key,params={})=>String(rows[key]?.[index]||key).replace(/\{(\w+)\}/g,(_,k)=>params[k]??'{'+k+'}');}
 function poolName(pool,t){return t((Core.POOLS[pool]?.key||'unknown')+'Pool')+(pool>=8&&pool<101?' '+pool:'');}
 return {rows,create,poolName};});

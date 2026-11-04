@@ -696,6 +696,51 @@ body.convene-page{background:#0e181c;color:#e8eee7;color-scheme:dark}
 #convene-info .cv-atlas-current-value>span{font-size:12px;color:#aec2c3}
 #convene-info .cv-atlas-current label{display:grid;gap:7px}
 #convene-info .cv-atlas-current select{width:min(100%,260px);min-width:0;min-height:40px;padding:8px 10px;border:1px solid #4b6468;border-radius:7px;background:#182e33;color:#e4eeee;font:inherit;color-scheme:dark}
+#convene-app .cv-acquisition-cards{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:14px;margin-top:22px}
+#convene-app .cv-acquisition-card{min-width:0;padding:18px;border:1px solid #52727c66;border-radius:10px;background:linear-gradient(145deg,#20353d,#12232d)}
+#convene-app .cv-acquisition-card-heading{display:flex;flex-wrap:wrap;gap:8px;justify-content:space-between;font-size:13px}
+#convene-app .cv-acquisition-card-heading>span{font-size:11px;color:#adc0c7}
+#convene-app .cv-acquisition-cost{display:flex;align-items:baseline;gap:9px;margin:16px 0 12px;flex-wrap:wrap}
+#convene-app .cv-acquisition-cost strong{font-size:38px;font-weight:500;color:#e5d5a9;line-height:1.1}
+#convene-app .cv-acquisition-cost span,#convene-app .cv-acquisition-interval,#convene-app .cv-acquisition-card time{font-size:12px;color:#adc0c7}
+#convene-app .cv-acquisition-interval b{color:#edf3ef;margin-left:7px;font-weight:500}
+#convene-app .cv-acquisition-card time{display:block;margin-top:12px}
+#convene-app .cv-pool-summary .cv-pool-rules{display:grid;grid-template-columns:minmax(0,1fr) minmax(0,1fr);gap:12px 18px}
+#convene-app .cv-pool-summary .cv-pool-rules dl{grid-column:1/-1;display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:14px;margin:0}
+#convene-app .cv-pool-summary .cv-pool-rules dl>div{display:block;margin:0;padding:14px 16px;background:#0b1c2455;border:1px solid #a8c5c51a;border-radius:8px}
+#convene-app .cv-pool-summary .cv-pool-rules dd{text-align:left;font-size:25px;margin:5px 0 0}
+#convene-app .cv-pool-summary .cv-pool-rules>progress{grid-column:1/-1;display:block;margin:0;height:6px;appearance:none;border:0;border-radius:6px;overflow:hidden;background:#0b1c24}
+#convene-app .cv-pool-summary .cv-pool-rules>progress::-webkit-progress-bar{background:#0b1c24;border-radius:6px}
+#convene-app .cv-pool-summary .cv-pool-rules>progress::-webkit-progress-value{background:var(--cv-accent);border-radius:6px}
+#convene-app .cv-pool-summary .cv-pool-rules>progress::-moz-progress-bar{background:var(--cv-accent);border-radius:6px}
+#convene-app .cv-pool-summary .cv-pool-rules p{margin:0;align-self:center}
+#convene-app .cv-pool-summary .cv-guarantee{grid-column:1;grid-row:3}
+#convene-app .cv-pool-summary .cv-remaining{grid-column:2;grid-row:3;text-align:right}
+#convene-app .cv-pool-summary .cv-pool-rate,#convene-app .cv-pool-summary .cv-pool-rules>.cv-uncertain,#convene-app .cv-pool-summary .cv-pool-rules>.cv-warning{grid-column:1/-1}
+#convene-app .cv-pool-summary .cv-pool-bottom{grid-template-columns:minmax(0,1fr) auto;align-items:center;gap:18px;padding:18px 12px 10px}
+#convene-app .cv-pool-summary .cv-pool-bottom .cv-pool-latest{display:grid;grid-column:auto;gap:4px;min-width:0;margin:0;padding:0}
+#convene-app .cv-pool-summary .cv-pool-latest strong{display:block;margin:0;font-size:21px}
+#convene-app .cv-pool-summary .cv-pool-latest>div{display:flex;align-items:baseline;gap:6px 16px}
+#convene-app .cv-pool-summary .cv-latest-interval{margin:0;font-size:13px}
+#convene-app .cv-pool-actions{display:flex;flex-wrap:wrap;justify-content:flex-end;gap:10px;max-width:100%}
+#convene-app .cv-pool-actions button{width:auto;min-width:150px}
+@media(min-width:1001px){
+ #convene-app .cv-focused-pool .cv-pool-summary[data-pool-tier]{grid-template-columns:minmax(0,.9fr) minmax(0,1.1fr);grid-template-rows:auto auto auto auto;gap:18px 28px;padding:30px}
+ #convene-app .cv-focused-pool .cv-pool-heading{grid-column:1/-1}
+ #convene-app .cv-focused-pool [data-pool-tier] .cv-pool-rating{grid-column:1;grid-row:2/5;grid-template-columns:110px minmax(0,1fr);align-content:center;gap:20px;padding:28px}
+ #convene-app .cv-focused-pool .cv-pool-rating>.cv-badge{width:110px;height:128px}
+ #convene-app .cv-focused-pool .cv-pool-rating-copy h4{font-size:27px}
+ #convene-app .cv-focused-pool .cv-pool-rating-score{grid-column:1/-1;font-size:64px;line-height:1.2;text-align:center}
+ #convene-app .cv-focused-pool .cv-pool-rating-score small{display:inline;margin-left:12px;font-size:14px}
+ #convene-app .cv-focused-pool [data-pool-tier] .cv-pool-core{grid-column:2;grid-row:2;grid-template-columns:minmax(0,1fr) minmax(0,1fr);gap:18px}
+ #convene-app .cv-focused-pool .cv-pool-summary[data-pool-tier] .cv-pool-art{height:170px}
+ #convene-app .cv-focused-pool [data-pool-tier] .cv-pool-rules{grid-column:2;grid-row:3}
+ #convene-app .cv-focused-pool [data-pool-tier] .cv-pool-bottom{grid-column:2;grid-row:4;padding:16px 8px 8px}
+ #convene-app .cv-focused-pool .cv-pool-numbers{gap:16px}
+ #convene-app .cv-focused-pool .cv-pool-summary .cv-pool-rules dl>div{padding:10px 14px}
+}
+@media(max-width:1000px){#convene-app .cv-pool-summary .cv-pool-bottom{grid-template-columns:minmax(0,1fr)}#convene-app .cv-pool-actions{justify-content:stretch}#convene-app .cv-pool-actions button{flex:1;min-width:0}#convene-app .cv-pool-summary .cv-pool-rules dl>div{padding:12px}#convene-app .cv-pool-summary .cv-remaining{font-size:11px}}
+@media(max-width:700px){#convene-app .cv-acquisition-cards{grid-template-columns:1fr 1fr;gap:10px}#convene-app .cv-acquisition-card{padding:14px}#convene-app .cv-acquisition-cost strong{font-size:32px}}
 @media(max-width:600px){#convene-info .cv-atlas-current{grid-template-columns:72px minmax(0,1fr);padding:18px 14px;gap:14px}#convene-info .cv-atlas-current>.cv-badge{width:72px;height:88px}#convene-info .cv-atlas-current h3{font-size:21px;margin:6px 0 9px}#convene-info .cv-atlas-current-value{grid-column:1/-1;display:flex;align-items:baseline;justify-content:space-between;gap:10px;min-width:0;text-align:left;border-left:0;border-top:1px solid #a8c9c222;padding:14px 0 0}#convene-info .cv-atlas-current-value strong{font-size:38px;margin-left:auto}#convene-info .cv-atlas-current-value small{max-width:55%}}
 @media(max-width:700px){#convene-info .cv-atlas-tabs{grid-template-columns:repeat(2,minmax(0,1fr))}#convene-info .cv-atlas-tabs button{font-size:12px;padding:10px 6px}#convene-info .cv-atlas-tier-heading>.cv-badge{width:72px;height:84px}#convene-info .cv-atlas-tier-heading h3{font-size:18px}#convene-info .cv-atlas-frame{height:135px}}
 #convene-app .cv-chain-card>.cv-chain-engraving{position:absolute;inset:0;width:100%;height:100%;z-index:2;color:var(--chain-accent);pointer-events:none}

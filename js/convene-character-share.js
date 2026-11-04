@@ -104,5 +104,29 @@ async function renderChain({collection=[],chain=null,mode='character',t,account=
  text(gallery?t('chainWall'):t('selfMade'),48,c.height-28,15,'#a9bec6',850);if(gallery)text((currentPage+1)+' / '+pages,1040,c.height-28,16,'#a9bec6',110);if(showUID&&account)text('UID '+Report.maskUID(account.uid),890,c.height-52,16,'#a9bec6',250);
  return {canvas:c,dataURL:c.toDataURL('image/png'),pages,page:currentPage,layout,items:rows.map(r=>r.item),mode};
 }
-return {render,renderJourney,renderChain};
+// 抽取战报沿用共鸣链称号与既有边框，逐次花费读取已验证归属模型。
+async function renderAcquisitions(options){
+ const {report,chain,t,account=null,showUID=false,page=0,document:doc=globalThis.document}=options;
+ if(!report||!chain||!report.total)throw Error('IMAGE_FAILED');
+ const keepsake=await renderChain({...options,mode:'character',showUID:false}),pages=Math.max(1,Math.ceil(report.entries.length/12)),currentPage=Math.min(Math.max(0,page),pages-1),rows=report.entries.slice(currentPage*12,currentPage*12+12),gridY=890,gap=16,cardW=352,cardH=158;
+ const c=doc.createElement('canvas');c.width=1200;c.height=gridY+Math.ceil(rows.length/3)*(cardH+gap)+70;const x=c.getContext('2d');if(!x)throw Error('IMAGE_FAILED');
+ const accent=Visuals.COLORS[chain.art],layout=[],muted='#adc0c7';
+ function text(value,px,py,size=22,color='#edf3ef',max=1088){let s=String(value),font=size;const set=()=>x.font='500 '+font+'px "Segoe UI","Microsoft JhengHei",sans-serif';set();while(x.measureText(s).width>max&&font>14){font--;set();}while(x.measureText(s).width>max&&s.length)s=s.slice(0,-1);x.fillStyle=color;x.fillText(s,px,py);layout.push({text:s,x:px,y:py,font,width:x.measureText(s).width,limit:max});}
+ const bg=x.createLinearGradient(0,0,1200,c.height);bg.addColorStop(0,'#1b303b');bg.addColorStop(1,'#0a1720');x.fillStyle=bg;x.fillRect(0,0,1200,c.height);x.drawImage(keepsake.canvas,0,0,720,810);
+ text(t('acqTitle'),750,130,30,accent,390);
+ const known=report.entries.filter(e=>!e.manual&&e.draws!=null),metrics=[['jKnownCost',report.knownDraws],['acqFastest',known.length?Math.min(...known.map(e=>e.draws)):null],['chainDrawnCount',report.drawnCount],['chainManualCount',report.manualCount]];
+ metrics.forEach(([key,v],i)=>{text(t(key),750,210+i*125,18,muted,390);text(number(v),750,267+i*125,46,'#edf3ef',390);});
+ if(report.missing)text(t('jMissingCount',{n:report.missing}),750,735,18,muted,390);text(t('allAcquisitions'),48,850,28,accent,900);text((currentPage+1)+' / '+pages,1040,850,20,muted,110);
+ rows.forEach((e,i)=>{const px=48+(i%3)*(cardW+gap),py=gridY+Math.floor(i/3)*(cardH+gap);x.fillStyle='#172c36';x.strokeStyle=accent+'55';x.beginPath();x.roundRect(px,py,cardW,cardH,10);x.fill();x.stroke();
+  text(t('acquisitionOrdinal',{n:e.ordinal}),px+18,py+30,18,muted,cardW-36);
+  const source=t(e.source==='coral'?'jSourceCoral':e.source==='history'?'jSourceHistory':'jSourceManual');
+  text(e.manual?'—':number(e.draws),px+18,py+82,42,e.manual?muted:'#e5d5a9',140);
+  text(e.manual?source:t('acqCost'),px+155,py+80,16,muted,cardW-173);
+  text(t('acqGoldInterval')+' · '+(e.manual?'—':number(e.interval)),px+18,py+115,16,muted,cardW-36);
+  text(e.time?e.time.slice(0,10):t('jDateUnknown'),px+18,py+141,16,muted,cardW-36);
+ });
+ text(t('archiveScope'),48,c.height-28,15,muted,810);if(showUID&&account)text('UID '+Report.maskUID(account.uid),890,c.height-28,16,muted,250);
+ return {canvas:c,dataURL:c.toDataURL('image/png'),pages,page:currentPage,layout,mode:'acquisitions',acquisitionIDs:rows.map(e=>e.id),costs:rows.map(e=>e.manual?null:e.draws),intervals:rows.map(e=>e.manual?null:e.interval)};
+}
+return {render,renderJourney,renderChain,renderAcquisitions};
 });
