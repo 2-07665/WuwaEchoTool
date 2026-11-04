@@ -13,10 +13,14 @@ for(const locale of ['zh-TW','zh-CN','en']){
  const views=env.RegisterSecondaryViews.create({i18n,esc:x=>String(x??''),name:(kind,id)=>kind+id,url:m=>m,normalize,summary:()=>'',roleLink:()=>'?roleid=1',catalog:env.api.costList,suites:{'光套':5}});
  let html=views.library(data,initial);assert.equal((html.match(/data-library-select=/g)||[]).length,1);assert.ok(html.includes(entry.imgCode));assert.doesNotMatch(html,/data-remove=/);
  html=views.library(data,{...initial,selected:'20',detailOpen:true,compareRole:'1',position:'1'});assert.equal((html.match(/class="rw-inspector /g)||[]).length,1);assert.match(html,/data-library-compare>/);assert.equal((html.match(/data-remove=/g)||[]).length,1);
- assert.equal((html.match(/class="rw-stat-cell"/g)||[]).length,6);assert.ok(html.includes(base.t('interaction.missingSubstat')));assert.doesNotMatch(html,/effective|rawContribution/);
+ assert.equal((html.match(/class="rw-stat-cell"/g)||[]).length,11);assert.ok(html.includes(base.t('interaction.missingSubstat')));assert.doesNotMatch(html,/effective|rawContribution/);
  for(const filter of [{search:'NO_MATCH'},{cost:'Cost4'},{suite:'不存在'},{main:'crit_damage'},{completeness:'complete'}])assert.doesNotMatch(views.library(data,{...initial,...filter}),/data-library-select=/);
  assert.match(views.library(data,{...initial,completeness:'incomplete'}),/data-library-select=/);
  html=views.library({...data,unusedEchoes:[echo,echo]},{...initial,selected:'20',compareRole:'1',position:'1'});assert.match(html,/data-library-compare disabled/);assert.match(html,/data-remove="20" disabled/);
+ const pair={...data,unusedEchoes:[echo,{...echo,costId:21,propertyList:[]}]};
+ html=views.library(pair,{...initial,compareIds:['20','21'],compareOpen:true});assert.match(html,/rw-library-compare-title/);assert.match(html,/rw-stat-difference/);assert.match(html,/<td>—<\/td>/);
+ assert.equal((views.library(pair,{...initial,usage:'used'}).match(/data-library-select=/g)||[]).length,1);
+ assert.equal((views.library(pair,{...initial,usage:'unused'}).match(/data-library-select=/g)||[]).length,1);
  html=views.backup({core:2,drafts:1,adoptions:0},{});assert.equal((html.match(/<details>/g)||[]).length,3);assert.doesNotMatch(html,/<details[^>]*open/);assert.equal((html.match(/data-restore-file=/g)||[]).length,3);
  const baseline={role:{catalogId:1},slots:[{echo:{catalogId:entry.id}}]},draft={id:'draft',targetSlot:1,candidate:{echo:{catalogId:entry.id}},updatedAt:1700000000000};
  html=views.history([{baseline,draft,record:data.role[0],validity:'stale',delta:null}],true);assert.match(html,/&draft=/);assert.ok(html.includes(base.t('dock.recompare')));

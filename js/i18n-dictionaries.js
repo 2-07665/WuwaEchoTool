@@ -1516,6 +1516,22 @@
         "sets.36":["鏡影流電之瞬","镜影流电之瞬","Flash of Electric Reflection"],
         "sets.37":["茜染懷想之花","茜染怀想之花","Flower of Tinged Yearning"]
     });
+    Object.assign(rows,{
+      'library.save':['儲存修改','保存修改','Save changes'],
+      'library.editHint':['修改後按儲存；關閉視窗會放棄未儲存內容。','修改后按保存；关闭窗口会放弃未保存内容。','Save to apply changes. Closing discards unsaved edits.'],
+      'library.saveFirst':['請先儲存修改，再裝備或比較。','请先保存修改，再装备或比较。','Save changes before equipping or comparing.'],
+      'library.editDetails':['聲骸資料','声骸资料','Echo details'],
+      'library.revert':['還原未儲存修改','还原未保存修改','Revert unsaved changes'],
+      'library.mark':['加入比較','加入比较','Compare'],
+      'library.usage':['使用狀態','使用状态','Usage'],
+      'library.used':['使用中','使用中','In use'],
+      'library.unused':['尚未使用','尚未使用','Unused'],
+      'library.selection':['聲骸比較清單','声骸比较清单','Echo comparison selection'],
+      'library.selected':['已選 {n} / 3 件','已选 {n} / 3 件','Selected {n} / 3'],
+      'library.clear':['清空選取','清空选取','Clear selection'],
+      'library.review':['比較所選聲骸','比较所选声骸','Compare selected Echoes'],
+      'library.similar':['找相同套裝與主詞條','找相同套装与主词条','Find matching set and main stat']
+    });
     rows['echoes.5']=['聲骸 #5（名稱待核）','声骸 #5（名称待核）','Echo #5 (name unverified)'];
     rows['searchAlias.echoes.5']=['冰墩墩','冰墩墩','冰墩墩'];
     return Object.freeze(Object.fromEntries(['zh-TW','zh-CN','en'].map((locale,i)=>[locale,Object.freeze(Object.fromEntries(Object.entries(rows).map(([key,text])=>[key,text[i]])))])));
