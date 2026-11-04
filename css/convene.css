@@ -534,3 +534,196 @@ body.convene-page{background:#0e181c;color:#e8eee7;color-scheme:dark}
  #convene-app .cv-pool-summary.cv-pool-card .cv-pool-art{height:310px;order:0}
  #convene-app .cv-engraving-mobile path:nth-child(3n){opacity:.3}
 }
+/* 限定池独立称号：两池沿用同一阶级视觉，各自控制主题。 */
+#convene-app .cv-limited-intro h2{margin:0 0 8px;font-size:26px}
+#convene-app .cv-limited-intro p{margin:0;color:#a9bdc6}
+#convene-app .cv-pool-rating{display:grid;grid-template-columns:78px minmax(0,1fr) auto;align-items:center;gap:12px;padding:18px 0;margin-bottom:12px;border-bottom:1px solid color-mix(in srgb,var(--cv-theme) 30%,transparent)}
+#convene-app .cv-pool-rating>.cv-badge{width:78px;height:88px}
+#convene-app .cv-pool-rating-copy{min-width:0}
+#convene-app .cv-pool-rating-copy h4{font-size:25px;line-height:1.35;color:var(--cv-accent);margin:5px 0;overflow-wrap:anywhere}
+#convene-app .cv-pool-rating-copy small,#convene-app .cv-pool-rating-copy p{font-size:12px;color:#acbfc9;margin:0}
+#convene-app .cv-pool-rating-score{font-size:36px;color:var(--cv-accent);font-variant-numeric:tabular-nums}
+#convene-app .cv-pool-rating-score small{display:block;text-align:right;font-size:12px;color:#acbfc9}
+#convene-app .cv-pool-rating-progress,#convene-app .cv-pool-rating-rules{grid-column:1/-1;margin:0;font-size:12px;color:#acbfc9;line-height:1.7}
+#convene-app .cv-pool-rating-rules summary{cursor:pointer;padding:4px 0}
+#convene-app .cv-aggregate-fortune>summary{cursor:pointer;color:#acbfc9;padding:16px 0}
+#convene-app .cv-aggregate-fortune .cv-evidence-summary{margin-top:16px}
+@media(max-width:600px){#convene-app .cv-pool-rating{grid-template-columns:60px minmax(0,1fr) auto;gap:10px}#convene-app .cv-pool-rating>.cv-badge{width:60px;height:76px}#convene-app .cv-pool-rating-copy h4{font-size:21px}#convene-app .cv-pool-rating-score{font-size:30px}}
+/* 总览保留整体主视觉；限定池采用评级、依据、抽取进度的分区。 */
+#convene-app .cv-pool-summary[data-pool-tier]{grid-template-rows:auto auto auto 1fr auto;gap:16px}
+#convene-app [data-pool-tier] .cv-pool-rating{padding:18px;margin:0;border:1px solid color-mix(in srgb,var(--cv-accent) 25%,transparent);border-radius:10px;background:linear-gradient(120deg,#0b1824b8,#17313960)}
+#convene-app .cv-pool-breakdown{grid-column:1/-1;display:grid;grid-template-columns:repeat(auto-fit,minmax(120px,1fr));gap:10px}
+#convene-app .cv-pool-breakdown>div{display:grid;grid-template-columns:1fr auto;align-items:baseline;gap:2px 8px;padding:10px 12px;background:#07141c66;border-radius:6px}
+#convene-app .cv-pool-breakdown span{grid-column:1/-1;font-size:11px;color:#a9bec6}
+#convene-app .cv-pool-breakdown strong{font-size:21px;font-weight:500}
+#convene-app .cv-pool-breakdown small{font-size:11px}
+#convene-app .cv-pool-summary[data-pool-tier] .cv-pool-art{height:190px}
+#convene-app [data-pool-tier] .cv-pool-bottom{grid-template-columns:1fr 1fr;gap:12px}
+#convene-app [data-pool-tier] .cv-pool-latest{grid-column:1/-1}
+#convene-app .cv-pool-share{min-height:44px;border-color:var(--cv-accent);color:var(--cv-accent)}
+@media(max-width:700px){#convene-app [data-pool-tier] .cv-pool-core{grid-template-columns:minmax(0,1fr) minmax(0,1fr)}#convene-app [data-pool-tier] .cv-pool-numbers{display:flex;align-items:stretch;gap:18px}#convene-app .cv-pool-summary[data-pool-tier] .cv-pool-art{height:180px}#convene-app [data-pool-tier] .cv-pool-rating{padding:12px}#convene-app [data-pool-tier] .cv-pool-bottom button{padding:10px 6px;font-size:12px}}
+/* 限定池使用独立阶级外框，不继承整体主卡的装饰密度。 */
+#convene-app .cv-pool-engraving{position:absolute;inset:0;width:100%;height:100%;pointer-events:none;color:var(--cv-accent);z-index:0;opacity:.9}
+#convene-app .cv-pool-engraving-mobile{display:none}
+#convene-app .cv-pool-summary[data-pool-tier]{border-radius:18px;border-color:color-mix(in srgb,var(--cv-accent) 50%,#273c42);box-shadow:inset 0 0 24px color-mix(in srgb,var(--cv-accent) 5%,transparent)}
+#convene-app .cv-pool-summary[data-pool-tier]>:not(.cv-pool-engraving){position:relative;z-index:1}
+#convene-app .cv-pool-summary:is([data-pool-level="6"],[data-pool-level="7"],[data-pool-level="8"]){border-color:color-mix(in srgb,var(--cv-accent) 75%,#273c42);box-shadow:0 0 20px color-mix(in srgb,var(--cv-accent) 9%,transparent),inset 0 0 30px color-mix(in srgb,var(--cv-accent) 8%,transparent)}
+@media(max-width:700px){#convene-app .cv-pool-engraving-desktop{display:none}#convene-app .cv-pool-engraving-mobile{display:block}}
+/* 整体主卡左上标题单独定位，不占用徽章与评分网格。 */
+#convene-app .cv-hero{padding-top:76px}
+#convene-app .cv-hero .cv-overall-heading{position:absolute;top:24px;left:48px;z-index:1;margin:0;font-size:22px;font-weight:500;line-height:1.35;color:var(--cv-ink);letter-spacing:normal}
+@media(max-width:1000px){#convene-app .cv-hero .cv-overall-heading{left:30px}}
+@media(max-width:700px){#convene-app .cv-hero,#convene-app .cv-overview>.cv-hero{padding-top:70px}#convene-app .cv-hero .cv-overall-heading{top:23px;left:25px}}
+#convene-app .cv-achievement-mini strong{overflow-wrap:anywhere}
+/* 同页组合筛选，不改变成就计算或总解锁进度。 */
+#convene-app .cv-achievement-filters{display:flex;align-items:end;flex-wrap:wrap;gap:12px;margin:0 0 22px}
+#convene-app .cv-achievement-filters label{display:grid;gap:6px;min-width:150px;flex:1}
+#convene-app .cv-achievement-filters label span{font-size:12px;color:var(--cv-muted)}
+#convene-app .cv-achievement-filters select{width:100%}
+#convene-app .cv-achievement-filters>small{align-self:center;white-space:nowrap}
+#convene-app .cv-achievement-empty{padding:32px;text-align:center}
+@media(max-width:600px){#convene-app .cv-achievement-filters{display:grid;grid-template-columns:1fr 1fr}#convene-app .cv-achievement-filters label{min-width:0}#convene-app .cv-achievement-filters>small{grid-column:1/-1}}
+/* 角色战报：先看成果，再逐阶查看投入，满链后的取得另列。 */
+#convene-app .cv-journey-hero{display:grid;grid-template-columns:minmax(200px,.7fr) minmax(0,1.5fr);gap:26px;padding:36px;overflow:hidden;min-height:350px;background:radial-gradient(ellipse at left,color-mix(in srgb,var(--cv-accent) 13%,transparent),transparent 65%),#13232c}
+#convene-app .cv-journey-hero>div{position:relative;z-index:1;min-width:0}
+#convene-app .cv-journey-portrait{display:flex;align-items:end;justify-content:center;max-height:320px}
+#convene-app .cv-journey-portrait img{width:100%;height:100%;max-height:320px;object-fit:contain;mask-image:linear-gradient(#000 85%,transparent)}
+#convene-app .cv-journey-identity{align-self:center}
+#convene-app .cv-journey-identity>h2{font-size:36px;margin:7px 0 18px}
+#convene-app .cv-journey-rating{display:grid;grid-template-columns:84px minmax(0,1fr) auto;gap:16px;align-items:center}
+#convene-app .cv-journey-rating>.cv-badge{width:84px;height:96px}
+#convene-app .cv-journey-rating h3{font-size:24px;color:var(--cv-accent);margin:5px 0;overflow-wrap:anywhere}
+#convene-app .cv-journey-rating>strong{font-size:44px;color:var(--cv-accent);font-weight:500}
+#convene-app .cv-journey-rating>strong small{display:block;font-size:12px;text-align:right}
+#convene-app .cv-journey-summary,#convene-app .cv-journey-metrics{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:18px;margin-top:22px;padding-top:18px;border-top:1px solid #abc2c42b}
+#convene-app .cv-journey-summary strong,#convene-app .cv-journey-metrics strong{display:block;font-size:29px;font-weight:500;margin-top:5px}
+#convene-app .cv-journey-shares{display:flex;flex-wrap:wrap;gap:12px;margin:18px 0 24px}
+#convene-app .cv-journey-route,#convene-app .cv-journey-extras{margin-bottom:24px}
+#convene-app .cv-route-table{overflow-x:auto;margin-top:18px}
+#convene-app .cv-route-table table{width:100%;border-collapse:collapse;font-variant-numeric:tabular-nums}
+#convene-app .cv-route-table th,#convene-app .cv-route-table td{text-align:center;padding:13px 10px;border-bottom:1px solid #abc2c421;font-weight:400}
+#convene-app .cv-route-table thead th{font-size:12px;color:var(--cv-muted)}
+#convene-app .cv-route-table tbody td{font-size:20px}
+#convene-app .cv-route-table small{display:block;font-size:10px;margin-top:4px}
+#convene-app .cv-route-table .cv-route-active{background:#89ddca0e;box-shadow:inset 3px 0 #89ddca}
+#convene-app .cv-route-table button{min-height:38px;padding:6px 14px}
+#convene-app .cv-route-table button[aria-pressed=true]{color:#10251c;background:#89ddca}
+#convene-app .cv-journey-evidence{margin-top:22px;font-size:12px;color:var(--cv-muted)}
+#convene-app .cv-journey-evidence summary,#convene-app .cv-journey-history>summary{cursor:pointer;min-height:44px;align-content:center}
+#convene-app .cv-extra-list{display:grid;grid-template-columns:repeat(auto-fit,minmax(210px,1fr));gap:10px}
+#convene-app .cv-extra-list article{display:grid;grid-template-columns:auto 1fr;gap:4px 14px;padding:14px;background:#0a1b2566;border:1px solid #abc2c421;border-radius:8px}
+#convene-app .cv-extra-list strong{grid-row:span 2;font-size:22px;color:#c9b1ee}
+#convene-app .cv-extra-list time{font-size:11px;color:var(--cv-muted)}
+@media(max-width:700px){#convene-app .cv-journey-hero{grid-template-columns:1fr;padding:28px 22px;gap:10px}#convene-app .cv-journey-portrait{max-height:200px}#convene-app .cv-journey-portrait img{max-height:200px}#convene-app .cv-journey-identity>h2{font-size:28px}#convene-app .cv-journey-rating{grid-template-columns:60px minmax(0,1fr) auto;gap:10px}#convene-app .cv-journey-rating>.cv-badge{width:60px;height:76px}#convene-app .cv-journey-rating h3{font-size:18px}#convene-app .cv-journey-rating>strong{font-size:31px}#convene-app .cv-journey-summary,#convene-app .cv-journey-metrics{gap:10px}#convene-app .cv-journey-summary strong,#convene-app .cv-journey-metrics strong{font-size:25px}#convene-app .cv-route-table th,#convene-app .cv-route-table td{padding:12px 5px}#convene-app .cv-route-table tbody td{font-size:16px}#convene-app .cv-route-table th small{display:none}#convene-app .cv-route-table button{padding:6px 8px;font-size:12px}#convene-app .cv-journey-shares button{flex:1;font-size:12px;min-width:130px}}
+/* 手动补入单独管理，导入时间轴不提供异动按钮。 */
+#convene-app .cv-journey-manual{margin-bottom:24px}
+#convene-app .cv-journey-manual>summary{min-height:44px;align-content:center;cursor:pointer}
+#convene-app .cv-journey-manual form{display:grid;grid-template-columns:1.2fr 1fr .65fr 1.3fr;gap:12px;margin-top:18px}
+#convene-app .cv-journey-manual label{display:grid;gap:6px;font-size:12px;min-width:0}
+#convene-app .cv-journey-manual form button{justify-self:start}
+#convene-app .cv-journey-manual p{font-size:12px}
+#convene-app .cv-manual-list{display:grid;gap:10px;margin-top:16px}
+#convene-app .cv-manual-list article{display:flex;justify-content:space-between;align-items:center;gap:14px;padding:12px;background:#0b192355;border-radius:8px}
+#convene-app .cv-manual-list time{display:block;font-size:11px;color:var(--cv-muted);margin-top:4px}
+#convene-app .cv-manual-list button{font-size:12px}
+@media(max-width:700px){#convene-app .cv-journey-manual form{grid-template-columns:1fr 1fr}#convene-app .cv-journey-manual form select,#convene-app .cv-journey-manual form input{min-width:0;width:100%;padding:9px;font-size:12px}#convene-app .cv-manual-list article{align-items:start}#convene-app .cv-route-table tbody td{overflow-wrap:anywhere}}
+/* 限定角色展示墙：卡面只保留立绘、角色名与链数称号。 */
+#convene-app .cv-chain-wall{margin-bottom:28px}
+#convene-app .cv-chain-toolbar{display:flex;flex-wrap:wrap;gap:10px}
+#convene-app .cv-chain-grid{display:grid;grid-template-columns:repeat(4,minmax(0,1fr));gap:20px;margin-top:22px}
+#convene-app .cv-chain-card{position:relative;display:block;isolation:isolate;width:100%;aspect-ratio:3/4;padding:0;overflow:hidden;border:1px solid color-mix(in srgb,var(--chain-accent) 45%,#263d45);border-radius:12px;background:radial-gradient(ellipse at 50% 45%,color-mix(in srgb,var(--chain-accent) 18%,transparent),transparent 65%),#11232d;text-align:center;cursor:pointer}
+#convene-app .cv-chain-card:hover,#convene-app .cv-chain-card:focus-visible{border-color:var(--chain-accent);background-color:#1c3038;outline:2px solid color-mix(in srgb,var(--chain-accent) 45%,transparent);outline-offset:3px}
+#convene-app .cv-chain-card img{display:block;width:100%;height:100%;object-fit:contain;object-position:center 20%;padding:10px 6px 50px;filter:drop-shadow(0 10px 12px #0004)}
+#convene-app .cv-chain-caption{position:absolute;left:0;right:0;bottom:0;display:grid;gap:7px;padding:34px 12px 22px;background:linear-gradient(transparent,#10212bea 32%,#0c1924);z-index:1}
+#convene-app .cv-chain-caption>span{font-size:16px;color:#eaf0eb;line-height:1.35}
+#convene-app .cv-chain-caption>strong{font-size:22px;font-weight:500;line-height:1.35;letter-spacing:.05em;color:var(--chain-accent);overflow-wrap:anywhere}
+#convene-app .cv-chain-caption:after{content:'';display:block;width:52px;height:2px;margin:5px auto 0;background:var(--chain-accent);opacity:.65}
+#convene-app .cv-chain-card[data-chain-stage="6"]{box-shadow:inset 0 0 24px #f0ce8612,0 6px 20px #0003}
+#convene-app .cv-chain-card[data-chain-stage=unowned] img{filter:grayscale(.8);opacity:.4}
+#convene-app .cv-chain-card[data-chain-stage=unowned] .cv-chain-caption>strong{color:#8ca2aa;font-size:17px}
+#convene-app .cv-chain-empty{padding:32px 0;color:var(--cv-muted)}
+#convene-app .cv-chain-detail{margin:26px 0;scroll-margin-top:28px}
+#convene-app .cv-chain-milestones{margin-top:20px}
+#convene-app .cv-chain-milestones>h3{font-size:15px;color:var(--cv-muted);margin-bottom:14px}
+#convene-app .cv-chain-milestone{display:flex;justify-content:space-between;align-items:center;gap:16px;padding:16px 12px;border-bottom:1px solid #abc2c421}
+#convene-app .cv-chain-milestone>span{display:flex;align-items:center;gap:18px}
+#convene-app .cv-chain-milestone strong{font-size:19px;font-weight:500}
+#convene-app .cv-chain-milestone time{font-size:13px;color:var(--cv-muted)}
+#convene-app .cv-chain-current{box-shadow:inset 3px 0 var(--cv-accent);background:#a9c4c00a;color:var(--cv-accent)}
+#convene-app .cv-chain-rules{margin-top:20px;font-size:12px}
+#convene-app .cv-chain-rules summary,#convene-app .cv-chain-events>summary{min-height:44px;align-content:center;cursor:pointer}
+#convene-app .cv-chain-events article{display:flex;justify-content:space-between;gap:16px;border-bottom:1px solid #abc2c421;padding:14px 0}
+#convene-app .cv-chain-events time{font-size:12px;color:var(--cv-muted)}
+#convene-app .cv-chain-title-list{display:grid;gap:12px}
+#convene-app .cv-chain-title-list article{display:flex;gap:20px;padding:15px;border-bottom:1px solid #abc2c421}
+@media(max-width:1100px){#convene-app .cv-chain-grid{grid-template-columns:repeat(3,minmax(0,1fr))}}
+@media(max-width:700px){#convene-app .cv-chain-grid{grid-template-columns:repeat(2,minmax(0,1fr));gap:12px;margin-top:18px}#convene-app .cv-chain-caption{padding:26px 8px 14px;gap:5px}#convene-app .cv-chain-caption>span{font-size:13px}#convene-app .cv-chain-caption>strong{font-size:16px;letter-spacing:0}#convene-app .cv-chain-card img{padding-bottom:38px}#convene-app .cv-chain-card[data-chain-stage=unowned] .cv-chain-caption>strong{font-size:13px}#convene-app .cv-chain-milestone{padding:14px 7px;gap:10px}#convene-app .cv-chain-milestone>span{gap:10px}#convene-app .cv-chain-milestone strong{font-size:16px}#convene-app .cv-chain-milestone time{font-size:11px}#convene-app .cv-chain-toolbar button,#convene-app .cv-chain-toolbar select{font-size:12px;padding:9px 10px}}
+/* 七阶称号章与名称成组显示，卡面不恢复抽数或评分。 */
+#convene-app .cv-chain-caption>.cv-chain-title{display:flex;align-items:center;justify-content:center;gap:10px;color:var(--chain-accent)}
+#convene-app .cv-chain-title>.cv-badge{width:64px;height:72px;flex-shrink:0}
+#convene-app .cv-chain-title>strong{font-size:21px;font-weight:500;line-height:1.35;letter-spacing:.04em;overflow-wrap:anywhere}
+#convene-app .cv-chain-caption{padding-top:24px;padding-bottom:16px}
+#convene-app .cv-chain-caption:after{display:none}
+#convene-app .cv-chain-card img{padding-bottom:82px}
+#convene-app .cv-chain-milestone .cv-badge{width:46px;height:52px;flex-shrink:0}
+#convene-app .cv-chain-title-list .cv-badge{width:56px;height:64px;flex-shrink:0}
+#convene-app .cv-chain-title-list article{align-items:center}
+@media(max-width:700px){#convene-app .cv-chain-caption{padding:22px 7px 10px}#convene-app .cv-chain-caption>.cv-chain-title{gap:5px}#convene-app .cv-chain-title>.cv-badge{width:42px;height:52px}#convene-app .cv-chain-title>strong{font-size:14px;letter-spacing:0}#convene-app .cv-chain-card img{padding-bottom:62px}#convene-app .cv-chain-milestone .cv-badge{width:32px;height:40px}#convene-app .cv-chain-milestone>span{gap:7px}#convene-app .cv-chain-milestone strong{font-size:14px}}
+/* 图鉴预览直接嵌入现有渲染结果，只负责展示尺寸与排列。 */
+#convene-info .cv-atlas-tabs{display:grid;grid-template-columns:repeat(4,minmax(0,1fr));gap:8px}
+#convene-info .cv-atlas-tabs button{min-width:0;white-space:normal;line-height:1.5}
+#convene-info .cv-atlas-tier{display:block;min-width:0}
+#convene-info .cv-atlas-tier-heading{display:flex;align-items:center;gap:16px;min-width:0}
+#convene-info .cv-atlas-tier-heading>.cv-badge{width:88px;height:100px;flex-shrink:0}
+#convene-info .cv-atlas-tier-heading>div{min-width:0}
+#convene-info .cv-atlas-tier-heading h3{font-size:20px;overflow-wrap:anywhere;margin:6px 0}
+#convene-info .cv-atlas-frame{position:relative;isolation:isolate;display:grid;place-items:center;height:150px;margin-top:18px;background:#10212b;overflow:hidden;color:var(--cv-accent)}
+#convene-info .cv-atlas-frame>span{position:relative;z-index:1;color:#acc1c8;font-size:12px}
+#convene-info .cv-atlas-frame .cv-engraving,#convene-info .cv-atlas-frame .cv-pool-engraving{position:absolute;inset:0;width:100%;height:100%;pointer-events:none;color:var(--cv-accent);z-index:0;display:block}
+#convene-info .cv-atlas-frame .cv-pool-engraving-mobile{display:none}
+#convene-info .cv-atlas-chain{border:1px solid color-mix(in srgb,var(--chain-accent) 45%,#263d45);border-radius:12px;background:radial-gradient(ellipse at 50% 45%,color-mix(in srgb,var(--chain-accent) 18%,transparent),transparent 65%),#11232d}
+#convene-info .cv-atlas-chain[data-preview-title=fate]{box-shadow:inset 0 0 24px #f0ce8612,0 6px 20px #0003}
+#convene-info .cv-rating-current label{display:grid;gap:7px;font-size:12px}
+#convene-info .cv-rating-current select{max-width:100%;min-width:0}
+#convene-info .cv-atlas-current{display:grid;grid-template-columns:112px minmax(0,1fr) auto;align-items:center;gap:24px;padding:24px;margin:18px 0 24px;border:1px solid color-mix(in srgb,var(--cv-accent) 45%,#233b3e);border-radius:14px;background:radial-gradient(ellipse at 0 40%,color-mix(in srgb,var(--cv-accent) 12%,transparent),transparent 75%),#142529}
+#convene-info .cv-atlas-current>.cv-badge{width:112px;height:124px}
+#convene-info .cv-atlas-current-copy{min-width:0}
+#convene-info .cv-atlas-current small,#convene-info .cv-atlas-current label{font-size:12px;color:#aec2c3}
+#convene-info .cv-atlas-current h3{font-size:27px;line-height:1.4;margin:9px 0 12px;color:var(--cv-accent);overflow-wrap:anywhere}
+#convene-info .cv-atlas-position{display:inline-block;border:1px solid color-mix(in srgb,var(--cv-accent) 35%,transparent);border-radius:6px;padding:4px 10px;color:var(--cv-accent);font-size:12px}
+#convene-info .cv-atlas-current-value{display:grid;text-align:right;gap:3px;padding-left:28px;border-left:1px solid #a8c9c222;min-width:112px}
+#convene-info .cv-atlas-current-value strong{font-size:48px;font-weight:500;line-height:1.2;color:#f1ebd9;font-variant-numeric:tabular-nums}
+#convene-info .cv-atlas-current-value>span{font-size:12px;color:#aec2c3}
+#convene-info .cv-atlas-current label{display:grid;gap:7px}
+#convene-info .cv-atlas-current select{width:min(100%,260px);min-width:0;min-height:40px;padding:8px 10px;border:1px solid #4b6468;border-radius:7px;background:#182e33;color:#e4eeee;font:inherit;color-scheme:dark}
+@media(max-width:600px){#convene-info .cv-atlas-current{grid-template-columns:72px minmax(0,1fr);padding:18px 14px;gap:14px}#convene-info .cv-atlas-current>.cv-badge{width:72px;height:88px}#convene-info .cv-atlas-current h3{font-size:21px;margin:6px 0 9px}#convene-info .cv-atlas-current-value{grid-column:1/-1;display:flex;align-items:baseline;justify-content:space-between;gap:10px;min-width:0;text-align:left;border-left:0;border-top:1px solid #a8c9c222;padding:14px 0 0}#convene-info .cv-atlas-current-value strong{font-size:38px;margin-left:auto}#convene-info .cv-atlas-current-value small{max-width:55%}}
+@media(max-width:700px){#convene-info .cv-atlas-tabs{grid-template-columns:repeat(2,minmax(0,1fr))}#convene-info .cv-atlas-tabs button{font-size:12px;padding:10px 6px}#convene-info .cv-atlas-tier-heading>.cv-badge{width:72px;height:84px}#convene-info .cv-atlas-tier-heading h3{font-size:18px}#convene-info .cv-atlas-frame{height:135px}}
+#convene-app .cv-chain-card>.cv-chain-engraving{position:absolute;inset:0;width:100%;height:100%;z-index:2;color:var(--chain-accent);pointer-events:none}
+#convene-info .cv-atlas-frame .cv-chain-engraving{position:absolute;inset:0;width:100%;height:100%;z-index:0;color:var(--cv-accent);pointer-events:none}
+#convene-info .cv-atlas-frame.cv-atlas-chain{width:180px;height:240px;max-width:100%;margin-inline:auto}
+@media(max-width:700px){#convene-info .cv-atlas-frame.cv-atlas-chain{width:150px;height:200px}}
+/* 角色墙称号采用图章在上、名称在下的居中排列。 */
+#convene-app .cv-chain-caption>.cv-chain-title{flex-direction:column;gap:5px}
+#convene-app .cv-chain-title>.cv-badge{width:66px;height:72px}
+#convene-app .cv-chain-card img{padding-bottom:110px}
+#convene-app .cv-character-analysis-nav{display:flex;justify-content:space-between;align-items:center;gap:18px;margin-bottom:20px}
+#convene-app .cv-character-analysis-nav label{display:flex;align-items:center;gap:12px}
+#convene-app .cv-character-analysis-hero{display:grid;grid-template-columns:minmax(180px,.65fr) minmax(0,1.35fr);gap:30px;padding:30px;margin-bottom:22px;overflow:hidden}
+#convene-app .cv-analysis-portrait{max-height:330px;min-width:0;display:flex;align-items:center;justify-content:center}
+#convene-app .cv-analysis-portrait img{max-height:330px;width:100%;height:100%;object-fit:contain;mask-image:linear-gradient(#000 85%,transparent)}
+#convene-app .cv-analysis-identity{align-self:center;min-width:0}
+#convene-app .cv-analysis-identity>h2{font-size:34px;margin-bottom:14px}
+#convene-app .cv-analysis-title{display:flex;align-items:center;gap:18px;color:var(--cv-accent);margin-bottom:20px}
+#convene-app .cv-analysis-title>.cv-badge{width:100px;height:110px;flex-shrink:0}
+#convene-app .cv-analysis-title h3{font-size:26px;overflow-wrap:anywhere}
+#convene-app .cv-analysis-dates{display:grid;grid-template-columns:1fr 1fr;gap:20px;border-top:1px solid #abc2c429;padding-top:18px}
+#convene-app .cv-analysis-dates strong{display:block;font-size:20px;font-weight:500;margin-top:6px}
+#convene-app .cv-analysis-actions{display:flex;flex-wrap:wrap;gap:12px;margin-top:20px}
+#convene-app .cv-character-sections{display:flex;gap:10px;flex-wrap:wrap;margin-bottom:22px}
+#convene-app .cv-character-sections [aria-pressed=true]{background:#89ddca;color:#10251c;border-color:#a4e6ce}
+#convene-app .cv-character-history .cv-journey-metrics{grid-template-columns:repeat(4,minmax(0,1fr));margin-top:0;padding-top:0;border:0}
+#convene-app .cv-character-distribution{margin-top:20px}
+@media(max-width:700px){#convene-app .cv-chain-title>.cv-badge{width:44px;height:48px}#convene-app .cv-chain-title>strong{font-size:14px}#convene-app .cv-chain-card img{padding-bottom:88px}#convene-app .cv-character-analysis-nav{align-items:start;gap:10px}#convene-app .cv-character-analysis-nav label{display:grid;font-size:12px;max-width:55%}#convene-app .cv-character-analysis-nav select{width:100%;min-width:0}#convene-app .cv-character-analysis-hero{grid-template-columns:1fr;padding:24px;gap:12px}#convene-app .cv-analysis-portrait,#convene-app .cv-analysis-portrait img{max-height:220px}#convene-app .cv-analysis-identity>h2{font-size:28px}#convene-app .cv-analysis-title>.cv-badge{width:76px;height:88px}#convene-app .cv-analysis-title h3{font-size:22px}#convene-app .cv-analysis-dates strong{font-size:16px}#convene-app .cv-character-sections{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:6px}#convene-app .cv-character-sections button{font-size:12px;padding:9px 5px}#convene-app .cv-character-history .cv-journey-metrics{grid-template-columns:1fr 1fr}}
+/* 角色名底牌与立绘亮部隔开，不改变称号章与既有外框。 */
+#convene-app .cv-chain-caption>span:first-child{justify-self:center;width:fit-content;max-width:100%;padding:5px 13px;border:1px solid color-mix(in srgb,var(--chain-accent) 32%,transparent);border-radius:7px;background:#08161ee8;color:#f4f7f5;font-size:16px;font-weight:600;line-height:1.35;letter-spacing:.02em;box-shadow:0 3px 10px #0003;overflow-wrap:anywhere}
+@media(max-width:700px){#convene-app .cv-chain-caption>span:first-child{font-size:13px;padding:4px 10px;border-radius:6px}}

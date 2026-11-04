@@ -24,6 +24,6 @@ function acquisitions(character){return (character?.five||[]).slice().sort(Core.
 function coverage(stats){return {censored:stats.five.filter(r=>r.interval==null).length,gaps:stats.pools.reduce((n,p)=>n+p.gaps,0),samples:stats.luck.samples};}
 // 分享即使启用 UID 选项，也只显示遮罩，避免暴露完整账号识别。
 function maskUID(uid){const value=String(uid||'');return value.slice(0,2)+'••••'+value.slice(-2);}
-const luckAchievements=['upWin7','early5','consecutive3','afterPity7','upWin5','early4','consecutive2','twinStars','upWin3','upWin10','afterPity3','afterPity','one','ten','fiveEarly','streak','consecutive','comeback'];
-function representativeAchievements(stats){return Core.achievementDetails(stats).filter(a=>a.state==='unlocked'&&luckAchievements.includes(a.key)).sort((a,b)=>luckAchievements.indexOf(a.key)-luckAchievements.indexOf(b.key)).slice(0,3);}
+const luckAchievements=['weaponMiracle','characterRecovery','characterVisitors','upWin7','early5','consecutive3','afterPity7','upWin5','weaponQuickForge','early4','consecutive2','twinStars','upWin3','upWin10','afterPity3','afterPity','one','ten','fiveEarly','streak','consecutive','comeback'];
+function representativeAchievements(stats,scope){return Core.scopedAchievements(stats,scope).filter(a=>a.scope!=='standard'&&a.state==='unlocked'&&luckAchievements.includes(a.baseKey)).sort((a,b)=>luckAchievements.indexOf(a.baseKey)-luckAchievements.indexOf(b.baseKey)).slice(0,3);}
 return {outcomeKey,eligible,highlights,acquisitions,coverage,maskUID,representativeAchievements};});

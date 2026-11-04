@@ -122,5 +122,39 @@ async function renderTarget({rating,name='',portrait=null,t,account=null,detaile
  text(fixture?t('sample'):t('rNotLifetime'),56,h-64,16,muted,1050);text(t('selfMade'),56,h-30,14,muted,790);if(showUID&&account)text('UID '+Report.maskUID(account.uid),860,h-30,16,muted,280);
  return {canvas:c,dataURL:c.toDataURL('image/png'),pages,page:currentPage,layout};
 }
+// 独立限定池报告：只读取指定池，避免整体高光或常驻记录混入。
+async function renderPool({stats,pool,poolRating:l,t,account=null,detailed=false,showUID=false,fixture=false,document:doc=globalThis.document}){
+ const p=stats.pools.find(p=>p.pool===pool);if(!p||![1,2].includes(pool)||l?.pool!==pool)throw Error('IMAGE_FAILED');
+ await doc.fonts?.ready;
+ const achievements=Report.representativeAchievements(stats,pool===1?'limitedCharacter':'limitedWeapon');
+ const c=doc.createElement('canvas');c.width=1200;c.height=detailed?1640+(achievements.length?60+achievements.length*55:0):1080;const x=c.getContext('2d');if(!x)throw Error('IMAGE_FAILED');
+ const accent=COLORS[l.title]||COLORS.observing,ink='#edf3ef',muted='#a9bec6',layout=[];
+ function text(value,px,py,size=24,color=ink,max=1088){let s=String(value),font=size;x.fillStyle=color;do{x.font='500 '+font+'px "Segoe UI","Microsoft JhengHei",sans-serif';if(x.measureText(s).width<=max||font<=14)break;font--;}while(true);while(x.measureText(s).width>max&&s.length)s=s.slice(0,-1);x.fillText(s,px,py);layout.push({text:s,x:px,y:py,font,width:x.measureText(s).width,limit:max});}
+ function metric(label,value,px,py){text(label,px,py,20,muted,310);text(value,px,py+64,48,ink,310);}
+ const bg=x.createLinearGradient(0,0,1200,c.height);bg.addColorStop(0,'#1b303b');bg.addColorStop(1,'#0b181f');x.fillStyle=bg;x.fillRect(0,0,1200,c.height);
+ text('WUWA ECHO TOOL',56,62,18,accent);text(t('poolFortune')+' / '+t(p.rule.key+'Pool'),56,115,34,ink);
+ // 池名使用统一消息映射，避免与角色个人分享混淆。
+ text(t('poolShareScope'),56,166,22,muted);
+ Visuals.drawPoolFrame(x,l.title,pool,28,202,1144,365);Visuals.drawBadge(x,l.title,220,382,235,pool===1?'pool-character':'pool-weapon');
+ text(t(l.title),405,315,46,accent,700);
+ text(l.score==null?'—':l.score.toFixed(1),405,463,100,ink,470);text('/ 100',780,463,25,muted,200);
+ text(t('poolRatingProgress',{n:l.samples,pulls:l.total}),405,523,20,muted,700);
+ const valid=p.five.filter(f=>f.interval!=null&&!f.anomaly),values=valid.map(f=>f.interval),avg=values.length?values.reduce((a,b)=>a+b,0)/values.length:null;
+ metric(t('total'),p.total,56,633);metric(t('five'),p.five.length,420,633);metric(t('avg'),number(avg),784,633);
+ metric(t('poolSpeed'),number(l.draw),56,790);metric(t(pool===1?'confirmedRate':'fast'),pool===1?(l.limited==null?'—':number(l.limited)+'%'):number(values.length?Math.min(...values):null),420,790);metric(t('pity'),p.pity==null?'—':p.pity+' / '+p.rule.hard,784,790);
+ if(detailed){
+  text(t('distribution'),56,982,26,accent);const bins=Array.from({length:8},(_,i)=>valid.filter(f=>f.interval>i*10&&f.interval<=(i+1)*10).length),max=Math.max(1,...bins);
+  bins.forEach((count,i)=>{const px=66+i*136,h=145*count/max;x.fillStyle=accent;x.fillRect(px,1192-h,90,h);text(count,px,1180-h,19,ink,95);text((i*10+1)+'–'+((i+1)*10),px,1228,18,muted,110);});
+  let yy=1290;
+  if(achievements.length){text(t('representativeAchievements'),56,yy,24,accent);yy+=44;for(const a of achievements){Visuals.drawAchievement(x,a.key,56,yy-24,36);text(t(a.key),108,yy,20,ink,1036);yy+=55;}yy+=16;}
+  function paragraph(value){let line='';x.font='500 18px "Segoe UI","Microsoft JhengHei",sans-serif';for(const token of String(value).match(/[A-Za-z0-9%+’'/-]+|\s+|./gu)||[]){if(x.measureText(line+token).width>1088&&line){text(line.trim(),56,yy,18,muted);yy+=27;line='';}line+=token;}if(line.trim()){text(line.trim(),56,yy,18,muted);yy+=27;}yy+=10;}
+  paragraph(t(pool===1?'poolRating.character':'poolRating.weapon'));
+  paragraph(t('poolRating.rules'));
+  text(t('censoredSamples',{n:l.censored}),56,yy,19,muted);
+ }
+ text(t('poolShareScope'),56,c.height-112,20,muted);text(fixture?t('sample'):t('archiveScope'),56,c.height-76,17,muted);
+ text(t('selfMade'),56,c.height-32,15,muted,800);if(showUID&&account)text('UID '+Report.maskUID(account.uid),890,c.height-32,16,muted,250);
+ return {canvas:c,dataURL:c.toDataURL('image/png'),pages:1,page:0,layout,pool};
+}
 function number(n){return n==null?'—':Number(n).toFixed(1).replace(/\.0$/,'');}
-return {render,renderTarget,COLORS,number};});
+return {render,renderTarget,renderPool,COLORS,number};});

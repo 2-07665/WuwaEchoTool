@@ -17,14 +17,30 @@ const out=[];for(const [time,group]of groups){group.reverse();if(group.every(r=>
 function order(a,b){return a.time.localeCompare(b.time)||a.seq-b.seq||a.pool-b.pool;}
 function signature(r){return [r.item,r.rank,r.kind].join('|');}
 function validate(input){let d;try{d=typeof input==='string'?JSON.parse(input):copy(input);}catch(_){fail('INVALID_BACKUP');}if(d?.version!==VERSION)fail('UNSUPPORTED_BACKUP');if(!Array.isArray(d.accounts)||d.accounts.length>100)fail('INVALID_BACKUP');const ids=new Set();for(const a of d.accounts){if(a.id!==identity(a)||ids.has(a.id)||!Array.isArray(a.records)||a.records.length>500000||!Array.isArray(a.spans)||!safe(a.updated||'',40))fail('INVALID_BACKUP');ids.add(a.id);const rs=new Set();a.records=a.records.map(r=>{if(!r||!Number.isInteger(r.pool)||r.pool<1||r.pool>20||!stamp(r.time)||!Number.isInteger(r.seq)||r.seq<1||r.seq>10000||r.id!==recordKey(r.pool,r.time,r.seq)||rs.has(r.id)||typeof r.item!=='string'||!/^\d{1,12}$/.test(r.item)||!safe(r.name)||!safe(r.kind,40)||!safe(r.label,100)||![3,4,5].includes(r.rank)||!['unknown','win','loss','guarantee'].includes(r.result)||r.result!=='unknown'&&(r.pool!==1||r.rank!==5)||r.result!=='unknown'&&r.evidence!=='user')fail('INVALID_BACKUP');rs.add(r.id);return {id:r.id,pool:r.pool,time:r.time,seq:r.seq,item:r.item,name:r.name,kind:r.kind,rank:r.rank,label:r.label,result:r.result,...(typeof r.sourceId==='string'&&/^\d{1,30}$/.test(r.sourceId)?{sourceId:r.sourceId}:{}),...(r.evidence==='user'?{evidence:'user'}:{})};});const batchSequences=new Map();for(const r of a.records){const k=r.pool+'|'+r.time;if(!batchSequences.has(k))batchSequences.set(k,[]);batchSequences.get(k).push(r.seq);}for(const values of batchSequences.values()){values.sort((a,b)=>a-b);if(values.some((v,i)=>v!==i+1))fail('INVALID_BACKUP');}a.spans=a.spans.map(s=>{if(!s||!Number.isInteger(s.pool)||!rs.has(s.first)||!rs.has(s.last)||a.records.find(r=>r.id===s.first).pool!==s.pool||a.records.find(r=>r.id===s.last).pool!==s.pool||order(a.records.find(r=>r.id===s.first),a.records.find(r=>r.id===s.last))>0)fail('INVALID_BACKUP');return {pool:s.pool,first:s.first,last:s.last};});}
-return {version:VERSION,accounts:d.accounts.map(a=>({id:a.id,uid:a.uid,region:a.region,server:a.server,updated:a.updated,...(safe(a.nickname||'',80)&&a.nickname?{nickname:a.nickname}:{}),...(a.annotations?{annotations:Object.fromEntries(Object.entries(a.annotations).filter(([k,v])=>a.records.some(r=>r.id===k&&r.pool===1&&r.rank===5)&&v&&['unknown','win','loss','guarantee'].includes(v.result)).map(([k,v])=>[k,{result:v.result,evidence:'user'}]))}:{}),...(a.initialAnchors?{initialAnchors:Object.fromEntries(Object.entries(a.initialAnchors).filter(([k,v])=>k==='1'&&a.records.some(r=>r.id===v&&r.pool===1)))}:{}),...(a.initialStates?{initialStates:Object.fromEntries(Object.entries(a.initialStates).filter(([k,v])=>k==='1'&&['unknown','chance','guaranteed'].includes(v)))}:{}),records:a.records.sort(order),spans:a.spans}))};}
+return {version:VERSION,accounts:d.accounts.map(a=>({id:a.id,uid:a.uid,region:a.region,server:a.server,updated:a.updated,...(safe(a.nickname||'',80)&&a.nickname?{nickname:a.nickname}:{}),...(a.annotations?{annotations:Object.fromEntries(Object.entries(a.annotations).filter(([k,v])=>a.records.some(r=>r.id===k&&r.pool===1&&r.rank===5)&&v&&['unknown','win','loss','guarantee'].includes(v.result)).map(([k,v])=>[k,{result:v.result,evidence:'user'}]))}:{}),...(a.initialAnchors?{initialAnchors:Object.fromEntries(Object.entries(a.initialAnchors).filter(([k,v])=>k==='1'&&a.records.some(r=>r.id===v&&r.pool===1)))}:{}),...(a.initialStates?{initialStates:Object.fromEntries(Object.entries(a.initialStates).filter(([k,v])=>k==='1'&&['unknown','chance','guaranteed'].includes(v)))}:{}),...(a.manualAcquisitions!==undefined?{manualAcquisitions:validateManualAcquisitions(a.manualAcquisitions)}:{}),records:a.records.sort(order),spans:a.spans}))};}
+// 手动取得独立于导入记录和连续区间；此接口只允许新增/删除该独立列表。
+function validateManualAcquisitions(rows){
+ if(!Array.isArray(rows)||rows.length>1000)fail('INVALID_MANUAL_ENTRY');const ids=new Set();
+ return rows.map(r=>{if(!r||typeof r.id!=='string'||!/^manual-[a-zA-Z0-9_-]{1,90}$/.test(r.id)||ids.has(r.id)||typeof r.item!=='string'||!/^\d{1,12}$/.test(r.item)||(r.time!==null&&!stamp(r.time))||!['coral','manual','history'].includes(r.source))fail('INVALID_MANUAL_ENTRY');ids.add(r.id);return {id:r.id,item:r.item,time:r.time,source:r.source};});
+}
+function limitedCharacters(){const ids=new Set(Banners.banners.filter(b=>[1,101].includes(b.pool)).flatMap(b=>b.up));return (Characters?.records||[]).filter(r=>r.rarity===5&&ids.has(r.resourceId));}
+function addManualAcquisitions(account,{item,time,source='coral',count=1}){
+ if(!Number.isInteger(count)||count<1||count>99)fail('INVALID_MANUAL_ENTRY');
+ const a=validate({version:VERSION,accounts:[account]}).accounts[0];
+ const added=Array.from({length:count},()=>({id:'manual-'+globalThis.crypto.randomUUID(),item:String(item),time,source}));
+ a.manualAcquisitions=validateManualAcquisitions([...(a.manualAcquisitions||[]),...added]);return a;
+}
+function removeManualAcquisition(account,id){
+ const a=validate({version:VERSION,accounts:[account]}).accounts[0];if(!a.manualAcquisitions?.some(r=>r.id===id))fail('INVALID_MANUAL_ENTRY');
+ a.manualAcquisitions=a.manualAcquisitions.filter(r=>r.id!==id);return a;
+}
 function mergeAccount(old,account,pool,rows,now=new Date().toISOString()){const id=identity(account),a=old?copy(old):{...account,id,records:[],spans:[],updated:now};if(a.id!==id)fail('INVALID_ACCOUNT');if(a.initialStates&&!a.initialAnchors)a.initialAnchors=Object.fromEntries(Object.keys(a.initialStates).map(p=>[p,a.records.find(r=>r.pool===Number(p))?.id]).filter(([,v])=>v));const incoming=normalize(rows,pool),map=new Map(a.records.map(r=>[r.id,r]));let added=0,duplicates=0;
 // A changed/truncated equal-time batch is ambiguous: preserve archive, refuse this pool.
 const oldBatches=new Map(),newBatches=new Map();for(const r of a.records)if(r.pool===pool)oldBatches.set(r.time,(oldBatches.get(r.time)||0)+1);for(const r of incoming)newBatches.set(r.time,(newBatches.get(r.time)||0)+1);for(const [time,count]of newBatches)if(oldBatches.has(time)&&oldBatches.get(time)!==count)fail('BATCH_CONFLICT');
 for(const r of incoming){const prior=map.get(r.id);if(prior){if(signature(prior)!==signature(r))fail('BATCH_CONFLICT');if(prior.sourceId&&r.sourceId&&prior.sourceId!==r.sourceId)fail('BATCH_CONFLICT');if(r.sourceId)prior.sourceId=r.sourceId;duplicates++;}else{map.set(r.id,r);added++;}}
 a.records=[...map.values()].sort(order);if(incoming.length)a.spans.push({pool,first:incoming[0].id,last:incoming.at(-1).id});a.spans=coalesce(a);a.updated=now;return {account:a,added,duplicates};}
 function coalesce(a){const result=[];for(const pool of new Set(a.spans.map(s=>s.pool))){const rows=a.records.filter(r=>r.pool===pool).sort(order),positions=new Map(rows.map((r,i)=>[r.id,i])),ranges=a.spans.filter(s=>s.pool===pool).map(s=>[positions.get(s.first),positions.get(s.last)]).sort((a,b)=>a[0]-b[0]);const merged=[];for(const range of ranges){if(range[0]>range[1])fail('INVALID_BACKUP');const last=merged.at(-1);if(last&&range[0]<=last[1])last[1]=Math.max(last[1],range[1]);else merged.push(range);}for(const [start,end]of merged)result.push({pool,first:rows[start].id,last:rows[end].id});}return result;}
-function combine(base,extra){const d=validate(base),e=validate(extra);for(const account of e.accounts){const a=d.accounts.find(x=>x.id===account.id);if(!a){d.accounts.push(account);continue;}const m=new Map(a.records.map(r=>[r.id,r]));for(const r of account.records){const old=m.get(r.id);if(old&&(signature(old)!==signature(r)||old.sourceId&&r.sourceId&&old.sourceId!==r.sourceId))fail('BATCH_CONFLICT');if(old&&r.sourceId)old.sourceId=r.sourceId;if(!old)m.set(r.id,r);else if(old.result==='unknown'&&old.evidence!=='user'&&r.result!=='unknown')Object.assign(old,{result:r.result,evidence:'user'});}if(account.annotations||a.annotations)a.annotations={...account.annotations,...a.annotations};if(account.initialAnchors||a.initialAnchors)a.initialAnchors={...account.initialAnchors,...a.initialAnchors};if(account.initialStates||a.initialStates)a.initialStates={...account.initialStates,...a.initialStates};a.records=[...m.values()].sort(order);a.spans=coalesce({...a,spans:[...a.spans,...account.spans]});a.updated=a.updated>account.updated?a.updated:account.updated;}return validate(d);}
+function combine(base,extra){const d=validate(base),e=validate(extra);for(const account of e.accounts){const a=d.accounts.find(x=>x.id===account.id);if(!a){d.accounts.push(account);continue;}const m=new Map(a.records.map(r=>[r.id,r]));for(const r of account.records){const old=m.get(r.id);if(old&&(signature(old)!==signature(r)||old.sourceId&&r.sourceId&&old.sourceId!==r.sourceId))fail('BATCH_CONFLICT');if(old&&r.sourceId)old.sourceId=r.sourceId;if(!old)m.set(r.id,r);else if(old.result==='unknown'&&old.evidence!=='user'&&r.result!=='unknown')Object.assign(old,{result:r.result,evidence:'user'});}if(account.manualAcquisitions||a.manualAcquisitions){const manual=new Map((a.manualAcquisitions||[]).map(r=>[r.id,r]));for(const r of account.manualAcquisitions||[]){const prev=manual.get(r.id);if(prev&&(prev.item!==r.item||prev.time!==r.time||prev.source!==r.source))fail('BATCH_CONFLICT');manual.set(r.id,r);}a.manualAcquisitions=[...manual.values()];}if(account.annotations||a.annotations)a.annotations={...account.annotations,...a.annotations};if(account.initialAnchors||a.initialAnchors)a.initialAnchors={...account.initialAnchors,...a.initialAnchors};if(account.initialStates||a.initialStates)a.initialStates={...account.initialStates,...a.initialStates};a.records=[...m.values()].sort(order);a.spans=coalesce({...a,spans:[...a.spans,...account.spans]});a.updated=a.updated>account.updated?a.updated:account.updated;}return validate(d);}
 // 普通限定池的五星身份与具体活动映射分离；选择型及特殊池不套此排除规则。
 function featuredIdentity(r,a,entries=Banners.banners){
  const candidates=Banners.candidates(r,a,entries),named=candidates.filter(b=>b.id===r.banner||b.names.includes(r.label)),scope=named.length?named:candidates;
@@ -51,7 +67,20 @@ function luck(intervals,total,limited,recordCount=total){
  const reasons=[];if(intervals.length<RATING_RULES.minIntervals)reasons.push('intervalGate');if(total<RATING_RULES.minPulls)reasons.push('pullGate');if(!useLimited)reasons.push('coverageGate');if(score>=95&&!top)reasons.push('topGate');
  return {score,draw:speed,limited:limitedScore,samples:intervals.length,opportunities,coverage,known,results,useLimited,drawWeight:useLimited?RATING_RULES.drawWeight:1,limitedWeight:useLimited?RATING_RULES.limitedWeight:0,status,reasons,confidence:status==='awarded'?'established':status==='provisional'?'provisional':'low',computedTitle:score==null?null:tier(score),title:qualified?tier(score):'observing'};
 }
-function achievementDetails(stats){
+// 普通限定池独立评级，不借用常驻或另一限定池的样本。
+function poolLuck(stats,pool){
+ if(![1,2].includes(pool))return null;
+ const p=stats.pools.find(p=>p.pool===pool),eligible=(p?.five||[]).filter(f=>f.interval!=null&&!f.anomaly);
+ const l=luck(eligible,p?.total||0,pool===1?stats.limited:{win:0,loss:0},p?.total||0);
+ if(pool===2){
+  l.reasons=l.reasons.filter(r=>r!=='coverageGate'&&r!=='topGate');
+  if(l.score>=95&&l.samples<RATING_RULES.topIntervals)l.reasons.push('topGate');
+  l.status=!p?.total?'noRecords':l.reasons.includes('intervalGate')||l.reasons.includes('pullGate')?'insufficient':l.reasons.includes('topGate')?'provisional':'awarded';
+  l.confidence=l.status==='awarded'?'established':l.status==='provisional'?'provisional':'low';
+ }
+ return {...l,title:l.score==null?'observing':tier(l.score),pool,total:p?.total||0,censored:(p?.five||[]).filter(f=>f.interval==null).length};
+}
+function achievementRules(stats){
  const rows=(stats.records||[]).slice().sort(order),valid=stats.intervals.filter(r=>POOLS[r.pool]?.repeat&&POOLS[r.pool]?.hard&&!r.anomaly),out=[];
  const add=(key,target,events,known=rows.length>0)=>{events=events.slice().sort(order);const date=events[target-1]?.time||null;out.push({key,target,progress:known?Math.min(target,events.length):null,state:date?'unlocked':known?'notReached':'insufficient',date});};
  for(const n of [1,100,500,1000,3000])add('pull'+n,n,rows);
@@ -118,9 +147,63 @@ function achievementDetails(stats){
  add('afterPity7',7,afterPity,valid.length>=2);
  return out;
 }
+// 分池成就由同一规则引擎重算；保留旧规则函数供回归核对，不用于展示合并成果。
+const ACHIEVEMENT_SCOPES=Object.freeze(['limitedCharacter','limitedWeapon','standard']);
+const characterAchievementKeys=['pull1000','gold30','gold100','one','ten','fiveEarly','streak','consecutive','hard','twinStars','afterPity','early4','early5','consecutive2','consecutive3','afterPity3','afterPity7'];
+const scopedAchievementKeys={limitedCharacter:[...characterAchievementKeys,'seven','comeback','upWin3','upWin5','upWin7','upLoss3','upWin10','fiveCharacters10','fiveCharacters20','characterRecovery','characterVisitors'],limitedWeapon:['weaponGold','weapons5','weapons10','weaponPair','weaponFive','weaponVariety','weaponQuickForge','weaponSteadyGold','weaponArsenal','weaponMiracle'],standard:['pull100','pull500','gold10','characters5','months','standardDualStar','standardReunion','standardFourVault']};
+function scopedAchievements(stats,scope){
+ if(scope==null)return ACHIEVEMENT_SCOPES.flatMap(scope=>scopedAchievements(stats,scope));
+ if(!ACHIEVEMENT_SCOPES.includes(scope))return [];
+ const ids=scope==='limitedCharacter'?[1]:scope==='limitedWeapon'?[2]:[3,4],pools=stats.pools.filter(p=>ids.includes(p.pool)),five=pools.flatMap(p=>p.five).sort(order),records=(stats.records||[]).filter(r=>ids.includes(r.pool)),intervals=five.filter(r=>r.interval!=null);
+ const limited=scope==='limitedCharacter'?stats.limited:{win:0,loss:0,guarantee:0,unknown:0};
+ const results=achievementRules({...stats,records,pools,five,intervals,limited}).filter(a=>scopedAchievementKeys[scope].includes(a.key));
+ const addCustom=(key,target,progress,events,known=records.length>0)=>{const date=events[0]?.time||null;results.push({key,target,progress:known?Math.min(target,progress):null,state:date?'unlocked':known?'notReached':'insufficient',date});};
+ if(scope==='limitedCharacter'){
+  const recovery=[],visitors=[],seen=new Set();let losses=0;
+  for(let i=0;i<five.length;i++){
+   const r=five[i],prev=five[i-1];
+   if(!prev||r.segment<0||r.segment!==prev.segment||r.interval==null||r.anomaly||r.conflict)losses=0;
+   if(r.segment>=0&&!r.anomaly&&!r.conflict&&isCharacter(r)&&r.interval!=null&&r.interval<=30&&!seen.has(r.item)){seen.add(r.item);visitors.push(r);}
+   if(r.segment<0||r.anomaly||r.conflict||!['win','loss','guarantee'].includes(r.effectiveResult)){losses=0;continue;}
+   if(r.effectiveResult==='loss')losses++;
+   if(r.effectiveResult==='win'){if(losses>=3)recovery.push(r);losses=0;}
+  }
+  addCustom('characterRecovery',1,recovery.length,recovery,five.some(r=>['win','loss'].includes(r.effectiveResult)));
+  addCustom('characterVisitors',3,visitors.length,visitors.slice(2),intervals.some(r=>!r.anomaly));
+ }
+ if(scope==='standard'){
+  const dual=[],poolsSeen=new Set(),reunion=[],charactersSeen=new Set(),four=[],weaponsSeen=new Set();
+  for(const r of five){if((r.pool===3&&isCharacter(r)||r.pool===4&&isWeapon(r))&&!poolsSeen.has(r.pool)){poolsSeen.add(r.pool);dual.push(r);}if(r.pool===3&&Banners.standardCharacters.includes(r.item)&&!charactersSeen.has(r.item)){charactersSeen.add(r.item);reunion.push(r);}}
+  for(const r of records.slice().sort(order))if(r.rank===4&&isWeapon(r)&&!weaponsSeen.has(r.item)){weaponsSeen.add(r.item);four.push(r);}
+  addCustom('standardDualStar',2,dual.length,dual.slice(1));addCustom('standardReunion',3,reunion.length,reunion.slice(2));addCustom('standardFourVault',10,four.length,four.slice(9));
+ }
+
+ if(scope==='limitedWeapon'){
+  const add=(key,target,progress,events,known=records.length>0)=>{const date=events[0]?.time||null;results.push({key,target,progress:known?Math.min(target,progress):null,state:date?'unlocked':known?'notReached':'insufficient',date});};
+  const copies=new Map(),pair=[],full=[],unique=[],seen=new Set();let maxCopies=0;
+  for(const r of five){const n=(copies.get(r.item)||0)+1;copies.set(r.item,n);maxCopies=Math.max(maxCopies,n);if(n===2)pair.push(r);if(n===5)full.push(r);if(!seen.has(r.item)){seen.add(r.item);unique.push(r);}}
+  add('weaponPair',2,maxCopies,pair);add('weaponFive',5,maxCopies,full);add('weaponVariety',5,unique.length,unique.slice(4));
+  const quick=[],steady=[];let window=[];
+  for(const r of five){if(r.interval==null||r.anomaly||r.segment<0){window=[];continue;}if(window.length&&window.at(-1).segment!==r.segment)window=[];window.push(r);if(window.length>3)window.shift();if(window.length===3&&window.reduce((sum,v)=>sum+v.interval,0)<=60)quick.push(r);if(r.interval<=60)steady.push(r);}
+  add('weaponQuickForge',1,quick.length,quick,intervals.some(r=>!r.anomaly));add('weaponSteadyGold',10,steady.length,steady.slice(9),intervals.some(r=>!r.anomaly));
+  const catalog=new Map((Weapons?.weapons||[]).map(w=>[String(w.resourceId),w])),types=new Set((Weapons?.weapons||[]).map(w=>w.category)),seenTypes=new Set(),arsenal=[],miracles=[],windows=new Map();let segment=null;
+  for(const r of five){
+   const weapon=catalog.get(String(r.item));if(weapon?.rarity===5&&!seenTypes.has(weapon.category)){seenTypes.add(weapon.category);arsenal.push(r);}
+   if(r.segment<0||r.interval==null||r.anomaly){windows.clear();segment=null;continue;}
+   if(segment!==r.segment){windows.clear();segment=r.segment;}
+   const chain=windows.get(r.item)||[];chain.push(r);if(chain.length>5)chain.shift();windows.set(r.item,chain);
+   if(chain.length===5&&chain.reduce((sum,v)=>sum+v.interval,0)<=200)miracles.push(r);
+  }
+  addCustom('weaponArsenal',types.size,seenTypes.size,arsenal.slice(types.size-1));
+  addCustom('weaponMiracle',1,miracles.length,miracles,intervals.some(r=>!r.anomaly));
+
+ }
+ return results.map(a=>({...a,key:scope+'.'+a.key,baseKey:a.key,scope}));
+}
+function achievementDetails(stats,scope){return scopedAchievements(stats,scope);}
 function ratingDetails(stats){const l=stats.luck;return {...l,rules:RATING_RULES,eligiblePulls:stats.pools.filter(p=>p.rule.repeat).reduce((n,p)=>n+p.total,0),reason:l.status==='noRecords'?'noIntervals':l.status==='insufficient'?'smallSample':l.reasons.includes('topGate')?'topGate':l.status==='provisional'?'coverageGate':'qualified',censored:stats.five.filter(f=>f.interval==null).length,gaps:stats.pools.reduce((n,p)=>n+p.gaps,0),excluded:stats.five.filter(f=>f.interval==null||!POOLS[f.pool]?.repeat||!POOLS[f.pool]?.hard||f.anomaly).map(f=>({id:f.id,pool:f.pool,time:f.time,reason:f.anomaly?'intervalAnomaly':!POOLS[f.pool]?.repeat||!POOLS[f.pool]?.hard?'unsupportedPool':'unknownInterval'}))};}
 function character(a,item){const all=analyse(a),five=all.five.filter(r=>r.item===String(item)&&isCharacter(r)),values=five.filter(r=>r.interval!=null).map(r=>r.interval),eligible=five.filter(r=>r.interval!=null&&POOLS[r.pool]?.repeat&&POOLS[r.pool]?.hard&&!r.anomaly);return {item:String(item),name:five[0]?.name||'',five,total:five.length,average:values.length?values.reduce((a,b)=>a+b,0)/values.length:null,min:values.length?values.reduce((a,b)=>Math.min(a,b),Infinity):null,max:values.length?values.reduce((a,b)=>Math.max(a,b),0):null,luck:characterLuck(eligible),knownSpend:values.reduce((a,b)=>a+b,0),spendComplete:values.length===five.length,bannerSpend:null};}
 function characterLuck(eligible){const l=luck(eligible,eligible.reduce((n,r)=>n+r.interval,0),{win:0,loss:0}),qualified=eligible.length>=3;l.confidence=qualified?'established':'low';l.title=qualified?CHARACTER_TIERS.find(t=>l.score>=t.min).title:'observing';return l;}
 function isWeapon(r){return weaponIDs.has(String(r.item))||/武器|Weapon/i.test(r.kind);}
 function isCharacter(r){return characterIDs.has(String(r.item))||/角色|Resonator|Character|共鳴者|共鸣者/i.test(r.kind);}
-return {validServer,VERSION,RULE_REVISION,RATING_RULES,CHARACTER_TIERS,achievementDetails,ratingDetails,validTimestamp:stamp,POOLS,empty,identity,normalize,validate,mergeAccount,combine,analyse,character,isCharacter,isWeapon,tier,luck,order};});
+return {validServer,VERSION,RULE_REVISION,RATING_RULES,CHARACTER_TIERS,ACHIEVEMENT_SCOPES,scopedAchievements,limitedCharacters,addManualAcquisitions,removeManualAcquisition,poolLuck,achievementRules,achievementDetails,ratingDetails,validTimestamp:stamp,POOLS,empty,identity,normalize,validate,mergeAccount,combine,analyse,character,isCharacter,isWeapon,tier,luck,order};});

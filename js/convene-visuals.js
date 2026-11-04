@@ -38,6 +38,8 @@ function baseArtwork(title,family='overall'){
  return out;
 }
 function artwork(title,family='overall'){
+ if(family==='chain')return chainArtwork(title);
+ if(family==='pool-character'||family==='pool-weapon')return poolBadgeArtwork(title,family);
  const ranks=(family==='character'?Core.CHARACTER_TIERS:Core.RATING_RULES.tiers).slice().reverse().map(t=>t.title),end=ranks.indexOf(title);if(end<0)return baseArtwork(title,family);const out=[];
  for(let level=1;level<=end+1;level++){
   const base=baseArtwork(ranks[level-1],family),prior=level===1?[]:baseArtwork(ranks[level-2],family);out.push(...base.slice(prior.length));
@@ -62,6 +64,20 @@ const starMark=(x,y,r=7)=>'M'+x+' '+(y-r)+'L'+(x+r*.3)+' '+(y-r*.3)+'L'+(x+r)+' 
 const ringMark=(x,y,r)=>'M'+(x-r)+' '+y+'a'+r+' '+r+' 0 1 0 '+(r*2)+' 0a'+r+' '+r+' 0 1 0 '+(-r*2)+' 0';
 const laurel='M32 77Q13 58 25 32M68 77Q87 58 75 32M25 61L18 53M25 61L31 53M23 49L18 41M23 49L30 42M75 61L82 53M75 61L69 53M77 49L82 41M77 49L70 42';
 const achievementDesigns=Object.freeze({
+ // 新增七项按各自经历设计中心图案，避免复制其他卡池的徽章。
+ characterRecovery:{family:'recovery',symbol:[engraving('M25 68L36 56L44 62L58 45L72 29M59 30H73V44',false,3),engraving(starMark(67,28,9),true),engraving('M24 32L31 39M31 32L24 39M28 46L35 53M35 46L28 53M24 77H76',false,2)]},
+ characterVisitors:{family:'companions',symbol:[engraving([[29,49,5],[50,42,6],[71,49,5]].map(v=>ringMark(...v)).join('')),engraving('M20 73V65Q20 57 29 57Q38 57 38 65M39 76V61Q39 51 50 51Q61 51 61 61V76M62 65Q62 57 71 57Q80 57 80 65V73',false,2.5),engraving([[28,28,5],[50,20,7],[72,28,5]].map(v=>starMark(...v)).join(''),true)]},
+ weaponArsenal:{family:'armory',symbol:[engraving('M50 20V75M34 29L42 75M66 29L58 75M20 45L35 75M80 45L65 75M28 78H72',false,3),engraving('M45 24L50 16L55 24M29 33L32 25L39 29M61 29L68 25L71 33M16 47L17 38L25 41M75 41L83 38L84 47',true),engraving(starMark(50,47,7),true)]},
+ weaponMiracle:{family:'armory',symbol:[engraving('M33 62H72L65 71H56V80H43V71H33L25 64L33 57Z',true),engraving('M42 54Q28 43 45 25Q43 37 51 38Q59 34 57 23Q77 44 60 54Z',false,2.5),engraving('M53 42L47 51L56 51L51 60',false,2.7),engraving('M27 35L21 30M75 35L81 30M50 17V11M26 47H18M76 47H84')]},
+ standardDualStar:{family:'time',symbol:[engraving('M28 73V50Q28 28 50 28Q72 28 72 50V73M22 74H34M66 74H78M50 28V20',false,2.6),engraving(starMark(28,55,11)+starMark(72,55,11),true),engraving('M37 55H63M44 34L50 40L56 34',false,1.7)]},
+ standardReunion:{family:'companions',symbol:[engraving('M24 73V35L50 21L76 35V73M29 76H71',false,2.5),engraving([[34,49,5],[50,43,6],[66,49,5]].map(v=>ringMark(...v)).join('')),engraving('M26 70V64Q26 56 34 56M39 73V61Q39 53 50 53Q61 53 61 61V73M74 70V64Q74 56 66 56',false,2.5),engraving(starMark(50,30,4),true)]},
+ standardFourVault:{family:'fourStar',symbol:[engraving('M23 57H77V77H23ZM23 53L30 44H70L77 53M23 65H77M45 60H55V70H45Z',false,2.6),engraving('M30 35L36 29L42 35L36 44ZM44 27L50 21L56 27L50 42ZM58 35L64 29L70 35L64 44Z',true),engraving('M35 68V76M65 68V76',false,1.5)]},
+ // 限定武器独有：成对铸刃、完整锻造、兵器阵列、三曜炉心与常燃锋芒。
+ weaponPair:{family:'armory',symbol:[engraving('M33 24L40 32V57L33 65L26 57V32ZM67 24L74 32V57L67 65L60 57V32Z',true),engraving('M22 62H44M56 62H78M33 65V77M67 65V77M42 45H58',false,2.8)]},
+ weaponFive:{family:'armory',symbol:[engraving('M50 22L58 32V54L50 63L42 54V32ZM34 60H66M50 63V78',false,3),engraving([[24,35,4],[35,23,4],[50,16,4],[65,23,4],[76,35,4]].map(v=>starMark(...v)).join(''),true),engraving('M29 66L24 74L39 79M71 66L76 74L61 79')]},
+ weaponVariety:{family:'armory',symbol:[engraving('M50 23V69M35 29L42 69M65 29L58 69M23 41L36 72M77 41L64 72M28 73H72',false,3),engraving('M45 23L50 17L55 23M30 29L34 23L40 28M60 28L66 23L70 29M18 40L20 33L28 36M72 36L80 33L82 40',true)]},
+ weaponQuickForge:{family:'armory',symbol:[engraving('M27 55H73L68 76H32ZM23 51H77M37 77V83M63 77V83',false,3),engraving([[28,33,8],[50,24,10],[72,33,8]].map(v=>starMark(...v)).join(''),true),engraving('M40 55L44 44M50 55V39M60 55L56 44',false,2)]},
+ weaponSteadyGold:{family:'armory',symbol:[engraving('M50 23L57 32V56L50 64L43 56V32ZM36 61H64M50 64V78',true),engraving('M28 71Q12 51 30 30M72 71Q88 51 70 30M23 44L17 41M22 55L16 56M28 65L22 69M77 44L83 41M78 55L84 56M72 65L78 69',false,2.6)]},
  // 远航里程：启程旗、罗盘、帆船、远洋船与灯塔。
  pull1:{family:'voyage',symbol:[engraving('M36 76V25M37 27H69L62 38L69 49H37',false,3),engraving('M26 77H52',false,3)]},
  pull100:{family:'voyage',symbol:[engraving(ringMark(50,50,23)),engraving('M50 23V30M50 70V77M23 50H30M70 50H77'),engraving('M61 36L54 54L39 64L46 46Z',true)]},
@@ -117,7 +133,7 @@ const achievementFrames={
  legendary:[engraving('M50 6L78 15L91 40L86 71L65 91H35L14 71L9 40L22 15Z',true,2.2),engraving('M50 13L74 21L84 42L79 68L62 84H38L21 68L16 42L26 21Z',false,1,.7),engraving('M18 77Q3 56 12 30M82 77Q97 56 88 30M11 55L5 49M11 55L16 48M9 42L5 36M9 42L15 37M89 55L95 49M89 55L84 48M91 42L95 36M91 42L85 37M38 9L34 2L46 6L50 1L54 6L66 2L62 9',false,1.8)],
  mythic:[engraving('M50 3L60 13L75 11L82 25L96 31L93 48L98 61L85 72L80 87L63 88L50 98L37 88L20 87L15 72L2 61L7 48L4 31L18 25L25 11L40 13Z',true,2),engraving(ringMark(50,50,36),false,1.1,.85),engraving(Array.from({length:12},(_,j)=>{const a=j*Math.PI/6;return 'M'+(50+39*Math.cos(a))+' '+(50+39*Math.sin(a))+'L'+(50+44*Math.cos(a))+' '+(50+44*Math.sin(a));}).join('')+starMark(50,7,3)+starMark(50,93,3)+starMark(7,50,3)+starMark(93,50,3),false,1.6)]
 };
-function achievementArtwork(key){const design=achievementDesigns[key],rarity=Cabinet.rarity[key]||'common',color=ACHIEVEMENT_COLORS[rarity],symbol=design?.symbol||[engraving('M44 36Q44 28 51 28Q61 28 61 38Q61 44 50 49V57M50 66V70',false,3)],gradient=rarity==='mythic'?[[0,'#fff8e9'],[.22,'#a9e4df'],[.45,'#eee8ff'],[.65,'#bca7e0'],[.82,'#f8d7ac'],[1,'#fff8ef']]:[[0,mix(color,true)],[.4,color],[.65,mix(color,false)],[1,mix(color,true)]];return {color,rarity,gradient,baseFill:rarity==='mythic'?'#252b3a':mix(color,false),family:design?.family||'unknown',paths:[...achievementFrames[rarity],...symbol]};}
+function achievementArtwork(key){key=key.includes('.')?key.split('.').at(-1):key;const design=achievementDesigns[key],rarity=Cabinet.rarity[key]||'common',color=ACHIEVEMENT_COLORS[rarity],symbol=design?.symbol||[engraving('M44 36Q44 28 51 28Q61 28 61 38Q61 44 50 49V57M50 66V70',false,3)],gradient=rarity==='mythic'?[[0,'#fff8e9'],[.22,'#a9e4df'],[.45,'#eee8ff'],[.65,'#bca7e0'],[.82,'#f8d7ac'],[1,'#fff8ef']]:[[0,mix(color,true)],[.4,color],[.65,mix(color,false)],[1,mix(color,true)]];return {color,rarity,gradient,baseFill:rarity==='mythic'?'#252b3a':mix(color,false),family:design?.family||'unknown',paths:[...achievementFrames[rarity],...symbol]};}
 function achievementIcon(key){const a=achievementArtwork(key),id='cv-ach-'+key;return '<svg viewBox="0 0 100 100" aria-hidden="true" data-achievement="'+key+'"><defs><linearGradient id="'+id+'" '+(a.rarity==='mythic'?'gradientUnits="userSpaceOnUse" x2="100" y2="100"':'x2="1" y2="1"')+'>'+a.gradient.map(([stop,color])=>'<stop offset="'+stop+'" stop-color="'+color+'"/>').join('')+'</linearGradient></defs>'+a.paths.map((p,i)=>'<path d="'+p.d+'" fill="'+(p.fill?(i===0?a.baseFill:'url(#'+id+')'):'none')+'" stroke="'+(i===0||a.rarity==='mythic'?'url(#'+id+')':a.color)+'" stroke-width="'+p.width+'" opacity="'+p.opacity+'" stroke-linejoin="round"/>').join('')+'</svg>';}
 function drawAchievement(ctx,key,x,y,size){const a=achievementArtwork(key);ctx.save();ctx.translate(x,y);ctx.scale(size/100,size/100);const g=ctx.createLinearGradient(0,0,100,100);for(const[stop,color]of a.gradient)g.addColorStop(stop,color);ctx.lineJoin='round';a.paths.forEach((p,i)=>{ctx.globalAlpha=p.opacity;ctx.lineWidth=p.width;ctx.fillStyle=i===0?a.baseFill:g;ctx.strokeStyle=i===0||a.rarity==='mythic'?g:a.color;const path=new Path2D(p.d);if(p.fill)ctx.fill(path);ctx.stroke(path);});ctx.restore();}
 
@@ -177,6 +193,139 @@ function frame(title,variant='desktop'){
  const stops=[[0,mix(g.color,true)],[.25,g.color],[.5,mix(g.color,false)],[.8,mix(g.color,true)],[1,g.color]];
  return '<svg class="cv-engraving cv-engraving-'+variant+'" viewBox="0 0 '+w+' '+h+'" preserveAspectRatio="none" aria-hidden="true" style="color:'+g.color+'"><defs><linearGradient id="'+id+'" x2="1" y2="1">'+stops.map(([offset,color])=>'<stop offset="'+offset+'" stop-color="'+color+'"/>').join('')+'</linearGradient></defs>'+frameArtwork(title,w,h).map(p=>'<path d="'+p.d+'" fill="'+(p.fill?paint:'none')+'" stroke="'+paint+'" stroke-width="'+p.width+'" opacity="'+p.opacity+'" vector-effect="non-scaling-stroke" stroke-linejoin="miter"/>').join('')+'</svg>';
 }
+// 限定角色以交织声波与双星为核心，武器以剑脊和锻造刻线为核心。
+// 七阶共鸣契印：独立中心构图，不复用运势星盘、角色池双星盾或武器剑徽。
+function chainArtwork(title){
+ const stage=['abyss','headwind','breeze','steady','lucky','star','fate'].indexOf(title),out=[],add=(d,fill=false,opacity=.8,width=1.2)=>out.push({d,fill,opacity,width});
+ if(stage<0){add('M29 31Q50 17 71 31M29 69Q50 83 71 69',false,.5,1.2);add('M50 39L58 50L50 61L42 50Z',true,.45,1);return out;}
+ const radius=25+stage*3;
+ add('M50 '+(50-radius)+'A'+radius+' '+radius+' 0 1 1 49.99 '+(50-radius),false,.35+stage*.045,.85);
+ if(stage===0){
+  add('M50 29L59 45L71 50L59 55L50 71L41 55L29 50L41 45Z',true,.6,1.5);
+  add('M50 36L56 50L50 64L44 50Z',true,.95,1);add('M31 25L26 31M69 25L74 31M31 75L26 69M69 75L74 69',false,.7,1.2);
+ }else if(stage===1){
+  add('M38 30L51 50L38 70L25 50ZM62 30L75 50L62 70L49 50Z',true,.6,1.5);
+  add('M38 38V62M62 38V62M31 50H45M55 50H69',false,.95,.85);
+  add('M22 37Q13 50 22 63M78 37Q87 50 78 63M42 21L50 16L58 21M42 79L50 84L58 79',false,.8,1.2);
+ }else if(stage===2){
+  add('M50 23L58 37L50 51L42 37ZM35 47L43 61L35 75L27 61ZM65 47L73 61L65 75L57 61Z',true,.65,1.4);
+  add('M24 38Q50 16 76 38M20 48Q17 76 43 80M80 48Q83 76 57 80',false,.9,1.4);
+  add('M41 58L50 49L59 58M43 61H57M50 28V45M35 52V68M65 52V68',false,.8,.9);
+ }else if(stage===3){
+  add('M50 25L57 42L75 50L57 58L50 75L43 58L25 50L43 42Z',true,.65,1.6);
+  add('M22 40Q10 19 5 29Q6 52 27 65L19 49ZM78 40Q90 19 95 29Q94 52 73 65L81 49Z',true,.45,1.4);
+  add('M11 34Q13 47 23 55M89 34Q87 47 77 55M35 75L50 87L65 75',false,.95,1.2);
+  add('M50 36L56 50L50 64L44 50Z',true,1,1.1);
+ }else if(stage===4){
+  add('M50 19Q65 30 65 50Q65 70 50 81Q35 70 35 50Q35 30 50 19ZM19 50Q30 35 50 35Q70 35 81 50Q70 65 50 65Q30 65 19 50Z',false,.85,1.4);
+  add('M50 31L58 43L70 50L58 57L50 69L42 57L30 50L42 43Z',true,.75,1.5);
+  add('M20 35L6 24L12 47L26 60M80 35L94 24L88 47L74 60M23 66Q15 77 36 83M77 66Q85 77 64 83',true,.4,1.5);
+  add('M38 17L34 7L45 14L50 5L55 14L66 7L62 17M38 83L50 95L62 83',false,.95,1.3);
+ }else if(stage===5){
+  add('M50 24L67 34V54L50 78L33 54V34ZM50 31V69M39 39L50 47L61 39M39 51L50 59L61 51',true,.6,1.4);
+  add('M28 29L10 13L14 39L26 53M72 29L90 13L86 39L74 53M24 48L3 39L11 62L31 75M76 48L97 39L89 62L69 75',true,.5,1.5);
+  add('M13 25L23 39M87 25L77 39M10 48L24 62M90 48L76 62M29 78L23 89L42 85L50 97L58 85L77 89L71 78',false,.9,1.2);
+  add('M31 19L28 5L42 13L50 1L58 13L72 5L69 19ZM50 35L55 43L50 51L45 43Z',true,.85,1.3);
+ }else{
+  add('M50 19L60 35L79 29L73 47L88 58L68 62L66 81L50 70L34 81L32 62L12 58L27 47L21 29L40 35Z',true,.45,1.5);
+  add('M50 29L58 43L73 50L58 57L50 73L42 57L27 50L42 43ZM50 39L55 50L50 61L45 50Z',true,.95,1.4);
+  add('M24 28L8 15L10 40L24 53M76 28L92 15L90 40L76 53M22 60L5 68L14 82L36 85M78 60L95 68L86 82L64 85',true,.5,1.4);
+  add('M32 18L29 4L42 12L50 0L58 12L71 4L68 18M36 87L50 99L64 87',false,1,1.6);
+  add(Array.from({length:12},(_,i)=>{const a=i*Math.PI/6;return 'M'+(50+40*Math.cos(a))+' '+(50+40*Math.sin(a))+'L'+(50+47*Math.cos(a))+' '+(50+47*Math.sin(a));}).join(''),false,.85,1);
+  add('M14 22L18 18L22 22L18 26ZM78 22L82 18L86 22L82 26ZM19 83L23 79L27 83L23 87ZM73 83L77 79L81 83L77 87Z',true,.95,.9);
+ }
+ return out;
+}
+function poolBadgeArtwork(title,family){
+ const level=Math.max(0,geometry(title).level),weapon=family==='pool-weapon',out=[],add=(d,fill=false,opacity=.8,width=1.2)=>out.push({d,fill,opacity,width});
+ // 核心收在中央，给高阶展开翼片、冠饰和星芒留出轮廓空间。
+ add(weapon?'M50 18L72 29V59L64 72L50 83L36 72L28 59V29Z':'M50 18Q72 20 74 43Q77 66 50 83Q23 66 26 43Q28 20 50 18Z',true,.2,1.8);
+ add(weapon?'M50 24L56 33V56L50 63L44 56V33ZM36 59H64M50 63V75M45 75H55':'M34 37Q50 23 66 37M31 55Q50 75 69 55M39 35L50 49L39 63L28 49ZM61 35L72 49L61 63L50 49Z',false,.95,1.6);
+ add(weapon?'M50 29V56M46 36L50 31L54 36':'M39 41L45 49L39 57L33 49ZM61 41L67 49L61 57L55 49Z',true,.4,.9);
+ if(level>=1){
+  add(weapon?'M50 25L55 33V54L50 60Z':'M39 36L49 49L39 62L29 49ZM61 36L71 49L61 62L51 49Z',true,.65,1.2);
+  add(weapon?'M37 59L43 55H57L63 59L57 64H43Z':'M39 36V62M61 36V62M29 49H49M51 49H71',false,.95,.8);
+ }
+ if(level>=2){
+  add(weapon?'M50 12L78 26V61L66 78L50 90L34 78L22 61V26Z':'M50 12Q80 15 80 44Q82 73 50 90Q18 73 20 44Q20 15 50 12Z',false,.75,1.1);
+  add(weapon?'M31 36L35 40M31 46L35 50M69 36L65 40M69 46L65 50':'M28 35Q18 51 32 65M72 35Q82 51 68 65',false,.85,1.2);
+ }
+ if(level>=3){
+  add(weapon?'M24 35L13 24L15 48L25 59ZM76 35L87 24L85 48L75 59Z':'M24 37Q13 23 8 29Q8 47 23 60Q16 43 24 37ZM76 37Q87 23 92 29Q92 47 77 60Q84 43 76 37Z',true,.48,1.5);
+  add(weapon?'M16 32L23 46M84 32L77 46':'M12 34Q14 47 22 53M88 34Q86 47 78 53',false,.9,.9);
+  add('M43 81L50 91L57 81L50 85Z',true,.85,1.1);
+ }
+ if(level>=4){
+  add(weapon?'M24 49L7 37L12 59L28 70L21 56ZM76 49L93 37L88 59L72 70L79 56Z':'M23 50L4 40Q7 64 30 73L20 59ZM77 50L96 40Q93 64 70 73L80 59Z',true,.5,1.6);
+  add(weapon?'M11 45L18 58L26 64M89 45L82 58L74 64':'M9 47Q13 59 25 65M91 47Q87 59 75 65',false,.95,1);
+  add('M38 23L35 12L45 18L50 10L55 18L65 12L62 23Z',true,.5,1.3);
+ }
+ if(level>=5){
+  add(weapon?'M27 65L13 63L20 79L36 85L29 74ZM73 65L87 63L80 79L64 85L71 74Z':'M28 66Q15 60 13 69Q17 82 38 87L31 78L24 74M72 66Q85 60 87 69Q83 82 62 87L69 78L76 74',true,.55,1.4);
+  add('M35 79L30 89L43 86L50 96L57 86L70 89L65 79',false,.85,1.2);
+  add('M50 3L55 10L50 17L45 10Z',true,.95,1.5);
+ }
+ if(level>=6){
+  add(weapon?'M20 24L16 9L32 20L38 15M80 24L84 9L68 20L62 15':'M20 25Q6 13 13 8Q27 11 35 20M80 25Q94 13 87 8Q73 11 65 20',true,.45,1.4);
+  add('M35 15L32 5L43 11L50 1L57 11L68 5L65 15M40 15H60',false,.95,1.5);
+  add(weapon?'M50 33L53 39L50 45L47 39Z':'M50 36L54 44L50 51L46 44Z',true,1,1.2);
+ }
+ if(level>=7){
+  add(weapon?'M28 12L9 20V61L22 81M72 12L91 20V61L78 81':'M29 12C2 16 0 64 22 81M71 12C98 16 100 64 78 81',false,.8,1.1);
+  add('M5 50L10 44L15 50L10 56ZM85 50L90 44L95 50L90 56Z',true,.85,1.1);
+  add('M36 89L40 95L50 99L60 95L64 89',false,.9,1.4);
+ }
+ if(level>=8){
+  add(weapon?'M15 27L2 19L6 37M85 27L98 19L94 37M14 67L3 76L19 76M86 67L97 76L81 76':'M14 27L2 19L6 36M86 27L98 19L94 36M15 67Q0 72 5 81L23 78M85 67Q100 72 95 81L77 78',true,.65,1.3);
+  add('M25 7L29 3L33 7L29 11ZM67 7L71 3L75 7L71 11ZM23 90L27 86L31 90L27 94ZM69 90L73 86L77 90L73 94Z',true,.95,.9);
+  add('M40 6L38 1M60 6L62 1M18 84L14 90M82 84L86 90',false,.95,1.3);
+ }
+ return out;
+}
+// SVG 与 Canvas 复用同一组边框路径，阶级同时改变角饰、轨道与刻线数量。
+function poolFrameArtwork(title,pool,w=600,h=900){
+ const level=Math.max(0,geometry(title).level),weapon=Number(pool)===2,out=[],add=(d,opacity=.8,width=1,fill=false)=>out.push({d,opacity,width,fill});
+ add('M26 8H'+(w-26)+'L'+(w-8)+' 26V'+(h-26)+'L'+(w-26)+' '+(h-8)+'H26L8 '+(h-26)+'V26Z',.45,1.1);
+ for(const sx of [1,-1])for(const sy of [1,-1]){
+  const X=x=>sx===1?x:w-x,Y=y=>sy===1?y:h-y;
+  add(weapon?'M'+X(12)+' '+Y(60)+'L'+X(12)+' '+Y(30)+'L'+X(30)+' '+Y(12)+'H'+X(60):'M'+X(12)+' '+Y(62)+'Q'+X(12)+' '+Y(12)+' '+X(62)+' '+Y(12),.9,1.2);
+  for(let i=1;i<=level;i++){
+   const a=18+i*6,b=18+i*4;
+   add(weapon?'M'+X(a)+' '+Y(10)+'L'+X(a+8)+' '+Y(18)+'L'+X(a+14)+' '+Y(10):'M'+X(a)+' '+Y(10)+'Q'+X(a+5)+' '+Y(b)+' '+X(10)+' '+Y(a),.35+i*.065,i>=6?1.3:.85);
+  }
+  if(level>=3)add('M'+X(14)+' '+Y(78)+'V'+Y(34)+'L'+X(34)+' '+Y(14)+'H'+X(78),.7,.8);
+  if(level>=5)add(weapon?'M'+X(9)+' '+Y(96)+'L'+X(20)+' '+Y(76)+'V'+Y(52):'M'+X(9)+' '+Y(96)+'Q'+X(25)+' '+Y(72)+' '+X(16)+' '+Y(52),.8,1.3);
+  if(level>=7)add('M'+X(24)+' '+Y(10)+'L'+X(10)+' '+Y(24)+'L'+X(24)+' '+Y(38)+'L'+X(38)+' '+Y(24)+'Z',.55,1,true);
+ }
+ const cx=w/2;
+ add(weapon?'M'+(cx-38)+' 8H'+(cx-12)+'L'+cx+' 21L'+(cx+12)+' 8H'+(cx+38):'M'+(cx-40)+' 8Q'+cx+' 32 '+(cx+40)+' 8M'+(cx-24)+' 8Q'+cx+' 22 '+(cx+24)+' 8',.9,1.1);
+ if(level>=2)add('M'+cx+' 5L'+(cx+5)+' 11L'+cx+' 17L'+(cx-5)+' 11Z',.95,1,true);
+ for(let i=0;i<level;i++){const y=h/2+(i-(level-1)/2)*10;add('M8 '+(y-3)+'L14 '+y+'L8 '+(y+3)+'M'+(w-8)+' '+(y-3)+'L'+(w-14)+' '+y+'L'+(w-8)+' '+(y+3),.55+i*.04,.8);}
+ return out;
+}
+function poolFrame(title,pool){return ['desktop','mobile'].map(variant=>{const w=variant==='mobile'?400:600,h=variant==='mobile'?1050:900;return '<svg class="cv-pool-engraving cv-pool-engraving-'+variant+'" data-frame-pool="'+pool+'" data-frame-tier="'+title+'" viewBox="0 0 '+w+' '+h+'" preserveAspectRatio="none" aria-hidden="true">'+poolFrameArtwork(title,pool,w,h).map(p=>'<path d="'+p.d+'" fill="'+(p.fill?'currentColor':'none')+'" stroke="currentColor" stroke-width="'+p.width+'" opacity="'+p.opacity+'" vector-effect="non-scaling-stroke"/>').join('')+'</svg>';}).join('');}
+function drawPoolFrame(ctx,title,pool,x,y,w,h){ctx.save();ctx.translate(x,y);ctx.strokeStyle=ctx.fillStyle=geometry(title).color;for(const p of poolFrameArtwork(title,pool,w,h)){ctx.globalAlpha=p.opacity;ctx.lineWidth=p.width;const path=new Path2D(p.d);if(p.fill)ctx.fill(path);ctx.stroke(path);}ctx.restore();}
+// 角色展示专属七阶契印边框；不更动整体或限定池的既有边框路径。
+function chainFrameArtwork(title){
+ const stage=['abyss','headwind','breeze','steady','lucky','star','fate'].indexOf(title),out=[],add=(d,opacity=.75,width=1,fill=false)=>out.push({d,opacity,width,fill});
+ add('M26 6H374Q394 6 394 26V514Q394 534 374 534H26Q6 534 6 514V26Q6 6 26 6Z',.5,.9);
+ if(stage<0)return out;
+ for(const sx of [1,-1])for(const sy of [1,-1]){
+  const X=x=>sx===1?x:400-x,Y=y=>sy===1?y:540-y;
+  add('M'+X(10)+' '+Y(35)+'Q'+X(10)+' '+Y(10)+' '+X(35)+' '+Y(10),.85,1.1);
+  for(let n=1;n<=stage;n++){const p=15+n*6;add('M'+X(p)+' '+Y(8)+'Q'+X(p)+' '+Y(p)+' '+X(8)+' '+Y(p),.4+n*.08,n>=4?1.2:.85);}
+  if(stage>=2)add('M'+X(12)+' '+Y(56)+'V'+Y(29)+'Q'+X(12)+' '+Y(12)+' '+X(29)+' '+Y(12)+'H'+X(56),.7,.8);
+  if(stage>=4)add('M'+X(12)+' '+Y(46)+'Q'+X(31)+' '+Y(29)+' '+X(46)+' '+Y(12)+'M'+X(12)+' '+Y(48)+'L'+X(21)+' '+Y(51)+'L'+X(31)+' '+Y(42),.85,1.1);
+  if(stage===6)add('M'+X(15)+' '+Y(23)+'L'+X(23)+' '+Y(15)+'L'+X(31)+' '+Y(23)+'L'+X(23)+' '+Y(31)+'Z',.75,1,true);
+ }
+ if(stage>=1)add('M178 7Q200 23 222 7M182 533Q200 519 218 533',.8,1.1);
+ if(stage>=3)add('M200 5L206 11L200 17L194 11ZM200 523L206 529L200 535L194 529Z',.9,1,true);
+ if(stage>=5)add('M7 250L15 260L7 270M393 250L385 260L393 270M7 280L15 290L7 300M393 280L385 290L393 300',.8,1.1);
+ if(stage===6)add('M180 7L177 1L190 7L200 0L210 7L223 1L220 7M177 532L190 527L200 539L210 527L223 532',.95,1.3);
+ return out;
+}
+function chainFrame(title){return '<svg class="cv-chain-engraving" viewBox="0 0 400 540" preserveAspectRatio="none" aria-hidden="true">'+chainFrameArtwork(title).map(p=>'<path d="'+p.d+'" fill="'+(p.fill?'currentColor':'none')+'" stroke="currentColor" stroke-width="'+p.width+'" opacity="'+p.opacity+'" vector-effect="non-scaling-stroke"/>').join('')+'</svg>';}
+function drawChainFrame(ctx,title,x,y,w,h){ctx.save();ctx.translate(x,y);ctx.scale(w/400,h/540);ctx.strokeStyle=ctx.fillStyle=geometry(title).color;for(const p of chainFrameArtwork(title)){ctx.globalAlpha=p.opacity;ctx.lineWidth=p.width;const path=new Path2D(p.d);if(p.fill)ctx.fill(path);ctx.stroke(path);}ctx.restore();}
 function panelFrame(title){
  const level=Math.max(0,geometry(title).level),paths=[];
  for(const sx of [1,-1])for(const sy of [1,-1]){
@@ -190,4 +339,4 @@ function panelFrame(title){
 }
 function drawFrame(ctx,title,x,y,w,h){ctx.save();ctx.translate(x,y);const color=geometry(title).color,g=ctx.createLinearGradient(0,0,w,h);for(const [at,c]of [[0,mix(color,true)],[.25,color],[.5,mix(color,false)],[.8,mix(color,true)],[1,color]])g.addColorStop(at,c);ctx.strokeStyle=g;ctx.fillStyle=g;for(const p of frameArtwork(title,w,h)){ctx.globalAlpha=p.opacity;ctx.lineWidth=p.width;const d=new Path2D(p.d);if(p.fill)ctx.fill(d);ctx.stroke(d);}ctx.restore();}
 
-return {ACHIEVEMENT_COLORS,panelFrame,frameArtwork,frame,drawFrame,COLORS,geometry,artwork,badge,drawBadge,achievementIcon,drawAchievement,achievementArtwork,achievementKeys};});
+return {ACHIEVEMENT_COLORS,chainFrameArtwork,chainFrame,drawChainFrame,poolFrameArtwork,poolFrame,drawPoolFrame,panelFrame,frameArtwork,frame,drawFrame,COLORS,geometry,artwork,badge,drawBadge,achievementIcon,drawAchievement,achievementArtwork,achievementKeys};});
