@@ -1517,6 +1517,7 @@
         "sets.37":["茜染懷想之花","茜染怀想之花","Flower of Tinged Yearning"]
     });
     Object.assign(rows,{
+      'library.searchPlaceholder':['搜尋聲骸名稱','搜索声骸名称','Search Echo name'],
       'library.save':['儲存修改','保存修改','Save changes'],
       'library.editHint':['修改後按儲存；關閉視窗會放棄未儲存內容。','修改后按保存；关闭窗口会放弃未保存内容。','Save to apply changes. Closing discards unsaved edits.'],
       'library.saveFirst':['請先儲存修改，再裝備或比較。','请先保存修改，再装备或比较。','Save changes before equipping or comparing.'],
@@ -1531,6 +1532,17 @@
       'library.clear':['清空選取','清空选取','Clear selection'],
       'library.review':['比較所選聲骸','比较所选声骸','Compare selected Echoes'],
       'library.similar':['找相同套裝與主詞條','找相同套装与主词条','Find matching set and main stat']
+    });
+    Object.assign(rows,{
+      'dock.searchPlaceholder':['搜尋角色或配置名稱','搜索角色或配置名称','Search Resonator or build name'],
+      'dock.cardPlanCount':['{n} 個比較方案','{n} 个比较方案','{n} comparison plans'],
+      'dock.cardLayout':['角色展示方式','角色展示方式','Roster layout'],
+      'dock.layout.cards':['卡牌','卡牌','Cards'],
+      'dock.layout.list':['精簡列表','精简列表','Compact list'],
+      'dock.cardManage':['角色管理','角色管理','Manage Resonator'],
+      'dock.cardWeapon':['武器','武器','Weapon'],
+      'dock.cardWeaponUnknown':['尚無武器資料','暂无武器资料','No weapon recorded'],
+      'dock.cardLevel':['等級 {n}','等级 {n}','Lv. {n}']
     });
     rows['echoes.5']=['聲骸 #5（名稱待核）','声骸 #5（名称待核）','Echo #5 (name unverified)'];
     rows['searchAlias.echoes.5']=['冰墩墩','冰墩墩','冰墩墩'];

@@ -3,6 +3,70 @@
 .op-count{display:flex;justify-content:space-between;align-items:center;gap:16px;margin:18px 0;color:var(--register-muted)}.op-count button,.op-filters button,.op-rename button{font:inherit;padding:8px 14px;color:var(--register-ink);background:transparent;border:1px solid var(--register-line);cursor:pointer}
 .op-rename{display:flex;gap:12px;flex-wrap:wrap;margin:16px 0}.op-rename label{flex:1;min-width:140px}.op-rename input{width:100%;box-sizing:border-box;padding:10px}.op-rename button{align-self:end}.op-rename [role=status]{width:100%}
 .dock-config-name{display:block;font-size:13px;color:var(--register-accent);margin-top:8px}.dock-plans{display:flex;flex-direction:column;gap:8px}.dock-plans a{font-size:13px}.dock-score-reason{font-size:12px;color:var(--register-muted)}
+/* 角色卡只改变展示与入口，不修改当前配置和评分来源。 */
+#character-dock .dock-roster-tools{display:flex;justify-content:flex-end;align-items:center;gap:16px;margin:16px 0}
+#character-dock .dock-layout-switch{display:flex;gap:4px;padding:4px;border:1px solid var(--register-line);border-radius:9px}
+#character-dock .dock-layout-switch button{font:inherit;font-size:13px;padding:7px 14px;min-height:38px;background:transparent;border:1px solid transparent;border-radius:6px;color:var(--register-muted)}
+#character-dock .dock-layout-switch [aria-pressed=true]{background:#294640;border-color:#76b5a5;color:#e9f5ed}
+#character-dock .dock-roster-toolbar{padding:16px 18px;margin:18px 0;border:1px solid #6b918447;border-radius:12px;background:linear-gradient(125deg,#1d3230,#132326)}
+#character-dock .dock-toolbar-heading{display:flex;align-items:center;justify-content:space-between;gap:16px;margin-bottom:14px}
+#character-dock .dock-toolbar-count{font-size:13px;color:var(--register-muted);margin:0}
+#character-dock .dock-toolbar-controls{display:grid;grid-template-columns:minmax(180px,2.3fr) repeat(3,minmax(105px,1fr)) auto;gap:12px;align-items:end}
+#character-dock .dock-toolbar-controls label{display:grid;gap:7px;margin:0;min-width:0;font-size:12px;color:var(--register-muted)}
+#character-dock .dock-toolbar-controls :is(input,select){box-sizing:border-box;width:100%;min-width:0;min-height:44px;margin:0;padding:10px 12px;font:inherit;font-size:14px;color:#e4efea;border:1px solid #5d7b7066;border-radius:7px;background:#0d2024}
+#character-dock .dock-toolbar-controls [data-dock-reset]{min-height:44px;margin:0;padding:9px 13px;font:inherit;font-size:12px;border:1px solid #5d7b7066;border-radius:7px;background:transparent;color:#b5cbc3}
+#character-dock .dock-roster-toolbar .dock-layout-switch{padding:3px;border-color:#5d7b7066;background:#0d2024}
+#character-dock .dock-roster-toolbar .dock-layout-switch button{min-height:32px;padding:5px 12px;font-size:12px}
+@media(max-width:1100px){#character-dock .dock-toolbar-controls{grid-template-columns:repeat(3,minmax(0,1fr)) auto}#character-dock .dock-toolbar-query{grid-column:1/-1}}
+@media(max-width:600px){#character-dock .dock-roster-toolbar{padding:14px;margin:14px 0}#character-dock .dock-toolbar-heading{gap:10px;flex-wrap:wrap}#character-dock .dock-toolbar-controls{grid-template-columns:1fr 1fr;gap:12px 10px}#character-dock .dock-toolbar-controls [data-dock-reset]{align-self:end}#character-dock .dock-toolbar-count{font-size:12px}#character-dock .dock-roster-toolbar .dock-layout-switch button{font-size:11px;padding:5px 10px}}
+#character-dock .dock-roster-cards{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:20px;margin:0;padding:0}
+#character-dock .dock-roster-cards>li.dock-role-card{position:relative;display:flex;flex-direction:column;align-items:stretch;gap:0;min-width:0;border:1px solid #49655f;border-radius:14px;background:linear-gradient(145deg,#203536,#142326);overflow:visible;transition:border-color .16s,box-shadow .16s}
+#character-dock .dock-roster-cards>li:hover{border-color:var(--register-accent);box-shadow:0 5px 24px #8dd3be13}
+#character-dock .dock-card-link{display:flex;flex-direction:column;flex:1;min-width:0;text-decoration:none;color:inherit;border-radius:14px;overflow:hidden}
+#character-dock .dock-card-link:focus-visible{outline:2px solid var(--register-accent);outline-offset:4px}
+#character-dock .dock-card-hero{position:relative;display:block;height:210px;background:radial-gradient(ellipse at 50% 45%,#749f9444,transparent 75%);overflow:hidden}
+#character-dock .dock-card-portrait{display:block;width:100%;height:100%;object-fit:contain;object-position:center 20%;padding:8px 16px 0;box-sizing:border-box}
+#character-dock .dock-card-identity{position:absolute;inset:auto 0 0;display:grid;gap:4px;padding:30px 18px 14px;background:linear-gradient(transparent,#112326e8 42%,#14282a)}
+#character-dock .dock-card-identity strong{font-size:24px;line-height:1.35;color:#f1f4e8}
+#character-dock .dock-card-identity>span{font-size:12px;color:#b6ccc6}
+#character-dock .dock-card-body{display:grid;gap:14px;padding:16px 18px 18px;min-width:0}
+#character-dock .dock-card-config{display:flex;align-items:center;flex-wrap:wrap;gap:7px 10px;font-size:14px;color:var(--register-accent);overflow-wrap:anywhere}
+#character-dock .dock-card-mode{display:inline-block;font-size:11px;line-height:1.5;padding:3px 8px;border:1px solid #88c7b66b;border-radius:5px;background:#8dd3be0c;color:#bfe4d7}
+#character-dock .dock-roster-list .dock-card-mode{margin-top:7px}
+#character-dock .dock-card-weapon{display:flex;align-items:center;gap:10px;font-size:13px;min-height:44px;color:#dce8e2}
+#character-dock .dock-card-weapon>img{width:42px;height:42px;object-fit:contain}
+#character-dock .dock-card-weapon small{display:block;font-size:11px;color:var(--register-muted)}
+#character-dock .dock-card-weapon.is-empty{font-size:12px;color:var(--register-muted)}
+#character-dock .dock-card-equipment{display:grid;grid-template-columns:repeat(5,minmax(0,1fr));gap:7px}
+#character-dock .dock-card-slot{display:grid;grid-template-rows:auto auto auto;gap:5px;min-width:0;text-align:center}
+#character-dock .dock-card-slot-image{display:grid;place-items:center;min-width:0;aspect-ratio:1;border:1px solid #94b8ac30;background:#0b1d25;border-radius:7px;overflow:hidden}
+#character-dock .dock-card-slot img{width:100%;height:100%;object-fit:contain;min-width:0}
+#character-dock .dock-card-slot-image>span{font-size:18px;color:#738f88}
+#character-dock .dock-card-slot :is(.dock-card-slot-position,.dock-card-slot-cost){position:static;display:block;line-height:1.4;color:#b6ccc6;font-size:11px;font-variant-numeric:tabular-nums}
+#character-dock .dock-card-slot-position{color:var(--register-muted)}
+#character-dock .dock-card-slot[data-slot-status=incomplete] .dock-card-slot-image{border-color:#bca77688}
+#character-dock .dock-card-readings{display:flex;align-items:baseline;justify-content:space-between;gap:16px;padding-top:12px;border-top:1px solid #a8c4b926}
+#character-dock .dock-card-readings>span{display:grid;gap:4px}
+#character-dock .dock-card-readings>span:last-child{text-align:right}
+#character-dock .dock-card-readings small{font-size:11px;color:var(--register-muted)}
+#character-dock .dock-card-readings b{font-size:32px;line-height:1.2;color:var(--register-accent);font-weight:500;font-variant-numeric:tabular-nums}
+#character-dock .dock-card-readings strong{font-size:18px;font-weight:500;color:#dee8df}
+#character-dock .dock-card-state{display:flex;flex-wrap:wrap;gap:8px;font-size:12px;color:#d1bd8b}
+#character-dock .dock-card-state .dock-draft-state{font-size:12px}
+#character-dock .dock-card-menu{position:absolute;right:10px;top:10px;z-index:3}
+#character-dock .dock-card-menu summary{display:grid;place-items:center;list-style:none;min-width:44px;min-height:44px;border:1px solid #71958a88;border-radius:8px;background:#102322e8;color:#dcece6;cursor:pointer;font-size:25px;line-height:1}
+#character-dock .dock-card-menu summary::-webkit-details-marker{display:none}
+#character-dock .dock-card-menu button{position:absolute;right:0;top:50px;white-space:nowrap;min-height:44px;padding:10px 18px;border:1px solid #aa7770;background:#2c2425;color:#f0c0b8;border-radius:7px;font:inherit}
+#character-dock .dock-roster-cards li>.dock-plans{padding:12px 18px;margin:0}
+#character-dock .dock-roster-cards li>.dock-plans:empty{display:none}
+#character-dock .dock-card-plans{margin:0 18px 14px;padding-top:10px;border-top:1px solid #a8c4b926;font-size:12px;color:var(--register-muted)}
+#character-dock .dock-card-plans summary{cursor:pointer;min-height:30px;display:flex;align-items:center;gap:6px}
+#character-dock .dock-card-plans summary::before{content:'▸';font-size:12px}
+#character-dock .dock-card-plans[open] summary::before{content:'▾'}
+#character-dock .dock-card-plans .dock-plans{padding-top:10px;gap:10px}
+#character-dock .dock-card-plans .dock-plans a{font-size:12px;line-height:1.6;overflow-wrap:anywhere}
+@media(max-width:1100px){#character-dock .dock-roster-cards{grid-template-columns:repeat(2,minmax(0,1fr));gap:16px}}
+@media(max-width:600px){#character-dock .dock-roster-cards{grid-template-columns:minmax(0,1fr)}#character-dock .dock-card-hero{height:200px}#character-dock .dock-roster-tools{margin:12px 0}#character-dock .dock-card-body{padding:14px 16px 16px;gap:12px}}
 #register-workspace .rw-echo-entry{display:grid;grid-template-columns:minmax(0,1fr);border-bottom:1px solid var(--register-line)}#register-workspace .rw-echo-entry .rw-echo-row{grid-area:1/1;border:0;padding-right:12px}#register-workspace .rw-echo-entry>.rw-favorite-toggle{grid-area:1/1;align-self:start;justify-self:end;margin:10px;width:44px;height:44px;min-height:44px;display:inline-flex;align-items:center;justify-content:center;border:1px solid var(--register-line);border-radius:8px;padding:0;color:var(--register-accent);background:#1b2b2c;font-size:23px}
 #register-workspace .rw-index-substats{font-size:12px;line-height:1.7;color:var(--register-muted);display:flex;flex-wrap:wrap;gap:4px 12px}#register-workspace .rw-index-substats .rw-stat-cell{display:inline-flex;gap:5px;border:0;padding:0}#register-workspace .rw-echo-index{max-height:72vh;overflow:auto;scrollbar-gutter:stable;scroll-padding:12px}#register-workspace .rw-inspector{position:sticky;top:16px;max-height:80vh;overflow:auto;scrollbar-gutter:stable;padding-top:12px}
 #register-workspace .rw-inspector .rw-echo-preview{padding:12px 0}#register-workspace .rw-inspector section{padding:12px 0}#register-workspace .rw-inspector section h3{font-size:15px}
@@ -127,6 +191,29 @@
 #register-workspace:has(.rw-library-cards) .sf-search{margin-bottom:16px;padding-bottom:0}
 #register-workspace .rw-library-cards .rw-inspector-close{display:inline-block;margin:0 0 12px}
 #register-workspace .rw-library-quick select{width:100%;min-width:0}
+#register-workspace .rw-library-toolbar{padding:16px 18px;margin:18px 0 20px;border:1px solid #6b918447;border-radius:12px;background:linear-gradient(125deg,#1d3230,#132326)}
+#register-workspace .rw-library-toolbar-heading{display:flex;align-items:center;justify-content:space-between;gap:16px;margin-bottom:14px}
+#register-workspace .rw-library-toolbar-heading p{font-size:13px;color:var(--register-muted);margin:0}
+#register-workspace .rw-library-toolbar label{display:grid;gap:7px;margin:0;min-width:0;font-size:12px;color:var(--register-muted)}
+#register-workspace .rw-library-toolbar .rw-library-favorite-filter{display:flex;align-items:center;gap:8px;font-size:12px;cursor:pointer;min-height:32px}
+#register-workspace .rw-library-favorite-filter input{accent-color:#8dd3be;width:16px;height:16px;margin:0}
+#register-workspace .rw-library-toolbar-controls{display:grid;grid-template-columns:minmax(150px,1.5fr) minmax(75px,.55fr) minmax(115px,1.2fr) minmax(110px,1.1fr) minmax(90px,.9fr) minmax(90px,.9fr) auto;gap:10px;align-items:end}
+#register-workspace .rw-library-toolbar .rw-library-quick{display:contents}
+#register-workspace:has(.rw-library-detail.is-open) .rw-library-toolbar .rw-library-quick{display:contents}
+#register-workspace .rw-library-toolbar :is(select,input[type=search]){box-sizing:border-box;width:100%;min-width:0;min-height:44px;margin:0;padding:10px 11px;font:inherit;font-size:13px;color:#e4efea;border:1px solid #5d7b7066;border-radius:7px;background:#0d2024}
+#register-workspace .rw-library-toolbar [data-library-reset]{min-height:44px;margin:0;padding:9px 12px;font:inherit;font-size:12px;border:1px solid #5d7b7066;border-radius:7px;background:transparent;color:#b5cbc3}
+#register-workspace .rw-history-toolbar{padding:16px 18px;margin:18px 0 20px;border:1px solid #6b918447;border-radius:12px;background:linear-gradient(125deg,#1d3230,#132326)}
+#register-workspace .rw-history-count{font-size:13px;color:var(--register-muted);margin:0 0 14px}
+#register-workspace .rw-history-controls{display:grid;grid-template-columns:minmax(0,2fr) minmax(160px,1fr) auto;gap:12px;align-items:end}
+#register-workspace .rw-history-controls label{display:grid;gap:7px;margin:0;font-size:12px;color:var(--register-muted);min-width:0}
+#register-workspace .rw-history-controls :is(input,select){box-sizing:border-box;width:100%;min-width:0;min-height:44px;margin:0;padding:10px 12px;font:inherit;font-size:14px;color:#e4efea;border:1px solid #5d7b7066;border-radius:7px;background:#0d2024}
+#register-workspace .rw-history-controls [data-history-reset]{min-height:44px;margin:0;padding:9px 13px;font:inherit;font-size:12px;border:1px solid #5d7b7066;border-radius:7px;background:transparent;color:#b5cbc3}
+@media(max-width:600px){#register-workspace .rw-history-toolbar{padding:14px;margin:14px 0 18px}#register-workspace .rw-history-controls{grid-template-columns:minmax(0,1fr) auto;gap:12px 10px}#register-workspace .rw-history-controls label:first-child{grid-column:1/-1}}
+#register-workspace .rw-library-extra{margin-top:12px;font-size:12px;color:var(--register-muted)}
+#register-workspace .rw-library-extra summary{min-height:28px;cursor:pointer;display:list-item;font-size:12px;padding:2px 0}
+#register-workspace .rw-library-extra>div{display:grid;grid-template-columns:1fr 1fr;gap:12px;padding-top:12px;border-top:1px solid #6b91842b;margin-top:8px}
+@media(max-width:1100px){#register-workspace .rw-library-toolbar-controls{grid-template-columns:repeat(3,minmax(0,1fr))}#register-workspace .rw-library-search{grid-column:1/-1}}
+@media(max-width:600px){#register-workspace .rw-library-toolbar{padding:14px;margin:14px 0 18px}#register-workspace .rw-library-toolbar-controls{grid-template-columns:1fr 1fr;gap:12px 10px}#register-workspace .rw-library-toolbar-heading{gap:10px;flex-wrap:wrap}#register-workspace .rw-library-toolbar-heading p{font-size:12px}#register-workspace .rw-library-extra>div{grid-template-columns:minmax(0,1fr)}}
 #register-workspace .rw-library-cards{grid-template-columns:minmax(0,1fr)}
 #register-workspace .rw-library-cards.has-inspector{grid-template-columns:minmax(0,1fr) 340px;gap:20px}
 #register-workspace .rw-library-cards:not(.has-inspector)>.rw-inspector{display:none}

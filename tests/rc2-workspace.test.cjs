@@ -18,9 +18,9 @@ async function render(locale,empty){
  assert.equal(stored.get('mcData'),original);assert.ok(!writes.includes('mcData'));
  assert.match(host.innerHTML,/mode=import/);assert.match(host.innerHTML,/mode=create/);assert.ok(host.innerHTML.indexOf('mode=create')<host.innerHTML.indexOf('</header>'));
  if(empty){assert.doesNotMatch(host.innerHTML,/dock-roster|dock-recent-reading/);}else{
-  assert.equal((host.innerHTML.match(/class="dock-character-link"/g)||[]).length,2);
+  assert.equal((host.innerHTML.match(/class="dock-(?:character|card)-link"/g)||[]).length,2);
   assert.match(host.innerHTML,/mccost-readonly.html/);assert.match(host.innerHTML,/mccost.html/);
-  assert.ok(host.innerHTML.indexOf('</details>')<host.innerHTML.indexOf('data-dock-roster'));
+  assert.ok(host.innerHTML.indexOf('data-dock-toolbar')<host.innerHTML.indexOf('data-dock-roster'));
   assert.doesNotMatch(host.innerHTML,/role\.source\.|dock\.filter/);
  }
 }

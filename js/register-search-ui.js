@@ -17,7 +17,7 @@
    host.addEventListener('click',e=>{const summary=e.target.closest('.sf-advanced>summary');if(summary){const details=summary.parentElement;if(!details.open){state.open[details.dataset.sfKey]=true;summary.setAttribute('aria-expanded','true');}else if(matchMedia('(prefers-reduced-motion:reduce)').matches){state.open[details.dataset.sfKey]=false;summary.setAttribute('aria-expanded','false');}if(details.open&&!matchMedia('(prefers-reduced-motion:reduce)').matches){e.preventDefault();if(details._sfTimer){clearTimeout(details._sfTimer);details._sfTimer=null;details.classList.remove('sf-closing');state.open[details.dataset.sfKey]=true;}else{state.open[details.dataset.sfKey]=false;details.classList.add('sf-closing');details._sfTimer=setTimeout(()=>{details.open=false;details.classList.remove('sf-closing');details._sfTimer=null;},180);}return;}}const button=e.target.closest('[data-sf-reset]');if(!button)return;const widget=button.closest('.sf-search');for(const input of widget.querySelectorAll('input,select')){if(input.type==='checkbox')input.checked=false;else input.value='';input.dispatchEvent(new Event(input.tagName==='SELECT'?'change':'input',{bubbles:true}));}});
   }state.i18n=i18n;
   for(const config of configs){
-   const input=host.querySelector(config.search);if(!input)continue;
+   const input=host.querySelector(config.search);if(!input||input.closest('[data-dock-toolbar],[data-library-toolbar],[data-history-toolbar]'))continue;
    let widget=input.closest('.sf-search');
    if(!widget){
     const group=config.group?input.closest(config.group):null,legacy=config.legacy?input.closest(config.legacy):null;

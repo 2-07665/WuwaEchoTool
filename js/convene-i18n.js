@@ -3046,6 +3046,19 @@ acqManualCost:['手動補入／兌換','手动补入／兑换','Manual entry / e
 acqGoldInterval:['本次出金間隔','本次出金间隔','5-star interval'],
 acqCostRule:['取得花費包含可確認的中途歪出；出金間隔只計距離上一個五星的抽數。缺少紀錄顯示 —，手動補入與兌換不推算抽數。','取得花费包含可确认的中途歪出；出金间隔只计距离上一个五星的抽数。缺少记录显示 —，手动补入与兑换不推算抽数。','Copy cost includes verified lost chances. The 5-star interval counts pulls since the previous 5-star. Missing costs show —; manual entries and exchanges have no inferred cost.']
 });
+Object.assign(rows,{
+filterMatches:['符合 {n} / 共 {total} 筆','符合 {n} / 共 {total} 条','Showing {n} / {total} records'],
+dateRange:['日期範圍','日期范围','Date range'],
+filterActive:['已套用','已应用','Active']
+});
+Object.assign(rows,{
+historyFilterTitle:['篩選喚取紀錄','筛选唤取记录','Filter Convene history'],
+cancel:['取消','取消','Cancel'],
+historyApply:['套用篩選','应用筛选','Apply filters'],
+historyClear:['清除全部','清除全部','Clear all'],
+historyRemoveFilter:['移除條件：{name}','移除条件：{name}','Remove filter: {name}'],
+historyInvalidDates:['起始日期不得晚於結束日期。','开始日期不得晚于结束日期。','The start date must not be after the end date.']
+});
 function create(locale='zh-CN'){const index={'zh-TW':0,'zh-CN':1,en:2}[locale]??1;return (key,params={})=>String(rows[key]?.[index]||key).replace(/\{(\w+)\}/g,(_,k)=>params[k]??'{'+k+'}');}
 function poolName(pool,t){return t((Core.POOLS[pool]?.key||'unknown')+'Pool')+(pool>=8&&pool<101?' '+pool:'');}
 return {rows,create,poolName};});

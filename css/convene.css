@@ -580,6 +580,86 @@ body.convene-page{background:#0e181c;color:#e8eee7;color-scheme:dark}
 #convene-app .cv-achievement-filters label{display:grid;gap:6px;min-width:150px;flex:1}
 #convene-app .cv-achievement-filters label span{font-size:12px;color:var(--cv-muted)}
 #convene-app .cv-achievement-filters select{width:100%}
+#convene-app .cv-filter-toolbar{padding:16px 18px;margin:18px 0 20px;border:1px solid color-mix(in srgb,var(--cv-theme) 38%,#273c42);border-radius:12px;background:linear-gradient(135deg,color-mix(in srgb,var(--cv-theme) 8%,#1a2b33),#101e28)}
+/* 喚取页首集中账号、操作与分区导航，保留原路由标记。 */
+#convene-app .cv-workspace-head{margin:0 0 24px;border:1px solid #47616b;border-radius:16px;background:radial-gradient(ellipse at 0 0,#769eae15,transparent 65%),linear-gradient(130deg,#1b303a,#10212b);overflow:hidden}
+#convene-app .cv-workspace-head .cv-heading{display:flex;align-items:center;justify-content:space-between;gap:20px;margin:0;padding:22px 24px 18px}
+#convene-app .cv-workspace-identity{display:flex;align-items:center;gap:14px;min-width:0}
+#convene-app .cv-workspace-mark{display:grid;place-items:center;width:48px;height:52px;flex-shrink:0;font-size:30px;color:#c0d9df;border:1px solid #a3c7d044;border-radius:10px;background:#112631}
+#convene-app .cv-workspace-identity small{display:block;font-size:9px;line-height:1.5;letter-spacing:2px;color:#9db9c5;margin-bottom:5px}
+#convene-app .cv-workspace-head h1{font-size:27px;line-height:1.3;letter-spacing:.08em;margin:0}
+#convene-app .cv-workspace-actions{display:flex;align-items:center;gap:10px;flex-shrink:0}
+#convene-app .cv-workspace-actions button{min-height:42px;padding:9px 16px;font-size:13px;border-radius:8px}
+#convene-app .cv-workspace-actions .cv-data-link{border:1px solid #54717b;background:#10232d;color:#b9ced5;min-width:0}
+#convene-app .cv-workspace-actions .cv-data-link[aria-pressed=true]{border-color:var(--cv-theme);color:#e4eff1}
+#convene-app .cv-workspace-actions [data-import-open]::before{content:'+';margin-right:8px;font-size:18px;line-height:1}
+#convene-app .cv-workspace-head .cv-account-strip{display:flex;align-items:center;justify-content:space-between;flex-wrap:wrap;gap:12px 24px;margin:0 24px;padding:0 0 18px;border:0}
+#convene-app .cv-workspace-head .cv-account-identity{display:flex;min-width:0}
+#convene-app .cv-account-identity label{display:flex;flex-direction:row;align-items:center;gap:12px;min-width:0;text-align:left;font-size:11px;color:#a9bec8}
+#convene-app .cv-account-identity label>span{white-space:nowrap}
+#convene-app .cv-workspace-head .cv-account-strip select{min-height:38px;max-width:360px;width:auto;margin:0;padding:7px 32px 7px 12px;font-size:12px;border-color:#47616b;background:#0d202a;color:#e5eef0}
+#convene-app .cv-workspace-head .cv-account-updated{display:flex;align-items:center;gap:8px 10px;flex-wrap:wrap;font-size:11px;color:#a9bec8}
+#convene-app .cv-workspace-head .cv-account-updated small{font-size:11px;display:inline-block;margin:0;color:#8faab6}
+#convene-app .cv-account-updated time{font-variant-numeric:tabular-nums}
+#convene-app .cv-update-dot{width:5px;height:5px;border-radius:50%;background:#92b4c0;flex-shrink:0}
+#convene-app .cv-workspace-head .cv-tabs{display:grid;grid-template-columns:repeat(5,minmax(0,1fr));gap:6px;padding:10px;margin:0;border:0;border-top:1px solid #8eb1bf26;background:#0c1c25a6}
+#convene-app .cv-workspace-head .cv-tabs button{display:flex;justify-content:center;align-items:center;gap:9px;min-width:0;min-height:46px;padding:10px 8px;margin:0;border:1px solid transparent;border-radius:8px;background:transparent;color:#9cb6c2;font-size:13px;line-height:1.4;text-decoration:none}
+#convene-app .cv-workspace-head .cv-tabs svg{width:19px;height:19px;flex-shrink:0}
+#convene-app .cv-workspace-head .cv-tabs [aria-current=page]{border:1px solid color-mix(in srgb,var(--cv-theme) 55%,#47616b);background:color-mix(in srgb,var(--cv-theme) 14%,#162b35);color:#e5f1ef;text-decoration:none;box-shadow:inset 0 1px #d5edee12}
+#convene-app .cv-workspace-head .cv-tabs [aria-current=page]::after{display:none}
+#convene-app .cv-workspace-head .cv-tabs button:hover{background:#28414c;color:#e5eff2}
+@media(max-width:700px){#convene-app .cv-workspace-head{margin-bottom:18px;border-radius:12px}#convene-app .cv-workspace-head .cv-heading{padding:18px 16px 14px;flex-wrap:wrap;gap:16px}#convene-app .cv-workspace-head h1{font-size:23px}#convene-app .cv-workspace-mark{width:42px;height:46px;font-size:26px}#convene-app .cv-workspace-actions{width:100%;display:grid;grid-template-columns:1fr 1fr;gap:10px}#convene-app .cv-workspace-actions button{min-height:42px;padding:8px 10px;font-size:12px}#convene-app .cv-workspace-head .cv-account-strip{margin:0 16px;padding-bottom:16px;gap:10px}#convene-app .cv-workspace-head .cv-account-identity{width:100%}#convene-app .cv-account-identity label{width:100%;gap:10px}#convene-app .cv-workspace-head .cv-account-strip select{flex:1;min-width:0;max-width:100%;font-size:11px}#convene-app .cv-workspace-head .cv-tabs{gap:4px;padding:7px}#convene-app .cv-workspace-head .cv-tabs button{flex-direction:column;gap:5px;min-height:65px;font-size:10px;padding:8px 2px;overflow-wrap:anywhere}#convene-app .cv-workspace-head .cv-tabs svg{width:18px;height:18px}}
+#convene-app .cv-toolbar-heading{display:flex;align-items:center;justify-content:space-between;gap:16px;margin-bottom:14px}
+#convene-app .cv-toolbar-heading>small{font-size:12px;color:#a9bfc5}
+#convene-app .cv-toolbar-heading [data-quick-five]{min-height:34px;font-size:12px;padding:6px 12px;background:#10212b;border-color:#46616b}
+#convene-app .cv-toolbar-heading [data-quick-five][aria-pressed=true]{background:color-mix(in srgb,var(--cv-theme) 18%,#172c36);color:#e9f2ee;border-color:var(--cv-theme)}
+#convene-app .cv-history-controls{display:grid;grid-template-columns:minmax(160px,2fr) minmax(130px,1.2fr) minmax(80px,.7fr) minmax(90px,.8fr) auto;gap:12px;align-items:end}
+#convene-app .cv-filter-toolbar label{display:grid;gap:7px;min-width:0;margin:0;font-size:12px;color:#a9bfc5}
+#convene-app .cv-filter-toolbar :is(input,select){box-sizing:border-box;width:100%;min-width:0;min-height:44px;margin:0;padding:10px 12px;font:inherit;font-size:14px;color:#e0ebee;border:1px solid #46616b;border-radius:7px;background:#10212b}
+#convene-app .cv-filter-toolbar :is([data-reset],[data-achievement-reset]){min-height:44px;padding:9px 13px;font-size:12px;border:1px solid #46616b;border-radius:7px;background:transparent;color:#b6caca}
+#convene-app .cv-toolbar-extra{margin-top:12px;font-size:12px;color:#a9bfc5}
+#convene-app .cv-toolbar-extra summary{cursor:pointer;min-height:28px;padding:2px 0}
+/* 历史筛选默认只占一行，条件编辑与应用分开。 */
+#convene-app .cv-history-compact{margin:16px 0 20px}
+#convene-app .cv-history-bar{display:grid;grid-template-columns:minmax(0,1fr) auto auto;gap:12px;align-items:center;padding:8px 12px;border:1px solid #46616b;border-radius:10px;background:#122630}
+#convene-app .cv-history-bar label{display:flex;flex-direction:row;align-items:center;gap:10px;min-width:0;margin:0;text-align:left}
+#convene-app .cv-history-bar svg{width:18px;height:18px;flex-shrink:0;color:#a9c2cd}
+#convene-app .cv-history-bar label input{width:100%;min-width:0;min-height:40px;padding:7px 0;border:0;border-radius:0;background:transparent;font-size:13px;color:#e0ebee}
+#convene-app .cv-history-bar label input::placeholder{color:#8faab6}
+#convene-app .cv-history-bar [data-history-filters]{display:flex;align-items:center;justify-content:center;gap:8px;min-height:40px;padding:8px 12px;background:#1a333e;border:1px solid #547783;font-size:13px}
+#convene-app .cv-history-bar [data-history-filters] b{display:grid;place-items:center;min-width:19px;height:19px;padding:0 4px;background:#b9d7dc;color:#132730;border-radius:5px;font-size:11px;font-weight:600}
+#convene-app .cv-history-bar>small{font-size:12px;color:#a9bfc5;white-space:nowrap}
+#convene-app .cv-history-chips{display:flex;align-items:center;flex-wrap:wrap;gap:8px;margin-top:10px}
+#convene-app .cv-history-chips button{display:flex;align-items:center;gap:10px;min-height:32px;padding:5px 10px;border:1px solid #6f98a466;border-radius:6px;background:#1b343e;color:#c3dbe0;font-size:12px}
+#convene-app .cv-history-chips button>span:first-child{overflow-wrap:anywhere}
+#convene-app .cv-history-chips .cv-history-clear{border-color:transparent;background:transparent;color:#aac1ca;padding-inline:4px}
+#convene-app .cv-history-filter-dialog{position:fixed;inset:0;margin:auto;padding:0;width:min(540px,calc(100% - 32px));max-height:88dvh;overflow:auto;border:1px solid #5b7b86;border-radius:14px;background:#142934;color:#e0ebee;box-shadow:0 20px 80px #0008;overscroll-behavior:contain}
+#convene-app .cv-history-filter-dialog::backdrop{background:#040e16bd;backdrop-filter:blur(4px)}
+#convene-app .cv-history-filter-dialog header{position:sticky;top:0;z-index:1;display:flex;align-items:center;justify-content:space-between;gap:16px;padding:18px 20px;border-bottom:1px solid #425f6a;background:#1a323e}
+#convene-app .cv-history-filter-dialog h2{font-size:20px;line-height:1.4;margin:0}
+#convene-app .cv-history-filter-dialog header button{display:grid;place-items:center;width:38px;min-width:38px;min-height:38px;padding:0;border:1px solid #5b7b86;background:transparent;font-size:26px}
+#convene-app .cv-history-filter-fields{display:grid;grid-template-columns:1fr 1fr;gap:18px 14px;padding:20px}
+#convene-app .cv-history-filter-fields label{display:grid;gap:7px;min-width:0;font-size:12px;color:#a9c2cd}
+#convene-app .cv-history-filter-fields label:first-child{grid-column:1/-1}
+#convene-app .cv-history-filter-fields :is(input,select){width:100%;min-width:0;min-height:44px;margin:0;padding:10px;border:1px solid #496a77;background:#0d202b;color:#e0ebee;font-size:14px}
+#convene-app .cv-history-filter-error{grid-column:1/-1;margin:0;color:#f0b5aa;font-size:12px}
+#convene-app .cv-history-filter-error:empty{display:none}
+#convene-app .cv-history-filter-dialog footer{position:sticky;bottom:0;display:flex;align-items:center;justify-content:space-between;flex-wrap:wrap;gap:12px;padding:14px 20px;border-top:1px solid #425f6a;background:#142934}
+#convene-app .cv-history-filter-dialog footer>div{display:flex;justify-content:flex-end;flex:1;gap:10px}
+#convene-app .cv-history-filter-dialog footer button{min-height:42px;padding:8px 12px;font-size:13px}
+#convene-app .cv-history-filter-dialog footer button:not(.cv-primary){background:#172f3b;border-color:#4d6d7b;color:#bfd1d9}
+#convene-app .cv-history-filter-dialog footer button:not(.cv-primary):hover{background:#264451}
+#convene-app .cv-history-filter-dialog [data-history-filter-clear]{border-color:transparent;background:transparent;color:#adc4cc;padding-left:0}
+@media(max-width:600px){#convene-app .cv-history-bar{grid-template-columns:minmax(0,1fr) auto;gap:6px 10px;padding:8px 10px}#convene-app .cv-history-bar>small{grid-column:1/-1;font-size:11px;padding:2px 0}#convene-app .cv-history-filter-dialog{inset:auto 0 0;margin:0;width:100%;max-width:100%;max-height:88dvh;border-radius:16px 16px 0 0}#convene-app .cv-history-filter-dialog header{padding:16px}#convene-app .cv-history-filter-fields{padding:18px 16px;gap:16px 10px}#convene-app .cv-history-filter-dialog footer{padding:14px 16px calc(14px + env(safe-area-inset-bottom))}#convene-app .cv-history-filter-dialog footer button{padding:8px 10px;font-size:12px}}
+#convene-app .cv-date-filters{display:grid;grid-template-columns:1fr 1fr;gap:12px;padding-top:12px;margin-top:8px;border-top:1px solid #acc7bf29}
+#convene-app .cv-filter-toolbar .cv-achievement-filters{display:grid;grid-template-columns:repeat(3,minmax(0,1fr)) auto;gap:12px;margin:0;align-items:end}
+#convene-app .cv-filter-toolbar .cv-achievement-filters label{min-width:0}
+#convene-app .cv-filter-toolbar .cv-vault-header{margin:0;gap:12px}
+#convene-app .cv-filter-toolbar .cv-vault-count{gap:8px}
+#convene-app .cv-filter-toolbar .cv-vault-count strong{font-size:23px;line-height:1.1}
+#convene-app .cv-filter-toolbar .cv-vault-header>progress{width:80px}
+@media(max-width:900px){#convene-app .cv-history-controls{grid-template-columns:repeat(3,minmax(0,1fr))}#convene-app .cv-history-controls label:first-child{grid-column:1/3}}
+@media(max-width:600px){#convene-app .cv-filter-toolbar{padding:14px;margin:14px 0 18px}#convene-app .cv-toolbar-heading{gap:10px;flex-wrap:wrap}#convene-app .cv-history-controls{grid-template-columns:1fr 1fr;gap:12px 10px}#convene-app .cv-history-controls label:first-child{grid-column:1/-1}#convene-app .cv-filter-toolbar .cv-achievement-filters{grid-template-columns:1fr 1fr;gap:12px 10px}#convene-app .cv-filter-toolbar .cv-vault-header{gap:8px}#convene-app .cv-filter-toolbar .cv-vault-header>progress{width:50px}}
 #convene-app .cv-achievement-filters>small{align-self:center;white-space:nowrap}
 #convene-app .cv-achievement-empty{padding:32px;text-align:center}
 @media(max-width:600px){#convene-app .cv-achievement-filters{display:grid;grid-template-columns:1fr 1fr}#convene-app .cv-achievement-filters label{min-width:0}#convene-app .cv-achievement-filters>small{grid-column:1/-1}}
